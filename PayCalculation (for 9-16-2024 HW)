@@ -1,0 +1,28 @@
+ // 9th Grade Java/Computer Programming w/ Mr. Yu - Monta Vista High School 
+ // Homework for Monday, Sept. 16, 2024
+
+import java.util.Scanner;
+class PayCalculation 
+{
+    public static void main(String[] args) 
+    {
+        System.out.println("\n\n\n");
+        Scanner input = new Scanner(System.in);
+        float pay = 9f;
+        float takeHomePay = 9f*2/3;
+        
+        float itemCost = 0f;
+        System.out.print("How much does the stereo cost that you want to buy (number first, then specify dollars)?\n\t(ex.\"77.99 dollars\")\t --> ");
+        itemCost = input.nextFloat();
+        input.nextLine();
+        //System.out.print("\n" + itemCost + "\n");
+        double x = 8.1234;
+        
+        
+        float workHours = itemCost/takeHomePay*1f;
+        System.out.printf("\nTaking tax into account, you'll have to work for about %5.3f hours at a minimum wage of $9 per hour to buy this stereo. \n", workHours);
+        
+        input.close();
+        System.out.println("\n\n\n");
+    }
+}
