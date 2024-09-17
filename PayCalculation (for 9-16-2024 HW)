@@ -16,8 +16,6 @@ class PayCalculation
         itemCost = input.nextFloat();
         input.nextLine();
         //System.out.print("\n" + itemCost + "\n");
-        double x = 8.1234;
-        
         
         float workHours = itemCost/takeHomePay*1f;
         System.out.printf("\nTaking tax into account, you'll have to work for about %5.3f hours at a minimum wage of $9 per hour to buy this stereo. \n", workHours);
