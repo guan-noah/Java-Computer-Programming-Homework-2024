@@ -1,0 +1,55 @@
+//Noah Guan - P.6 Yu (Java) - 10/2/2024
+//From Blue Sheet Handout
+
+import java.util.Scanner;
+public class MadLibMaker 
+{
+    public static void main(String[] args) 
+    {
+        String in1, in2, in3, in4, in5; 
+        Scanner input = new Scanner(System.in);
+        madLibInfo();
+        System.out.println("Please enter your name: ");
+        in1 = input.next();
+        System.out.println("Please enter your favorite color: ");
+        in2 = input.next();
+        System.out.println("Please enter your favorite animal: ");
+        in3 = input.next();
+        System.out.println("Please enter your favorite number: ");
+        in4 = input.next();
+        System.out.println("Please enter your favorite food: ");
+        in5 = input.next();
+        makeMadLib(in1, in2, in3, in4, in5);
+    }
+    public static void madLibInfo()
+    {
+        System.out.println("\n\n\nWelcome to MadLib Maker!\n\n");
+        System.out.println("In this program, you'll enter some information about yourself, ");
+        System.out.print("then the computer will generate a hilarious statement!");
+        System.out.println("\tFUNNY!\n\n");
+    }
+    public static void makeMadLib (String in1, String in2, String in3, String in4, String in5)
+    {
+        String out1, out2, out3 = new String("");
+        out1 = writeGreeting(in1);
+        out2 = animals(in2, in3);
+        out3 = feed(in4, in5);
+        System.out.println("\n\n" + out1 + "\n" + out2 + "\n" + out3 + "\n\n");
+    }
+    private static String str = new String("");
+    public static String writeGreeting(String name)
+    {
+        str = "Hello " + name + ", you crazy person. ";
+        return str;
+    }
+    public static String animals(String color, String animal)
+    {
+        str = "I saw you at the zoo, riding " + color + " " + animal + "s! ";
+        return str;
+    }
+    public static String feed(String num, String food)
+    {
+        str = "Incredible! The animals fed you " + num + " " + food + "s at a time!";
+        return str;
+    }
+}
