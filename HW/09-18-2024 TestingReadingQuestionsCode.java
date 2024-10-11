@@ -1,0 +1,36 @@
+/*
+Noah Guan
+Testing Reading Questions Code
+9th Grade Java/Computer Programming w/ Mr. Yu - Monta Vista High School 
+Homework for Wed, Sept. 18, 2024
+TestingReadingQuestionsCode.java
+Pseudocode: 
+import Scanner
+Class header 
+    Main header
+        Create instance of Scanner = 'keyboard'
+        prompt user input (for name)
+        String name = null
+        name = keyboard.nextLine();
+        buffer for Scanner (if needed)
+        print "Hello " + name
+        Repeat for partner name except create variable name2 instead of name
+close
+*/
+import java.util.Scanner;
+
+class TestingReadingQuestionsCode 
+{
+    public static void main(String[] args) 
+    {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("What's your name? --> ");
+        String name = null;
+        name = keyboard.nextLine();
+        System.out.print("Hello " + name + "\n");
+        System.out.print("What's your partner's name? --> ");
+        String name2 = null;
+        name2 = keyboard.nextLine();
+        System.out.print("Welcome, " + name2 + "\n");
+    }
+}
