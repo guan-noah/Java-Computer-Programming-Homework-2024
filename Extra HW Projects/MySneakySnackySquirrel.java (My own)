@@ -1,9 +1,9 @@
 /* Remember your heading
-SneakySnackySquirrel.java
 Noah Guan
-P.6 Java 
-Mr. Yu
+P.6 Java w/ Mr. Yu
 10/9/2024
+SneakySnackySquirrel.java
+This program (handed out in class) creates a game called SneakySnackySquirrel. 
 */
 
 import java.util.Scanner;	//import library so have access to Scanner
