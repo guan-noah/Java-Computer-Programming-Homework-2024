@@ -1,4 +1,8 @@
 /*
+Noah Guan
+9-25-2024 
+P.6 Java w/ Mr. Yu
+BreakDownTime.java
 This program breaks down time into years to minutes. Label numbers (instead of drawing a lot of arrows_ and calculate values, plus show output int the terminal window box that follows.
 
 Extra time? Modify this to write a methods program that breaks down dollars into 100s, 20s, 10s, 5s, 1s, quarters, dimes, nickels, and pennies (BreakDownDollars.java)
