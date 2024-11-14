@@ -1,0 +1,130 @@
+/*
+exceptions: 
+ * list of all edge cases; user inputs: 
+    1
+    0
+    10000
+    -8
+    -1
+    3
+    
+ - userIn cannot be 0, a negative number, or greater than 10000
+ - userIn has to be an int 
+ - problem encountered: if user 
+ - 
+ 
+goal: try to get one round to work first. then deal with multiple rounds. 
+*/
+import java.util.Scanner;
+class Main 
+{
+    private int userInput, hailstoneNum;
+    private boolean keepPlaying;
+    public Main
+    {
+        userInput = 0;
+        hailstoneNum = 0;
+        keepPlaying = true;
+    }
+    public static void main(String[] args) 
+    {
+        Main m = new Main();
+        m.findIt();
+    }
+    public void findIt()
+    {
+        System.out.println("\n\n\n");
+        while (keepPlaying == true)
+        {
+            getInput();
+            calculateHailstone();
+            printSequence();
+            printCount();
+            /*
+            if (hailstoneNum = 1)//essentially, if the user ran the program before 
+            {
+                userInput = 0;
+                hailstoneNum = 0;
+            }
+            */
+            
+        }
+        System.out.println("Thank you for playing Hailstone. ");
+        System.out.println("\n\n\n");
+    }
+    public void getInput()
+    {
+        Scanner keyboard = new Scanner(System.in);
+        boolean needsInput = true;//created another boolean for input to see if the user input is in bounds 
+		while (needsInput = true)
+		{
+	    	System.out.print("Enter a positive integer ( 1 - 10000 )." + 
+		    	" To quit, enter -1:\t");
+	    	userInput = keyboard.nextInt();
+	    	if (userInput == -1)
+	    	{
+	    	    keepPlaying = false;
+	    	    needsInput = false;
+	    	    
+	    	}
+    		else if ((userInput <= 0) || (userInput > 10000))
+    		{
+	    	    System.out.println("\nEnter a value within the range, please!"
+                    + "\n");
+	    	}
+	    	else 
+    		{
+	    	    hailstoneNum = userInput;
+	    	    needsInput = false;
+	    	}
+		}
+    }
+    public void calculateHailstone()
+    {
+        if (hailstoneNum == 1)
+        {
+            System.out.println("The loop executed 0 times as '1' is " 
+				+ "the value we want to run this sequence to; it will " 
+				+ "continue forever if we do not stop it. ");
+			//STOP THE MAIN LOOP. 
+        }
+        else 
+        {
+            while (hailstoneNum != 1)
+            {
+                printSequence();
+                if (hailstoneNum % 2 == 0)
+                {
+                    hailstoneNum = hailstoneNum / 2;
+                }
+                else if (hailstoneNum % 2 == 1)
+                {
+                    hailstoneNum = 3 * hailstoneNum + 1;
+                }
+                count++;
+            }
+            /*
+            once we determine user input: 
+                if (hailstoneNum != 1)
+                {
+                    printSequence();
+                    if hailstone
+                }
+                else 
+                    printSequence();
+                    //stop the program 
+            */
+        }
+    }
+    public void printSequence()
+    {
+        if (count / 10 = 0)
+            System.out.printf("\t%,d\n", hailstoneNum);
+        else 
+            System.out.printf("\t%,d", hailstoneNum);
+    }
+    public void printCount()
+    {
+        System.out.println("\n" + "The loop executed " + count + " times. \n\n");
+    }
+}
