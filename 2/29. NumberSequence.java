@@ -27,21 +27,16 @@
 */
 class Main 
 {
-	private int startNum, sequenceRule, numAnswer, userNumAnswer;
+	private int startNum, sequenceRule;
 		//declare field variables 
-	private Scanner keyboard;
+	//private Scanner keyboard;
 		//field scanner! :D
 	private boolean done;
 	public Main()//initialize all field variables 
 	{
 		startNum = 0;
 		sequenceRule = 0; //this is the increment/decrement 
-		keyboard = new Scanner(System.in);
-		numAnswer = 0;
-		userNumAnswer = 0;
-			//be careful -- if something goes wrong in reinitializing 
-			//numAnswer and userNumAnswer, it will both be the same 
-			//(interpreted as user was correct). 
+		//keyboard = new Scanner(System.in);
 		done = false;
 	}
 	public static void main(String[] args)
@@ -109,53 +104,105 @@ class Main
 	}
 	public void nextNumProblem()//method for nextNum section 
 	{
-		user
-		getNextNum();  
+		int numAnswer = 0;
+		int userNumAnswer = 0;
+		boolean userCorrect;
+			//be careful -- if something goes wrong in reinitializing 
+			//numAnswer and userNumAnswer, it will both be the same 
+			//(interpreted as user was correct). 
+		numAnswer = getNextNum();  
 		    //get the next number from user 
-		decideIfNumCorrect();
-		    //decide if the 
-		printOutput();
+		userCorrect = decideIfNumCorrect(numAnswer, userNumAnswer);
+		    //decide if the user number inputted is correct 
+		
 	}
-	public void getNextNum()
+	public int getNextNum()
 	{
+		Scanner keyboard = new Scanner(System.in);
 		System.out.print("What's the next number?\t");
-		userNum = keyboard.nextInt();
+		int userNumAnswer = keyboard.nextInt();
+		keyboard.nextLine();
+		return userNumAnswer;
 	}
-	public void decideIfNumCorrect()
+	public boolean decideIfNumCorrect(int numAnswer, int userNumAnswer)
 	{
+		boolean userCorrect;
+		String wrongAnswer = "Not quite! ";
 		if (userNum == numAnswer)
 		{
-			correct = true;
+			userCorrect = true;
 		}
 		else if (Math.abs(numAnswer - userNum) < sequenceRule)
+			//if the user answer is near the generated answer (max: 
+			//increment distance away)
 		{
-		    System.out.println("Almost! Close!");
+		    int decideAnswerNear = (int)(Math.random()*9+1);
+				//generate a number that will correspond to an encouraging
+				//message  
+			//make different answers 
+			String answerNear1 = wrongAnswer + "You're nearly there!";
+			String answerNear2 = wrongAnswer + "You're right there!";
+			String answerNear3 = wrongAnswer + "You're almost there!";
+			String answerNear4 = wrongAnswer + "You're right on the edge of it!";
+			String answerNear5 = wrongAnswer + "Just a little more to go!";
+			String answerNear6 = "You're so close!";
+			String answerNear7 = "Just a step away!";
+			String answerNear8 = "You're within reach!";
+			String answerNear9 = "Almost got it!";
+			
+			//check answer for 1-9 
+			checkAnswerNear(decideAnswerNear, 1, answerNear1);
+			checkAnswerNear(decideAnswerNear, 2, answerNear2);
+			checkAnswerNear(decideAnswerNear, 3, answerNear3);
+			checkAnswerNear(decideAnswerNear, 4, answerNear4);
+			checkAnswerNear(decideAnswerNear, 5, answerNear5);
+			checkAnswerNear(decideAnswerNear, 6, answerNear6);
+			checkAnswerNear(decideAnswerNear, 7, answerNear7);
+			checkAnswerNear(decideAnswerNear, 8, answerNear8);
+			checkAnswerNear(decideAnswerNear, 9, answerNear9);
+		}
+		else 
+		{
+			System.out.println(wrongAnswer);
+		}
+		return userCorrect;
+	}
+	public void checkAnswerNear(decideAnswerNearIn, checkNumIn, answerResponseIn)
+	{
+		if (decideAnswerNearIn == checkNumIn) 
+			//if the answer reference equals the assigned number,
+		{
+			System.out.println(answerResponseIn);
+				//print response entered
 		}
 	}
-	String wrongAnswer = "Not quite! ";
-	String answerNear1 = wrongAnswer + "You're nearly there!";
-	String answerNear2 = wrongAnswer + "You're right there!";
-	String answerNear3 = wrongAnswer + "You're almost there!";
-	String answerNear4 = wrongAnswer + "You're right on the edge of it!";
-	String answerNear5 = wrongAnswer + "Just a little more to go!";
-	String answerNear3 = "You're so close!";
-	String answerNear6 = "Just a step away!";
-	String answerNear7 = "You're within reach!";
-	String answerNear8 = "Almost got it!";
-	public void printOutput()
-	{
-		System.out.println("");
-	}
+	//public void printOutput(int numAnswer, int userNumAnswer)
+	//{
+	//	System.out.println("");
+	//}
 	public void getRule()
 	{
+		Scanner keyboard = new Scanner(System.in);
 		System.out.print("How do you go from one number to the next?\t");
-		userNum = keyboard.nextInt();
+		String userResponse = keyboard.next();
+		//plus, add, increase by, increment by, + 
+		if (userResponse.equalsIgnoreCase("plus")||
+			userResponse.equalsIgnoreCase("add"))
+		{
+			
+		}
+		else if (userResponse.equalsIgnoreCase("increase")|| 
+			userResponse.equalsIgnoreCase("increment"))
+		{
+			String userResponse2
+		}
 	}
 	public void userQuit()
 	{
-	    //Scanner keyboard = new Scanner(System.in);
+	    Scanner keyboard = new Scanner(System.in);
 		boolean userQuit = false;
-		System.out.print("Would you like to give up this round? Yes/No\t");
+		System.out.print("Would you like to give up this question for the "
+			+ "answer to the number? Yes/No\t");
 		String userQuitIn = keyboard.next();
 		if (userQuitIn.equalsIgnoreCase("yes"))
 		{
@@ -167,5 +214,7 @@ class Main
 		else if (!userQuitIn.equalsIgnoreCase("no"))
 		    System.out.println("That response does not fit the prompt. Please try again. ");
 		    userQuit();
+		else
+			//userQuit remains false. 
 	}
 }
