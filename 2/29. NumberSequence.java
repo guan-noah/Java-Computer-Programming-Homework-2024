@@ -25,14 +25,14 @@
  * 
  * 
 */
-public class NumberSequence
+class Main 
 {
 	private int startNum, sequenceRule, numAnswer, userNumAnswer;
 		//declare field variables 
 	private Scanner keyboard;
 		//field scanner! :D
 	private boolean done;
-	public NumberSequence()//initialize all field variables 
+	public Main()//initialize all field variables 
 	{
 		startNum = 0;
 		sequenceRule = 0; //this is the increment/decrement 
@@ -46,7 +46,7 @@ public class NumberSequence
 	}
 	public static void main(String[] args)
 	{
-		NumberSequence ns = new NumberSequence();
+		Main ns = new Main();
 			//make a new instance of numbersequence
 		ns.newLines();
 			//call newlines (required) 
@@ -66,10 +66,14 @@ public class NumberSequence
 		generateSequence();
 		printSequence();
 		//nextNumProblem();
+		//nextSequenceProblem(); 
 		if (!done)
 		{
-			run()
+			run();
 		}
+		userQuit();
+		if (userQuit == true)
+		    System.out.println("Would you like to try again? ");
 	}
 	public void prompt()
 	{
@@ -103,10 +107,13 @@ public class NumberSequence
 			System.out.println();
 			numAnswer = sequenceRule*count+startNum;
 	}
-	public void nextNumProblem()
+	public void nextNumProblem()//method for nextNum section 
 	{
-		getNextNum();
+		user
+		getNextNum();  
+		    //get the next number from user 
 		decideIfNumCorrect();
+		    //decide if the 
 		printOutput();
 	}
 	public void getNextNum()
@@ -120,8 +127,21 @@ public class NumberSequence
 		{
 			correct = true;
 		}
-		else if (sequenceRule
+		else if (Math.abs(numAnswer - userNum) < sequenceRule)
+		{
+		    System.out.println("Almost! Close!");
+		}
 	}
+	String wrongAnswer = "Not quite! ";
+	String answerNear1 = wrongAnswer + "You're nearly there!";
+	String answerNear2 = wrongAnswer + "You're right there!";
+	String answerNear3 = wrongAnswer + "You're almost there!";
+	String answerNear4 = wrongAnswer + "You're right on the edge of it!";
+	String answerNear5 = wrongAnswer + "Just a little more to go!";
+	String answerNear3 = "You're so close!";
+	String answerNear6 = "Just a step away!";
+	String answerNear7 = "You're within reach!";
+	String answerNear8 = "Almost got it!";
 	public void printOutput()
 	{
 		System.out.println("");
@@ -130,5 +150,22 @@ public class NumberSequence
 	{
 		System.out.print("How do you go from one number to the next?\t");
 		userNum = keyboard.nextInt();
+	}
+	public void userQuit()
+	{
+	    //Scanner keyboard = new Scanner(System.in);
+		boolean userQuit = false;
+		System.out.print("Would you like to give up this round? Yes/No\t");
+		String userQuitIn = keyboard.next();
+		if (userQuitIn.equalsIgnoreCase("yes"))
+		{
+		    userQuit = true;
+		    done = true;
+		    System.out.println("Alright. Thank you for playing this round of NumberSequence. Would you like to try again?\t");
+
+		}
+		else if (!userQuitIn.equalsIgnoreCase("no"))
+		    System.out.println("That response does not fit the prompt. Please try again. ");
+		    userQuit();
 	}
 }
