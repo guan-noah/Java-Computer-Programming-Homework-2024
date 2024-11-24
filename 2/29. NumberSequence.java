@@ -60,12 +60,10 @@ class Main
 	{
 		prompt();
 		    //prints prompt 
-		generateSequence();
-		    //generates sequence with field variables (no need for parameter input/return storage)
-		printSequence();
-		    //
-		//nextNumProblem();
-		//nextSequenceProblem(); 
+		nextNumProblem();
+		    //runs the first half of the program (about guessing the next number)
+		//sequenceProblem(); 
+		    //runs the next half of the program (about guessing the whole sequence)
 		//keep these commented out for now until first part works 
 		if (!done)
 		{
@@ -87,18 +85,36 @@ class Main
 			//explains the game 
 		
 	}
+	public void nextNumProblem()//method for nextNum section 
+	{
+		int numAnswer = 0;
+		int userNum = 0;
+		boolean userCorrect;
+			//be careful -- if something goes wrong in reinitializing 
+			//numAnswer and userNum, it will both be the same 
+			//(interpreted as user was correct).
+		generateSequence();
+		    //generates sequence with field variables (no need for parameter input/return storage)
+		printSequence();
+		    //prints the generated sequence out 
+		numAnswer = getNextNum(); 
+		    //get the next number from user 
+		userCorrect = decideIfNumCorrect(numAnswer, userNum);
+		    //decide if the user number inputted is correct 
+	    
+	}
 	public void generateSequence()
 	{
 		startNum = (int)(Math.random()*22 - 10);
 			//this is 22 because it includes -10 to 0, 0 included, 
 		sequenceRule = (int)(Math.random()*10 + 1);
 	}
-	public void printSequence()
+	public void printSequence(int userNumIn)
 	{
 		System.out.println("Your sequence is:");
-		outputSequence(0);
+		outputSequence(0, userNumIn);
 	}
-	public void outputSequence(int countIn, int userNumAnswer)
+	public void outputSequence(int countIn, int userNumIn)
 	{
 		if (countIn < 5)
 		{
@@ -106,39 +122,26 @@ class Main
 		}
 		else
 			System.out.println();
-			numAnswer = sequenceRule*countIn+startNum;
-	}
-	public void nextNumProblem()//method for nextNum section 
-	{
-		int numAnswer = 0;
-		int userNumAnswer = 0;
-		boolean userCorrect;
-			//be careful -- if something goes wrong in reinitializing 
-			//numAnswer and userNumAnswer, it will both be the same 
-			//(interpreted as user was correct). 
-		numAnswer = getNextNum();  
-		    //get the next number from user 
-		userCorrect = decideIfNumCorrect(numAnswer, userNumAnswer);
-		    //decide if the user number inputted is correct 
-		
+			userNumIn = sequenceRule*countIn+startNum;
 	}
 	public int getNextNum()
 	{
 		Scanner keyboard = new Scanner(System.in);
 		System.out.print("What's the next number?\t");
-		int userNumAnswer = keyboard.nextInt();
+		int userNum = keyboard.nextInt();
+		    //ooh we shouldn't be making another new one; we should just be passing the same one through
 		keyboard.nextLine();
-		return userNumAnswer;
+		return userNum;
 	}
-	public boolean decideIfNumCorrect(int numAnswer, int userNumAnswer)
+	public boolean decideIfNumCorrect(int numAnswer, int userNum)
 	{
 		boolean userCorrect;
 		String wrongAnswer = "Not quite! ";
-		if (numAnswer == userNumAnswer)
+		if (numAnswer == userNum)
 		{
 			userCorrect = true;
 		}
-		else if (Math.abs(numAnswer - userNumAnswer) < sequenceRule)
+		else if (Math.abs(numAnswer - userNum) < sequenceRule)
 			//if the user answer is near the generated answer (max: 
 			//increment distance away)
 		{
@@ -193,7 +196,7 @@ class Main
 	
 	
 	
-	//public void printOutput(int numAnswer, int userNumAnswer)
+	//public void printOutput(int numAnswer, int userNum)
 	//{
 	//	System.out.println("");
 	//}
@@ -205,7 +208,8 @@ class Main
 		    //this will be the second word the user inputs
 		String userResponse = "";
 		    //this will be the combination of 1st and 2nd part of the user response 
-		double userNumAnswer;
+		double userSNR;
+            //we already have a "userNum" variable but this one is totally different; this one is just to return the "user's sequence (pattern) number response", shortened to userSNR. 
 		
 		Scanner keyboard = new Scanner(System.in);
 		    //new instance of Scanner 
@@ -225,7 +229,7 @@ class Main
 		if (userResponse.equalsIgnoreCase("increase by") || userResponse.equalsIgnoreCase("increment by") || userResponse.equalsIgnoreCase("add") || userResponse.equalsIgnoreCase("plus"))
 		    //the only 4 responses that work 
 		{
-		    userNumAnswer = keyboard.nextDouble();
+		    userSNR = keyboard.nextDouble();
 		        //accept the user input 
 		}
 		else
@@ -233,7 +237,7 @@ class Main
 		    System.out.println("Invalid response. Please try again. ");
 		    getRule();
 		}
-		return userNumAnswer; 
+		return userSNR; 
 		    //returns only the double value 
 	}
 	public boolean userQuit()
