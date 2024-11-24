@@ -1,3 +1,4 @@
+
 //NumberSequence.java
 /* Noah Guan
  * 11-15-2024
@@ -94,10 +95,10 @@ class Main
 			//numAnswer and userNum, it will both be the same 
 			//(interpreted as user was correct).
 		generateSequence();
-		    //generates sequence with field variables (no need for parameter input/return storage)
-		printSequence();
-		    //prints the generated sequence out 
-		numAnswer = getNextNum(); 
+		    //generates data that sequence needs with field variables (no need for parameter input/return storage)
+		numAnswer = printSequence();
+		    //prints the generated sequence out and also returns the answer (last item in sequence )
+		userNum = getNextNum(); 
 		    //get the next number from user 
 		userCorrect = decideIfNumCorrect(numAnswer, userNum);
 		    //decide if the user number inputted is correct 
@@ -109,20 +110,30 @@ class Main
 			//this is 22 because it includes -10 to 0, 0 included, 
 		sequenceRule = (int)(Math.random()*10 + 1);
 	}
-	public void printSequence(int userNumIn)
+	public int printSequence()
 	{
 		System.out.println("Your sequence is:");
-		outputSequence(0, userNumIn);
+		int numAnswerReturn = outputSequence(0);
+		System.out.println("___");
+		return numAnswerReturn;
 	}
-	public void outputSequence(int countIn, int userNumIn)
+	public int outputSequence(int countIn)
+	    //this method is just an additional recursion method, supplementary to printSequence()
 	{
+		int generateNumAnswer;
 		if (countIn < 5)
 		{
-			System.out.println((sequenceRule*countIn+startNum) + "\t");
+			System.out.println((sequenceRule*countIn+startNum) + ", ");
+			outputSequence(countIn+1);
+			generateNumAnswer = 0;
+			    //might be problematic as the generateNumAnswer is actually deep in further recursions; how to retrieve it is difficult 
 		}
 		else
+		{
 			System.out.println();
-			userNumIn = sequenceRule*countIn+startNum;
+			generateNumAnswer = sequenceRule*countIn+startNum;
+		}
+		return generateNumAnswer;
 	}
 	public int getNextNum()
 	{
@@ -169,10 +180,12 @@ class Main
 			checkAnswerNear(decideAnswerNear, 7, answerNear7);
 			checkAnswerNear(decideAnswerNear, 8, answerNear8);
 			checkAnswerNear(decideAnswerNear, 9, answerNear9);
+			userCorrect = false;
 		}
 		else 
 		{
 			System.out.println(wrongAnswer);
+			userCorrect = false;
 		}
 		return userCorrect;
 	}
@@ -208,8 +221,9 @@ class Main
 		    //this will be the second word the user inputs
 		String userResponse = "";
 		    //this will be the combination of 1st and 2nd part of the user response 
-		double userSNR;
+		double userSNR = 0.0;
             //we already have a "userNum" variable but this one is totally different; this one is just to return the "user's sequence (pattern) number response", shortened to userSNR. 
+            ///caution: userSNR has to be initialized to something; if the pattern is +0 something might be ambiguous
 		
 		Scanner keyboard = new Scanner(System.in);
 		    //new instance of Scanner 
@@ -266,4 +280,3 @@ class Main
 		return userQuit;
 	}
 }
-
