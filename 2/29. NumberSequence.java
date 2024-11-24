@@ -25,6 +25,7 @@
  * 
  * 
 */
+import java.util.Scanner;
 class Main 
 {
 	private int startNum, sequenceRule;
@@ -45,7 +46,7 @@ class Main
 			//make a new instance of numbersequence
 		ns.newLines();
 			//call newlines (required) 
-		ns.play();
+		ns.run();
 			//call play to run the code 
 		ns.newLines();
 			//call newlines (required) 
@@ -58,21 +59,26 @@ class Main
 	public void run() //this method runs the program. 
 	{
 		prompt();
+		    //prints prompt 
 		generateSequence();
+		    //generates sequence with field variables (no need for parameter input/return storage)
 		printSequence();
+		    //
 		//nextNumProblem();
 		//nextSequenceProblem(); 
+		//keep these commented out for now until first part works 
 		if (!done)
 		{
 			run();
 		}
-		userQuit();
-		if (userQuit == true)
+		boolean runUserQuit = userQuit();
+		if (runUserQuit == true)
 		    System.out.println("Would you like to try again? ");
 	}
 	public void prompt()
 	{
 		System.out.println("Welcome to NumberSequence.java! ");
+		    //welcome message
 		System.out.println("\nThis program will print out a number sequence;"
 			+ " you will have to find the number that comes next (the number"
 			+ " in the underscore. \nYou will get at most 3 tries to guess the next"
@@ -85,22 +91,22 @@ class Main
 	{
 		startNum = (int)(Math.random()*22 - 10);
 			//this is 22 because it includes -10 to 0, 0 included, 
-		sequenceChange = (int)(Math.random()*10 + 1);
+		sequenceRule = (int)(Math.random()*10 + 1);
 	}
 	public void printSequence()
 	{
 		System.out.println("Your sequence is:");
 		outputSequence(0);
 	}
-	public void outputSequence(int countIn)
+	public void outputSequence(int countIn, int userNumAnswer)
 	{
-		if (count < 5)
+		if (countIn < 5)
 		{
-			System.out.println((sequenceRule*count+startNum) + "\t");
+			System.out.println((sequenceRule*countIn+startNum) + "\t");
 		}
 		else
 			System.out.println();
-			numAnswer = sequenceRule*count+startNum;
+			numAnswer = sequenceRule*countIn+startNum;
 	}
 	public void nextNumProblem()//method for nextNum section 
 	{
@@ -128,11 +134,11 @@ class Main
 	{
 		boolean userCorrect;
 		String wrongAnswer = "Not quite! ";
-		if (userNum == numAnswer)
+		if (numAnswer == userNumAnswer)
 		{
 			userCorrect = true;
 		}
-		else if (Math.abs(numAnswer - userNum) < sequenceRule)
+		else if (Math.abs(numAnswer - userNumAnswer) < sequenceRule)
 			//if the user answer is near the generated answer (max: 
 			//increment distance away)
 		{
@@ -167,7 +173,8 @@ class Main
 		}
 		return userCorrect;
 	}
-	public void checkAnswerNear(decideAnswerNearIn, checkNumIn, answerResponseIn)
+	public void checkAnswerNear(int decideAnswerNearIn, int checkNumIn, String answerResponseIn)
+	    //this method is a tiny complementary one to decideIfNumCorrect();
 	{
 		if (decideAnswerNearIn == checkNumIn) 
 			//if the answer reference equals the assigned number,
@@ -176,28 +183,60 @@ class Main
 				//print response entered
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//public void printOutput(int numAnswer, int userNumAnswer)
 	//{
 	//	System.out.println("");
 	//}
-	public void getRule()
+	public double getRule()
 	{
+		String userResponse1 = "";
+		    //this will be the first word the user inputs
+		String userResponse2 = "";
+		    //this will be the second word the user inputs
+		String userResponse = "";
+		    //this will be the combination of 1st and 2nd part of the user response 
+		double userNumAnswer;
+		
 		Scanner keyboard = new Scanner(System.in);
+		    //new instance of Scanner 
 		System.out.print("How do you go from one number to the next?\t");
-		String userResponse = keyboard.next();
+		    //prompt user
+		userResponse1 = keyboard.next();
 		//plus, add, increase by, increment by, + 
-		if (userResponse.equalsIgnoreCase("plus")||
-			userResponse.equalsIgnoreCase("add"))
-		{
-			
-		}
-		else if (userResponse.equalsIgnoreCase("increase")|| 
+		//doesn't have to check for the single word keywords because it checks for everything later 
+		if (userResponse.equalsIgnoreCase("increase")|| 
 			userResponse.equalsIgnoreCase("increment"))
+			//checks for the 2-word keywords and if there are, takes the second word 
 		{
-			String userResponse2
+			userResponse2 = keyboard.next();
 		}
+		userResponse = userResponse1 + userResponse2;
+		    //adds first word to second word; this will not throw an error if there isn't a second word because the second word is initialized to an empty string 
+		if (userResponse.equalsIgnoreCase("increase by") || userResponse.equalsIgnoreCase("increment by") || userResponse.equalsIgnoreCase("add") || userResponse.equalsIgnoreCase("plus"))
+		    //the only 4 responses that work 
+		{
+		    userNumAnswer = keyboard.nextDouble();
+		        //accept the user input 
+		}
+		else
+		{
+		    System.out.println("Invalid response. Please try again. ");
+		    getRule();
+		}
+		return userNumAnswer; 
+		    //returns only the double value 
 	}
-	public void userQuit()
+	public boolean userQuit()
 	{
 	    Scanner keyboard = new Scanner(System.in);
 		boolean userQuit = false;
@@ -212,9 +251,15 @@ class Main
 
 		}
 		else if (!userQuitIn.equalsIgnoreCase("no"))
+		{
 		    System.out.println("That response does not fit the prompt. Please try again. ");
 		    userQuit();
+		}
 		else
-			//userQuit remains false. 
+		{
+		    
+		}	//userQuit remains false. 
+		return userQuit;
 	}
 }
+
