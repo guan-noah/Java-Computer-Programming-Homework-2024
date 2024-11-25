@@ -1,4 +1,5 @@
-
+//Notes: This version has the most updated version but the most unstable code. If I was to keep working on it, I would use this because it has the x3 looping worked on.
+//If I was to pull working code snippets from it, I would use the 29. NumberSequence.java code. 
 //NumberSequence.java
 /* Noah Guan
  * 11-15-2024
