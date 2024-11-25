@@ -304,7 +304,7 @@ class Main
 	    }
 	    else if (userTries == 2)
 	    {
-	        System.out.println("Nice! You got the answer correct ")
+	        System.out.println("Nice! You got the answer correct ");
 	    }
 	}
 	//leave some space for organization 
@@ -320,7 +320,7 @@ class Main
 		if (userQNSIn.equalsIgnoreCase("yes"))
 		{
 		    userQNS = true;
-		    System.out.println("Alright. The answer was " + numAnswerIn ". \nWould you like to keep playing this round (to guess the sequence pattern)? [Yes/No]\t");
+		    System.out.println("Alright. The answer was " + numAnswerIn + ". \nWould you like to keep playing this round (to guess the sequence pattern)? [Yes/No]\t");
 		    userQNSIn = keyboard.next();
 		        //reuse the same variable name but reinitialize it to the answer to the second question 
 		    if (userQNSIn.equalsIgnoreCase("yes"))
@@ -330,8 +330,8 @@ class Main
 		    else if (userQNSIn.equalsIgnoreCase("no"))
 		    {
 		        System.out.println("\nWould you like to keep play?\t");
-		        userQNSIn = keyboard.next()
-		        else if (userQNSIn.equalsIgnoreCase("no"))
+		        userQNSIn = keyboard.next();
+		        if (userQNSIn.equalsIgnoreCase("no"))
 		        {
 		            //start fresh 
 		            startNum = 0;
