@@ -1,4 +1,3 @@
-
 //NumberSequence.java
 /* Noah Guan
  * 11-15-2024
@@ -14,46 +13,32 @@
  * plus, add, increase by, increment by, + 
  * 
  * Pseudocode Notes: 
- * Add pizazz for the congrats  
- * 		Wow! You got it on the first try! 
- * 		Great Job! 
- * 		Awesome! 
- * 		Superb! 
- * 		Nice! 
- * 		Amazing work! 
  * 
- * Working on: Completing 
+ * Working on: Completing the darn code. 
  * 
  * Testing: 
  * 
  * progress: 
  * work on multiple rounds and errors (?)
- * work on decreasing field variables 
  * finish userQNS method 
  * work on second half of program 
  * work on try again 
  * control-f "if the user is close" for formatting example 
+ * how to get sequenceRule into decideIfNumCorrect and sequenceProblem if it's too deep in recursion (basically, try not to use any field variables)
+ *      worst comes to worst, I use at least 1 field variable and try to work on it later (w/ Mr. Yu?)
  * 
+ * took out: 
+ * user quit number section 
+ * user encouraging messages 
 */
 import java.util.Scanner;
 class Main 
 {
-	private int startNum, sequenceRule, timesPlayed;
-		//declare field variables 
-		//I was going to add a timesWon but it seemed too harsh + I didn't have enough field variables left 
-	//private Scanner keyboard;
-		//field scanner! :D
-		//didn't get to it :( too many FVs 
-	private boolean done;
-	    //to see if the user's done with the whole program
+	//add field variables when needed 
+	
 	public Main()//initialize all field variables 
 	{
-		startNum = 0;
-		sequenceRule = 0; //this is the increment/decrement 
-		timesPlayed = 0;
-		//keyboard = new Scanner(System.in);
-		done = false;
-		    //initialize to user's not done with program 
+		 
 	}
 	public static void main(String[] args)
 	{
@@ -67,79 +52,82 @@ class Main
 			//prints the required 3 new lines 
 		run();
 			//call play to run the code 
-	    System.out.println("Times Played: " + timesPlayed);
-	        //this is the reason why I needed another layer - I only want the result to show at the very, very end of the program
 		System.out.println("\n\n\n");
 			//prints the required 3 new lines 
 	}
 	public void run() //this method runs the program. 
 	{
+		Scanner keyboard = new Scanner(System.in);
 		prompt();
 		    //prints prompt 
-	    chances(0, 0);
-	        //gives in 0 for chances and 0 for answer (will get reinitialized)
-	        //within this, calls first half of the program (guessing the number)
-	        //this program runs nextNumProblem, and calls sequenceProblem if ready 
-		
-		//keep these commented out for now until first part works 
+	    tries(0, getSequence());
+	        //gives in 0 for tries and the number answer for the first try 
+	        //this "tries" method is for guessing the number 
+		//section on user playing again! :D
+		//keep these commented out for now until first part works
+		/*
+		boolean done = false;
+		    //to see if the user's done with the whole program; initialize to user's not done with program
 		if (!done)
 		{
 			run();
 			    //run the program again 
-			timesPlayed++;
+			//timesPlayed++;
 			    //increase the times played by 1 
 		}
-		//System.out.print("Alright. Thank you for playing this round of NumberSequence. Would you like to try again?\t")
+		else if (done)
+		{
+		    System.out.print("Would you like to play again? [Yes/No] \t");
+		    String userPlayAgain = keyboard.next();
+		    if (userPlayAgain.equalsIgnoreCase("yes"))
+		    {
+		        run();
+		    }
+		    else if (userPlayAgain.equalsIgnoreCase("no"))
+		    {
+		        System.out.println("Alright. Thank you for playing NumberSequence! ");
+		    }
+		    else //user didn't follow directions 
+		    {
+		        System.out.println("Invalid answer response. If you would like to play again, please restart the program.");
+		    }
+		}
+		*/
 	}
-	public void chances(int userChances, int numAnswer)//this method is for the user's 3 chances
+	public void tries(int userTriesIn, int numAnswerIn)
+	    //this method is for the user's 3 chances
+        //within this, calls first half of the program (guessing the number)
+        //this program runs nextNumProblem, and calls sequenceProblem if ready 
 	{
-	    boolean userCorrect;
-	    if (userChances == 0)
-	    {
-	        numAnswer = getNumAnswer();
-	        userCorrect = nextNumProblem(numAnswer);
-	            //runs the first half of the program (about guessing the next number) 
-	            //if it's the user's first time 
-	    }
-        else
-            userCorrect = nextNumProblem(numAnswer);
+        boolean userCorrect;
+	    userCorrect = nextNumProblem(numAnswerIn);
                 //if we need to keep the number answer 
-            
-	    userChances++;
 	    
 	    //if the user gets it correct on the first try,
-	    if (userChances == 1 && userCorrect)
+	    if (userTriesIn <= 3 || userCorrect)
 	    {
-	        System.out.println("Wow! You got it correct on the first try! ");
-	    }
-	    else if (userChances == 2 && userCorrect)
-	    {
-	        System.out.println("Nice! You got the answer correct on the second try! ");
-	    }
-	    else if (userChances == 3 && userCorrect)
-	    {
-	        System.out.println("Whew. You got the answer correct on the last try. ");
-	    }
-	    if (userChances <= 3 || userCorrect)
-	    {
+        	if (userCorrect)
+    	    {
+        	    if (userTriesIn == 1)
+        	    {
+        	        System.out.println("Wow! You got it correct on the first try! ");
+        	    }
+        	    else if (userTriesIn == 2)
+        	    {
+        	        System.out.println("Nice! You got the answer correct on the second try! ");
+        	    }
+        	    else if (userTriesIn == 3)
+        	    {
+        	        System.out.println("Whew. You got the answer correct on the last try. ");
+        	    }
+    	    }
 	        //sequenceProblem(); 
                 //continue on with the game
 	    }
 	    if(!userCorrect)
 	    {
-	        boolean numUserQuit = userQNS(numAnswer);
-		    //QNS = QuitNumSection
-		    if (numUserQuit)
-		    {
-		        System.out.println("Would you like to keep playing this round (guess the sequence pattern), or try again? ");
-		    }
-		    else if (!numUserQuit)
-		    {
-		        nextNumProblem(numAnswer);
-		            //give them another chance -- user did NOT quit the user section 
-		    }
-	        chances(userChances, numAnswer);
-	            //user failed and we need to restart 
+	        tries(userTriesIn++, numAnswerIn);
+	            //user didn't get this one correct 
 	    }
 	}
 	public void prompt()
@@ -152,178 +140,92 @@ class Main
 			+ " number; after that, you will get one try to guess the rule"
 			+ " for the sequence, whether you guessed the first number or not. ");
 			//explains the game 
-		
 	}
-	public int getNumAnswer()
-	{
-	    ///this is the first half of the nextNumProblem method; it generates and prints the sequence 
-		int numAnswer = 0;
-		numAnswer = generateAndPrintSequence();
-		    //generates and prints sequence out, and also returns the answer (last item in sequence)
-		return numAnswer;
-	}
+	
 	public boolean nextNumProblem(int numAnswerIn)//method for nextNum section 
 	{
-		int userNum = 0;
-		    //be careful -- if something goes wrong in reinitializing 
-			//numAnswer and userNum, it will both be the same 
-			//(interpreted as user was correct).
-		
-		///this is the second half of the method: 
-		boolean userCorrect;
-		userNum = getNextNum(); 
-		    //get the next number from user 
-		userCorrect = decideIfNumCorrect(numAnswerIn, userNum);
+		int userNum = getNextNum(); 
+		    //get the next number from user
+		boolean userCorrect = decideIfNumCorrect(numAnswerIn, userNum);
 		    //decide if the user number inputted is correct 
 		    //also prints out resulting decision from this method
 		return userCorrect; 
-	}
-	public int generateAndPrintSequence()
-	{
-	    //1st half of method: generate sequence
-		startNum = (int)(Math.random()*22 - 10);
-			//this is 22 because it includes -10 to 0, 0 included
-		sequenceRule = (int)(Math.random()*10 + 1);
-		    //this is the 10 different types of increment allotted 
-		
-		//2nd half of method: print sequence 
-		System.out.println("Your sequence is:");
-		int numAnswerReturn = outputSequence(0);
-		System.out.println("___");
-		return numAnswerReturn;
-	}
-	public int outputSequence(int countIn)
-	    //this method is just an additional recursion method, supplementary to printSequence()
-	{
-		if (countIn < 5)//print 5 numbers to start out 
-		{
-			System.out.println((sequenceRule*countIn+startNum) + ", ");
-			    //print the current number
-			return outputSequence(countIn+1);
-			    //run the method again to print the next number 
-		}
-		else
-		{
-			System.out.println();
-			int generateNumAnswer = sequenceRule*countIn+startNum;
-			return generateNumAnswer;
-		}
 	}
 	public int getNextNum()
 	{
 		Scanner keyboard = new Scanner(System.in);
 		System.out.print("What's the next number?\t");
-		int getNextUserNum = keyboard.nextInt();
-		    //ooh we shouldn't be making another new one; we should just be passing the same one through
-		keyboard.nextLine();
-		return getNextUserNum;
+		int getUserNum = keyboard.nextInt();
+		return getUserNum;
 	}
-	public boolean decideIfNumCorrect(int numAnswer, int userNum)
+	public int getSequence()
+	    //while generating and printing sequence, this method also returns number answer 
+	{
+	    //1st half of method: generate sequence
+		int startNum = (int)(Math.random()*22 - 10);
+			//this is 22 because it includes -10 to 0, 0 included
+		int sequenceRule = (int)(Math.random()*10 + 1);
+		    //this is the 10 different types of increment allotted 
+		/*
+		String returnReason = "";
+		if (returnReason.equals("return sequenceRule"))
+		{
+		    return sequenceRule;
+		}
+		else if (returnReason.equals("return numAnswer"))
+		{
+		    //continue on with the program 
+		    //honestly if this worked we wouldn't need this
+		}
+		//another idea: return a generalReturn (String) with both; then use an if statement combined with String word pulls to decide which one to pull out; then, convert what you need to a data type (ex. if we get String 2 and want int 2: String 2 --> char 2 --> int 2+shiftNum, subtract shiftNum)
+		*/
+		//2nd half of method: print sequence, and numAnswer 
+		System.out.println("Your sequence is:");
+		int numAnswerReturn = outputSequence(0, startNum, sequenceRule);
+		System.out.println("___");
+		return numAnswerReturn;
+	}
+	public int outputSequence(int countIn, int sequenceRuleIn, int startNumIn)
+	    //this method takes in the count (how many numbers outputted), the sequence rule generated, and the starting number 
+	    //and returns the number answer 
+	{
+		if (countIn < 5)//print 5 numbers to start out 
+		{
+			System.out.print((sequenceRuleIn*countIn+startNumIn) + ", ");
+			    //print the current number
+			return outputSequence(countIn+1, sequenceRuleIn, startNumIn);
+			    //run the method again to print the next number 
+		}
+		else
+		{
+			System.out.println();
+			int generateNumAnswer = sequenceRuleIn*countIn+startNumIn;
+			return generateNumAnswer;
+		}
+	}
+	public boolean decideIfNumCorrect(int numAnswerIn, int userNumIn)
+	    //takes in the answer and the user input and returns if user correct (also prints it out to the screen)
 	{
 		boolean userCorrect;
 		    //initialized based on if user is correct or not 
-		boolean decideUserQuit; 
-		    //the userQuit variable for the decideIfNumCorrect method 
-		String wrongAnswer = "Not quite! ";
-		    //to use for 
-		int decide = (int)(Math.random()*9+1);
-		if (numAnswer == userNum)
+		if (numAnswerIn == userNumIn)
 		{
-			userCorrect = true;
-			
-			//make different answers; no arrays *sob*
-			String correct1 = "Well done!";
-			String correct2 = "Great job!";
-			String correct3 = "You did it!";
-			String correct4 = "Fantastic work!";
-			String correct5 = "Bravo!";
-			String correct6 = "Amazing effort!";
-			String correct7 = "You nailed it!";
-			String correct8 = "Congrats!";
-			String correct9 = "Way to go!";
-			String correct10 = "Impressive work!";
-			String correct11 = "Correct! Success!";
-			
-			//send it into the checker method (even more painful because no arrays)
-			checkAnswerChoices(decide, 1, correct1);
-			    //1st parameter sent in: answer reference, 2nd:  checking variable, assigned to 3rd: actual output reference
-			checkAnswerChoices(decide, 2, correct2);
-			checkAnswerChoices(decide, 3, correct3);
-			checkAnswerChoices(decide, 4, correct4);
-			checkAnswerChoices(decide, 5, correct5);
-			checkAnswerChoices(decide, 6, correct6);
-			checkAnswerChoices(decide, 7, correct7);
-			checkAnswerChoices(decide, 8, correct8);
-			checkAnswerChoices(decide, 9, correct9);
-			checkAnswerChoices(decide, 10, correct10);
-			checkAnswerChoices(decide, 11, correct11);
+		    userCorrect = true;
+		    System.out.println("Correct! Well done. \n");
 		}
-		else if (Math.abs(numAnswer - userNum) < sequenceRule)
+		else if (Math.abs(numAnswerIn - userNumIn) < sequenceRule)
 			//if the user answer is near the generated answer (max: 
 			//increment distance away); basically, if the user is close 
 		{
-				//generate a number that will correspond to an encouraging
-				//message
-			
-			//make different answers (same logic)
-			String user = "You're ";
-			    //this is because I'm lazy and don't want to keep repeating it
-			String answerNear1 = wrongAnswer + user + "nearly there!";
-			String answerNear2 = wrongAnswer + user + "right there!";
-			String answerNear3 = wrongAnswer + user + "almost there!";
-			String answerNear4 = wrongAnswer + user + "right on the edge of it!";
-			String answerNear5 = wrongAnswer + "Just a little more to go!";
-			String answerNear6 = user + "so close!";
-			String answerNear7 = user + "so near!";
-			String answerNear8 = user + "within reach!";
-			String answerNear9 = "Just a step away!";
-			String answerNear10 = "Almost got it!";
-			String answerNear11 = "On the brink of it!";
-            
-			//check answer for 1-9 
-			//for (int i = 1, i < 12, i++)
-			//{
-			checkAnswerChoices(decide, 1, answerNear1);
-			checkAnswerChoices(decide, 2, answerNear2);
-			checkAnswerChoices(decide, 3, answerNear3);
-			checkAnswerChoices(decide, 4, answerNear4);
-			checkAnswerChoices(decide, 5, answerNear5);
-			checkAnswerChoices(decide, 6, answerNear6);
-			checkAnswerChoices(decide, 7, answerNear7);
-			checkAnswerChoices(decide, 8, answerNear8);
-			checkAnswerChoices(decide, 9, answerNear9);
-			//}
+			System.out.println("Close! \n");
 			userCorrect = false;
 		}
 		else 
 		{
-			System.out.println(wrongAnswer + "\n");
+			System.out.println("Not quite! \n");
 			userCorrect = false;
 		}
 		return userCorrect;
-	}
-	/*
-	public void loopMethod(int loopCount)
-	{
-	    if (loopCount < 12)
-	    {
-	        //String[] answerNear = {"You're nearly there!", "", ...};
-	        checkAnswerChoices(decideAnswerNear, loopCount, array[0]);
-	            //this would work if it was an array *sob*
-	            //eyes bleeding right now 
-	        loopCount++;
-	    }
-	}
-	*/
-	public void checkAnswerChoices(int decideAnswerNearIn, int checkNumIn, String answerResponseIn)
-	    //this method is a tiny complementary one to decideIfNumCorrect();
-	{
-		if (decideAnswerNearIn == checkNumIn) 
-			//if the answer reference equals the assigned number,
-		{
-			System.out.println(answerResponseIn + "\n");
-				//print response entered
-		}
 	}
 	//leave some space for organization 
 	
@@ -334,10 +236,12 @@ class Main
 	
 	
 	
-	//public void printOutput(int numAnswer, int userNum)
-	//{
-	//	System.out.println("");
-	//}
+	public void sequenceProblem(int sequenceRuleIn)
+	    //problem: how to get sequenceRule into this method 
+	{
+		double userRule = getRule();
+		
+	}
 	public double getRule()
 	{
 		String userResponse1 = "";
