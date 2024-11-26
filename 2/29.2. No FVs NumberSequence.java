@@ -24,8 +24,10 @@
  * work on second half of program 
  * work on try again 
  * control-f "if the user is close" for formatting example 
- * how to get sequenceRule into decideIfNumCorrect and sequenceProblem if it's too deep in recursion (basically, try not to use any field variables)
+ * main problem: 
+ 	how to get sequenceRule into decideIfNumCorrect and sequenceProblem if it's too deep in recursion (basically, try not to use any field variables)
  *      worst comes to worst, I use at least 1 field variable and try to work on it later (w/ Mr. Yu?)
+ * 	
  * 
  * took out: 
  * user quit number section 
