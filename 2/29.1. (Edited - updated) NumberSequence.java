@@ -1,5 +1,6 @@
 //Notes: This version has the most updated version but the most unstable code. If I was to keep working on it, I would use this because it has the x3 looping worked on.
 //If I was to pull working code snippets from it, I would use the 29. NumberSequence.java code. 
+
 //NumberSequence.java
 /* Noah Guan
  * 11-15-2024
@@ -77,7 +78,8 @@ class Main
 	{
 		prompt();
 		    //prints prompt 
-	    chances(0);
+	    chances(0, 0);
+	        //gives in 0 for chances and 0 for answer (will get reinitialized)
 	        //within this, calls first half of the program (guessing the number)
 	        //this program runs nextNumProblem, and calls sequenceProblem if ready 
 		
@@ -91,10 +93,9 @@ class Main
 		}
 		//System.out.print("Alright. Thank you for playing this round of NumberSequence. Would you like to try again?\t")
 	}
-	public void chances(int userChances)//this method is for the user's 3 chances
+	public void chances(int userChances, int numAnswer)//this method is for the user's 3 chances
 	{
 	    boolean userCorrect;
-	    int numAnswer;
 	    if (userChances == 0)
 	    {
 	        numAnswer = getNumAnswer();
@@ -139,7 +140,7 @@ class Main
 		        nextNumProblem(numAnswer);
 		            //give them another chance -- user did NOT quit the user section 
 		    }
-	        chances(userChances);
+	        chances(userChances, numAnswer);
 	            //user failed and we need to restart 
 	    }
 	}
@@ -356,8 +357,8 @@ class Main
 		            startNum = 0;
 		            sequenceRule = 0;
 		            done = false;
-		            chances(0);
-		                //rerun the chances with 0 tries 
+		            chances(0, 0);
+		                //rerun the chances with 0 tries and answer = 0 (will get reinitialized)
                     timesPlayed++;
 		        }
 		        else if (!userQNSIn.equalsIgnoreCase("no"))
@@ -442,3 +443,133 @@ class Main
 		    //returns only the double value 
 	}
 }
+/* Result1: 
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+10, 
+11, 
+12, 
+13, 
+14, 
+
+___
+What's the next number?	16
+Not quite! 
+
+Would you like to give up this question for the answer to the number? [Yes/No]	no
+What's the next number?	14
+Not quite! 
+
+What's the next number?	15
+Congrats!
+
+Nice! You got the answer correct on the second try! 
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+-4, 
+1, 
+6, 
+11, 
+16, 
+
+___
+What's the next number?	
+*/
+
+/*Result2: 
+
+
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+4, 
+11, 
+18, 
+25, 
+32, 
+
+___
+What's the next number?	38
+Just a step away!
+
+Would you like to give up this question for the answer to the number? [Yes/No]	yes
+Alright. The answer was 39. 
+Would you like to keep playing this round (to guess the sequence pattern)? [Yes/No]	
+yes
+Would you like to keep playing this round (guess the sequence pattern), or try again? 
+What's the next number?	39
+Bravo!
+
+Nice! You got the answer correct on the second try! 
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+-7, 
+-5, 
+-3, 
+-1, 
+1, 
+
+___
+What's the next number?	4
+Just a step away!
+
+Would you like to give up this question for the answer to the number? [Yes/No]	yes
+Alright. The answer was 3. 
+Would you like to keep playing this round (to guess the sequence pattern)? [Yes/No]	
+yes
+Would you like to keep playing this round (guess the sequence pattern), or try again? 
+What's the next number?	2
+You're so close!
+
+Would you like to give up this question for the answer to the number? [Yes/No]	no
+What's the next number?	4
+Not quite! You're right there!
+
+What's the next number?	9
+Not quite! 
+
+Would you like to give up this question for the answer to the number? [Yes/No]	yes
+Alright. The answer was 3. 
+Would you like to keep playing this round (to guess the sequence pattern)? [Yes/No]	
+no
+
+Would you like to play again? [Yes/No]	
+no
+Would you like to keep playing this round (guess the sequence pattern), or try again? 
+What's the next number?	4
+You're so near!
+
+Would you like to give up this question for the answer to the number? [Yes/No]	no
+What's the next number?	3
+You did it!
+
+What's the next number?	3
+Well done!
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+10, 
+20, 
+30, 
+40, 
+50, 
+
+___
+What's the next number?	
+*/
