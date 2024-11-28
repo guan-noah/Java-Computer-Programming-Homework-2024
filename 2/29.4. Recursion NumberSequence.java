@@ -12,9 +12,9 @@
  * 		It was not batman 7. It was add 2. 
  * plus, add, increase by, increment by, + 
  * 
- * Pseudocode Notes: 
+ * Pseudocode Notes: pseudocode uploaded as a picture to GitHub. 
  * 
- * Working on: Completing the darn code. 
+ * Working on: Completing the code with recursion. 
  * 
  * Testing: 
 1. Input: 41; add 8; noh; nope; no
@@ -68,6 +68,7 @@ Alright. Thank you for playing NumberSequence!
 
 
 3. Input: 45; 61; 53; increment by 9; no, I would not; no I would not
+        //this showcases the "close" part of the program. 
 
 
 
@@ -95,20 +96,39 @@ Alright. Thank you for playing NumberSequence!
 
 
 
-4. Input: 
- * progress: 
- * work on multiple rounds and errors (?)
- * finish userQNS method 
- * work on second half of program 
- * work on try again 
- * control-f "if the user is close" for formatting example 
- * 
+4. Input: 0; 0; 0; +10; no
+
+
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+9, 19, 29, 39, 49, ___
+What's the next number?	0
+Not quite! 
+What's the next number?	0
+Not quite! 
+What's the next number?	0
+Not quite! 
+None of the guesses were correct. 
+How do you go from one number to the next?	+10
+Your input, '+10' was not accepted. 
+Sorry, your answer was incorrect. The pattern was increment by 10
+Would you like to play again? [Yes/No] 	no
+Alright. Thank you for playing NumberSequence! 
+
+
+
+
  * 	
  * 
  * took out: 
- * user quit number section 
+ * user quit number section (QNS method)
  * user encouraging messages 
- * how many times the user 
+ * how many times the user played the game (timesPlayed variable)
 */
 import java.util.Scanner;
 class Main 
@@ -193,11 +213,11 @@ class Main
 		userCorrect = nextNumProblem(numAnswerIn);
                 //we need to keep the number answer 
         
-        if(!userCorrect && userTriesIn <= 3)
+        if(!userCorrect && userTriesIn < 3)
             //if user didn't guess correctly and has more tries 
         {
             tries(++userTriesIn, numAnswerIn);
-                //give another chance 
+                //give another chance
         }
         else //user needs to continue on to the game; only 2 scenarios at this point: user succeeded or user failed. 
         {
