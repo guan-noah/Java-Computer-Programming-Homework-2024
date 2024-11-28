@@ -123,6 +123,101 @@ Alright. Thank you for playing NumberSequence!
 
 
 
+5. Input: twenty-seven
+
+
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+3, 8, 13, 18, 23, ___
+What's the next number?	twenty-seven
+ERROR!
+Exception in thread "main" java.util.InputMismatchException
+	at java.base/java.util.Scanner.throwFor(Scanner.java:947)
+	at java.base/java.util.Scanner.next(Scanner.java:1602)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2267)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2221)
+	at Main.getNextNum(Main.java:271)
+	at Main.nextNumProblem(Main.java:260)
+	at Main.tries(Main.java:214)
+	at Main.run(Main.java:167)
+	at Main.play(Main.java:158)
+	at Main.main(Main.java:152)
+
+6. Input: -3
+    //this is showcasing a bug where you can't have a negative answer or else the nextInt only catches the negative sign. 
+
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+-8, -7, -6, -5, -4, ___-3
+What's the next number?	
+ERROR!
+Exception in thread "main" java.util.InputMismatchException
+	at java.base/java.util.Scanner.throwFor(Scanner.java:947)
+	at java.base/java.util.Scanner.next(Scanner.java:1602)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2267)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2221)
+	at Main.getNextNum(Main.java:296)
+	at Main.nextNumProblem(Main.java:285)
+	at Main.tries(Main.java:239)
+	at Main.run(Main.java:192)
+	at Main.play(Main.java:183)
+	at Main.main(Main.java:177)
+
+6. SPECIAL CASE -- Input: 32; add 6; yes; 20; increase by four
+    //special case because I ran the program more than once 
+
+
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+2, 8, 14, 20, 26, ___
+What's the next number?	32
+Correct! Well done. 
+Wow! You got it correct on the first try! 
+How do you go from one number to the next?	add 6
+Correct! Congratulations! The pattern was add 6. 
+Would you like to play again? [Yes/No] 	yes
+
+
+Welcome to NumberSequence.java! 
+
+This program will print out a number sequence; you will have to find the number that comes next (the number in the underscore. 
+You will get at most 3 tries to guess the next number; after that, you will get one try to guess the rule for the sequence, whether you guessed the first number or not. 
+Your sequence is:
+0, 4, 8, 12, 16, ___
+What's the next number?	20
+Correct! Well done. 
+Wow! You got it correct on the first try! 
+How do you go from one number to the next? increase by four
+ERROR!
+Exception in thread "main" java.util.InputMismatchException
+	at java.base/java.util.Scanner.throwFor(Scanner.java:947)
+	at java.base/java.util.Scanner.next(Scanner.java:1602)
+	at java.base/java.util.Scanner.nextDouble(Scanner.java:2573)
+	at Main.getRule(Main.java:448)
+	at Main.sequenceProblem(Main.java:393)
+	at Main.tries(Main.java:304)
+	at Main.run(Main.java:217)
+	at Main.userPlayAgain(Main.java:234)
+	at Main.run(Main.java:222)
+	at Main.play(Main.java:208)
+	at Main.main(Main.java:202)
+
+//this program ran twice; I broke it by trying to answer a nextInt() with a string. 
  * 	
  * 
  * took out: 
@@ -179,6 +274,7 @@ class Main
 		String userPlayAgain = keyboard.next();
 		if (userPlayAgain.equalsIgnoreCase("yes"))
 		{
+            System.out.println("\n");
             run();
 		}
 		else if (userPlayAgain.equalsIgnoreCase("no"))
