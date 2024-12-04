@@ -4,7 +4,8 @@
  * Per. 6 Java w/ Mr. Yu
  * StringMethods.java
  * Program #30 
- * 
+ * Pseudocode: 
+ * Testing Plan: 
  * 
  */
 public class StringMethods
