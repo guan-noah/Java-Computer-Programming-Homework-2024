@@ -1,5 +1,9 @@
 //StringMethods.java
-/*
+/* Noah Guan
+ * 11-15-2024
+ * Per. 6 Java w/ Mr. Yu
+ * StringMethods.java
+ * Program #30 
  * 
  * 
  */
