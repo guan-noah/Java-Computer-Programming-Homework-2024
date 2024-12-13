@@ -4,6 +4,44 @@
  * Per. 6 Java w/ Mr. Yu
  * Punctuation.java
  * Program #30.1
+ * 
+ * Pseudocode: 
+main 
+	call searchIt
+	
+searchIt 
+	print 3 new lines 
+	intro tell user what's going to happen
+	text variable = prompt text 
+	print text and continue intro 
+	call print result with call calculate result inside 
+	print 3 new lines 
+
+calculate result 
+	declare index of text for use in for loop (don't want to keep declaring... 
+		...inside the for loop)
+	declare charAtIndex for use in for loop 
+	d&i var for all punctuation words; var to return and print 
+	for loop (index of text = 0; index of text < length of text, index of text++)
+		initialize char at index using loop #, starting at the first char 
+		if (the char at index has punctuation) 
+			get the substring between the last space and (index-1) bec. ...
+				...index is stopped at a space; that is the word 
+			if last space is negative 1, make it zero 	
+			substring the word now after making it 0
+			append send lastword to all punctuation words 
+	return all punctuation words 	
+			
+check for punctuation
+	d&i hasPunctuation to false; will be changed if true 
+	d&i variable to convert char to string for ellipse inclusion
+	if (has punctuation list)
+		hasPunctuation = true 
+	return hasPunctuation 
+
+print result 
+	print line that's given 
+ * no testing plan (no user input) 
  */
 
 public class Punctuation
@@ -124,13 +162,19 @@ public class Punctuation
 			
 			if (checkForPunctuation(charAtIndex))
 			{
-				allPuncWords = allPuncWords + sendLastWord(indexOfText, textIn);
-					//append sendLastWord to check 
-			}
-			else
-			{
-				//move on to next char 
-				
+				//get the substring between the (index - 1) (index is stopped at a space) 
+					//and the last space; that is the word 
+				int lastSpace = textIn.lastIndexOf(' ', (indexOfText - 1));
+					//the current index is stopped at a space so we'll have to start from 
+						//one character before the index 
+				if (lastSpace == -1)
+					lastSpace = 0;
+					//this ensures that even the start of the text will be in index bounds
+				String word = textIn.substring(lastSpace, indexOfText + 1).trim() + " ";
+					//word is defined as anything between 2 spaces 
+					
+				allPuncWords = allPuncWords + word;
+					//append word to all punctuation words  
 			}
 		}
 		return allPuncWords;
@@ -148,11 +192,14 @@ public class Punctuation
 		charStringAtIndex.equals("\'") || charStringAtIndex.equals("\"") || 
 		charStringAtIndex.equals("...") || charStringAtIndex.equals("(") || 
 		charStringAtIndex.equals(")") || charStringAtIndex.equals('-'))
+			//if the char is any of this defined punctuation 
 		{ 
 			hasPunctuation = true;
 		}
 		return hasPunctuation;
 	}
+	/* //alright, so this was my method (for code organization) 
+	 * 		//if I was allowed to have it (I wasn't)
 	public String sendLastWord(int indexNumIn, String textIn)
 		//this method sends back the substring from the index given back to 
 			//the last space (gets the word) 
@@ -167,6 +214,7 @@ public class Punctuation
 			//this ensures that even the start of the text will be in index bounds
 		String word = textIn.substring(lastSpace, indexNumIn + 1).trim() + " ";
 			//word is defined as anything between 2 spaces 
+		*/
 		/* //this following code commented out is if the previous code doesn't 
 		 * 	//account if there's punctuation in the word 
 		for (int indexOfWord = 0; indexOfWord < word.length(); indexOfWord++)
@@ -184,9 +232,11 @@ public class Punctuation
 			}
 		}
 		*/
+		/*
 		return word;
 			//at this point, the word will have punctuation in it. 
 	}
+	*/
 	public void printWords(String printLine)
 	{
 		System.out.println(printLine);
