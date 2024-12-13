@@ -16,11 +16,20 @@ public class Punctuation
 	public static void main(String[] args)
 	{
 		Punctuation punc = new Punctuation();
+			//make a new instance of Punctuation.java
 		punc.searchIt();
+			//use the instance to call the searchIt method 
 	}
 	public void searchIt()
 	{
 		System.out.println("\n\n\n");
+			//required 3 new lines 
+		System.out.println("Welcome to Punctuation.java! \nThis program takes " + 
+		"a string in and returns all words with punctuation in the string." + 
+		"Valid punctuation marks include: '.' \t',' \t';' \t':' \t'!' \t'?' " + 
+		"\t'\'' \t'\"' \t\"...\" \t'(' \t')' \t and '-'.  \n\nAs an example, " + 
+		"here's an excerpt from Winston Churchill's Blood, Sweat and Tears: \n"); 
+			//intro, telling user what's going to happen 
 		String text = new String("Blood, Sweat, and Tears by Winston Churchill " +
 			"May 13, 1940" +
 			"Mr. Speaker:" + 
@@ -86,17 +95,27 @@ public class Punctuation
 			"our cause will not be suffered to fail among men. At this time I " + 
 			"feel entitled to claim the aid of all, and I say, \"Come then, " + 
 			"let us go forward together with our united strength.\"");
+				//the text in variable with identifier "text"  
+		System.out.println(text + "\n\nAnd now, after plugging this into " + 
+		"Punctuation.java: \n");
+			//continuation of intro 
 		printWords(getPunctuationWords(text));
+			//print result 
+		
 		System.out.println("\n\n\n");
 	}
 	public String getPunctuationWords(String textIn)
 	{
-		int indexOfText = 0;
+		int indexOfText;
+			//declare index of text for use in for loop (don't want to 
+				//keep declaring inside the for loop) 
 		char charAtIndex;
+			//declare charAtIndex for use in for loop 
 		String allPuncWords = new String("");
 			//all words with punctuation; essentially the variable we want 
 				//to print
-		while (indexOfText < textIn.length()) //run through the text 
+		for (indexOfText = 0; indexOfText < textIn.length(); indexOfText++) 
+			//run through the text 
 		{
 			charAtIndex = textIn.charAt(indexOfText);
 				//this initializes charAtIndex to the char at the index 
@@ -105,21 +124,22 @@ public class Punctuation
 			
 			if (checkForPunctuation(charAtIndex))
 			{
-				
+				allPuncWords = allPuncWords + sendLastWord(indexOfText, textIn);
+					//append sendLastWord to check 
 			}
 			else
 			{
 				//move on to next char 
 				
 			}
-			indexOfText++;
 		}
+		return allPuncWords;
 	}
 	public boolean checkForPunctuation(char charIn)
 	{
 		boolean hasPunctuation = false;
 				//d&i hasPunctuation to false; will be changed if true
-		String charStringAtIndex = "" + charAtIndex;
+		String charStringAtIndex = "" + charIn;
 			//convert the char to a string so we can compare ellipses 
 				//punctuation as well
 		if (charStringAtIndex.equals(".") || charStringAtIndex.equals(",") || 
@@ -131,6 +151,7 @@ public class Punctuation
 		{ 
 			hasPunctuation = true;
 		}
+		return hasPunctuation;
 	}
 	public String sendLastWord(int indexNumIn, String textIn)
 		//this method sends back the substring from the index given back to 
@@ -139,9 +160,16 @@ public class Punctuation
 		//get the substring between the (index - 1) (index is stopped at a space) 
 			//and the last space; that is the word 
 		int lastSpace = textIn.lastIndexOf(' ', (indexNumIn - 1));
-		String word = textIn.substring(lastSpace, indexNumIn);
+			//the current index is stopped at a space so we'll have to start from 
+				//one character before the index 
+		if (lastSpace == -1)
+			lastSpace = 0;
+			//this ensures that even the start of the text will be in index bounds
+		String word = textIn.substring(lastSpace, indexNumIn + 1).trim() + " ";
 			//word is defined as anything between 2 spaces 
-		while (indexOfWord < word.length())
+		/* //this following code commented out is if the previous code doesn't 
+		 * 	//account if there's punctuation in the word 
+		for (int indexOfWord = 0; indexOfWord < word.length(); indexOfWord++)
 		{
 			if (checkForPunctuation(word.charAt(indexOfWord)))
 				//if there is punctuation anywhere in the word 
@@ -155,6 +183,9 @@ public class Punctuation
 						//include any punctuation
 			}
 		}
+		*/
+		return word;
+			//at this point, the word will have punctuation in it. 
 	}
 	public void printWords(String printLine)
 	{
