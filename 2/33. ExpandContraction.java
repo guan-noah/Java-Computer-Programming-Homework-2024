@@ -15,7 +15,6 @@ hadn't = had not
 won't = will not
 shant = shall not
  * 
-
 // blank lines
 What contraction would you like to expand? 
 don't 
@@ -27,7 +26,18 @@ shant
 The expanded form of shant is shall not. 
 Would you like to expand another contraction? Type quit to stop. 
 Quit
-
+ * 
+// blank lines 
+What contraction would you like to expand?
+can't
+The expanded form of can't is can not. 
+Would you like to expand another contraction? Type quit to stop
+noew
+What contraction would you like to expand?
+shouldn't can't should 
+The expanded form of shouldn't is should not. 
+Would you like to expand another contraction? Type quit to stop
+qUit
  */
 import java.util.Scanner;
 public class ExpandContraction
@@ -57,20 +67,26 @@ public class ExpandContraction
 				//will have to keep playing
 		String userDecide = "";
 			//d&i a new var userDecide
+		System.out.println("\n\n\n");
 		do
-		{ 
+		{
 			getInput(); 
 			processString(); 
 			printResult(); 
 			System.out.println("Would you like to expand another contraction? Type quit to stop"); 
-			userDecide = kb.nextLine()
+			userDecide = kb.nextLine();
 			if ("quit".equalsIgnoreCase(userDecide))
 				//if any upper/lower case combo of "quit" equals user input
+				//also, ONLY accepts "quit", not even "no"
+				//(Your program should repetitively accept user input and
+				    //produce expanded versions until the user types "quit" 
+				    //or "QUIT" or any other non-case sensitive form of "quit." A)
 			{
 				keepPlaying = false;
 					//else, keepPlaying stays true 
 			}
 		}while(keepPlaying); 
+		System.out.println("\n\n\n");
 	}
 	public void getInput ( )
 	{ 
@@ -87,15 +103,20 @@ public class ExpandContraction
 		{
 			expanded = "would not";
 		}
+		if (contracted.equalsIgnoreCase("can't"))
+		{
+		    expanded = "can not";
+		}
 		
 		//taking apostrophe and expanding it 
-		if (contracted.indexOf('\'') == -1)
+		else if (contracted.indexOf('\'') == -1)
 			//if the contracted input doesn't have an apostrophe (one case) 
+			//has to have an else because otherwise, we would reinitialize the "can't" case which does have an apostrophe
 		{
 			//more hard coding
 			if (contracted.equalsIgnoreCase("shant"))
 			{
-				expanded = "should not";
+				expanded = "shall not";
 			}
 			else
 			{
@@ -107,7 +128,7 @@ public class ExpandContraction
 			//the contracted input also would end in "n't"
 			//the contracted input 
 		{
-			expanded = contracted.substring(contracted.length()-3) + " not";
+			expanded = contracted.substring(0, contracted.length()-3) + " not";
 				//takes the last 3 characters off ("n't") and adds " not". 
 		}
 		else
