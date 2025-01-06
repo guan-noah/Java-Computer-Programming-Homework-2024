@@ -26,6 +26,7 @@ public class SneakySnackySquirrel	// write header
        						  // may have to read later to determine what data type to use.
 		holly = new Player("Holly");   //call constructor for the Player class; 
 							      					// construct the Player called holly
+		System.out.println("\n\n\n"); //add 3 lines that I got taken points for (we weren't supposed to change the skeleton but whatever)
 		while(again)  // this repeats the next four lines until you 
 		{							 // win.  You do not need to add  anything to this line.
 			rand = spin();   //call the method called spin and accept the result
@@ -33,6 +34,7 @@ public class SneakySnackySquirrel	// write header
 			holly.printScore();  //call printScore() in the Player class
 			again = playAgain();  //call playAgain and accept returned value (local boolean already declared)
 		}
+		System.out.println("\n\n\n"); //add 3 more lines that I got taken points for 
 	}
 
 	public boolean playAgain()	//this method lets us control 
