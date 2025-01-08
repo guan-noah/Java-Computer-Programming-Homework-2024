@@ -45,15 +45,12 @@ public class ExpandContraction
 	private String contracted; 
 	private String expanded; 
 	private Scanner kb;
-	private boolean inputFormatCorrect;
 	public ExpandContraction( ) //this is the constructor
 	{
 		//d&i field variables 
 		contracted = "";
 		expanded = "";
 		kb = new Scanner(System.in);
-		inputFormatCorrect = true; 
-			//initialize at true 
 	}
 	public static void main(String [] args)
 	{
@@ -70,17 +67,19 @@ public class ExpandContraction
 		System.out.println("\n\n\n");
 		do
 		{
+			//call the other methods 
 			getInput(); 
 			processString(); 
 			printResult(); 
-			System.out.println("Would you like to expand another contraction? Type quit to stop"); 
+			
+			//to decide if the user wants to play again
+			System.out.println("Would you like to expand another " + 
+				"contraction? Type quit to stop"); 
+				//prompt user
 			userDecide = kb.nextLine();
+				//store user response 
 			if ("quit".equalsIgnoreCase(userDecide))
 				//if any upper/lower case combo of "quit" equals user input
-				//also, ONLY accepts "quit", not even "no"
-				//(Your program should repetitively accept user input and
-				    //produce expanded versions until the user types "quit" 
-				    //or "QUIT" or any other non-case sensitive form of "quit." A)
 			{
 				keepPlaying = false;
 					//else, keepPlaying stays true 
@@ -90,6 +89,7 @@ public class ExpandContraction
 	}
 	public void getInput ( )
 	{ 
+		//prompt user and store input in contracted var 
 		System.out.println("What contraction would you like to expand?");
 		contracted = kb.next();
 		kb.nextLine();
@@ -103,7 +103,7 @@ public class ExpandContraction
 		{
 			expanded = "would not";
 		}
-		if (contracted.equalsIgnoreCase("can't"))
+		else if (contracted.equalsIgnoreCase("can't"))
 		{
 		    expanded = "can not";
 		}
@@ -120,20 +120,23 @@ public class ExpandContraction
 			}
 			else
 			{
-				inputFormatCorrect = false;
+				expanded = "invalid";
+					//error code
 			}
 		}
-		else if (contracted.substring((contracted.length()-3), contracted.length()).equals("n't"))
+		else if (contracted.endsWith("n't"))
+				//(contracted.indexOf('\'')-1), contracted.length()).equals("n't")
 			//the contracted input has to have an apostrophe at this point onwards;
 			//the contracted input also would end in "n't"
 			//the contracted input 
 		{
-			expanded = contracted.substring(0, contracted.length()-3) + " not";
+			expanded = contracted.substring(0, (contracted.length()-3)) + " not";
 				//takes the last 3 characters off ("n't") and adds " not". 
 		}
 		else
 		{
-			inputFormatCorrect = false;
+			expanded = "invalid";
+				//error code
 		}
 	}
 	/* unused extra method 
@@ -148,13 +151,13 @@ public class ExpandContraction
 	*/
 	public void printResult()
 	{
-		if (inputFormatCorrect)
+		if (!(expanded.equals("invalid")))
 		{
 			System.out.println("The expanded form of " + contracted + 
 				" is " + expanded + ". ");
 		}
 		else
-			// !inputFormatCorrect
+			// invalid input 
 		{
 			System.out.println("That is not a valid contraction. Please try again.");
 		}
