@@ -12,15 +12,16 @@ main
 	use instance to call run method 
 void growIt (program name, program description)
 	print 3 lines 
-	for (int time = 0; time < height.length; time++)
-	{
-		height[time] = height[time] + 5 
-		
-	}
-	all heights 
 	do 
 		print welcome (header and intro) 
 		call real meat of program method 
+		for (int time = 0; time < height.length; time++)
+    	{
+    		height[time] = height[time] + 5 
+    		printSymbols(time)
+    		printRate()
+    	}
+	    all heights 
 	while (<call> userPlaying)
 	print 3 lines
 
@@ -39,11 +40,20 @@ String getInput (promptIn, get)
 	else if get = "int", return .nextInt()
 	else if get = "double", return .nextDouble()
 	else, print (internal) error, return null 
-char decideSymbols()
-	type of symbols = if one to the next is decreasing, same, or increasing
-printSymbols()
-	print out 
+String decideSymbols(time)
+	//type of symbols = if one to the next is decreasing, same, or increasing
+	d&i returnString to ""
+	find out the type (using if)
+	returnString = 
+	for(int i = 0, i < howManySymbols, i++)
+	{
+	    returnString = returnString + type 
+	}
+	return returnString
+printSymbols(time)
+	System.out.printf(%5d + "t " + decideSymbols(time) + "\n", time);
 printRate()
+    print out ("The average rate of change is " + (lastItem - initialItem / (height.length - 1) ))
  */
 import java.util.Scanner;
 public class GrowthPattern 
@@ -56,43 +66,68 @@ public class GrowthPattern
     public static void main(String args[]) 
     {
         GrowthPattern gp = new GrowthPattern();
-        gp.run("GrowthPattern", "is a program to monitor the growth of a plant over time. ");
+        gp.growIt("GrowthPattern", "is a program to monitor the growth of a plant over time. ");
     }
-    public void run(String programName, String programDescription)
+    public void growIt(String programName, String programDescription)
     {
         System.out.println("\n\n\n");
         //declare variables outside of while loop 
         
 		do
         {
-            System.out.println("Welcome to " + programName + 
+            System.out.println("\nWelcome to " + programName + 
                 ". \nThis program " + programDescription);
                 //header and intro section 
+            
             //call the real meat of the program method 
-            growIt();
-            decideSymbols();
-            printSymbols();
-            printRate();
+            for (int time = 1; time < height.length; time++)
+        	{
+        		height[time] = height[time] + 5;
+        		    //adding 5 to the 
+        		printSymbols(time);
+        	}
+        	printRate();
+        	//reversing fv height to original 
+        	for(int reverse = 1; reverse < height.length; reverse++)
+        	{
+        	    height[reverse] = height[reverse] - 5;
+        	}
+        	
+        	System.out.println();
         } while(userPlaying());
         System.out.println("Thank you for using " + programName + ". ");
         System.out.println("\n\n\n");
     }
-    public _____ growIt()
-    {
-		int time;
-		
-	}
-	public ____ decideSymbols()
+	public void printSymbols(int timeIn)
 	{
-		
+		System.out.printf("%-5s " + decideSymbols(timeIn) + "\n", ("t" + (timeIn-1))); 
+		    //prints time index - 1 (to symbolize initial state), the symbols, and the new line. 
 	}
-	public ____ printSymbols()
+	public String decideSymbols(int timeIn)
 	{
-		
+    	String returnString = "";
+    	char type;
+    	if (timeIn == 1)
+    	    type = 'o';
+    	else
+    	{
+        	if(height[timeIn] > height[(timeIn - 1)]) //increase as time increases
+        	    type = '+';
+        	else if(height[timeIn] < height[(timeIn - 1)]) //decrease as time increases
+        	    type = '-';
+        	else //no change 
+        	    type = 'o';
+    	}
+    	for(int i = 0; i < height[timeIn]; i++)
+    	{
+    	    returnString = returnString + type;
+    	}
+    	return returnString;
 	}
-	public ______ printRate()
+	public void printRate()
 	{
-		
+		System.out.printf("The average rate of change is about %.2f units/measurement of time. \n", ((double)(height[(height.length-1)] - height[0]) / (height.length - 1)));
+		    //last item - first item divided by length minus one (because of initial height)
 	}
     public boolean userPlaying()
     {
