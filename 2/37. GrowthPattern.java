@@ -18,6 +18,7 @@ void growIt (program name, program description)
 		for (int time = 0; time < height.length; time++)
     	{
     		height[time] = height[time] + 5 
+				//don't do this. do it later when using it 
     		printSymbols(time)
     		printRate()
     	}
@@ -82,16 +83,9 @@ public class GrowthPattern
             //call the real meat of the program method 
             for (int time = 1; time < height.length; time++)
         	{
-        		height[time] = height[time] + 5;
-        		    //adding 5 to the 
         		printSymbols(time);
         	}
         	printRate();
-        	//reversing fv height to original 
-        	for(int reverse = 1; reverse < height.length; reverse++)
-        	{
-        	    height[reverse] = height[reverse] - 5;
-        	}
         	
         	System.out.println();
         } while(userPlaying());
@@ -103,6 +97,65 @@ public class GrowthPattern
 		System.out.printf("%-5s " + decideSymbols(timeIn) + "\n", ("t" + (timeIn-1))); 
 		    //prints time index - 1 (to symbolize initial state), the symbols, and the new line. 
 	}
+/*
+print "\nExample: \n"
+int[] userHeight = call getUserInfo();
+formatOutput
+		char zeroChar = '|'; 
+		if (decideSymbols(timeIn).charAt(0) = '-')
+		{
+			zeroChar = '-';
+		}
+		else if (decideSymbols(timeIn).charAt(0) = '+')
+		{
+			zeroChar = '+';
+		}
+		else 
+			//nothing because (decideSymbols(timeIn).charAt(0) = 'o')
+		System.out.printf("%-5s%6s%1s%s\n", ("t" + (timeIn-1)), before, zeroChar, after;
+
+import java.util.ArrayList;
+import java.util.List;
+
+getUserInfo();
+int[] getUserInfo()
+		List<int> userHeightList = new ArrayList<>()
+		System.out.println("Now it's your turn. Please enter your heights " + 
+			"in order from initial height to ending height.");
+		int userNextHeight;
+		*/
+		
+		/* OPTION 1: 
+		do
+		{
+			if (!(userNextWord.equalsIgnoreCase("quit")))
+			{
+				userHeightList.add(getInput("Please enter the next height of your plant.", "int"));
+			}
+		} while (userNextWord.equalsIgnoreCase("quit")); //acts as the else 
+		list.toArray(userHeight);
+		int[] userHeight = list.toArray(new userHeight[0]);
+		*/
+		
+		/* OPTION 2: 
+		int[] userHeight = int[Integer.parseInt(getInput("Please enter the total number " + 
+			"of time periods you want to track", "int"))];
+		for (int i = 0; i < userHeight.length; i++)
+		{
+			userHeight[i] = getInput("Please enter the next height of your plant.", "int"); 
+		}
+		*/
+		
+		/*
+		return userHeight;
+		userHeight int[] = new int[userHeightList.size()];
+		// by https://stackoverflow.com/questions/9572795/convert-list-to-array-in-java
+		
+finish: 
+1. user input 
+2. gradeStats program 
+3. upload to my experiments (noah utils) github 
+ */
 	public String decideSymbols(int timeIn)
 	{
     	String returnString = "";
@@ -111,6 +164,7 @@ public class GrowthPattern
     	    type = 'o';
     	else
     	{
+			//comparing, don't need to add 5 here 
         	if(height[timeIn] > height[(timeIn - 1)]) //increase as time increases
         	    type = '+';
         	else if(height[timeIn] < height[(timeIn - 1)]) //decrease as time increases
@@ -118,7 +172,8 @@ public class GrowthPattern
         	else //no change 
         	    type = 'o';
     	}
-    	for(int i = 0; i < height[timeIn]; i++)
+    	//building the symbol string; this needs to add 5 here 
+    	for(int i = 0; i < (height[timeIn] + 5); i++)
     	{
     	    returnString = returnString + type;
     	}
@@ -126,9 +181,21 @@ public class GrowthPattern
 	}
 	public void printRate()
 	{
-		System.out.printf("The average rate of change is about %.2f units/measurement of time. \n", ((double)(height[(height.length-1)] - height[0]) / (height.length - 1)));
+		//System.out.println((height[(height.length-1)] + 5) + " " + height[0] + " " + (height.length-1));
+		System.out.printf("The average rate of change is about %.2f units/measurement of time. \n", 
+			(((double)(height[(height.length-1)]) - height[0]) / (height.length-1)));
 		    //last item - first item divided by length minus one (because of initial height)
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     public boolean userPlaying()
     {
         boolean userPlay;
@@ -148,21 +215,66 @@ public class GrowthPattern
     public String getInput(String promptIn, String get)
     {
         Scanner keyboard = new Scanner(System.in);
-        System.out.print(promptIn + "\n\t-->\t");
+        System.out.print(promptIn + "\n\t-->\t"); //print the prompt passed in 
         if (get.equalsIgnoreCase("line"))
             return keyboard.nextLine();
         else if (get.equalsIgnoreCase("word")||get.equalsIgnoreCase("next"))
             return keyboard.next();
         else if (get.equalsIgnoreCase("int"))
-            return ("" + keyboard.nextInt());
-                //will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
+        {
+			if (onlyHas(get, "int"))
+				return ("" + keyboard.nextInt());
+					//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
+            else 
+            {
+				System.out.println("Error: Received other data type when " + 
+					"expected int (Your number will be stored as \'0\').");
+				return ("" + 0);
+					//will still have to parse int
+			}
+        }
         else if (get.equalsIgnoreCase("double"))
-            return ("" + keyboard.nextDouble());
-                //will also have to Double.parseDouble(getInput("prompt", "double")) to return double
+        {
+			if (onlyHas(get, "double"))
+				return ("" + keyboard.nextDouble());
+					//will have to Double.parseDouble(getInput("prompt", "int")) to return double 
+            else 
+            {
+				System.out.println("Error: Received other data type when " + 
+					"expected double (Your number will be stored as \'0.0\').");
+				return ("" + 0);
+					//will still have to parse double
+			}
+        }
         else 
         {
             System.out.println("Internal error: getInput method; unrecognized get parameter");
             return null;
         }
     }
+    public boolean onlyHas(String getIn, String intOrDouble)
+    {
+		if (intOrDouble.equalsIgnoreCase("int") || intOrDouble.equalsIgnoreCase("double"))
+		{
+			for (int i = 0; i < (getIn.length() - 1); i++)
+			{
+				if ((int)(getIn.charAt(i)) >= 49 && (int)(getIn.charAt(i)) <= 1)
+				{
+					//if within ascii range of numbers, continue with the program
+				}
+				else if (((int)(getIn.charAt(i)) == 46) && intOrDouble.equalsIgnoreCase("double"))
+				{
+					//continue with the program but ONLY if it's in double 
+				}
+				else
+					return false; //no longer purely numbers 
+			}
+			return true; //it made it out without returning false 
+		}
+		else
+		{
+			System.out.println("Internal error: onlyHas method; unrecognized intOrDouble parameter (returned false)");
+			return false;
+		}
+	}
 }
