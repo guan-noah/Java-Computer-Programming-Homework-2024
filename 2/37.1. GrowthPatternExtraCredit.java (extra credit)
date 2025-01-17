@@ -1,9 +1,9 @@
-//GrowthPattern.java
+//GrowthPatternExtraCredit.java
 /* Noah Guan
  * 01-13-2025
  * Per. 6 Java w/ Mr. Yu
- * GrowthPattern.java
- * Program #37
+ * GrowthPatternExtraCredit.java
+ * Program #37.1
  * Pseudocode: 
 
 d&i fv height (in constructor) 
@@ -66,8 +66,8 @@ public class Main
     }
     public static void main(String args[]) 
     {
-        Main gp = new Main();
-        gp.growIt("GrowthPattern", "is a program to monitor the growth of a plant over time. ");
+        Main gpec = new Main();
+        gpec.growIt("GrowthPatternExtraCredit", "is a program to monitor the growth of a plant over time. ");
     }
     public void growIt(String programName, String programDescription)
     {
