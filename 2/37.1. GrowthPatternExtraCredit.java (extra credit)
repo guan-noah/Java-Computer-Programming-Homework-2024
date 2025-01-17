@@ -55,109 +55,8 @@ printSymbols(time)
 	System.out.printf(%5d + "t " + decideSymbols(time) + "\n", time);
 printRate()
     print out ("The average rate of change is " + (lastItem - initialItem / (height.length - 1) ))
- */
-import java.util.Scanner;
-public class Main 
-{
-    private int[] height;
-    public Main()
-    {
-        height = new int[]{-1,	-3,	1,	2,	3,	4,	3,	4,	4,	6,	8,	6,	6,	7,	10};
-    }
-    public static void main(String args[]) 
-    {
-        Main gpec = new Main();
-        gpec.growIt("GrowthPatternExtraCredit", "is a program to monitor the growth of a plant over time. ");
-    }
-    public void growIt(String programName, String programDescription)
-    {
-        System.out.println("\n\n\n");
-        //declare variables outside of while loop 
-        int[] height1 = height; 
-            //declaring the first instance variable, 
-        int runNum = 0; 
-            //we will increment this every time we run the main part of the program 
-		do
-        {
-            System.out.println("\nWelcome to " + programName + 
-                ". \nThis program " + programDescription);
-                //header and intro section 
-            runNum++; //for the number of times run 
-            //call the real meat of the program method 
-            int innerRunNum = 0; //(same logic)
-            String toPrint = ""; //to change the 
-            do
-            {
-                innerRunNum++;
-                if (innerRunNum == 1)
-                {
-                    toPrint = "\nExample: ";
-                    int[] heightArray = height1;
-                }
-                else 
-                {
-                    //user interactive stage starts 
-                    if (innerRunNum == 2)
-                        toPrint = "Now it's your turn.";
-                    else //innerRunNum > 2
-                        toPrint = ""; //don't have to prompt them by now, they should know 
-                    int[] heightArray = getUserArray();
-                }
-                System.out.println(toPrint);
-                for (int time = 1; time < heightArray.length; time++)
-            	{
-            		printSymbols(heightArray, time);
-            	}
-            	printRate(heightArray);
-            }while(getInput("Would you like to run again? (if you format your answer incorrectly, the program will terminate.) [Y/N]", "next").equalsIgnoreCase("Y"));
-                //checks if the user would like to run again 
-            runNum++;
-        	System.out.println();//separate one from the next 
-        } while(userPlaying());
-        System.out.println("Thank you for using " + programName + ". ");
-        System.out.println("\n\n\n");
-    }
-	public void printSymbols(int[] height1, int timeIn)
-	{
-		System.out.printf("%-5s " + decideSymbols(height1, timeIn) + "\n", ("t" + (timeIn-1))); 
-		    //prints time index - 1 (to symbolize initial state), the symbols, and the new line. 
-	}
-	//extra credit section 
-	public int[] getUserInfo()
-	{
-	    System.out.println("Now it's your turn. Please enter your heights " + 
-			"in order from initial height to ending height.");
-		int userNextHeight;
-		int[] userHeight = new int[Integer.parseInt(getInput("Please enter the total number " + 
-		    "of time periods you want to track", "int"))];
-		for (int i = 0; i < userHeight.length; i++)
-		{
-			userHeight[i] = getInput("Please enter the next height of your plant.", "int"); 
-		}
-		return userHeight;
-	}
-	public char formatOutput(height1, timeIn)
-	{
-	    char zeroChar = '|'; 
-		if (decideSymbols(timeIn).charAt(0) = '-')
-		{
-			zeroChar = '-';
-		}
-		else if (decideSymbols(timeIn).charAt(0) = '+')
-		{
-			zeroChar = '+';
-		}
-		else 
-			//nothing because (decideSymbols(timeIn).charAt(0) = 'o')
-		if zeroChar = '-'
-		    initialize before 
-		else if zeroChar = '+'
-		    initialize after
-		before = "" 
-		after = "" 
-		System.out.printf("%-5s%6s%1s%s\n", ("t" + (timeIn-1)), before, zeroChar, after; 
-	}
-/*
+
+/* extra credit pseudocode 
 int[] userHeight = call getUserInfo();
 formatOutput
 		char zeroChar = '|'; 
@@ -218,6 +117,100 @@ finish:
 2. gradeStats program 
 3. upload to my experiments (noah utils) github 
  */
+import java.util.Scanner;
+public class GrowthPatternExtraCredit 
+{
+    private int[] height;
+    public GrowthPatternExtraCredit()
+    {
+        height = new int[]{-1,	-3,	1,	2,	3,	4,	3,	4,	4,	6,	8,	6,	6,	7,	10};
+    }
+    public static void main(String args[]) 
+    {
+        GrowthPatternExtraCredit gpec = new GrowthPatternExtraCredit();
+        gpec.growIt("GrowthPatternExtraCredit", "is a program to monitor the growth of a plant over time. ");
+    }
+    public void growIt(String programName, String programDescription)
+    {
+        System.out.println("\n\n\n");
+        //declare variables outside of while loop 
+        int[] height1 = height; 
+            //declaring the first instance variable to field variable 
+        int runNum = 0; 
+            //we will increment this every time we run the main part of the program 
+		do
+        {
+            System.out.println("\nWelcome to " + programName + 
+                ". \nThis program " + programDescription);
+                //header and intro section 
+            runNum++; //for the number of times run 
+            //call the real meat of the program method 
+            int innerRunNum = 0; //(same logic)
+            String toPrint = ""; //to change the 
+            int[] heightArray = height1;
+            do
+            {
+                innerRunNum++;
+                
+                if (innerRunNum == 1)
+                {
+                    toPrint = "\nExample: ";
+                    heightArray = height1;
+                }
+                else 
+                {
+                    //user interactive stage starts 
+                    if (innerRunNum == 2)
+                    {
+                        toPrint = "Now it's your turn.";
+                        heightArray = getUserArray();
+                    }
+                    else //innerRunNum > 2
+                    {
+                        toPrint = ""; //don't have to prompt them by now, they should know 
+						heightArray = getUserArray();
+					}
+                }
+                
+                System.out.println(toPrint);
+                for (int time = 1; time < heightArray.length; time++)
+            	{
+            		formatOutput(heightArray, time);
+						//instead of printSymbols(heightArray, time);
+            	}
+            	printRate(heightArray);
+            }while(getInput("Would you like to run again? (if you format your answer incorrectly, the program will terminate.) [Y/N]", "next").equalsIgnoreCase("Y"));
+                //checks if the user would like to run again 
+            runNum++;
+        	System.out.println();//separate one from the next 
+        } while(userPlaying());
+        System.out.println("Thank you for using " + programName + ". ");
+        System.out.println("\n\n\n");
+    }
+    public void formatOutput(int[] height1, int timeIn)
+	{
+	    char zeroChar = '|'; 
+		if (decideSymbols(height1, timeIn).charAt(0) == '-')
+		{
+			zeroChar = '-';
+		}
+		else if (decideSymbols(height1, timeIn).charAt(0) == '+')
+		{
+			zeroChar = '+';
+		}
+		else 
+		{
+			//nothing because (decideSymbols(timeIn).charAt(0) = 'o')
+		}
+		String before = ""; 
+		String after = "";
+		if (zeroChar == '-')
+		    before = decideSymbols(height1, timeIn);
+		else if (zeroChar == '+')
+		    after = decideSymbols(height1, timeIn);
+		
+		System.out.printf("%-5s%6s%1s%s\n", ("t" + (timeIn-1)), before, zeroChar, after); 
+	}
 	public String decideSymbols(int[] height1, int timeIn)
 	{
     	String returnString = "";
@@ -234,13 +227,35 @@ finish:
         	else //no change 
         	    type = 'o';
     	}
-    	//building the symbol string; this needs to add 5 here 
-    	for(int i = 0; i < (height1[timeIn] + 5); i++)
+    	
+    	//building the symbol string; if negative, gets absolute value 
+    	for(int i = 0; i < (Math.abs(height1[timeIn])); i++)
     	{
     	    returnString = returnString + type;
     	}
     	return returnString;
 	}
+	public void printSymbols(int[] height1, int timeIn)
+	{
+		System.out.printf("%-5s " + decideSymbols(height1, timeIn) + "\n", ("t" + (timeIn-1))); 
+		    //prints time index - 1 (to symbolize initial state), the symbols, and the new line. 
+	}
+	//extra credit section 
+	public int[] getUserArray()
+	{
+	    System.out.println("Now it's your turn. Please enter your heights " + 
+			"in order from initial height to ending height.");
+		int userNextHeight;
+		int[] userHeight = new int[Integer.parseInt(getInput("Please enter the total number " + 
+		    "of time periods you want to track", "int"))];
+		for (int i = 0; i < userHeight.length; i++)
+		{
+			userHeight[i] = Integer.parseInt(getInput("Please enter the next height of your plant.", "int")); 
+		}
+		return userHeight;
+	}
+	
+	
 	public void printRate(int[] height1)
 	{
 		//System.out.println((height1[(height1.length-1)] + 5) + " " + height1[0] + " " + (height1.length-1));
