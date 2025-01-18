@@ -1,7 +1,7 @@
-//Encrypt.java
+//EncryptWithTestingPlan.java
 /* Noah Guan
  * 1/10/2025
- * Encrypt Testing Plan 
+ * Encrypt With Testing Plan 
  * Testing Plan: 
  * Test 1. 
 
