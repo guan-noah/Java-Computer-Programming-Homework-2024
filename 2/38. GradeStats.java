@@ -11,10 +11,14 @@ calculateIt //essentially the run method (diff.name)
 
 calcScoresUnder75Perc
 
-max
-
-min
-
+max(int[] scores, int fINI) //fINI=firstIndexNumIn, assumes second number is the next indexNum 
+    if(fINI == scores.length-1)
+        return Math.max(firstScore, secondScore); //the max num of index and num after index 
+min(int[] scores, int fINI) //same logic 
+    if(fINI == scores.length-1)
+        return fINI;
+    else 
+        return Math.min(fINI, secondScore); //the min (same logic) 
 avg
 
 orderNums
@@ -45,3 +49,19 @@ Average: 78.3
 Median: 77.5
 
 */
+public class GradeStats
+{
+    public GradeStats()
+    {
+        //nothing
+    }
+    public static void main(String args[])
+    {
+        GradeStats gs = new GradeStats();
+        gs.calculateIt("GradeStats", "takes in your grades and enters them into an array." + 
+                      "\n\tThen, it will output the number of students who scored below 75%, " + 
+                       "the number of scores, the minimum score, the maximum score, the average score, and the median score.");
+    }
+    public void calculateIt
+    
+}
