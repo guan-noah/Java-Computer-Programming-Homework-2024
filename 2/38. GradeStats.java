@@ -152,31 +152,57 @@ public class GradeStats
         gs.calculateIt("GradeStats", "essentially takes in your grades, formats and outputs them with extra data. " + 
                       "It takes in your grades and enters them into an array." + 
                       "\n\tThen, it will output the number of students who scored below 75%, " + 
-                       "the number of scores, the minimum score, the maximum score, the average score, and the median score.", "", "", "");
+                       "the number of scores, the minimum score, the maximum score, the average score, and the median score.", "");
     }
 public String[] getScores()
 {
-    int[] scores = int[Integer.parseInt(calculateIt("How many scores would you like to calculate for?", "int", ""))];
+    String storeUserInput, nextUserInput = ""; 
+		//for getting user input in a manageable fashion 
+    int[] scores = new int[Integer.parseInt(calculateIt("How many scores would you like to calculate for?", "int", ""))];
+    boolean userStop = false; 
+		//stop gathering input when this is true 
+    do
+    {
+		storeUserInput = storeUserInput + nextUserInput + " | ";
+				//store the next score (first one will start it off
+		nextUserInput = calculateIt("Please enter " + 
+			"your next score (enter \"Quit\" to stop): \t", "int", "");
+				//get the next score 
+		userStop = nextUserInput.equalsIgnoreCase("quit");
+			//stop it when user enters quit 
+    }while(!userStop);
+    
+    //d&i scoresAndI (stands for "scores and index", the return string) 
+    String[] scoresAndI = new String[scores.length]; 
+    //next and previous index of space; this is to get the number order 
+		//skips over the 1st 3 chars (starts at the 4th) because the 1st 3 are buffers 
+    int pIOS = 3;
+    int nIOS = storeUserInput.indexOf("|", 3);
     for (int i = 0; i < scores.length; i++)
     {
-        scores[i] = Integer.parseInt(calculateIt("Please enter your next score:\t", "int", ""));
-            //prompt and get 
-        
-    }
-    return scores[];
+        scoresAndI[i] = "" + storeUserInput.substring(pIOS, nIOS) + 
+			", " + i + ";\n";
+			//declare scoresAndI to user input, then space, then index number, 
+				//then ';' followed by a new line
+		pIOS = nIOS; 
+			//the "previous one" now starts at the previous "next one"
+		nIOS = storeUserInput.indexOf("|", (nIOS + 1));
+			//the "next one" now starts at the next space after the previous "next one"
+	}
+    return scoresAndI;
 }
 
 String[] calcScoresUnder75Perc (int[] scoresIn) //returns a list of all scores under 75 percent 
+{
     //shorten and combine these 2 arrays later in a return String array
-    int[] under75 = int[scoresIn.length];
-    int[] indexNumFoundAt = int[scoresIn.length];
+    int[] under75 = new int[scoresIn.length];
+    int[] indexNumFoundAt = new int[scoresIn.length];
     //initialize the under75 int values to 0
     int i = 0; //reusable index var 
     int u75i = 0; //under75Index
     while(i < scoresIn.length)
     {
-        
-        if scoresIn[i] < 75 
+        if (scoresIn[i] < 75)
         {
             //initialize under75 to the score + 1 then increment (go to the next one)
             under75[u75i] = scoresIn[i] + 1;
@@ -187,8 +213,8 @@ String[] calcScoresUnder75Perc (int[] scoresIn) //returns a list of all scores u
     }
     
     //print user data 
-    for (int i = 0; i < scoresIn.length;)
-        print(Here is the data you entered: Student #i's score: scoresIn[i]-1)
+    for (i = 0; i < scoresIn.length;)
+        System.out.println("Here is the data you entered: Student #" + i + "'s score: " + (scoresIn[i]-1));
     
     //find actual length of under75 array by removing all units in array that are still 0 
     int realLength = 0;
@@ -201,32 +227,78 @@ String[] calcScoresUnder75Perc (int[] scoresIn) //returns a list of all scores u
             realLength++; 
         }
     }
-    String[] rSA = String[realLength];
+    String[] rSA = new String[realLength];
         //returnStringArray; d&i rSA (returnStringArray) to actual length to remove extra spaces 
         //initialize rSA to that score and the index number found at separated by a space
-    for (u75i = 0; u75i < scoresIn.length; u75i++)
+    for (u75i = 0; u75i < scoresIn.length; u75i++) //u75i = under75Index 
     {
-        if (u75[i]-1 < 0)
-        rSA[u75i] = "" + under75[u75i] + " " + i;
+        if (under75[u75i]-1 < 0)
+			rSA[u75i] = "" + under75[u75i] + " " + i;
     }
     return rSA; //return the number and the index found at 
-
-
-public max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is the next indexNum 
-{
-    if(iNI == scores.length-1)
-        return Math.max(firstScore, secondScore); //the max num of index and num after index 
 }
 
-public int[] min(int[] remScoresIn, iNI, nextSmall) // better name = getLeastValue(), return the least value and the index found at input = remaining scores needed sorting
+public double avg (int[] finalScores)
 {
-    int i = 0; here our friend is again 
-    int least; //first num returned 
-    int foundAt = scores.length - 1; 
+    int totalNum = 0;
+    for (int i = 0; i < finalScores.length; i++)
+    {
+        totalNum += finalScores[i];
+    }
+    return ((double)(totalNum/finalScores.length));
+}
+public int[] orderNums(String[] scores)
+{
+    int i = 0; //index again 
+    int nextSmall, foundAt, swapNum, minIn;
+    //in order: the next (remaining) smallest number left; smallest num found at index __;  
+		//holder for remaining num; input for min (what to start from) 
+    nextSmall = 0; 
+    foundAt = 0;
     
+    //entering into this loop: we have scores, startFrom
+    for (int startFrom = 0; startFrom < scores.length; startFrom++) //outer loop; 
+		//startFrom is for each number you start at 
+    {
+		if (startFrom == 0)
+		{
+			minIn = startFrom;
+				//if it's the first one 
+		}
+		else 
+		{
+			minIn = nextSmall;
+		}
+		int[] minInfo = min(scores, startFrom, minIn, foundAt);
+		nextSmall = minInfo[0]; //get nextSmall num 
+		foundAt = minInfo[1]; //get index of nextSmall num 
+		
+        swapNum = scores[startFrom]; 
+			//swapNum to 
+        
+        scores[swapNum] = swapNum; 
+			//hold minimum num 
+        scores[i] = min("");
+        
+        minIn++; //start from the next because first one is sorted 
+    }
+    return scores;
+}
+public int[] min(String function, int[] remScoresIn, int iNI, int nextSmall, int lSFA) 
+	// better name = getLeastValue(), return the least value and the index found at 
+	//input: remaining scores needed sorting, index num in, the previous small number, lastSmallFoundAt
+{
+    int least; //first num returned 
+    int foundAt = scores.length - 1; //initialize foundAt to last item 
+    
+    int i = 0; //here our friend is again 
     while(i < remScoresIn.length) //needs to run through whole array to get least value 
+    {
         if(i == scores.length-1)
+        {
             least = nextSmall;
+            foundAt = lSFA; 
+        }
         else 
         {
             least = Math.min(nextSmall, remScoresIn[fINI]); //the min of them 
@@ -235,39 +307,23 @@ public int[] min(int[] remScoresIn, iNI, nextSmall) // better name = getLeastVal
         //compare nextSmall to the next num; if the next num is smaller, store the next number in remSmall and store the index in foundAt. 
         //initialize number being swapped out to swapNum, initialize next smallest num to the next place 
         i++;
-    return (int[] {least, foundAt})
+    }
+    return (new int[] {least, foundAt});
         //note: boolean-like system, where (int)true = 1and (int)false = 0.
 }
-double avg (int[] finalScores)
-    int totalNum = 0;
-    for (int i = 0; i < finalScores.length; i++)
-    {
-        totalNum += finalScores[i];
-    }
-    return ((double)(totalNum/scores.length))
-orderNums
-    int i = 0; //index again 
-    int nextSmall; //the next (remaining) smallest number left 
-    int foundAt; //smallest num found at index __ 
-    int swapNum; //holder for remaining num 
-    int[] holdMin; //transfer variable
-    //if scores[i] = 0
-    while (unsortedScores) //outer 
-    {
-        holdMin = min[1];
-        scores[i] = min[i];
-        unsortedScores = (scores[i] isInOrder);
-    }
-        
-    
-median(int[] finalScores)
+
+public int median(int[] finalScores)
+{
     if (finalScores.length%2=0)
         return (finalScores[scores.length/2-1]+scores[scores.length/2])/2; //take the middle 2 nums and divide by 2 
     else //odd 
         return (finalScores[scores.length/2]); //take the middle num
-        
-    
-    
+}
+public int max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is the next indexNum 
+{
+    if(iNI == scores.length-1)
+        return Math.max(firstScore, secondScore); //the max num of index and num after index 
+}
     public String calculateIt(String function, String info1, String info2)
     {
         //run has programName and programDescription parameters, userPlaying has no parameters, getInput has prompt and "get" variables 
