@@ -154,11 +154,125 @@ public class GradeStats
                       "\n\tThen, it will output the number of students who scored below 75%, " + 
                        "the number of scores, the minimum score, the maximum score, the average score, and the median score.", "", "", "");
     }
-    public String calculateIt(String function, String programName, String programDescription, String promptIn, String get)
+public String[] getScores()
+{
+    int[] scores = int[Integer.parseInt(calculateIt("How many scores would you like to calculate for?", "int", ""))];
+    for (int i = 0; i < scores.length; i++)
+    {
+        scores[i] = Integer.parseInt(calculateIt("Please enter your next score:\t", "int", ""));
+            //prompt and get 
+        
+    }
+    return scores[];
+}
+
+String[] calcScoresUnder75Perc (int[] scoresIn) //returns a list of all scores under 75 percent 
+    //shorten and combine these 2 arrays later in a return String array
+    int[] under75 = int[scoresIn.length];
+    int[] indexNumFoundAt = int[scoresIn.length];
+    //initialize the under75 int values to 0
+    int i = 0; //reusable index var 
+    int u75i = 0; //under75Index
+    while(i < scoresIn.length)
+    {
+        
+        if scoresIn[i] < 75 
+        {
+            //initialize under75 to the score + 1 then increment (go to the next one)
+            under75[u75i] = scoresIn[i] + 1;
+            indexNumFoundAt[u75i] = i;
+            u75i++;
+        }
+        i++;
+    }
+    
+    //print user data 
+    for (int i = 0; i < scoresIn.length;)
+        print(Here is the data you entered: Student #i's score: scoresIn[i]-1)
+    
+    //find actual length of under75 array by removing all units in array that are still 0 
+    int realLength = 0;
+    for(i = 0; i < under75.length; i++)
+    {
+        (under75[i])--;
+        //System.out.println(under75[i]);
+        if (under75[i] >= 0)
+        {
+            realLength++; 
+        }
+    }
+    String[] rSA = String[realLength];
+        //returnStringArray; d&i rSA (returnStringArray) to actual length to remove extra spaces 
+        //initialize rSA to that score and the index number found at separated by a space
+    for (u75i = 0; u75i < scoresIn.length; u75i++)
+    {
+        if (u75[i]-1 < 0)
+        rSA[u75i] = "" + under75[u75i] + " " + i;
+    }
+    return rSA; //return the number and the index found at 
+
+
+public max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is the next indexNum 
+{
+    if(iNI == scores.length-1)
+        return Math.max(firstScore, secondScore); //the max num of index and num after index 
+}
+
+public int[] min(int[] remScoresIn, iNI, nextSmall) // better name = getLeastValue(), return the least value and the index found at input = remaining scores needed sorting
+{
+    int i = 0; here our friend is again 
+    int least; //first num returned 
+    int foundAt = scores.length - 1; 
+    
+    while(i < remScoresIn.length) //needs to run through whole array to get least value 
+        if(i == scores.length-1)
+            least = nextSmall;
+        else 
+        {
+            least = Math.min(nextSmall, remScoresIn[fINI]); //the min of them 
+            foundAt = iNI; 
+        }
+        //compare nextSmall to the next num; if the next num is smaller, store the next number in remSmall and store the index in foundAt. 
+        //initialize number being swapped out to swapNum, initialize next smallest num to the next place 
+        i++;
+    return (int[] {least, foundAt})
+        //note: boolean-like system, where (int)true = 1and (int)false = 0.
+}
+double avg (int[] finalScores)
+    int totalNum = 0;
+    for (int i = 0; i < finalScores.length; i++)
+    {
+        totalNum += finalScores[i];
+    }
+    return ((double)(totalNum/scores.length))
+orderNums
+    int i = 0; //index again 
+    int nextSmall; //the next (remaining) smallest number left 
+    int foundAt; //smallest num found at index __ 
+    int swapNum; //holder for remaining num 
+    int[] holdMin; //transfer variable
+    //if scores[i] = 0
+    while (unsortedScores) //outer 
+    {
+        holdMin = min[1];
+        scores[i] = min[i];
+        unsortedScores = (scores[i] isInOrder);
+    }
+        
+    
+median(int[] finalScores)
+    if (finalScores.length%2=0)
+        return (finalScores[scores.length/2-1]+scores[scores.length/2])/2; //take the middle 2 nums and divide by 2 
+    else //odd 
+        return (finalScores[scores.length/2]); //take the middle num
+        
+    
+    
+    public String calculateIt(String function, String info1, String info2)
     {
         //run has programName and programDescription parameters, userPlaying has no parameters, getInput has prompt and "get" variables 
 	    //all of them have function parameter 
-        if(function.equalsIgnoreCase("run")) ///run section of it 
+        if(function.equalsIgnoreCase("run")) ///run section of it, info1 = programName, info2 = programDescription 
 		{
 			System.out.println("\n\n\n"); 
 				//never forget your 3 lines :) 
@@ -167,24 +281,25 @@ public class GradeStats
 			
 			do
 	        {
-				System.out.println("Welcome to " + programName + 
-					". \nThis program " + programDescription);
-					//header and intro section 
+				System.out.println("Welcome to " + info1 + 
+					". \nThis program " + info2);
+					//header and intro section
 				//call the real meat of the program method here 
 				//ex. var2 = method1(var1);
+				printInfo(getInfo(getScores()));
 				
 				System.out.println();
-	        } while(Boolean.valueOf(utilMethod("userPlaying", "", "", "", "")));
+	        } while(Boolean.valueOf(utilMethod("userPlaying", "", "")));
 
 			//close off with thank you section 
-	        System.out.println("Thank you for using " + programName + ". ");
+	        System.out.println("Thank you for using " + info1 + ". ");
 	        System.out.println("\n\n\n");
 				//again, we need those 3 lines :D
 		}
-		else if(function.equalsIgnoreCase("userPlaying")) ///userPlaying section of it 
+		else if(function.equalsIgnoreCase("userPlaying")) ///userPlaying section of it; doesn't matter what info is (ex. info1 = "", info2 = "") 
         {
             boolean userPlay;
-            String userDecision = utilMethod("getInput", "", "", "Would you like to run again? [Yes/No]", "next");
+            String userDecision = utilMethod("getInput", "Would you like to run again? [Yes/No]", "next");
             if (userDecision.equalsIgnoreCase("Yes"))
                 userPlay = true;
             else if (userDecision.equalsIgnoreCase("No"))
@@ -192,39 +307,94 @@ public class GradeStats
             else //user did not input yes or no 
             {
                 System.out.println("Please enter either \"Yes\" or \"No\".\n");
-                userPlay = Boolean.valueOf(utilMethod("userPlaying", "", "", "", ""));
+                userPlay = Boolean.valueOf(utilMethod("userPlaying", "", ""));
                     //call userPlaying again 
             }
             return String.valueOf(userPlay);
                 //warning: will need to Boolean.valueOf(____);
         }
-        else if(function.equalsIgnoreCase("getInput")) ///getInput section of it 
+        else if(function.equalsIgnoreCase("getInput")) ///getInput section of it; info1 = get, info2 = promptIn 
         {
             Scanner keyboard = new Scanner(System.in);
-            System.out.print(promptIn + "\n\t-->\t");
-            if (get.equalsIgnoreCase("line"))
+            System.out.print(info2 + "\n\t-->\t");
+            if (info1.equalsIgnoreCase("line"))
                 return keyboard.nextLine();
-            else if (get.equalsIgnoreCase("word")||get.equalsIgnoreCase("next"))
+            else if (info1.equalsIgnoreCase("word")||info1.equalsIgnoreCase("next"))
                 return keyboard.next();
             else if (get.equalsIgnoreCase("int"))
-                return ("" + keyboard.nextInt());
-                    //will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
+	        {
+				if (utilMethod("onlyHas", get, "int"))
+					return ("" + keyboard.nextInt());
+						//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
+	            else 
+	            {
+					System.out.println("Error: Received other data type when " + 
+						"expected int" + 
+						"\n\tfunction: " + function + 
+			            "\n\tinfo1: " + info1 + 
+			            "\n\tinfo2: " + info2 + 
+						"\n\t(Your number will be stored as \'0\')");
+					return ("" + 0);
+						//will still have to parse int
+				}
+	        }
             else if (get.equalsIgnoreCase("double"))
-                return ("" + keyboard.nextDouble());
-                    //will also have to Double.parseDouble(getInput("prompt", "double")) to return double
+	        {
+				if (utilMethod("onlyHas", get, "double"))
+					return ("" + keyboard.nextDouble());
+						//will have to Double.parseDouble(getInput("prompt", "int")) to return double 
+	            else 
+	            {
+					System.out.println("Error: Received other data type when " + 
+						"expected double" + 
+						"\n\tfunction: " + function + 
+			            "\n\tinfo1: " + info1 + 
+			            "\n\tinfo2: " + info2 + 
+						"\n\t(Your number will be stored as \'0.0\')");
+					return ("" + 0);
+						//will still have to parse double
+				}
+	        }
             else 
             {
-                System.out.println("Internal error: util method unrecognized get parameter: " + 
+                System.out.println("Internal error: util method unrecognized info1 (get) parameter: " + 
 	                "\n\tfunction: " + function + 
-	                "\n\tprogramName: " + programName + 
-	                "\n\tprogramDescription: " + programDescription + 
-	                "\n\tpromptIn: " + promptIn + 
-	                "\n\tget: " + get + 
+	                "\n\tinfo1: " + info1 + 
+	                "\n\tinfo2: " + info2 + 
 	                "\n(return: null)");
                 return null;
                     //return is literally just for program to run (not technically needed)
             }
-        }
+		}
+		else if (function.equalsIgnoreCase("onlyHas")) // info1 = intOrDouble, info2 = getIn parameters: 
+	    {
+			if (info1.equalsIgnoreCase("int") || info1.equalsIgnoreCase("double"))
+			{
+				for (int i = 0; i < info2.length(); i++) //cycle through String info2 (getIn) 
+				{
+					if ((int)(info2.charAt(i)) >= 49 && (int)(info2.charAt(i)) <= 1)
+					{
+						//if within ascii range of numbers, continue with the program
+					}
+					else if (((int)(info2.charAt(i)) == 46) && info1.equalsIgnoreCase("double"))
+					{
+						//continue with the program but ONLY if it's in double 
+					}
+					else
+						return String.valueOf(false); //no longer purely numbers 
+				}
+				return String.valueOf(true); //it made it out without returning false 
+			}
+			else
+			{
+				System.out.println("Internal error: onlyHas method unrecognized info2 (intOrDouble) parameter: " + 
+					"\n\tfunction: " + function + 
+		            "\n\tinfo1: " + info1 + 
+		            "\n\tinfo2: " + info2 + 
+					"\n\t(returned false)");
+				return false;
+			}
+		}
         //returns a String, no matter the parameters. beware. use parse____ if needed. 
         else ///catch section of it 
         {
