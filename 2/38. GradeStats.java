@@ -7,7 +7,7 @@
 
 */
 import java.util.Scanner;
-public class Main
+class Main
 {
     public static void main(String args[])
     {
@@ -68,19 +68,20 @@ public int[] getScores()
     return scores;
         //at this point you're returning all of the user scores (unsorted)
 }
-public void calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int max) 
+public int[] calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int max) 
     //also a sorting method; sorting works when they input function correctly (start with )
 {
         if (function.equalsIgnoreCase("getMax")) 
         {
             // Find the maximum value in the array
-            for (int i = 0; i < scoresIn.length; i++)//for (int num : scoresIn) 
+            for (int num = 0; num < scoresIn.length; num++)//for (int num : scoresIn) 
             {
-                if (num > max) 
+                if (scoresIn[num] > max) 
                 {
                     max = num;
                 }
             }
+            return new int[] {max};
         } 
         else if (function.equalsIgnoreCase("countingSort")) 
         {
@@ -114,19 +115,23 @@ public void calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int 
             {
                 scoresIn[i] = output[i];
             }
+            return scoresIn;
         } 
         else if (function.equalsIgnoreCase("radixSort")) 
         {
             // radix sort: uses countingSort & getMax operations
-            int maxVal = 0;
-            calcScoresUnder75Perc(scoresIn, "getMax", 0, maxVal);
+            int[] getMax = calcScoresUnder75Perc(scoresIn, "getMax", 0, 0);
+            int maxVal = getMax[0]; 
             
             int exponent = 1;
+            int[] output = new int[scoresIn.length];
+				//make new output var the same length as scoresIn 
             while (maxVal / exponent > 0) 
             {
-                calcScoresUnder75Perc(scoresIn, "countingSort", exponent, 0);
+                output = calcScoresUnder75Perc(scoresIn, "countingSort", exponent, 0);
                 exponent *= 10;
             }
+            return output;
         }
         else if (function.equalsIgnoreCase("get array under 75 percent"))
         {
@@ -135,12 +140,50 @@ public void calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int 
                 if (scoresIn[outer] < 75)
                 {
                     int[] under75 = new int[scoresIn.length-outer];
+                    int[] indices = new int[under75.length];
                     for (int inner = 0; inner < under75.length; inner++)
+                    {
                         under75[inner] = scoresIn[outer+inner];
-                    return under75;
+                        indices[inner] = outer; 
+                        
+					}
+					int[] outputArray = new int[1+2*(under75.length)];
+						//waste of space because we're not allowed 2D arrays 
+					outputArray[1] = under75.length + 1;
+						//first num = last index number where it switches 
+					//initialize outputArray
+					for (int i = 1; i < outputArray.length; i++)
+					{
+						if (i <= outputArray[1])
+						{
+							outputArray[i] = under75[i];
+						}
+						else //if (i > outputArray[1])
+						{
+							outputArray[i] = indices[i];
+						}
+					}
+                    return outputArray;
                 }
             }
         }
+        else
+        {
+			System.out.println("Error: Unrecognized calcScoresUnder75Perc " + 
+						"parameter (returned empty array)" + 
+						"\n\tscoresIn: " + scoresIn + 
+			            "\n\tinfo1: " + function + 
+			            "\n\texp: " + exp + 
+			            "\n\tmax: " + max + 
+						"\n\t(Your number will be stored as \'0\')");
+				//notify that we returned empty array 
+			return new int[0];
+		}
+		
+		
+		//if it gets here I did something very wrong or the computer broke
+		System.out.println("the computer broke. (end of calcScoresUnder75Perc method)");
+		return new int[0];
 }
 
 public int[] min(String function, int[] remScoresIn, int iNI, int nextSmall, int lSFA) 
@@ -195,7 +238,22 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
     {
         System.out.printf("Student " + (i+1) + "'s score:%7d\n", fSI[i]);
     }
-    System.out.printf("There were " + calcScoresUnder75Perc(fSI, function, exp, max) + "students who scored below 75%: " + printInfo(fSI));
+    String studentsU75 = "";
+		//for students under 75; append students 
+	for (int i = 0; i < fSI.length; i++)
+	{
+		if (fSI[i] < 75)
+		{
+			studentsU75 += ("student " + i + ", ");
+		}
+		if (i == fSI.length - 1) //the last one 
+		{
+			studentsU75 = studentsU75.substring(0, fSI.length - 2);
+				//taking off the comma and the space at the end 
+		}
+	}
+    System.out.printf("There were " + calcScoresUnder75Perc(fSI, "operation", 0, 0) + 
+		"students who scored below 75%: " + studentsU75);
     /*
     Here is the data you entered:
 Student 1’s score:       95
