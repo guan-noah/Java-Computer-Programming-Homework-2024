@@ -1,3 +1,4 @@
+//GradeStats.java
 /* Noah Guan
  * 01-15-2025
  * Per. 6 Java w/ Mr. Yu
