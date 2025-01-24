@@ -5,37 +5,14 @@
  * GradeStats.java
  * Program #38
 
-Sample run.		User input in bold.
-< prompt info – make it clear! >
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		95
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		65
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		70
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		78
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		85
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		77
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		QuiT
-Here is the data you entered:
-Student 1’s score:       95
-Student 2’s score:       65
-Student 3’s score:       70
-Student 4’s score:       78
-Student 5’s score:       85
-Student 6’s score:       77
-There were 2 students who scored below 75%: student 2, student 3.
-Number of scores: 6
-Minimum: 65
-Maximum: 95
-Average: 78.3
-Median: 77.5
-
 */
 import java.util.Scanner;
 public class Main
 {
-    public static void main(String args)
+    public static void main(String args[])
     {
         GradeStats g = new GradeStats();
-        g.calculateIt("GradeStats", "having fun", "");
+        g.calculateIt("run", "GradeStats", "having fun");
     }
 }
 
@@ -55,7 +32,8 @@ class GradeStats
     }
 public int[] getScores()
 {
-    String storeUserInput, nextUserInput = ""; 
+    String storeUserInput = "";
+    String nextUserInput = ""; 
 		//for getting user input in a manageable fashion 
     int[] scores = new int[Integer.parseInt(calculateIt("How many scores would you like to calculate for?", "int", ""))];
     boolean userStop = false; 
@@ -91,11 +69,12 @@ public int[] getScores()
         //at this point you're returning all of the user scores (unsorted)
 }
 public void calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int max) 
+    //also a sorting method; sorting works when they input function correctly (start with )
 {
-        if (function.equals("getMax")) 
+        if (function.equalsIgnoreCase("getMax")) 
         {
             // Find the maximum value in the array
-            for (int num : scoresIn) 
+            for (int i = 0; i < scoresIn.length; i++)//for (int num : scoresIn) 
             {
                 if (num > max) 
                 {
@@ -103,50 +82,63 @@ public void calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int 
                 }
             }
         } 
-        else if (function.equals("countingSort")) 
+        else if (function.equalsIgnoreCase("countingSort")) 
         {
-            // Perform counting sort based on the current exponent
+            // counting sort based on the current exponent
             int[] output = new int[scoresIn.length];
             int[] count = new int[10];
 
-            // Count occurrences of each digit
+            // count how many times each digit shows up
             for (int num : scoresIn) 
             {
                 int digit = (num / exp) % 10;
                 count[digit]++;
             }
 
-            // Update count array to store cumulative sums
+            // update count array to store total cumulative sums
             for (int i = 1; i < 10; i++) 
             {
                 count[i] += count[i - 1];
             }
-
-            // Build the output array in sorted order
+            
+            // build output array in sorted order
             for (int i = scoresIn.length - 1; i >= 0; i--) 
             {
                 int digit = (scoresIn[i] / exp) % 10;
                 output[count[digit] - 1] = scoresIn[i];
                 count[digit]--;
             }
-
-            // Copy the sorted values back into the original array
+            
+            // copy sorted values back into original array
             for (int i = 0; i < scoresIn.length; i++) 
             {
                 scoresIn[i] = output[i];
             }
         } 
-        else if (function.equals("radixSort")) 
+        else if (function.equalsIgnoreCase("radixSort")) 
         {
-            // Perform radix sort by using countingSort and getMax operations
+            // radix sort: uses countingSort & getMax operations
             int maxVal = 0;
             calcScoresUnder75Perc(scoresIn, "getMax", 0, maxVal);
-
+            
             int exponent = 1;
             while (maxVal / exponent > 0) 
             {
                 calcScoresUnder75Perc(scoresIn, "countingSort", exponent, 0);
                 exponent *= 10;
+            }
+        }
+        else if (function.equalsIgnoreCase("get array under 75 percent"))
+        {
+            for (int outer = 0; outer < scoresIn.length; outer++)
+            {
+                if (scoresIn[outer] < 75)
+                {
+                    int[] under75 = new int[scoresIn.length-outer];
+                    for (int inner = 0; inner < under75.length; inner++)
+                        under75[inner] = scoresIn[outer+inner];
+                    return under75;
+                }
             }
         }
 }
@@ -155,7 +147,7 @@ public int[] min(String function, int[] remScoresIn, int iNI, int nextSmall, int
 	// better name = getLeastValue(), return the least value and the index found at 
 	//input: remaining scores needed sorting, index num in, the previous small number, lastSmallFoundAt
 {
-    int least; //first num returned 
+    int least = 0; //first num returned; will be reinitialized
     int foundAt = remScoresIn.length - 1; //initialize foundAt to last item 
     
     int i = 0; //here our friend is again 
@@ -179,13 +171,6 @@ public int[] min(String function, int[] remScoresIn, int iNI, int nextSmall, int
         //note: boolean-like system, where (int)true = 1and (int)false = 0.
 }
 
-public int median(int[] finalScores)
-{
-    if (finalScores.length % 2 == 0)
-        return (finalScores[finalScores.length/2-1]+finalScores[finalScores.length/2])/2; //take the middle 2 nums and divide by 2 
-    else //odd 
-        return (finalScores[finalScores.length/2]); //take the middle num
-}
 public int max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is the next indexNum 
 {
     if(iNI != scores.length-1)
@@ -194,10 +179,65 @@ public int max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is
         return scores[iNI];
 }
 
-public void printInfo(int[] fSI) // finalScoresIn
+public int median(int[] finalScores)
 {
-    System.out.println("Here ");
+    if (finalScores.length % 2 == 0)
+        return (finalScores[finalScores.length/2-1]+finalScores[finalScores.length/2])/2; //take the middle 2 nums and divide by 2 
+    else //odd 
+        return (finalScores[finalScores.length/2]); //take the middle num
 }
+
+public void printInfo(String operation, int[] fSI) // finalScoresIn; 
+{
+    if (operation.equalsIgnoreCase("print"))
+    System.out.println("Here is the data you entered: ");
+    for (int i = 0; i < fSI.length; i++)
+    {
+        System.out.printf("Student " + (i+1) + "'s score:%7d\n", fSI[i]);
+    }
+    System.out.printf("There were " + calcScoresUnder75Perc(fSI, function, exp, max) + "students who scored below 75%: " + printInfo(fSI));
+    /*
+    Here is the data you entered:
+Student 1’s score:       95
+Student 2’s score:       65
+Student 3’s score:       70
+Student 4’s score:       78
+Student 5’s score:       85
+Student 6’s score:       77
+There were 2 students who scored below 75%: student 2, student 3.
+Number of scores: 6
+Minimum: 65
+Maximum: 95
+Average: 78.3
+Median: 77.5
+    */
+}
+/*
+
+Sample run.		User input in bold.
+< prompt info – make it clear! >
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		95
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		65
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		70
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		78
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		85
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		77
+Type in	the	score.		Type	“Quit”	to	end	the	program	-->		QuiT
+Here is the data you entered:
+Student 1’s score:       95
+Student 2’s score:       65
+Student 3’s score:       70
+Student 4’s score:       78
+Student 5’s score:       85
+Student 6’s score:       77
+There were 2 students who scored below 75%: student 2, student 3.
+Number of scores: 6
+Minimum: 65
+Maximum: 95
+Average: 78.3
+Median: 77.5
+
+*/
     public String calculateIt(String function, String info1, String info2)
     {
         //run has programName and programDescription parameters, userPlaying has no parameters, getInput has prompt and "get" variables 
@@ -216,7 +256,7 @@ public void printInfo(int[] fSI) // finalScoresIn
 					//header and intro section
 				//call the real meat of the program method here 
 				//ex. var2 = method1(var1);
-				printInfo(getScores());
+				printInfo("print", getScores());
 				
 				System.out.println();
 	        } while(Boolean.valueOf(calculateIt("userPlaying", "", "")));
@@ -287,7 +327,7 @@ public void printInfo(int[] fSI) // finalScoresIn
 	        }
             else 
             {
-                System.out.println("Internal error: util method unrecognized info1 (get) parameter: " + 
+                System.out.println("Internal error: calculateIt method unrecognized info1 (get) parameter: " + 
 	                "\n\tfunction: " + function + 
 	                "\n\tinfo1: " + info1 + 
 	                "\n\tinfo2: " + info2 + 
@@ -328,7 +368,7 @@ public void printInfo(int[] fSI) // finalScoresIn
         //returns a String, no matter the parameters. beware. use parse____ if needed. 
         else ///catch section of it 
         {
-            System.out.println("Internal error: util method unrecognized function parameter: " + 
+            System.out.println("Internal error: calculateIt method unrecognized function parameter: " + 
 	                "\n\tfunction: " + function + 
 	                "\n\tinfo1: " + info1 + 
 	                "\n\tinfo2: " + info2 + 
