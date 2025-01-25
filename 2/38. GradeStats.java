@@ -1,3 +1,5 @@
+import java.util.*;
+
 //GradeStats.java
 /* Noah Guan
  * 01-15-2025
@@ -160,15 +162,15 @@ public int[] getScores()
     String storeUserInput = "";
     String nextUserInput = ""; 
 		//for getting user input in a manageable fashion 
-    int[] scores = new int[Integer.parseInt(calculateIt("getInput", "How many scores would you like to calculate for?", "int"))];
+    int[] scores = new int[Integer.parseInt(calculateIt("getInput", "int", "How many scores would you like to calculate for?"))];
     boolean userStop = false; 
 		//stop gathering input when this is true 
     do
     {
 		storeUserInput = storeUserInput + nextUserInput + " | ";
 				//store the next score (first one will start it off
-		nextUserInput = calculateIt("getInput", "Please enter " + 
-			"your next score (enter \"Quit\" to stop): \t", "int");
+		nextUserInput = calculateIt("getInput", "int", "Please enter " + 
+			"your next score (enter \"Quit\" to stop): \t");
 				//get the next score 
 		userStop = nextUserInput.equalsIgnoreCase("quit");
 			//stop it when user enters quit 
@@ -433,7 +435,7 @@ Median: 77.5
 			//ex. int var1 = 0; int var2 = 0; 
 			
 			do
-	        {
+	    {
 				System.out.println("Welcome to " + info1 + 
 					". \nThis program " + info2);
 					//header and intro section
@@ -442,7 +444,7 @@ Median: 77.5
 				printInfo("print", getScores());
 				
 				System.out.println();
-	        } while(Boolean.valueOf(calculateIt("userPlaying", "", "")));
+      } while(Boolean.valueOf(calculateIt("userPlaying", "", "")));
 
 			//close off with thank you section 
 	        System.out.println("Thank you for using " + info1 + ". ");
@@ -452,7 +454,7 @@ Median: 77.5
 		else if(function.equalsIgnoreCase("userPlaying")) ///userPlaying section of it; doesn't matter what info is (ex. info1 = "", info2 = "") 
         {
             boolean userPlay;
-            String userDecision = calculateIt("getInput", "Would you like to run again? [Yes/No]", "next");
+            String userDecision = calculateIt("getInput", "next", "Would you like to run again? [Yes/No]");
             if (userDecision.equalsIgnoreCase("Yes"))
                 userPlay = true;
             else if (userDecision.equalsIgnoreCase("No"))
@@ -469,32 +471,49 @@ Median: 77.5
         else if(function.equalsIgnoreCase("getInput")) ///getInput section of it; info1 = get, info2 = promptIn 
         {
             Scanner keyboard = new Scanner(System.in);
+            String toReturn = "";
             System.out.print(info2 + "\n\t-->\t");
             if (info1.equalsIgnoreCase("line"))
-                return keyboard.nextLine();
+            {
+              toReturn = keyboard.nextLine();
+              keyboard.nextLine();
+              return toReturn;
+            }
             else if (info1.equalsIgnoreCase("word")||info1.equalsIgnoreCase("next"))
-                return keyboard.next();
+            {
+              toReturn = keyboard.next();
+              keyboard.nextLine();
+              return toReturn;
+            }
             else if (info1.equalsIgnoreCase("int"))
-	        {
-				if (Boolean.valueOf(calculateIt("onlyHas", info1, "int")))
-					return ("" + keyboard.nextInt());
-						//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
-	            else 
-	            {
-					System.out.println("Error: Received other data type when " + 
-						"expected int" + 
-						"\n\tfunction: " + function + 
-			            "\n\tinfo1: " + info1 + 
-			            "\n\tinfo2: " + info2 + 
-						"\n\t(Your number will be stored as \'0\')");
-					return ("" + 0);
-						//will still have to parse int
-				}
-	        }
+            {
+            if (Boolean.valueOf(calculateIt("onlyHas", info1, "int")))
+            {
+              toReturn = "" + keyboard.nextInt();
+              keyboard.nextLine();
+              return toReturn;
+            }
+    				//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
+            else 
+            {
+              System.out.println("Error: Received other data type when " + 
+                "expected int" + 
+                "\n\tfunction: " + function + 
+                "\n\tinfo1: " + info1 + 
+                "\n\tinfo2: " + info2 + 
+                "\n\t(Your number will be stored as \'0\')");
+              return ("" + 0);
+                //will still have to parse int
+    				}
+          }
             else if (info1.equalsIgnoreCase("double"))
 	        {
 				if (Boolean.parseBoolean(calculateIt("onlyHas", info1, "double")))
-					return ("" + keyboard.nextDouble());
+				{
+          toReturn = "" + keyboard.nextDouble();
+          keyboard.nextLine();
+          return toReturn;
+        }
 						//will have to Double.parseDouble(getInput("prompt", "int")) to return double 
 	            else 
 	            {
