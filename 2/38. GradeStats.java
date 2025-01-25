@@ -160,15 +160,15 @@ public int[] getScores()
     String storeUserInput = "";
     String nextUserInput = ""; 
 		//for getting user input in a manageable fashion 
-    int[] scores = new int[Integer.parseInt(calculateIt("How many scores would you like to calculate for?", "int", ""))];
+    int[] scores = new int[Integer.parseInt(calculateIt("getInput", "How many scores would you like to calculate for?", "int"))];
     boolean userStop = false; 
 		//stop gathering input when this is true 
     do
     {
 		storeUserInput = storeUserInput + nextUserInput + " | ";
 				//store the next score (first one will start it off
-		nextUserInput = calculateIt("Please enter " + 
-			"your next score (enter \"Quit\" to stop): \t", "int", "");
+		nextUserInput = calculateIt("getInput", "Please enter " + 
+			"your next score (enter \"Quit\" to stop): \t", "int");
 				//get the next score 
 		userStop = nextUserInput.equalsIgnoreCase("quit");
 			//stop it when user enters quit 
