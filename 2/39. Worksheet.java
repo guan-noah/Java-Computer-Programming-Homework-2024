@@ -22,21 +22,29 @@ class Worksheet
 	main 
 		d&i new instance of worksheet 
 		worksheet.run()
-	run
+	void run()
 		get fileName 
 		
 		print confirmation (done)
-	getInput 
+	int[] getInput()
 		print prompt 
-		get first number 
+		get first number
 		get second number 
 		if first number > second number, 
 			return (new int[] {second number, first number};			//return lesser number, then greater number 
 		else 
 			return (new int[] {first number, second number};			//return lesser number, then greater number 
-	getRandomNums 
-		for (int index = 0; index < num1.length; index++)
-			array[index] = lesser + (Math.random())*range				//the lesser number times the range (greater - lesser) 
+	int getRandomNums(int[] firstAndSecondNum) 
+ 		(lesser num = firstAndSecondNum[0]; greater num = firstAndSecondNum[1];)
+		for (int index = 0; index < num1.length; index++)				//could also use for(int index: num1)
+			num1[index] = lesser + (int)(Math.random())*range			//the lesser number times the range (greater - lesser) 
+			num2[index] = lesser + (int)(Math.random())*range			//d&i both numbers with same formula (may be a better way to do this)
+ 	void getAnswer()
+  		for (int index = 0; index < num1.length; index++) 				//could also use for(int index: num1)
+ 			if ((int)(Math.random()*2) >= 1)							//50/50 chance 
+   				answer[index] = num1[index] + num2[index];
+	   		else 
+	  			answer[index] = num1[index] - num2[index];
 	writeFile 
 		d&i printWriter 
 	
