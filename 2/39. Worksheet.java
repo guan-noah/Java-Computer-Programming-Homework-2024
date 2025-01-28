@@ -137,7 +137,7 @@ class Worksheet
 		else 
 			return (new int[] {first, second});			//return lesser number, then greater number 
 	}
-	public int getRandomNums(int[] firstAndSecondNum) 
+	public void getRandomNums(int[] firstAndSecondNum) 
 	{
 		int lesser = firstAndSecondNum[0];
 		int greater = firstAndSecondNum[1];
@@ -160,11 +160,11 @@ class Worksheet
 	}
 	public String getInput(String get, String prompt)
 	{
-		System.out.println(prompt + "\n\t--> ");
+		System.out.print(prompt + "\n\t--> ");
 		Scanner keyboard = new Scanner(System.in);
 		String fileName = "";
 		if(get.equals("int"))
-			fileName = keyboard.nextInt();
+			fileName = "" + keyboard.nextInt();
 		else if(get.equals("next"))
 			fileName = keyboard.next();
 		else if(get.equals("line"))
@@ -178,21 +178,22 @@ class Worksheet
  		System.out.println("\n\n\n");
  		String outFileName = getInput("next", "Please enter the file name:");
 		File outFile = new File(outFileName);
-		PrintWriter output; 
 		try
 		{
+			PrintWriter output; 
 			output = new PrintWriter(outFile);
 		}
 		catch(IOException e)
 		{
 			System.err.println("\n\n\nError: Can't create " + outFileName + 
-				"file.\n\n\n");
+				" file.\n\n\n");
 			System.exit(2);
 		}
 		System.out.println("Confirmed worksheet export. Thank you for using Worksheet.java. ");
+		/*
 		output.println();
-		output.printf();
-		output.print();
+		output.printf("");
+		output.print("");
 		if(output.checkError())
 		{
 			System.out.println("There was an error in outputting text file. ");
@@ -200,5 +201,6 @@ class Worksheet
 			System.exit(3);
 		}
 		output.close();
+		*/
 	}
 }
