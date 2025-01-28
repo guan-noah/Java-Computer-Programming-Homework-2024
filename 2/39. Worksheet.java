@@ -105,7 +105,17 @@ import java.io.FileNotFoundException;									//don't really need this because w
 																		//you just need to know you can write to it 
 import java.io.PrintWriter;
 import java.io.IOException;
-public class Worksheet
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String args[])
+    {
+        Worksheet w = new Worksheet();
+        w.writeFile();
+    }
+}
+
+class Worksheet
 {
 	private int[] num1, num2, answer;									//fvs num1, num2, and answer 
 	public Worksheet()
@@ -115,25 +125,27 @@ public class Worksheet
 	public static void main(String args[])
 	{
 		Worksheet w = new Worksheet();
-		worksheet.writeFile();
+		w.writeFile();
 	}
 	public int[] getBounds()
 	{
-		print prompt 
-		get first number
-		get second number 
-		if first number > second number, 
-			return (new int[] {second number, first number};			//return lesser number, then greater number 
+	    System.out.println("These next numbers will determine the addends or minuend/subtrahend. ");
+		int first = Integer.parseInt(getInput("int", "Please enter the first bound value: "));
+		int second = Integer.parseInt(getInput("int", "Please enter the second bound value: "));
+		if (first > second)
+			return (new int[] {second, first});			//return lesser number, then greater number 
 		else 
-			return (new int[] {first number, second number};			//return lesser number, then greater number 
+			return (new int[] {first, second});			//return lesser number, then greater number 
 	}
 	public int getRandomNums(int[] firstAndSecondNum) 
 	{
-		(lesser num = firstAndSecondNum[0]; greater num = firstAndSecondNum[1];)
+		int lesser = firstAndSecondNum[0];
+		int greater = firstAndSecondNum[1];
+		int range = greater - lesser + 1;
 		for (int index = 0; index < num1.length; index++)				//could also use for(int index: num1)
 		{
-			num1[index] = lesser + (int)(Math.random())*range			//the lesser number times the range (greater - lesser) 
-			num2[index] = lesser + (int)(Math.random())*range			//d&i both numbers with same formula (may be a better way to do this)
+			num1[index] = lesser + (int)(Math.random())*range;			//the lesser number times the range (greater - lesser) 
+			num2[index] = lesser + (int)(Math.random())*range;			//d&i both numbers with same formula (may be a better way to do this)
 		}
 	}
 	public void getAnswer()									//no parameters or return
@@ -151,11 +163,11 @@ public class Worksheet
 		System.out.println(prompt + "\n\t--> ");
 		Scanner keyboard = new Scanner(System.in);
 		String fileName = "";
-		if(get.equals("int")
+		if(get.equals("int"))
 			fileName = keyboard.nextInt();
-		else if(get.equals("next")
+		else if(get.equals("next"))
 			fileName = keyboard.next();
-		else if(get.equals("line")
+		else if(get.equals("line"))
 			fileName = keyboard.nextLine();
 		else
 			System.out.println("getInput method: unrecognized get parameter");
@@ -164,10 +176,12 @@ public class Worksheet
 	public void writeFile()
 	{
  		System.out.println("\n\n\n");
-		File outFile = new File(getInput("next", "Please enter the file name:"));
+ 		String outFileName = getInput("next", "Please enter the file name:");
+		File outFile = new File(outFileName);
+		PrintWriter output; 
 		try
 		{
-			PrintWriter output = new PrintWriter(outFile);
+			output = new PrintWriter(outFile);
 		}
 		catch(IOException e)
 		{
