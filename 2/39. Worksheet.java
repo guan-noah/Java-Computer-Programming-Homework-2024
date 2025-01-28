@@ -146,17 +146,28 @@ public class Worksheet
 	  			answer[index] = num1[index] - num2[index];
 		}
 	}
-	public String getInput(String prompt)
+	public String getInput(String get, String prompt)
 	{
 		System.out.println(prompt + "\n\t--> ");
+		Scanner keyboard = new Scanner(System.in);
+		String fileName = "";
+		if(get.equals("int")
+			fileName = keyboard.nextInt();
+		else if(get.equals("next")
+			fileName = keyboard.next();
+		else if(get.equals("line")
+			fileName = keyboard.nextLine();
+		else
+			System.out.println("getInput method: unrecognized get parameter");
+		return fileName;
 	}
 	public void writeFile()
 	{
  		System.out.println("\n\n\n");
-		File outFile = new File(getInput("String", "Please enter the file name:"));
+		File outFile = new File(getInput("next", "Please enter the file name:"));
 		try
 		{
-			output = new PrintWriter(outFile)
+			PrintWriter output = new PrintWriter(outFile);
 		}
 		catch(IOException e)
 		{
@@ -165,5 +176,15 @@ public class Worksheet
 			System.exit(2);
 		}
 		System.out.println("Confirmed worksheet export. Thank you for using Worksheet.java. ");
+		output.println();
+		output.printf();
+		output.print();
+		if(output.checkError())
+		{
+			System.out.println("There was an error in outputting text file. ");
+			output.close();
+			System.exit(3);
+		}
+		output.close();
 	}
 }
