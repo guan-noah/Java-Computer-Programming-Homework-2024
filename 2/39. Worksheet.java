@@ -45,8 +45,19 @@ class Worksheet
    				answer[index] = num1[index] + num2[index];
 	   		else 
 	  			answer[index] = num1[index] - num2[index];
-	writeFile 
-		d&i printWriter 
+	void writeFile()
+ 		File outFile = new File(getInput("String", "Please enter the file name:"));
+		try
+		{
+			output = new PrintWriter(outFile)
+		}
+		catch(IOException e)
+		{
+			System.err.println("\n\n\nError: Can't create " + outFileName + 
+				"file.\n\n\n");
+			System.exit(2);
+		}
+		
 	
 
  */
@@ -66,7 +77,7 @@ catch(FileNotFoundException e)
 */
 
 /* writing to file from program 
-File outFile = new File(outFileName);
+File outFile = new File(getInput("String", "Please enter the file name:"));
 try
 {
 output = new PrintWriter(outFile)
@@ -104,5 +115,55 @@ public class Worksheet
 	public static void main(String args[])
 	{
 		Worksheet w = new Worksheet();
-		
+		worksheet.writeFile();
 	}
+	public int[] getBounds()
+	{
+		print prompt 
+		get first number
+		get second number 
+		if first number > second number, 
+			return (new int[] {second number, first number};			//return lesser number, then greater number 
+		else 
+			return (new int[] {first number, second number};			//return lesser number, then greater number 
+	}
+	public int getRandomNums(int[] firstAndSecondNum) 
+	{
+		(lesser num = firstAndSecondNum[0]; greater num = firstAndSecondNum[1];)
+		for (int index = 0; index < num1.length; index++)				//could also use for(int index: num1)
+		{
+			num1[index] = lesser + (int)(Math.random())*range			//the lesser number times the range (greater - lesser) 
+			num2[index] = lesser + (int)(Math.random())*range			//d&i both numbers with same formula (may be a better way to do this)
+		}
+	}
+	public void getAnswer()									//no parameters or return
+	{
+  		for (int index = 0; index < num1.length; index++) 				//could also use for(int index: num1)
+		{
+			if ((int)(Math.random()*2) >= 1)							//50/50 chance 
+   				answer[index] = num1[index] + num2[index];
+	   		else 
+	  			answer[index] = num1[index] - num2[index];
+		}
+	}
+	public String getInput(String prompt)
+	{
+		System.out.println(prompt + "\n\t--> ");
+	}
+	public void writeFile()
+	{
+ 		System.out.println("\n\n\n");
+		File outFile = new File(getInput("String", "Please enter the file name:"));
+		try
+		{
+			output = new PrintWriter(outFile)
+		}
+		catch(IOException e)
+		{
+			System.err.println("\n\n\nError: Can't create " + outFileName + 
+				"file.\n\n\n");
+			System.exit(2);
+		}
+		System.out.println("Confirmed worksheet export. Thank you for using Worksheet.java. ");
+	}
+}
