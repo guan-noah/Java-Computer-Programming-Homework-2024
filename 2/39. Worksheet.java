@@ -214,8 +214,9 @@ class Worksheet
 		//get worksheet info 
 		int numOfQuestions = Integer.parseInt(getInput("int", "How many problems " + 
 		    "would you like?"));
-	    num1 = num2 = new int[numOfQuestions];
-	    answer = new String[numOfQuestions];
+        num1 = new int[numOfQuestions];
+        num2 = new int[numOfQuestions];
+        answer = new String[numOfQuestions];
 		int[] bounds = getBounds(); 
 		getRandomNums(bounds);
 		getAnswer(getInput("next", "Would you like to create a purely addition " + 
