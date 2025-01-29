@@ -117,10 +117,12 @@ public class Main
 
 class Worksheet
 {
-	private int[] num1, num2, answer;									//fvs num1, num2, and answer 
+	private int[] num1, num2;									//fvs num1, num2, and answer 
+	private String[] answer;
 	public Worksheet()
 	{
-		num1 = num2 = answer = new int[20];                             //initialize; could potentially ask user for number of questions
+		num1 = num2 = new int[20];                             //initialize; could potentially ask user for number of questions
+	    answer = new String[20];
 	}
 	public static void main(String args[])
 	{
@@ -144,18 +146,35 @@ class Worksheet
 		int range = greater - lesser + 1;
 		for (int index = 0; index < num1.length; index++)				//could also use for(int index: num1)
 		{
-			num1[index] = lesser + (int)(Math.random())*range;			//the lesser number times the range (greater - lesser) 
-			num2[index] = lesser + (int)(Math.random())*range;			//d&i both numbers with same formula (may be a better way to do this)
+			num1[index] = lesser + (int)(Math.random()*range);			//the lesser number times the range (greater - lesser) 
+			num2[index] = lesser + (int)(Math.random()*range);			//d&i both numbers with same formula (may be a better way to do this)
+		    System.out.println(num1[index] + " " + num2[index] + "\n");
 		}
 	}
-	public void getAnswer()									            //no parameters or return
+	public void getAnswer(String input)						            //no parameters or return
 	{
   		for (int index = 0; index < num1.length; index++) 				//could also use for(int index: num1)
 		{
-			if ((int)(Math.random()*2) >= 1)							//50/50 chance 
-   				answer[index] = num1[index] + num2[index];
-	   		else 
-	  			answer[index] = num1[index] - num2[index];
+			
+			if (input.equals("random"))
+			{
+    			if ((int)(Math.random()*2) >= 1)//50/50 chance 
+       			{
+       				answer[index] = num1[index] + " + " + num2[index] + " = " + (num1[index] + num2[index]);
+       			}
+    	   		else 
+    	  		{
+    	  			answer[index] = num1[index] + " - " + num2[index] + " = " + (num1[index] - num2[index]);
+    	  		}
+			}
+			else if (input.equals("addition"))
+			{
+			    answer[index] = num1[index] + " + " + num2[index] + " = " + (num1[index] + num2[index]);
+			}
+			else if (input.equals("subtraction"))
+			{
+			    answer[index] = num1[index] + " - " + num2[index] + " = " + (num1[index] - num2[index]);
+			}
 		}
 	}
 	public String getInput(String get, String prompt)
@@ -191,22 +210,50 @@ class Worksheet
 				" file.\n\n\n");
 			System.exit(2);
 		}
+		
 		//get worksheet info 
+		int numOfQuestions = Integer.parseInt(getInput("int", "How many problems " + 
+		    "would you like?"));
+	    num1 = num2 = new int[numOfQuestions];
+	    answer = new String[numOfQuestions];
 		int[] bounds = getBounds(); 
 		getRandomNums(bounds);
+		getAnswer(getInput("next", "Would you like to create a purely addition " + 
+		    "worksheet, a purely subtraction worksheet, or a random assortment " + 
+	        "of the two? [addition, subtraction, random]"));
 		
 		//write Worksheet file 
         //method: write(output, "")
 		output.printf("%-49sName___________________________\n", "");            //header 1
-		output.printf("%-56sDate____________________", "Addition and " + 
+		output.printf("%-56sDate____________________\n", "Addition and " + 
             "subtraction practice using numbers " + bounds[0] + " to " + 
-            bounds[1]);                                                         //header 2 (print bounds)
+            bounds[1] + "\n\n");                                                //header 2 (print bounds)
+		String question;
+		for(int i = 1; i <= numOfQuestions; i++)
+		{
+		    question = answer[i-1];
+		    output.printf("%-20s",(i + ". " + question.substring(0, (question.indexOf('=')+1)) ));
+		    if(i%4==0)
+		        output.println("");
+		}
+		output.println("\n\n\n\n\nAnswer Key:");
+		String finalAnswer;
+		for(int i = 1; i <= numOfQuestions; i++)
+		{
+		    finalAnswer = answer[i-1];
+		    output.printf("%-20s", i + ". " + finalAnswer.substring(finalAnswer.indexOf('=')+1));
+		    if(i%4==1)
+		        output.println("");
+		}
+		
 		if(output.checkError())
 		{
 			System.out.println("There was an error in outputting text file. ");
 			output.close();
 			System.exit(3);
 		}
+		
+		
 		
 		//ending algorithm 
 		System.out.println("Confirmed worksheet export. Thank you for using " + 
@@ -216,6 +263,4 @@ class Worksheet
 }
 /*
 allow 80 char spaces in between 
-23 + 1 space in between title and date 
-9 tabs in between 
 */
