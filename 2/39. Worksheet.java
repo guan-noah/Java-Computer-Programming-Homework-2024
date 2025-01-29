@@ -120,7 +120,7 @@ class Worksheet
 	private int[] num1, num2, answer;									//fvs num1, num2, and answer 
 	public Worksheet()
 	{
-		
+		num1 = num2 = answer = new int[20];                             //initialize; could potentially ask user for number of questions
 	}
 	public static void main(String args[])
 	{
@@ -133,14 +133,14 @@ class Worksheet
 		int first = Integer.parseInt(getInput("int", "Please enter the first bound value: "));
 		int second = Integer.parseInt(getInput("int", "Please enter the second bound value: "));
 		if (first > second)
-			return (new int[] {second, first});			//return lesser number, then greater number 
+			return (new int[] {second, first});			                //return bounds: lesser number, then greater number 
 		else 
-			return (new int[] {first, second});			//return lesser number, then greater number 
+			return (new int[] {first, second});			                //return bounds: lesser number, then greater number 
 	}
-	public void getRandomNums(int[] firstAndSecondNum) 
+	public void getRandomNums(int[] boundsIn) 
 	{
-		int lesser = firstAndSecondNum[0];
-		int greater = firstAndSecondNum[1];
+		int lesser = boundsIn[0];
+		int greater = boundsIn[1];
 		int range = greater - lesser + 1;
 		for (int index = 0; index < num1.length; index++)				//could also use for(int index: num1)
 		{
@@ -148,7 +148,7 @@ class Worksheet
 			num2[index] = lesser + (int)(Math.random())*range;			//d&i both numbers with same formula (may be a better way to do this)
 		}
 	}
-	public void getAnswer()									//no parameters or return
+	public void getAnswer()									            //no parameters or return
 	{
   		for (int index = 0; index < num1.length; index++) 				//could also use for(int index: num1)
 		{
@@ -160,17 +160,19 @@ class Worksheet
 	}
 	public String getInput(String get, String prompt)
 	{
-		System.out.print(prompt + "\n\t--> ");
-		Scanner keyboard = new Scanner(System.in);
-		String fileName = "";
+		System.out.print(prompt + "\n\t--> ");                          //print prompt
+		Scanner keyboard = new Scanner(System.in);                      //new Scanner called keyboard
+		String fileName = "";                                           //what we're trying to get to return 
 		if(get.equals("int"))
-			fileName = "" + keyboard.nextInt();
+			fileName = "" + keyboard.nextInt();                         //get an int (will have to parse it later)
 		else if(get.equals("next"))
-			fileName = keyboard.next();
+			fileName = keyboard.next();                                 //get next word 
 		else if(get.equals("line"))
-			fileName = keyboard.nextLine();
+			fileName = keyboard.nextLine();                             //get next line
 		else
-			System.out.println("getInput method: unrecognized get parameter");
+			System.out.println("getInput method: unrecognized get " + 
+			    "parameter");                                           //error message
+		keyboard.nextLine();                                            //clear Scanner
 		return fileName;
 	}
 	public void writeFile()
@@ -178,9 +180,9 @@ class Worksheet
  		System.out.println("\n\n\n");
  		String outFileName = getInput("next", "Please enter the file name:");
 		File outFile = new File(outFileName);
+		PrintWriter output = null;
 		try
 		{
-			PrintWriter output; 
 			output = new PrintWriter(outFile);
 		}
 		catch(IOException e)
@@ -189,18 +191,31 @@ class Worksheet
 				" file.\n\n\n");
 			System.exit(2);
 		}
-		System.out.println("Confirmed worksheet export. Thank you for using Worksheet.java. ");
-		/*
-		output.println();
-		output.printf("");
-		output.print("");
+		//get worksheet info 
+		int[] bounds = getBounds(); 
+		getRandomNums(bounds);
+		
+		//write Worksheet file 
+        //method: write(output, "")
+		output.printf("%-49sName___________________________\n", "");            //header 1
+		output.printf("%-56sDate____________________", "Addition and " + 
+            "subtraction practice using numbers " + bounds[0] + " to " + 
+            bounds[1]);                                                         //header 2 (print bounds)
 		if(output.checkError())
 		{
 			System.out.println("There was an error in outputting text file. ");
 			output.close();
 			System.exit(3);
 		}
+		
+		//ending algorithm 
+		System.out.println("Confirmed worksheet export. Thank you for using " + 
+		    "Worksheet.java. ");
 		output.close();
-		*/
 	}
 }
+/*
+allow 80 char spaces in between 
+23 + 1 space in between title and date 
+9 tabs in between 
+*/
