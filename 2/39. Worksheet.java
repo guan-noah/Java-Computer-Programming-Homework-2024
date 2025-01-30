@@ -148,7 +148,7 @@ class Worksheet
 		{
 			num1[index] = lesser + (int)(Math.random()*range);			//the lesser number times the range (greater - lesser) 
 			num2[index] = lesser + (int)(Math.random()*range);			//d&i both numbers with same formula (may be a better way to do this)
-		    System.out.println(num1[index] + " " + num2[index] + "\n");
+            //System.out.println(num1[index] + " " + num2[index] + "\n");
 		}
 	}
 	public void getAnswer(String input)						            //no parameters or return
@@ -158,7 +158,7 @@ class Worksheet
 			
 			if (input.equals("random"))
 			{
-    			if ((int)(Math.random()*2) >= 1)//50/50 chance 
+    			if ((int)(Math.random()*2) >= 1)// 50/50 chance 
        			{
        				answer[index] = num1[index] + " + " + num2[index] + " = " + (num1[index] + num2[index]);
        			}
@@ -235,7 +235,7 @@ class Worksheet
 		    question = answer[i-1];
 		    output.printf("%-20s",(i + ". " + question.substring(0, (question.indexOf('=')+1)) ));
 		    if(i%4==0)
-		        output.println("");
+		        output.println("\n\n\n");                                       //for workspace
 		}
 		output.println("\n\n\n\n\nAnswer Key:");
 		String finalAnswer;
