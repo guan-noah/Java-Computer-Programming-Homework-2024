@@ -1,9 +1,9 @@
-//Worksheet.java
+//Worksheet2.java
 /* Noah Guan
  * 01-27-2025
  * Per. 6 Java w/ Mr. Yu
  * Worksheet.java
- * Program #39
+ * Program #39.1
  * Pseudocode: 
 
 import java.io.File;
