@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class TeacherInfo
 {
 	private int[] grades, scores;
-	private String[] courseInfo;
+	private String[] teacherData;
 	private Scanner fileInput;
 	private PrintWriter fileOutput;
 	private String inFileName, outFileName;								//for reading the file and for writing to file 
@@ -24,7 +24,7 @@ public class TeacherInfo
 	{
 		grades = new int[5];
 		scores = new int[101];
-		courseInfo = new String[3];
+		teacherData = new String[3];
 		//fileInput = new Scanner();									//simply reminders for myself to 
 		//fileOutput = new PrintWriter(fileName);						//remember to instantiate it later
 		inFileName = "";
@@ -72,6 +72,24 @@ public class TeacherInfo
 	public void readFile()
 	{
 		//get name of teacher, course, and course # 
+		int nioc = 0;													//next index of colon
+		while (not EOF)
+		{
+			String indicator = fileInput.next().trim();					//get label in header 
+			String nextWord = fileInput.next().trim();					//get actual info
+			if (indicator.equalsIgnoreCase("Teacher:"))
+				teacherData[1] = nextWord;								//get the teacher name 
+			else if (indicator.equalsIgnoreCase("Class:"))
+			{
+				while(nextWord.charAt(nextWord.length()-1) != ':')
+				{
+					String className = fileInput.next();
+					teacherData[2] = nextWord.substring(0, indexOf('-'));//get everything before the dash
+				}
+			}
+			else if (indicator.equalsIgnoreCase("Scores:")
+			
+		}
 		//search through file for course number 
 		//if no course, print no course 
 		//else: 
@@ -81,6 +99,16 @@ public class TeacherInfo
 			//using nextDouble and special marks in header 
 			//use next() to avoid whitespace to get words 
 		//once done with one block, keep checking until end of file 
+	}
+	public String getNextItem()											//assuming next item is before the word with a colon at the end 
+	{
+		String output = "";
+		String word = fileInput.next();
+		if (word.charAt(word.length()-1) != ':')
+		{
+			output = output + getNextItem();
+		}
+		return output;
 	}
 	public void outputData()
 	{
