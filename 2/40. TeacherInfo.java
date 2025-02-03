@@ -19,7 +19,7 @@ public class TeacherInfo
 	private String[] courseInfo;
 	private Scanner fileInput;
 	private PrintWriter fileOutput;
-	private String inFileName, outFileName;
+	private String inFileName, outFileName;								//for reading the file and for writing to file 
 	public TeacherInfo()
 	{
 		grades = new int[5];
@@ -28,7 +28,7 @@ public class TeacherInfo
 		//fileInput = new Scanner();									//simply reminders for myself to 
 		//fileOutput = new PrintWriter(fileName);						//remember to instantiate it later
 		inFileName = "";
-		outFileName = "";												///hopefully not pointing towards the same "object" 
+		outFileName = "";												//instantiate to inFileName-results.txt
 	}
 	public static void main(String args[])
 	{
@@ -37,14 +37,35 @@ public class TeacherInfo
 	}
 	public void fakeMain()
 	{
-		//d&i fileInput and fileOutput 
-		//get inFileName 
-		//outFileName = inFileName.substring(0, inFileName.indexOf('.txt') + "-results.txt";
-		//File inFile = new File(fileName);
-		//try: fileInput = new Scanner(inFile);
-		//catch: FileNotFoundException; System.err.println(); System.exit(1);
+		do
+		{
+			inFileName = getInput("next", "Please enter the name of the " + 
+				"teacher’s file including the extension");				//initialize inFile name
+			//move initialization of file in here 
+			if (inFileName.endsWith(".txt")) //and if we can actually read the file then we move on
+			{
+				System.out.println("Please enter a valid file name.");
+			}
+		}
+		while(inFileName.endsWith(".txt");								//keep going until we can move on
+		outFileName = inFileName.substring(0, indexOf(".txt")) + 
+			"-results.txt";												//initialize outFile name to inFile name substringed 
+		
+		File inFile = new File(inFileName);								//d&i input and output files 
+		File outFile = new File(outFileName);
+		
+		try 															//try: fileInput = new Scanner(inFile);
+		{
+			fileInput = new Scanner(inFile);							//initializing fileInput 
+		}
+		catch(FileNotFoundException)									//catch: FileNotFoundException; System.err.println(); System.exit(1);
+		{
+			System.err.println("");
+			System.exit(1);
+		}
 		//try: fileOutput = new PrintWriter(outFile);
 		//catch: IOException; System.err.println(); System.exit(2)
+		//outFileName = inFileName.substring(0, inFileName.indexOf('.txt') + "-results.txt";
 		//call readFile
 		//call outputData
 	}
@@ -63,6 +84,8 @@ public class TeacherInfo
 	}
 	public void outputData()
 	{
+		//get class info 
+		
 		//for loop: 
 		//1. print class info to both 
 			//sift through class info; print out to both 
