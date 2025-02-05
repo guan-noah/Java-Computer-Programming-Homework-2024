@@ -4,7 +4,9 @@
  * Per. 6 Java w/ Mr. Yu
  * TeacherInfo.java
  * Program #40
- * Pseudocode: uploaded (on whiteboard! :D)\
+ * Pseudocode: uploaded (on whiteboard! :D)
+ more pseudocode/planning: use hasNext and hasNextDouble 
+keep on taking next() in until you reach keyword
  */
 
 import java.io.File;
