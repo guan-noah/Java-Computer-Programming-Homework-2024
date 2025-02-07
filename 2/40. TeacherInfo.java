@@ -1,42 +1,3 @@
-/* readFile early pseudocode 
-String indicator = fileInput.next().trim();					//get label in header 
-String nextWord = fileInput.next().trim();					//get actual info
-if (indicator.equalsIgnoreCase("Teacher:"))
-	teacherData[1] = nextWord;								//get the teacher name 
-else if (indicator.equalsIgnoreCase("Class:"))
-{
-	while(nextWord.charAt(nextWord.length()-1) != ':')
-	{
-		String className = fileInput.next();
-		teacherData[2] = nextWord.substring(0, indexOf('-'));//get everything before the dash
-	}
-}
-else if (indicator.equalsIgnoreCase("Scores:")
-{
-    
-    //continue scores analysis (enter scores)
-    if(fileInput.hasNextDouble())
-        nextScore = fileInput.nextDouble();
-    else
-        inBlock = false;
-}
-
-inBlock = ();
-
-general readFile pseudocode: 
-1. break up file in groups of header+body 
-    a. header = all data between "teacher: " and "scores: ", only need data in teacher: and class:
-2. in each header (getHeaderInfo): 
-    a. getTeacherName() 
-    b. getClassName()
-    c. getClassNumber()
-3. in each body, pull out data (getBodyInfo): 
-    a. get scores count (getScores)
-    b. keep going until next header starts 
-
-
-*/
-//TeacherInfo
 import java.io.File;
 import java.io.FileNotFoundException; 
 import java.io.PrintWriter;
@@ -91,18 +52,19 @@ public class TeacherInfo
 		outFileName = inFileName.substring(0, indexOf(".txt")) + 
 			"-results.txt";												//initialize outFile name to inFile name substringed 
 		
-		
 		File outFile = new File(outFileName);                           //d&i output file
+		
+		
 		//try: fileOutput = new PrintWriter(outFile);
 		//catch: IOException; System.err.println(); System.exit(2)
 		try
 		{
-            fileOutput = new PrintWriter(outFile);
+		    fileOutput = new PrintWriter(outFile);
 		}
 		catch(IOException)
 		{
-            System.err.println("");
-            System.exit(2);
+		    System.err.println("");
+		    System.exit(2);
 		}
 		
 		//outFileName = inFileName.substring(0, inFileName.indexOf('.txt') + "-results.txt";
@@ -155,15 +117,14 @@ inBlock = ();
 		//course header = look for defining text: a colon or smth
 		//special marks in header 
 		//use next() to avoid whitespace to get words 
-		String firstWord = fileInput.next(), nextWord = "";                     //for easier computing 
+		String firstWord = "";                                                   //for easier computing 
 		boolean inBlock = true;                                                 //need to edit so it actually does something
-		inBlock = (/*is after "teacher:" and nextWord is not "teacher:"*/);
-            //when you see "teacher:", you start it. when you see "scores:" 
-            //(end of the header), you stop it, marking end of header, then start it again. 
+		inBlock = (/*is in between "teacher:" and "scores:"*/);
+		    //when you see "teacher:", you start it. when you see "scores:", you stop it. 
 		while (inBlock && fileInput.hasNext())		                            //while inBlock and !endOfFile
 		{
-		    nextWord
-		    inBlock = (firstWord.equalsIgnoreCase("Teacher:") && !nextWord.equalsIgnoreCase("Scores:"));
+		    firstWord = fileInput.next();
+		    inBlock = (firstWord.equalsIgnoreCase("Teacher:") /*&& !lastWord.equalsIgnoreCase("scores:")*/);
 		    if(/*this is the class we want*/)
 		    {
     			getHeaderInfo();
@@ -211,7 +172,7 @@ inBlock = ();
     }
 	
 	
-	//misc. util method 1
+	//misc. util method 
 	public String getNextItem()											//assuming next item is before the word with a colon at the end 
 	{
 		String output = "";
@@ -222,25 +183,19 @@ inBlock = ();
 		}
 		return output;
 	}
-	//misc. util method 2
-	public boolean isInBetween(String word, String start, String end)
-	{
-	    //return ((file.indexOf(start) < file.indexOf(word)) && (file.indexOf(word) < file.indexOf(end)));
-	}
+	
 	
 	///huge method group 2
 	public void outputData()
 	{
 		//get class info 
 		
-		//for loop (all printing): 
-		//1. call toBoth(classInfo)
-			//sift through class info array; print out to both 
-		//2. call toTerminal(scores)
-			//print scores in format1
-		//3. call toFile(score "graph") 
-			//print scores in format2
-		//4. call toBoth(frequency table)
-		    //
+		//for loop: 
+		//1. print class info to both 
+			//sift through class info; print out to both 
+		//2. print scores to terminal 
+			//print scores 
+		//3. print score "graph" to file 
+			//print scores
+		//4. print frequency table to both 
 	}
-
