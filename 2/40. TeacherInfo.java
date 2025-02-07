@@ -36,6 +36,7 @@ general readFile pseudocode:
 
 
 */
+//TeacherInfo
 import java.io.File;
 import java.io.FileNotFoundException; 
 import java.io.PrintWriter;
@@ -108,7 +109,33 @@ public class TeacherInfo
 		//call readFile
 		//call outputData
 	}
-	/*
+/*
+String indicator = fileInput.next().trim();					//get label in header 
+String nextWord = fileInput.next().trim();					//get actual info
+if (indicator.equalsIgnoreCase("Teacher:"))
+	teacherData[1] = nextWord;								//get the teacher name 
+else if (indicator.equalsIgnoreCase("Class:"))
+{
+	while(nextWord.charAt(nextWord.length()-1) != ':')
+	{
+		String className = fileInput.next();
+		teacherData[2] = nextWord.substring(0, indexOf('-'));//get everything before the dash
+	}
+}
+else if (indicator.equalsIgnoreCase("Scores:")
+{
+    
+    //continue scores analysis (enter scores)
+    if(fileInput.hasNextDouble())
+        nextScore = fileInput.nextDouble();
+    else
+        inBlock = false;
+}
+
+inBlock = ();
+*/
+
+/* 
 1. break up file in groups of header+body 
     a. header = all data between "teacher: " and "scores: ", only need data in teacher: and class:
 2. in each header (getHeaderInfo): 
@@ -118,47 +145,47 @@ public class TeacherInfo
 3. in each body, pull out data (getBodyInfo): 
     a. get scores count (getScores)
     b. keep going until next header starts 
-    */
-    //huge method group 1 (also method group 1)
+*/
+    //huge method group 1
 	public void readFile()
 	{
+		//get name of teacher, course, and course # 
 		//break up file in groups of header + body 
 			//get all blocks of info using header as separation 
-		//course header = look for defining text (special marks in header): a colon or smth
-		//use next() to get words avoiding whitespace 
-		
-		String firstWord = fileInput.next(), nextWord = fileInput.next();       //for easier computing 
+		//course header = look for defining text: a colon or smth
+		//special marks in header 
+		//use next() to avoid whitespace to get words 
+		String firstWord = fileInput.next(), nextWord = "";                     //for easier computing 
 		boolean inBlock = true;                                                 //need to edit so it actually does something
 		inBlock = (/*is after "teacher:" and nextWord is not "teacher:"*/);
             //when you see "teacher:", you start it. when you see "scores:" 
             //(end of the header), you stop it, marking end of header, then start it again. 
 		while (inBlock && fileInput.hasNext())		                            //while inBlock and !endOfFile
 		{
-            nextWord = fileInput.next()
-            inBlock = (firstWord.equalsIgnoreCase("Teacher:") && 
-                !nextWord.equalsIgnoreCase("Scores:"));
-            if(/*this is the class we want*/)
-            {
-                nextWord = getHeaderInfo();
-                nextWord = getScores();
-            }
+		    nextWord
+		    inBlock = (firstWord.equalsIgnoreCase("Teacher:") && !nextWord.equalsIgnoreCase("Scores:"));
+		    if(/*this is the class we want*/)
+		    {
+    			getHeaderInfo();
+    			getScores();
+		    }
 		}
 		//once done with one block, keep checking until end of file 
 	}
 	//method group 2 
-	public void getHeaderInfo(String nextWord)
+	public void getHeaderInfo()
 	{
-        
-        //read through file until teacher name, course name, and course number 
+	    
+	    //search through file for course number 
 		//if no course, print no course 
+		//else: 
 	}
-	
-	//method group 3 & 3b
-	    //we assume at this point that the reader is right after "scores:"
-	public void getScores(nextWord)
+	//method group 3
+	//we assume at this point that the reader is right after "scores:"
+	public void getScores()
 	{
 	    //use nextDouble() to get scores, format it, and input into file 
-	    while(/*is after "scores:" and nextWord != "teacher:"*/)                         //function for method group 3b 
+	    while(/*in between "scores:" and next header*/)
 	    {
 	        int nextScore = Integer.parseInt(("" + 
     	        fileInput.nextDouble()).substring(0, indexOf('.')));
@@ -185,7 +212,7 @@ public class TeacherInfo
 	
 	
 	//misc. util method 1
-	public String getNextItem()											//assuming next item is after the word with a colon at the end 
+	public String getNextItem()											//assuming next item is before the word with a colon at the end 
 	{
 		String output = "";
 		String word = fileInput.next();
@@ -193,24 +220,12 @@ public class TeacherInfo
 		{
 			output = output + getNextItem();
 		}
-		return output;                                                  //if has a colon at the end, returns next word 
+		return output;
 	}
 	//misc. util method 2
 	public boolean isInBetween(String word, String start, String end)
 	{
-        String fileToString = "", nextWord = "";
-        //start copying file to string when nextWord = start, then stop when nextWord = end
-        while (!nextWord.equalsIgnoreCase(end))
-        {
-            nextWord = fileInput.next();
-            if(nextWord.equalsIgnoreCase)
-                fileToString.concat(nextWord + " ");
-        }
-        
-        //within fileToString, do String methods and return result 
-        return ((fileToString.indexOf(start) < fileToString.indexOf(word)) && 
-            (fileToString.indexOf(word) < fileToString.indexOf(end)));
-            //of course, given that the index of starts at the starting word and not a duplicate of it
+	    //return ((file.indexOf(start) < file.indexOf(word)) && (file.indexOf(word) < file.indexOf(end)));
 	}
 	
 	///huge method group 2
@@ -228,3 +243,4 @@ public class TeacherInfo
 		//4. call toBoth(frequency table)
 		    //
 	}
+
