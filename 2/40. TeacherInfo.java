@@ -132,40 +132,71 @@ class TeacherInfo
 		reading:
 		while (fileInput.hasNext())
 		{
-			String nextLine = fileInput.nextLine().trim();				//get actual info
+            String nextLine = "";
+            do
+            {
+                nextLine = fileInput.nextLine().trim();				//get actual info
+                /*
+                String test = fileInput.nextLine(); //this worked so it's not the fileInput's problem
+                System.out.println(test);
+                System.out.println("nextLine before check: |" + nextLine + "|");///testing print line
+                if(nextLine.equalsIgnoreCase(""))
+                    System.out.println("nextLine = \"\""); <-- this one 
+                else if(nextLine.equalsIgnoreCase(null))
+                    System.out.println("nextLine = null");
+                else if(nextLine.equalsIgnoreCase("\n"))
+                    System.out.println("nextLine = \\n");
+                else
+                    System.out.println("what is nextLine?");
+                System.out.println("|" + nextLine + "|" + String.valueOf(nextLine.equalsIgnoreCase("")));
+                */
+			}while(nextLine.equalsIgnoreCase(""));
+			System.out.println("nextLine: |" + nextLine + "|");
+			int lineSpace = nextLine.indexOf(' ');
+			System.out.println("lineSpace before check: |" + lineSpace + "|");  ///testing print line
+			if(lineSpace == -1)                                             //safeguard: if no space, the next word 
+			{
+                lineSpace = nextLine.length();
+			}
+			System.out.println("lineSpace after check: |" + lineSpace + "|");   ///testing print line
 			String indicator = getLabel(1, nextLine);					//get label in header, return indicator, space, and indicator index 
+			System.out.println("indicator before reformat: |" + indicator + "|");///testing print line
 			int space = indicator.indexOf(' ');
+			System.out.println("space (general) before check: |" + space + "|");///testing print line
 			if(space == -1)                                             //safeguard: if no space, the next word 
 			{
                 space = indicator.length();
 			}
-			indicator = indicator.substring(0, nextLine.indexOf(' ')); //just the actual word with the colon now 
+			System.out.println("space (general) after check: |" + space + "|");  ///testing print line
+			//convert getLabel return into indicator and indicator index 
+			System.out.println("nextLine: |" + nextLine + "|");                 ///testing print line 
+			System.out.println("indicator: |" + indicator + "|");               ///testing print line
+			indicator = indicator.substring(0, space); //just the actual word with the colon now 
 			int indicatorIndex = Integer.parseInt(indicator.substring(space + 1)); //index of indicator; use to get data (start at this point) 
 			
+			//get next indicator and data (in between indicator and next indicator)
 			String nextIndicator = getLabel(indicatorIndex, nextLine); //next indicator, for determining data (things between 2 indicators)
 			String data = "";
 			
 			if (nextIndicator.equals("no colon in line"))
-				data = nextLine.substring(nextLine.indexOf(indicator)).trim();//data after indicators
+				data = nextLine.substring((indicatorIndex + indicator.length()), nextLine.indexOf(nextIndicator)).trim();//data after indicators
 			else
 				data = nextLine.substring(nextLine.indexOf(indicator)).trim(); //safeguard: only initializes between if there are 2 (in this case, there is no next indicator)
 			
 			//start filtering data
 			if (indicator.equalsIgnoreCase("Teacher:"))
-				teacherData[1] = nextLine.substring(indicatorIndex);	//get the teacher name 
+				teacherData[1] = data;	//get the teacher name 
 			else if (indicator.equalsIgnoreCase("Class:"))
 			{
-				teacherData[2] = nextLine.substring(nextLine.indexOf(indicator), nextLine.indexOf('-'));
-					//get everything before the dash (course number)
+				teacherData[2] = data.substring(0, data.indexOf('-'));      //get everything before the dash (course number)
 			}
 			else if (indicator.equalsIgnoreCase("Course:"))
 			{
-				teacherData[0] = nextLine.substring(nextLine.indexOf(indicator));
+				teacherData[0] = data;
 			}
 			else if (indicator.equalsIgnoreCase("Scores:"))
 			{
-				//gather all scores! 
-				getScores(nextLine);
+				getScores(nextLine);                                        //gather all scores!
 			}
 			allCourseNums = allCourseNums + teacherData[2] + " ";
 			///note: this logic ensures that at one point, we had all the information given to us.
@@ -284,21 +315,21 @@ class TeacherInfo
             grades[4]++;
     }
 	
-	public String getLabel(int labelNum, String total)
+	public String getLabel(int startAt, String total)
 	{
 		//d&i indices of space 
 		int previous = 0; 
 		int next = total.indexOf(' ');
 		String nextWord = "";
 		//return item with colon: where it's found
-		for (labelNum = labelNum; labelNum < total.length(); labelNum++)
+		for (startAt = startAt; startAt < total.length(); startAt++)
 		{
 			nextWord = total.substring(previous, next);
 			previous = next; 
-			next = total.indexOf(' ', next);							//shift whole thing up 1 index of space 
+			next = total.indexOf(' ', (next + 1));							//shift whole thing up 1 index of space 
 			//start at labelNum then go through total and return anything 
 			if(contains(nextWord, ':'))
-				return nextWord + " " + labelNum; 
+				return nextWord + " " + total.indexOf(nextWord); //returns label (indicator), space, and starting index
 		}
 		return "no colon in line";
 	}
