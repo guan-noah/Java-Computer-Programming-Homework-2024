@@ -132,7 +132,7 @@ class ConstellationPanel extends Panel
 		
 		//~ polygon + 3 lines 
 		g.drawPolygon(dipperX, dipperY);
-		for(int i = 0; i < otherPoints.length() + 1;					//4 points, not 3 (last one is part of polygon) -- these lines most likely to throw an error for me
+		for(int i = 0; i < otherPoints.length() + 1; i++)				//4 points, not 3 (last one is part of polygon) -- these lines most likely to throw an error for me
 		{
 			int connectX = 0, connectY = 0, nextConnectX = 0, nextConnectY = 0;
 			connectX = otherPoints[i];
@@ -157,21 +157,24 @@ class ConstellationPanel extends Panel
 		g.setColor(Color.WHITE);										///change to Color.BLUE when not plan
 		g.fillOval(-10, -10, 90, 90);
 		
-		//~ Title the Big Dipper 
-		g.drawString("The Big Dipper", 150, height40, acrossto460_or_470);
+		//~ Title the Big Dipper (font and drawString)
+		Font titleFont = new Font("TimesNewRoman", Font.ITALIC, 40);	//height 40, should end at x ~~= 460 (eyeballed if not italicized) or ~~= 470 (italicized)
+		g.drawString("The Big Dipper", 150, 80);
 				
 		//~ draw box over Times New Roman italicized 
-		g.drawRects();
+		g.drawRects(140, 35, 480, 100);
 		
 		//~ oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
 		g.fillOval(0, 380, 630, 100);
+		//~ time to draw the rocket. 
+			//~ draw 2 filled triangles and a polygon 
 		
-		//~ draw 2 filled triangles and a polygon 
-		//~ draw an arc 
+			//~ draw an arc 
+		
 	}
 	public void drawPoints(Graphics g, int centerX, int centerY)
 	{
 		int shiftBack = - 5;											//Sam claims it was -8
-		g.fillOval(centerX + shiftBack, centerY + shiftBack, 2(shiftBack), 2(shiftBack), 0, 360);
+		g.fillOval((centerX + shiftBack), (centerY + shiftBack), (2*shiftBack), (2*shiftBack), 0, 360);
 	}
 }
