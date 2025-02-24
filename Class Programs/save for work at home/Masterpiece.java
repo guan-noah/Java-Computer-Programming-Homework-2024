@@ -37,9 +37,9 @@ public class Masterpiece
 	public static void main(String[] args)
 	{
 		Masterpiece m = new Masterpiece();
-		m.drawRocket();
+		m.drawMasterpiece();
 	}
-	public void drawRocket()
+	public void drawMasterpiece()
 	{
 		JFrame frame = new JFrame("Masterpiece.java");
 		int widthScalable = 1920*4/5;
@@ -59,42 +59,57 @@ class MasterpiecePanel extends JPanel
 	public MasterpiecePanel()
 	{
 		super.setBackground(Color.BLACK);
-		
 	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		
+		drawRocket(g, 0, 0);
+	}
+	public void drawRocket(Graphics g, int frameShiftX, int frameShiftY)
+	{
+		//make some colors! 
+		Color gridNumBlue = new Color(0, 255, 255);
+		Color brown = new Color(140, 60, 30);
 		
 		//draw the gridlines
-		g.setColor(Color.BLUE);
 		int gridCoord = 0;
 		int gridYCoord = 0;
 		for(int i = 0; i < 1000; i += 10)
 		{
-			g.drawLine(i, 0, i, 1000);
-			g.drawLine(0, i, 1000, i);
+			g.setColor(gridNumBlue);
+			if((i/10)%2 == 0)
+				g.drawString("" + i, i, 10);							//the x coordinates (columns)
+			else
+				g.drawString("" + i, i + 5, 20);						//to shift everything down so you can actually read it
+			g.drawString("" + i, 5, i);									//the y coordinates (rows)
+			
+			g.setColor(Color.BLUE);
+			g.drawLine(i, 0, i, 1000);									//x coords (column)
+			g.drawLine(0, i, 1000, i);									//y coords (rows)
 		}
-		g.setColor(Color.WHITE);
+		g.setColor(Color.WHITE);										//change color when done 
 		
 		//draw the body outline arcs 
 			//radius is 170 
-		g.drawArc(-190, -70, (2*170), 2*170, 45, -90);
-		g.drawArc(10, -70, (2*170), 2*170, 135, 90);
+		g.drawArc(frameShiftX-190, frameShiftY-70, (2*170), 2*170, 45, -90);
+		g.drawArc(frameShiftX+10, frameShiftY-70, (2*170), 2*170, 135, 90);
 		
 		//finish body outline 
 			//lines from (80, -40something) to (60, -20) and (100, -20)
 			//arc radius = 20(root2)
-		g.drawLine(80, -45, 60, -20);
-		g.drawLine(80, -45, -100, -20);
-		g.drawArc((int)(80 - 20*Math.sqrt(2)), (int)(-20*Math.sqrt(2)), 
+		g.drawLine(frameShiftX+80, frameShiftY-45, 60, -20);
+		g.drawLine(frameShiftX+80, frameShiftY-45, -100, -20);
+		g.drawArc(frameShiftX+(int)(80 - 20*Math.sqrt(2)), frameShiftY+(int)(-20*Math.sqrt(2)), 
 			(int)(40*Math.sqrt(2)), (int)(40*Math.sqrt(2)), 45, 90);
-				///editor's note: let's assume that this works and move on for now
+				///editor's note: let's assume that this works and move on for now (you currently can't see it; it's at the top)
 		g.drawLine(60, 220, 100, 220);
 		drawPoly(g, new int[] {60, 80, 100, 80}, new int[] {220, 230, 220, 210});
-		//~ g.drawLine(60, 220, 80, 230);
-		//~ g.drawLine(80, 230, 100, 220);
-		
+		/* //~ ...this polygon takes care of: 
+		g.drawLine(60, 220, 80, 230);
+		g.drawLine(80, 230, 100, 220);
+		//~ for tip of rocket 
+		*/
 		//draw the central carrier lines 
 			//x = 60 and x = 100 
 		g.drawLine(60, 20, 60, 180);
@@ -117,6 +132,7 @@ class MasterpiecePanel extends JPanel
 		{
 			g.drawArc(60, 140+10*i, 40, 160-20*i, 0, -180);
 		}
+		
 		//(60, 220), (80, 220) mark the lengths 
 		//80 down from 220
 		g.drawArc(30, 140, 40, 160, 0, -180);
