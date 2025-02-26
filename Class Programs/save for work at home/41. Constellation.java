@@ -104,77 +104,37 @@ class ConstellationPanel extends Panel
 			g.drawLines(0, i, 1000, i);
 			g.drawLines(i, 0, i, 1000);
 		}
-		//~ store crucial connection points (for polygonic drawings)
-		
-		int[] dipperX = new int[] {360, 540, 560, 400};
-		int[] dipperY = new int[] {220, 140, 240, 300};
-		int[] otherPointsX = new int[] {40, 180, 240};
-		int[] otherPointsY = new int[] {240, 180, 200};
-		
 		//~ draw circles denoting constellation connection points 
-		g.setColor(Color.BLACK);
-		
-		for(int i = 0; i < dipperX.length; i++);						//for loop to iterate through int arrays essentially removes the need for input of several points
-		{
-			drawPoints(g, dipperX[i], dipperY[i]);						//for-each (enhanced for) loop would not work (because we need coords x AND y) and we haven't learned that yet
-			if (i < otherPoints.length)									//uses .length to make it flexible if we were to change 
-				drawPoints(g, otherPointsX[i], otherPointsY[i]);
-		}
-		/* //~ this is what I mean: 
 		drawPoints(g, 40, 240);
 		drawPoints(g, 180, 180);
 		drawPoints(g, 240, 200);
 		drawPoints(g, 360, 220);										//this marks the start of the quadrilateral polygon (onwards)
-		drawPoints(g, 540, 140);										//could technically use the integers to be faster
-		drawPoints(g, 560, 240);
-		drawPoints(g, 400, 300);
-		*/
+		drawPoints(g, 
 		
 		//~ polygon + 3 lines 
-		g.drawPolygon(dipperX, dipperY);
-		for(int i = 0; i < otherPoints.length() + 1; i++)				//4 points, not 3 (last one is part of polygon) -- these lines most likely to throw an error for me
-		{
-			int connectX = 0, connectY = 0, nextConnectX = 0, nextConnectY = 0;
-			connectX = otherPoints[i];
-			connectY = otherPoints[i];
-			if(i < otherPoints.length - 1)								//-1 ensures that otherPoints[i+1] does not throw ArrayIndexOutOfBounds error
-			{
-				nextConnectX = otherPoints[i+1];
-				nextConnectY = otherPoints[i+1];
-			}
-			else 														//i = otherPoints.length - 1
-			{
-				nextConnectX = dipperX[0];
-				nextConnectY = dipperY[0];
-			}
-			
-			g.drawLines(connectX, connectY, nextConnectX, nextConnectY);
-		}
+		g.drawPolygon();
+		g.drawLines();
+		g.drawLines();
+		g.drawLines();
 		
 		//~ 2 circles for moon (1 white, covers 1 yellow) 
-		g.setColor(Color.YELLOW);
-		g.fillOval(0, 0, 110, 110);
-		g.setColor(Color.WHITE);										///change to Color.BLUE when not plan
-		g.fillOval(-10, -10, 90, 90);
+		g.fillOval();
+		g.fillOval();
 		
-		//~ Title the Big Dipper (font and drawString)
-		Font titleFont = new Font("TimesNewRoman", Font.ITALIC, 40);	//height 40, should end at x ~~= 460 (eyeballed if not italicized) or ~~= 470 (italicized)
-		g.drawString("The Big Dipper", 150, 80);
+		//~ Title the Big Dipper 
+		g.drawString();
 				
 		//~ draw box over Times New Roman italicized 
-		g.drawRects(140, 35, 480, 100);
+		g.drawRects();
 		
 		//~ oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
 		g.fillOval(0, 380, 630, 100);
-		//~ time to draw the rocket. 
-			//~ draw 2 filled triangles and a polygon 
 		
-			//~ draw an arc 
-		
+		//~ draw 2 filled triangles and a polygon 
+		//~ draw an arc 
 	}
 	public void drawPoints(Graphics g, int centerX, int centerY)
 	{
-		int shiftBack = - 5;											//Sam claims it was -8
-		g.fillOval((centerX + shiftBack), (centerY + shiftBack), (2*shiftBack), (2*shiftBack), 0, 360);
+		g.gdrawOval(centerX - 
 	}
 }
