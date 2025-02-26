@@ -69,14 +69,12 @@ public class Constellation
 		ConstellationPanel cPanel = new ConstellationPanel();
 		frame.setContentPane(cPanel);
 		frame.setVisible(true);
-		System.out.println("\nhi :)");
 	}
 }
 class ConstellationPanel extends JPanel
 {
 	public ConstellationPanel()
 	{
-		//~ super.setBackground(Color.WHITE);
 		super.setBackground(Color.BLUE);
 	}
 	public void paintComponent(Graphics g)
@@ -91,22 +89,6 @@ class ConstellationPanel extends JPanel
 		Color gridNumBlue = new Color(0, 255, 255);
 		Color gridTextBlue = new Color(0, 155, 155);
 		
-		//~ make grid (for loop)
-		for(int i = 0; i < 1000; i+=10)
-		{
-			if (i%100 == 0)
-			{
-				g.setColor(gridNumBlue);
-				if((i/10)%2 == 0)
-					g.drawString("" + i, i-10, 10);						//the x coordinates (columns) -- -10 to make it in line
-				else
-					g.drawString("" + i, i-10, 20);						//to shift everything down so you can actually read it
-				g.drawString("" + i, 5, i+5);							//the y coordinates (rows) -- +5 to make it line up in the middle 
-			}
-			g.setColor(gridTextBlue);
-			g.drawLine(0, i, 1000, i);
-			g.drawLine(i, 0, i, 1000);
-		}
 		
 		//~ store crucial connection points (for polygonic drawings)
 		
@@ -116,12 +98,12 @@ class ConstellationPanel extends JPanel
 		int[] otherPointsY = new int[] {240, 180, 200};
 		
 		//~ draw circles denoting constellation connection points 
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		
 		for(int i = 0; i < dipperX.length; i++)							//for loop to iterate through int arrays essentially removes the need for input of several points
 		{
 			drawPoints(g, dipperX[i], dipperY[i]);						//for-each (enhanced for) loop would not work (because we need coords x AND y) and we haven't learned that yet
-			if (i < otherPointsX.length)									//uses .length to make it flexible if we were to change 
+			if (i < otherPointsX.length)								//uses .length to make it flexible if we were to change 
 				drawPoints(g, otherPointsX[i], otherPointsY[i]);
 		}
 		/* //~ this is what I mean: 
@@ -155,31 +137,38 @@ class ConstellationPanel extends JPanel
 			g.drawLine(connectX, connectY, nextConnectX, nextConnectY);
 		}
 		
-		//~ 2 circles for moon (1 white, covers 1 yellow) 
-		g.setColor(Color.YELLOW);
-		g.fillOval(0, 0, 110, 110);
-		g.setColor(Color.WHITE);										///change to Color.BLUE when not plan
-		g.fillOval(-10, -10, 110, 110);
-		
 		//~ Title the Big Dipper (font and drawString)
+		g.setColor(Color.WHITE);
 		Font titleFont = new Font("Times New Roman", Font.ITALIC, 47);	//height ~~= 40, should end at x ~~= 460 (eyeballed if not italicized) or ~~= 470 (italicized)
 		g.setFont(titleFont);
 		g.drawString("The Big Dipper", 150, 80);
-				
+		
 		//~ draw box over Times New Roman italicized 
 		g.drawRect(140, 35, (480-140), (100-35));						//delta length: ending coordinates - beginning coordinates
 		
+		//~ 2 circles for moon (1 white, covers 1 yellow) 
+		g.setColor(Color.YELLOW);
+		g.fillOval(-5, -5, 110, 110);
+		g.setColor(Color.BLUE);
+		g.fillOval(-25, -25, 110, 110);
+		
 		//~ oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
+		g.setColor(brown);
 		g.fillOval(0, 380, 630, 100);
 		//~ time to draw the rocket. 
 			//~ draw 2 filled triangles and a polygon 
-		
-			//~ draw an arc 
-		
+		g.setColor(Color.RED);
+		g.fillArc(33, 331, 50, 50, 190, 20); 							//72, 355 center, 17 radius
+		g.fillArc(38, 346, 50, 50, 190, 20);							//74, 370 center, 17 radius 
+			//~ draw an arc and spaceship polygon 
+		g.drawArc(0, 341, 630, 100, 0, 125);
+		int[] xArr = new int[] {140, 120, 65, 57, 110};
+		int[] yArr = new int[] {350, 370, 380, 345, 336};
+		g.drawPolygon(xArr, yArr, 5);
 	}
 	public void drawPoints(Graphics g, int centerX, int centerY)
 	{
-		int shiftBack = - 8;											//Sam claims it was -8
-		g.fillOval((centerX + shiftBack), (centerY + shiftBack), (2*shiftBack), (2*shiftBack));
+		int shiftBack = - 5;											//Sam claims it was -8
+		g.fillOval((centerX + shiftBack), (centerY + shiftBack), (-2*shiftBack), (-2*shiftBack));
 	}
 }
