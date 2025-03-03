@@ -46,43 +46,60 @@ import java.awt.Graphics;
 import java.awt.Font;
 //import javax.swing.*;
 //import java.awt.*;
-public class Constellation
+public class Constellation2
 {
-	public Constellation()
+	public Constellation2()
 	{
 		
 	}
 	public static void main(String[] args)
 	{
-		Constellation consta = new Constellation();
-		consta.drawConstellationPanel();
+		Constellation2 consta = new Constellation2();
+		consta.drawConstellation2Panel();
 	}
-	public void drawConstellationPanel()
+	public void drawConstellation2Panel()
 	{
 		JFrame frame = new JFrame("The Big Dipper");
 		int widthScalable = 1920*4/5;
 		int heightScalable = (1080-50)*4/5;								//1920 x 1080 screen with a 50 px toolbar
+		int xFrameSize = 630;
+		int yFrameSize = 450; 
 		frame.setSize(630, 450);										
 		frame.setLocation(widthScalable-630, heightScalable-450);		//sets it to the perfect screen edge (plus 50 to give space for toolbar)
 		//frame.setLocation(1320, 530);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);		
-		ConstellationPanel cPanel = new ConstellationPanel();
+		Constellation2Panel cPanel = new Constellation2Panel();
 		frame.setContentPane(cPanel);
 		frame.setVisible(true);
 	}
 }
-class ConstellationPanel extends JPanel
+class Constellation2Panel extends JPanel
 {
-	public ConstellationPanel()
+	private int[] frameSizes;
+	public Constellation2Panel()
 	{
 		super.setBackground(Color.BLUE);
+	}
+	public Constellation2Panel(int xFrameSizeIn, int yFrameSizeIn)
+	{
+		frameSizes[0] = xFrameSizeIn;
+		frameSizes[1] = yFrameSizeIn;
+		Constellation2Panel();
 	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		drawConstellation(g, 0, 0);										//frameshifts 
+		for(int x = 0; x < 4*frameSizes[0]; x+=frameSizes[0])
+		{
+			for(int y = 0; y < 4*frameSizes[1]; y+=frameSizes[1])
+			{
+				/* draw Constellation with both x and y scaled down by 4 */
+				
+			}
+		}
+		//drawConstellation2(g, 0, 0, 1);									//frameshifts 0; original code 
 	}
-	public void drawConstellation(Graphics g, int fsx, int fsy)			//frameShiftX, frameShiftY
+	public void drawConstellation2(Graphics g, int fsx, int fsy, int dB)//frameShiftX, frameShiftY, divideBy
 	{
 		//~ d&i colors (already have Color.RED, Color.YELLOW, Color.BLUE)
 		Color brown = new Color(140, 60, 30);
@@ -92,10 +109,10 @@ class ConstellationPanel extends JPanel
 		
 		//~ store crucial connection points (for polygonic drawings)
 		
-		int[] dipperX = new int[] {360, 540, 560, 400};
-		int[] dipperY = new int[] {220, 140, 240, 300};
-		int[] otherPointsX = new int[] {40, 180, 240};
-		int[] otherPointsY = new int[] {240, 180, 200};
+		int[] dipperX = new int[] {360/dB+fsx, 540/dB+fsx, 560/dB+fsx, 400/dB+fsx};
+		int[] dipperY = new int[] {220/dB+fsx, 140/dB+fsx, 240/dB+fsx, 300/dB+fsx};
+		int[] otherPointsX = new int[] {40/dB+fsx, 180/dB+fsx, 240/dB+fsx};
+		int[] otherPointsY = new int[] {240/dB+fsx, 180/dB+fsx, 200/dB+fsx};
 		
 		//~ draw circles denoting constellation connection points 
 		g.setColor(Color.WHITE);
@@ -144,7 +161,7 @@ class ConstellationPanel extends JPanel
 		g.drawString("The Big Dipper", 150, 80);
 		
 		//~ draw box over Times New Roman italicized 
-		g.drawRect(140, 35, (480-140), (100-35));						//delta length: ending coordinates - beginning coordinates
+		g.drawRect(140, 35, (480-140)/dB+fsx, (100-35)/dB+fsy);						//delta length: ending coordinates - beginning coordinates
 		
 		//~ 2 circles for moon (1 white, covers 1 yellow) 
 		g.setColor(Color.YELLOW);
@@ -152,16 +169,16 @@ class ConstellationPanel extends JPanel
 		g.setColor(Color.BLUE);
 		g.fillOval(-25, -25, 110, 110);
 		
-		//~ oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
+		//~ half an oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
 		g.setColor(brown);
-		g.fillOval(0, 380, 630, 100);
+		g.fillArc(0, 380, 630, 100/dB+fsx, 0, 180);
 		//~ time to draw the rocket. 
 			//~ draw 2 filled triangles and a polygon 
 		g.setColor(Color.RED);
 		g.fillArc(33, 331, 50, 50, 190, 20); 							//72, 355 center, 17 radius
 		g.fillArc(38, 346, 50, 50, 190, 20);							//74, 370 center, 17 radius 
 			//~ draw an arc and spaceship polygon 
-		g.drawArc(0, 341, 630, 100, 0, 125);
+		g.drawArc(0, 341, 630, 100/dB+fsx, 0, 125);
 		int[] xArr = new int[] {140, 120, 65, 57, 110};
 		int[] yArr = new int[] {350, 370, 380, 345, 336};
 		g.drawPolygon(xArr, yArr, 5);
