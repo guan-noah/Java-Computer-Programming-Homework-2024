@@ -1,8 +1,8 @@
-//Constellation.java
+//Constellation2.java
 /* Noah Guan
  * 01-31-2025
  * Per. 6 Java w/ Mr. Yu
- * Constellation.java
+ * Constellation2.java
  * Program #41
  * Pseudocode: (comments outlined; I built my program on the comments) 
 
