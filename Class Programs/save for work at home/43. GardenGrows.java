@@ -70,7 +70,7 @@ class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotion
 		{
 			g.setColor(Color.PINK);//draw garden pink
 		}
-		g.drawRect(gardenInfo[0], gardenInfo[1], gardenInfo[2], gardenInfo[3]);//actually draw the garden 
+		g.fillRect(gardenInfo[0], gardenInfo[1], gardenInfo[2], gardenInfo[3]);//actually draw the garden 
 	}
 	public void showFlowers(Graphics g)
 	{
