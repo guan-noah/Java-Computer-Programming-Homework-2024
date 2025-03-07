@@ -1,8 +1,8 @@
-//Constellation2.java
+//Constellation.java
 /* Noah Guan
- * 02-28-2025
+ * 01-31-2025
  * Per. 6 Java w/ Mr. Yu
- * Constellation2.java
+ * Constellation.java
  * Program #41
  * Pseudocode: (comments outlined; I built my program on the comments) 
 
@@ -62,76 +62,69 @@ public class Constellation2
 		JFrame frame = new JFrame("The Big Dipper");
 		int widthScalable = 1920*4/5;
 		int heightScalable = (1080-50)*4/5;								//1920 x 1080 screen with a 50 px toolbar
-		int xFrameSize = 630;
-		int yFrameSize = 450; 
-		frame.setSize(630, 450);										
-		frame.setLocation(widthScalable-630, heightScalable-450);		//sets it to the perfect screen edge (plus 50 to give space for toolbar)
+		int xSize = (630+50*3);
+		int ySize = (450+50*3);
+		frame.setSize(xSize, ySize);										
+		frame.setLocation(widthScalable-xSize, heightScalable-ySize);	//sets it to the perfect screen edge (plus 50 to give space for toolbar)
 		//frame.setLocation(1320, 530);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);		
-		Constellation2Panel cPanel = new Constellation2Panel();
-		frame.setContentPane(cPanel);
+		Constellation2Panel c2Panel = new Constellation2Panel();
+		frame.setContentPane(c2Panel);
 		frame.setVisible(true);
 	}
 }
 class Constellation2Panel extends JPanel
 {
-	private int[] frameSizes;
 	public Constellation2Panel()
 	{
 		super.setBackground(Color.BLUE);
 	}
-	public Constellation2Panel(int xFrameSizeIn, int yFrameSizeIn)
-	{
-		frameSizes[0] = xFrameSizeIn;
-		frameSizes[1] = yFrameSizeIn;
-		Constellation2Panel();
-	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		for(int x = 0; x < 4*frameSizes[0]; x+=frameSizes[0])
+		
+		for(int x = 0; x < (630+200); x+=(630/4))
 		{
-			for(int y = 0; y < 4*frameSizes[1]; y+=frameSizes[1])
+			for(int y = 0; y < (450+200); y+=(450/4))
 			{
-				/* draw Constellation with both x and y scaled down by 4 */
-				
+				g.setColor(Color.RED);
+				g.drawRect(x, y, 630/4, 450/4);
+				g.setColor(Color.WHITE);
+				drawConstellation(g, 4, x, y);							//frameshifts 
+				y+=50;
 			}
+			x+=50;
 		}
-		//drawConstellation2(g, 0, 0, 1);									//frameshifts 0; original code 
+		
 	}
-	public void drawConstellation2(Graphics g, int fsx, int fsy, int dB)//frameShiftX, frameShiftY, divideBy
+	public int sN(int coord, int scaleNumIn, int shift)					//scaleNumbers
+	{
+		return (coord/scaleNumIn+shift);
+	}
+	public void drawConstellation(Graphics g, int sN, int shiftX, int shiftY)//scaleNum, frameShiftX, frameShiftY 
 	{
 		//~ d&i colors (already have Color.RED, Color.YELLOW, Color.BLUE)
 		Color brown = new Color(140, 60, 30);
 		Color gridNumBlue = new Color(0, 255, 255);
 		Color gridTextBlue = new Color(0, 155, 155);
 		
+		//~ store all points in format s### (shift###) or sn### (shiftNegative###) or s###m### (shift(###-###))
 		
 		//~ store crucial connection points (for polygonic drawings)
-		
-		int[] dipperX = new int[] {360/dB+fsx, 540/dB+fsx, 560/dB+fsx, 400/dB+fsx};
-		int[] dipperY = new int[] {220/dB+fsx, 140/dB+fsx, 240/dB+fsx, 300/dB+fsx};
-		int[] otherPointsX = new int[] {40/dB+fsx, 180/dB+fsx, 240/dB+fsx};
-		int[] otherPointsY = new int[] {240/dB+fsx, 180/dB+fsx, 200/dB+fsx};
+		int[] dipperX = new int[] {sN(360, sN, shiftX), sN(540, sN, shiftX), sN(560, sN, shiftX), sN(400, sN, shiftX)};
+		int[] dipperY = new int[] {sN(220, sN, shiftY), sN(140, sN, shiftY), sN(240, sN, shiftY), sN(300, sN, shiftY)};
+		int[] otherPointsX = new int[] {sN(40, sN, shiftX), sN(180, sN, shiftX), sN(240, sN, shiftX)};
+		int[] otherPointsY = new int[] {sN(240, sN, shiftY), sN(180, sN, shiftY), sN(200, sN, shiftY)};
 		
 		//~ draw circles denoting constellation connection points 
 		g.setColor(Color.WHITE);
 		
 		for(int i = 0; i < dipperX.length; i++)							//for loop to iterate through int arrays essentially removes the need for input of several points
 		{
-			drawPoints(g, dipperX[i], dipperY[i]);						//for-each (enhanced for) loop would not work (because we need coords x AND y) and we haven't learned that yet
+			drawPoints(g, dipperX[i], dipperY[i], sN, shiftX, shiftY);						
 			if (i < otherPointsX.length)								//uses .length to make it flexible if we were to change 
-				drawPoints(g, otherPointsX[i], otherPointsY[i]);
+				drawPoints(g, otherPointsX[i], otherPointsY[i], sN, shiftX, shiftY);
 		}
-		/* //~ this is what I mean: 
-		drawPoints(g, 40, 240);
-		drawPoints(g, 180, 180);
-		drawPoints(g, 240, 200);
-		drawPoints(g, 360, 220);										//this marks the start of the quadrilateral polygon (onwards)
-		drawPoints(g, 540, 140);										//could technically use the integers to be faster
-		drawPoints(g, 560, 240);
-		drawPoints(g, 400, 300);
-		*/
 		
 		//~ polygon + 3 lines 
 		g.drawPolygon(dipperX, dipperY, 4);
@@ -156,36 +149,45 @@ class Constellation2Panel extends JPanel
 		
 		//~ Title the Big Dipper (font and drawString)
 		g.setColor(Color.WHITE);
-		Font titleFont = new Font("Times New Roman", Font.ITALIC, 47);	//height ~~= 40, should end at x ~~= 460 (eyeballed if not italicized) or ~~= 470 (italicized)
+		Font titleFont = new Font("Times New Roman", Font.ITALIC, sN(47, sN, 0));
+																		//height ~~= 40, should end at x ~~= 460 (eyeballed if not italicized) or ~~= 470 (italicized)
 		g.setFont(titleFont);
-		g.drawString("The Big Dipper", 150, 80);
+		g.drawString("The Big Dipper", sN(150, sN, shiftX), sN(80, sN, shiftY));
 		
 		//~ draw box over Times New Roman italicized 
-		g.drawRect(140, 35, (480-140)/dB+fsx, (100-35)/dB+fsy);						//delta length: ending coordinates - beginning coordinates
+		g.drawRect(sN(140, sN, shiftX), sN(35, sN, shiftY), sN(480-140, sN, 0), sN(100-35, sN, 0));
+																		//delta length: ending coordinates - beginning coordinates
 		
 		//~ 2 circles for moon (1 white, covers 1 yellow) 
 		g.setColor(Color.YELLOW);
-		g.fillOval(-5, -5, 110, 110);
+		g.fillOval(sN(-5, sN, shiftX), sN(-5, sN, shiftY), sN(110, sN, 0), sN(110, sN, 0));
 		g.setColor(Color.BLUE);
-		g.fillOval(-25, -25, 110, 110);
+		g.fillOval(sN(-5, sN, shiftX), sN(-25, sN, shiftY), sN(110, sN, 0), sN(110, sN, 0));
 		
-		//~ half an oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
+		
+		//~ oval filled in the bottom (note: example picture's oval (half) ends at 430), supposed to end at 480
 		g.setColor(brown);
-		g.fillArc(0, 380, 630, 100/dB+fsx, 0, 180);
+		g.fillArc(sN(0, sN, shiftX), sN(380, sN, shiftY), sN(630, sN, 0), sN(100, sN, 0), 0, 180);
+		
 		//~ time to draw the rocket. 
 			//~ draw 2 filled triangles and a polygon 
 		g.setColor(Color.RED);
-		g.fillArc(33, 331, 50, 50, 190, 20); 							//72, 355 center, 17 radius
-		g.fillArc(38, 346, 50, 50, 190, 20);							//74, 370 center, 17 radius 
-			//~ draw an arc and spaceship polygon 
-		g.drawArc(0, 341, 630, 100/dB+fsx, 0, 125);
-		int[] xArr = new int[] {140, 120, 65, 57, 110};
-		int[] yArr = new int[] {350, 370, 380, 345, 336};
+		g.fillArc(sN(33, sN, shiftX), sN(331, sN, shiftY), sN(50, sN, shiftX), sN(50, sN, shiftY), 190, 20); 
+			//72, 355 center, 17 radius
+		g.fillArc(sN(38, sN, shiftX), sN(346, sN, shiftY), sN(50, sN, shiftX), sN(50, sN, shiftY), 190, 20);
+			//74, 370 center, 17 radius 
+		
+		//~ draw an arc and spaceship polygon 
+		g.drawArc(sN(0, sN, shiftX), sN(341, sN, shiftY), sN(630, sN, shiftX), sN(100, sN, shiftY), 0, 125);//arc
+		int[] xArr = new int[] {sN(140, sN, shiftX), sN(120, sN, shiftX), sN(65, sN, shiftX), sN(57, sN, shiftX), sN(110, sN, shiftX)};
+		int[] yArr = new int[] {sN(350, sN, shiftY), sN(370, sN, shiftY), sN(380, sN, shiftY), sN(345, sN, shiftY), sN(336, sN, shiftY)};
 		g.drawPolygon(xArr, yArr, 5);
+		g.drawString("hi", 40, 40);
+		
 	}
-	public void drawPoints(Graphics g, int centerX, int centerY)
+	public void drawPoints(Graphics g, int centerX, int centerY, int sN, int shiftX, int shiftY)
 	{
-		int shiftBack = - 5;											//Sam claims it was -8
-		g.fillOval((centerX + shiftBack), (centerY + shiftBack), (-2*shiftBack), (-2*shiftBack));
+		//int shiftBack = sN(-5, sN, shiftX);								//Sam claims it was -8
+		g.fillOval((centerX + sN(-5, sN, shiftX)), (centerY + sN(-5, sN, shiftY)), (-2*sN), (-2*sN));
 	}
 }
