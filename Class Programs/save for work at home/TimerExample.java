@@ -1,5 +1,5 @@
 // Noah Guan
-// Date:
+// Date: 3/10/2025
 // TimerExample.java
 // This program demonstrates a simple timer animation with a bouncing ball.
 
@@ -69,9 +69,11 @@ class DrawPanel extends JPanel
 	//
 	private class Mover implements ActionListener, MouseListener, KeyListener
 	{
+		public boolean control;
 		public Mover()
 		{
-			addMouseListener(this); // add the listener			
+			addMouseListener(this); // add the listener	
+			requestFocusInWindow();		
 		}
 
 		public void actionPerformed(ActionEvent evt)
@@ -92,7 +94,7 @@ class DrawPanel extends JPanel
 				left = false; 
 				x++; 
 			}
-		
+			
 			// moves the ball up and down
 			if (!up && y < getHeight()-50) 
 				y++;
@@ -116,24 +118,43 @@ class DrawPanel extends JPanel
 		//////////////////// MouseListener methods/////////////////////////
 		public void mousePressed(MouseEvent evt)
 		{
+			requestFocusInWindow();
+			int xLoc = evt.getX();
+			int yLoc = evt.getY();
+			
+			control = (xLoc > x && xLoc < x+50 && yLoc > y && yLoc < y+50);
+				//if user clicked the circle, control = true 
+				//if user clicked the circle and then clicked outside, control = true 
+				//control is only false if user clicks circle again 
+			
+		 }
+	 
+		public void mouseReleased(MouseEvent evt){}
+		public void mouseClicked(MouseEvent evt)
+		{
+			requestFocusInWindow();
 			count++;
-			if(count%2 == 1)
+			/*
+			System.out.println("" + count);
+			if(control)
+				System.out.println("\tcontrol = true");
+			else
+				System.out.println("\tcontrol = false");
+			*/
+			
+			if(count%2 == 1 || !control)								//when count is odd, timer stops 
 			{	
-				//if(control)
+				if(control)
 					timer.stop();
-				
 				timer.setDelay(50);
 			}
 			else
 			{
-				//if(control)
+				if(control)
 					timer.start();
 				timer.setDelay(5);
 			}
-		 }
-	 
-		public void mouseReleased(MouseEvent evt){}
-		public void mouseClicked(MouseEvent evt){}
+		}
 		public void mouseEntered(MouseEvent evt){}
 		public void mouseExited(MouseEvent evt){}
 
@@ -142,31 +163,26 @@ class DrawPanel extends JPanel
 		{
 			if(evt.getKeyCode() == KeyEvent.VK_UP && y > 0)
 			{
-				up = true;
+				y -= 20;
+				System.out.println("up = true");
 			}
-			else 
-				up = false;
-			
-			if(evt.getKeyCode() == KeyEvent.VK_DOWN && y < getHeight() - 50)
+			else if(evt.getKeyCode() == KeyEvent.VK_DOWN && y < getHeight() - 50)
 			{
-				up = false;
+				y += 20;
+				System.out.println("up = false");
 			}
-			else 
-				up = true;
-			
-			if(evt.getKeyCode() == KeyEvent.VK_LEFT && x > 0)
+			else if(evt.getKeyCode() == KeyEvent.VK_LEFT && x > 0)
 			{
-				left = true;
+				x -= 20;
+				System.out.println("left = true");
 			}
-			else 
-				left = false;
-			
-			if(evt.getKeyCode() == KeyEvent.VK_RIGHT && x < getWidth() - 50)
+			else if(evt.getKeyCode() == KeyEvent.VK_RIGHT && x < getWidth() - 50)
 			{
-				left = false;
+				x += 20;
+				System.out.println("left = false");
 			}
 			else 
-				left = true;
+				System.out.println("should not be here");
 		}
 		public void keyReleased(KeyEvent evt){}
 		public void keyTyped(KeyEvent evt){}
