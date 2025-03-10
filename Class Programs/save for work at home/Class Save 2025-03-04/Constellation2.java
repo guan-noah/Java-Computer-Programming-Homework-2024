@@ -62,8 +62,8 @@ public class Constellation2
 		JFrame frame = new JFrame("The Big Dipper");
 		int widthScalable = 1920*4/5;
 		int heightScalable = (1080-50)*4/5;								//1920 x 1080 screen with a 50 px toolbar
-		int xSize = (630+50*3);
-		int ySize = (450+50*3);
+		int xSize = (630+50*4);
+		int ySize = (450+50*4);
 		frame.setSize(xSize, ySize);										
 		frame.setLocation(widthScalable-xSize, heightScalable-ySize);	//sets it to the perfect screen edge (plus 50 to give space for toolbar)
 		//frame.setLocation(1320, 530);
@@ -82,13 +82,14 @@ class Constellation2Panel extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		
-		for(int x = 0; x < (630+200); x+=(630/4))
+		int width = 630/4;
+		int height = 450/4;
+		for(int x = 0; x < (630+200); x+=width)
 		{
-			for(int y = 0; y < (450+200); y+=(450/4))
+			for(int y = 0; y < (450+200); y+=height)
 			{
 				g.setColor(Color.RED);
-				g.drawRect(x, y, 630/4, 450/4);
+				g.drawRect(x, y, width, height);
 				g.setColor(Color.WHITE);
 				drawConstellation(g, 4, x, y);							//frameshifts 
 				y+=50;
@@ -172,18 +173,20 @@ class Constellation2Panel extends JPanel
 		//~ time to draw the rocket. 
 			//~ draw 2 filled triangles and a polygon 
 		g.setColor(Color.RED);
-		g.fillArc(sN(33, sN, shiftX), sN(331, sN, shiftY), sN(50, sN, shiftX), sN(50, sN, shiftY), 190, 20); 
+		g.fillArc(sN(33, sN, shiftX), sN(331, sN, shiftY), sN(50, sN, 0), sN(50, sN, 0), 190, 20); 
 			//72, 355 center, 17 radius
-		g.fillArc(sN(38, sN, shiftX), sN(346, sN, shiftY), sN(50, sN, shiftX), sN(50, sN, shiftY), 190, 20);
+		g.fillArc(sN(38, sN, shiftX), sN(346, sN, shiftY), sN(50, sN, 0), sN(50, sN, 0), 190, 20);
 			//74, 370 center, 17 radius 
 		
 		//~ draw an arc and spaceship polygon 
-		g.drawArc(sN(0, sN, shiftX), sN(341, sN, shiftY), sN(630, sN, shiftX), sN(100, sN, shiftY), 0, 125);//arc
+		g.drawArc(sN(0, sN, shiftX), sN(341, sN, shiftY), sN(630, sN, 0), sN(100, sN, 0), 0, 125);//arc
 		int[] xArr = new int[] {sN(140, sN, shiftX), sN(120, sN, shiftX), sN(65, sN, shiftX), sN(57, sN, shiftX), sN(110, sN, shiftX)};
 		int[] yArr = new int[] {sN(350, sN, shiftY), sN(370, sN, shiftY), sN(380, sN, shiftY), sN(345, sN, shiftY), sN(336, sN, shiftY)};
 		g.drawPolygon(xArr, yArr, 5);
-		g.drawString("hi", 40, 40);
+		//g.drawString("hi", 40, 40);
 		
+		//example ovals 
+		g.setColor(Color.BLACK);
 	}
 	public void drawPoints(Graphics g, int centerX, int centerY, int sN, int shiftX, int shiftY)
 	{
