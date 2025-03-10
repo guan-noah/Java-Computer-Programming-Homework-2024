@@ -39,9 +39,10 @@ public class GardenGrows
 		frame.setLocation(10, 10);
 		frame.setSize(1200, 700);										//garden in middle with 
 		frame.setResizable(true);
-		JPanel garden = new JPanel();
+		Garden garden = new Garden();
 		frame.setContentPane(garden);
 		frame.setVisible(true);
+		//System.out.println("ran");
 	}
 }
 class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotionListener
@@ -53,40 +54,60 @@ class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotion
 		water = false;
 		flowers = false;
 		requestFocusInWindow();
+		this.addMouseListener(this);
+		this.addKeyListener(this);
+		//setBackground(new Color(0, 0, 0));//turn surrounding area black
+		System.out.println("constructor");
 	}
 	public void paintComponent(Graphics g)
 	{
+		super.paintComponent(g);
 		drawGarden(g);
-		showFlowers(g);
 	}
 	public void drawGarden(Graphics g)
 	{
-		int[] gardenInfo = new int[] {100, 100, 1000, 500};
+		int[] gardenInfo = new int[] {50, 50, 1000, 500};
 		if (water)														//
-		{
 			g.setColor(Color.GREEN);//draw garden green
-		}
 		else
-		{
 			g.setColor(Color.PINK);//draw garden pink
-		}
+		
+		//System.out.println("gardenSizes: "+gardenInfo[0]+", "+gardenInfo[1]+", "+gardenInfo[2]+", "+gardenInfo[3]);
 		g.fillRect(gardenInfo[0], gardenInfo[1], gardenInfo[2], gardenInfo[3]);//actually draw the garden 
+		showFlowers(g, gardenInfo[0], gardenInfo[2], gardenInfo[3]);
 	}
-	public void showFlowers(Graphics g)
+	public void showFlowers(Graphics g, int gardenStart, int gardenWidth, int gardenHeight)
 	{
-		if(flowers)														//
+		System.out.println("in showFlowers: flowers = "+flowers);
+		if(flowers && water)											//
 		{
+			System.out.println("showing flowers before loops: ");
 			g.setColor(Color.YELLOW);
 			//draw 5 x 3 circles in nested for loop (50 x 50 px, 200 px between)
 			int circleDiameter = 50; 
-			int space = 200;
-			for (int x = 0; x < 5; x++)
+			int overlap = 25;
+			int space = 200-2*overlap;									//one overlap per circle "sandwich"ing it 
+			int howManyAcross = 5;
+			int howManyDown = 3;
+			double xFlowerBox = (double)(howManyAcross*circleDiameter+(howManyAcross-1)*space);
+			double yFlowerBox = (double)howManyDown*circleDiameter+(howManyDown-1)*space;
+			if(xFlowerBox > gardenWidth)
+				g.drawString("Error: flowerBox width is greater than garden.", 10, 10);
+			if(yFlowerBox > gardenWidth)
+				g.drawString("Error: flowerBox height is greater than garden.", 10, 10);
+			System.out.println("xFlower: "+xFlowerBox+"yFlower:"+yFlowerBox);
+			
+			int xStartFrom = (int)(gardenStart+(gardenWidth-xFlowerBox)/2);//make sure that startFrom follows garden sizes 
+			int yStartFrom = (int)(gardenStart+(gardenHeight-yFlowerBox)/2);//... and that startFrom is centered correctly 
+			System.out.println("x: "+xStartFrom+"y: "+yStartFrom);
+			
+			for (int x = 0; x < howManyAcross; x++)						//make it adjustable
 			{
-				for (int y = 0; x < 3; y++)
+				for (int y = 0; y < howManyDown; y++)					//make it adjustable
 				{
-					g.fillOval(150+(circleDiameter + space)*x, (150+circleDiameter + space)*y, circleDiameter, circleDiameter);				
+					g.fillOval(xStartFrom+(space)*x, yStartFrom+(space)*y, circleDiameter, circleDiameter);				
 				}
-			}
+			}System.out.println("flowers shown.");
 		}
 		//else do nothing 
 	}
@@ -99,6 +120,10 @@ class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotion
 		
 		clicked = ((mouseX >= 100 && mouseX <= 1100) && (mouseY >= 100 && mouseY <= 600));
 			//~ bool clicked = if in range 
+		if(clicked)
+		{
+			requestFocusInWindow();System.out.println("clicked.");
+		}
 		
 		repaint();
 	}
@@ -111,13 +136,37 @@ class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotion
 	
 	public void keyPressed(KeyEvent evt) 
 	{
-		if (clicked)
-			flowers = (evt.getKeyCode() == KeyEvent.VK_UP);
+		requestFocusInWindow();
+		System.out.println("clicked: " + clicked + " watered" + water);
+		if (clicked && water)
+		{
+			if(evt.getKeyCode() == KeyEvent.VK_UP)
+			{
+				flowers = true; System.out.println("flowered");
+				clicked = false;
+			}
+			//else flowers = flowers 
+		}
+		repaint();
 	}
 	public void keyTyped(KeyEvent evt)
 	{
+		char charIn = evt.getKeyChar();
 		if(clicked)
-			water = (evt.getKeyChar() == '%');
+		{
+			if(charIn == '%'&&!water)
+			{
+				water = true;System.out.println("watered.");
+				clicked = false;
+			}
+		}
+		if(charIn == ' ')
+		{
+			flowers = false;
+			water = false;
+		}
+		//else flowers = flowers; water = water
+		repaint();
 	}
 	public void keyReleased(KeyEvent evt) {}
 }
