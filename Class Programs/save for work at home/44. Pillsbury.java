@@ -12,7 +12,6 @@
 // 3.  print string when button is pressed
 //these 5 are for drawing the pillsbury file 
 import java.awt.Image;
-import java.awt.Graphics;
 
 import java.io.File;
 import java.io.IOException;
