@@ -46,6 +46,7 @@ public class AllComponentExample
 		ce.makeThem();
 	}
 	
+	//panel holder 
 	public void makeThem() 
 	{
 		// Create a frame to hold everything
@@ -80,9 +81,11 @@ public class AllComponentExample
 		makeCheckBoxes(east);
 		
 		// JTextField & JTextArea
+		//~ /*
 		JLabel jl3 = new JLabel("Text Inputs");
 		jl3.setFont(new Font("Serif", Font.BOLD, 20));
 		south.add(jl3);
+		//~ */
 		textField1 = new JTextField("I'm a JTextField", 20); // take out the 20.  Did it change? Why?
 		textField1.setEditable(true);
 		south.add(textField1);
@@ -100,7 +103,7 @@ public class AllComponentExample
 		jl4.setFont(new Font("Serif", Font.BOLD, 20));
 		west.add(jl4, BorderLayout.NORTH);
 
-		JMenuBar calendarBar = makCalendarMenuBar();
+		JMenuBar calendarBar = makeCalendarMenuBar();
 		west.add(calendarBar, BorderLayout.CENTER);	 // Change CENTER to SOUTH and see how 
 													// the look changes.
 		// To help you play with it, comment out line west.add(calendarBar, BorderLayout.CENTER);	
@@ -154,7 +157,7 @@ public class AllComponentExample
 		eastIn.add(checkBox2);
 	}
 	
-	public JMenuBar makCalendarMenuBar()
+	public JMenuBar makeCalendarMenuBar()
 	{
 		JMenuBar bar = new JMenuBar();
 		JMenu calendar = new JMenu("Calendar");
