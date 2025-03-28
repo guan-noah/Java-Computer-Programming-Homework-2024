@@ -136,7 +136,6 @@ class Garden extends JPanel implements MouseListener, KeyListener//, MouseMotion
 	
 	public void keyPressed(KeyEvent evt) 
 	{
-		requestFocusInWindow();
 		System.out.println("clicked: " + clicked + " watered" + water);
 		if (clicked && water)
 		{
