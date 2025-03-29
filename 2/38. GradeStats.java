@@ -4,452 +4,335 @@
  * Per. 6 Java w/ Mr. Yu
  * GradeStats.java
  * Program #38
- * Pseudocode: 
-main 
-	d&i new instance of gradestats 
-	instance.calculateIt 
-calculateIt //essentially the run method (diff.name)
-	print 3 lines 
-	do 
-		print welcome (header and intro) 
-		<call printInfo (<call getInfo(<call getScores>)>)>
-	while (<call> util method(userPlaying, "", ""))
-	print 3 lines
-	
-	public boolean onlyHas(String function, String intOrDouble, String checkThrough)
-	{
-		if (Boolean.parseBoolean(calculateIt("onlyHas", info1, toReturn)))
-		{
-			return toReturn;
-		}
-			//will have to Double.parseDouble(getInput("prompt", "int")) to return double 
-		else 
-		{
-			System.out.println("Error: Received other data type when " + 
-				"expected " + intOrDouble + 
-				"\n\tfunction: " + function + 
-				"\n\tinfo1: " + info1 + 
-				"\n\tinfo2: " + info2 + 
-				"\n\t(Your number will be stored as \'0.0\')");
-			return ("" + 0);
-				//will still have to parse double
-		}
-	}
-	
-String[] getInfo (String[] scoresIn
-	
-String[] calcScoresUnder75Perc (int[] scoresIn) //returns a list of all scores under 75 percent 
-	//shorten and combine these 2 arrays later in a return String array
-	int[] under75 = int[scoresIn.length];
-	int[] indexNumFoundAt = int[scoresIn.length];
-	//initialize the under75 int values to 0
-	int i = 0; //reusable index var 
-	int u75i = 0; //under75Index
-	while(i < scoresIn.length)
-	{
-		if scoresIn[i] < 75 
-		{
-			//initialize under75 to the score + 1 then increment (go to the next one)
-			under75[u75i] = scoresIn[i] + 1;
-			indexNumFoundAt[u75i] = i;
-			u75i++;
-		}
-		i++;	
-	}
-	
-	//print user data 
-	for (int i = 0; i < scoresIn.length;)
-		print(Here is the data you entered: Student #i's score: scoresIn[i]-1)
-	
-	//find actual length of under75 array by removing all units in array that are still 0 
-	int realLength = 0;
-	for(i = 0; i < under75.length; i++)
-	{
-		(under75[i])--;
-		//System.out.println(under75[i]);
-		if (under75[i] >= 0)
-		{
-			realLength++; 
-		}
-	}
-	String[] rSA = String[realLength];
-		//returnStringArray; d&i rSA (returnStringArray) to actual length to remove extra spaces 
-		//initialize rSA to that score and the index number found at separated by a space
-	for (u75i = 0; u75i < scoresIn.length; u75i++)
-	{
-		if (u75[i]-1 < 0)
-		rSA[u75i] = "" + under75[u75i] + " " + i;
-	}
-	return rSA; //return the number and the index found at
-	
-max(int[] scores, int iNI) //iNI=indexNumIn, assumes second number is the next indexNum 
-	if(iNI == scores.length-1)
-		return Math.max(firstScore, secondScore); //the max num of index and num after index
-
-int[] min(int[] remScoresIn, iNI, nextSmall) // better name = getLeastValue(), return the least value and the index found at input = remaining scores needed sorting
-	int i = 0; here our friend is again 
-	int least; //first num returned 
-	int foundAt; 
-	
-	while(i < remScoresIn.length) //needs to run through whole array to get least value 
-		if(i == scores.length-1)
-			least = nextSmall;
-		else 
-			least = Math.min(nextSmall, remScoresIn[fINI]); //the min of them 
-			foundAt = iNI; 
-		//compare nextSmall to the next num; if the next num is smaller, store the next number in remSmall and store the index in foundAt. 
-		//initialize number being swapped out to swapNum, initialize next smallest num to the next place 
-		i++;
-	return (int[] {least, foundAt})
-		//note: boolean-like system, where (int)true = 1and (int)false = 0.
-double avg (int[] finalScores)
-	int totalNum = 0;
-	for (int i = 0; i < finalScores.length; i++)
-	{
-		totalNum += finalScores[i];
-	}
-	return ((double)(totalNum/scores.length))
-orderNums
-	int i = 0; //index again 
-	int nextSmall; //the next (remaining) smallest number left 
-	int foundAt; //smallest num found at index __ 
-	int swapNum; //holder for remaining num 
-	int[] holdMin; //transfer variable
-	//if scores[i] = 0
-	while (scores is unsorted) //outer 
-		holdMin = min(1)
-		scores[i] = min(i)
-		
-	
-median(int[] finalScores)
-	if (finalScores.length%2=0)
-		return (finalScores[scores.length/2-1]+scores[scores.length/2])/2; //take the middle 2 nums and divide by 2 
-	else //odd 
-		return (finalScores[scores.length/2]); //take the middle num
-
-Sample run.		User input in bold.
-< prompt info – make it clear! >
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		95
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		65
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		70
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		78
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		85
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		77
-Type in	the	score.		Type	“Quit”	to	end	the	program	-->		QuiT
-Here is the data you entered:
-Student 1’s score:       95
-Student 2’s score:       65
-Student 3’s score:       70
-Student 4’s score:       78
-Student 5’s score:       85
-Student 6’s score:       77
-There were 2 students who scored below 75%: student 2, student 3.
-Number of scores: 6
-Minimum: 65
-Maximum: 95
-Average: 78.3
-Median: 77.5
+ * Pseudocode/Instructions: 
+Program GradeStats.java
+- Print out the data, showing the student number and corresponding score.
+- Print which students had a score below 75%.
+- Then find the following statistics and print them:
+  - Number of scores,
+  - Minimum,
+- Maximum,
+- Average score,
+- Median score, and 
+- For either the minimum or the maximum, use a Math method. For the other one, do not use a 
+Math method.
+- How to compute the median score.
+- The median score is the number where half of the scores are above it and half are 
+below it. First, you need to put the scores in order from smallest to greatest. 
+If the number of scores is odd, then it is the middle number. If the number 
+of scores is even, it is the average of the two middle numbers.
+- Do this last. Get everything else working first. This is a bit more involved.
+Follow the formatting given in the sample run. If there are 10 scores (or any two digit 
+number), the scores (or data) should begin at the same place for each line. Why did I include 
+that? Two digit numbers need one more space than one digit numbers, which can shift the rest 
+of the line!  When necessary, round to the nearest tenth.
+Remember to break down your code with methods that are short and do what the method 
+name states.  In addition to the standard methods such as main, a method to call the others, 
+getting the user input, and printing the required information, you will have separate methods
+to calculate the
+- scores below 75%, 
+- max,
+- min, 
+- average, 
+- order the numbers (which is needed to find the median) and 
+- median.
+Do the methods in this order, i.e. write the max/min methods before you put the numbers in 
+order to find the median. All printing will be done in the printing method(s), not the methods 
+that do the calculations.
+- Work an example out on paper before starting (using any reasonable data that is not the 
+example provided). This will be turned along with your pseudocode.
 */
 import java.util.Scanner;
-class Main
+public class Main
 {
-	public static void main(String args[])
-	{
-		GradeStats g = new GradeStats();
-		g.calculateIt("run", "GradeStats", "having fun");
-	}
+    public static void main(String[] args) 
+    {
+        /*
+        OldGradeStats o = new OldGradeStats();
+        o.run();
+        */
+        GradeStats gs = new GradeStats();
+        gs.calculateIt("run", "GradeStats", "essentially takes in your grades, " + 
+            "formats and outputs them with extra data. " + 
+            "It takes in your grades and enters them into an array." + 
+			"\n\tThen, it will output the number of students who scored below 75%, " + 
+			"the number of scores, the minimum score, the maximum score, the " + 
+			"average score, and the median score.");
+    }
 }
-
 class GradeStats
 {
-	public GradeStats()
-	{
-		//nothing
-	}
-	public static void main(String args[])
-	{
-		GradeStats gs = new GradeStats();
-		gs.calculateIt("run", "GradeStats", "essentially takes in your grades, formats and outputs them with extra data. " + 
-			"It takes in your grades and enters them into an array." + 
-			"\n\tThen, it will output the number of students who scored below 75%, " + 
-			"the number of scores, the minimum score, the maximum score, the average score, and the median score.");
-	}
-public int[] getScores()
-{
-	String storeUserInput = "";
-	String nextUserInput = ""; 
-		//for getting user input in a manageable fashion 
-	int[] scores = new int[Integer.parseInt(calculateIt("getInput", "int", 
-		"How many scores would you like to calculate for?"))];
-	boolean userStop = false; 
-		//stop gathering input when this is true 
-	do
-	{
-		storeUserInput = storeUserInput + nextUserInput + " | ";
-			//store the next score (first one will start it off
-		nextUserInput = calculateIt("getInput", "next", "Please enter " + 
-			"your next score (enter \"Quit\" to stop): \t");
-				//get the next score 
-		userStop = nextUserInput.equalsIgnoreCase("quit");
-			//stop it when user enters quit 
-	}while(!userStop);
-	
-	//d&i scoresAndI (stands for "scores and index", the return string) 
-	int[] scoresAndI = new int[scores.length]; 
-	//next and previous index of space; this is to get the number order 
-		//skips over the 1st 3 chars (starts at the 4th) because the 1st 3 are buffers 
-	int pIOB = 3;
-		//previous index of bar 
-	int nIOB = storeUserInput.indexOf("|", 3);
-		//next index of bar 
-	for (int i = 0; i < scores.length; i++)
-	{
-		scoresAndI[i] = Integer.parseInt(storeUserInput.substring(pIOB, nIOB));
-			//declare scoresAndI to user input, then space, then index number, 
-				//then ';' followed by a new line
-		pIOB = nIOB; 
-			//the "previous one" now starts at the previous "next one"
-		nIOB = storeUserInput.indexOf("|", (nIOB + 1));
-			//the "next one" now starts at the next space after the previous "next one"
-	}
-	return scores;
-		//at this point you're returning all of the user scores (unsorted)
-}
-public int[] calcScoresUnder75Perc(int[] scoresIn, String function, int exp, int max) 
-	//also a sorting method; sorting works when they input function correctly (start with )
-{
-		if (function.equalsIgnoreCase("getMax")) 
-		{
-			// Find the maximum value in the array
-			for (int num = 0; num < scoresIn.length; num++)//for (int num : scoresIn) 
-			{
-				max = Math.max(max, scoresIn[num]);
-			}
-			return new int[] {max};
-		} 
-		else if (function.equalsIgnoreCase("countingSort")) 
-		{
-			// counting sort based on the current exponent
-			int[] output = new int[scoresIn.length];
-			int[] count = new int[10];
-			
-			// count how many times each digit shows up
-			for (int num : scoresIn) 
-			{
-				int digit = (num / exp) % 10;
-				count[digit]++;
-			}
-			
-			// update count array to store total cumulative sums
-			for (int i = 1; i < 10; i++) 
-			{
-				count[i] += count[i - 1];
-			}
-			
-			// build output array in sorted order
-			for (int i = scoresIn.length - 1; i >= 0; i--) 
-			{
-				int digit = (scoresIn[i] / exp) % 10;
-				output[count[digit] - 1] = scoresIn[i];
-				count[digit]--;
-			}
-			
-			// copy sorted values back into original array
-			for (int i = 0; i < scoresIn.length; i++) 
-			{
-				scoresIn[i] = output[i];
-			}
-			return scoresIn;
-		}
-		else if (function.equalsIgnoreCase("radixSort")) 
-		{
-			// radix sort: uses countingSort & getMax operations
-			int[] getMax = calcScoresUnder75Perc("getMax", scoresIn, 0, 0);
-			int maxVal = getMax[0]; 
-			
-			int exponent = 1;
-			int[] output = new int[scoresIn.length];
-				//make new output var the same length as scoresIn 
-			while (maxVal / exponent > 0) 
-			{
-				output = calcScoresUnder75Perc("countingSort", scoresIn, exponent, 0);
-				exponent *= 10;
-			}
-			return output;
-		}
-		else if (function.equalsIgnoreCase("myRadix")
-		{
-			int pow = 1;
-			int maxVal = max(scoresIn, true);
-			int[] output = new int[scoresIn.length];
-				//make new output var the same length as scoresIn 
-			//sort by 1s, then 10s, then 100s 
-			while (maxVal / exponent > 0)
-			{
-				//countSort(an array of the first numbers, maxVal);
-			}
-			
-		}
-		else if (function.equalsIgnoreCase("countSort"))
-		{
-			int[] countArr = new int[maxVal];
-			int[] inputArr = new int[scoresIn.length];
-			for (int i = 0; i < output.length; i++)
-			{
-				outputArray[ countArr[ scoresIn[i] ] - 1] = inputArray[i];
-				countArr[ scoresIn[i] ]  = countArr[ scoresIn[i] ]--;
-			}
-		}
-		else if (function.equalsIgnoreCase("get array under 75 percent"))
-		{
-			for (int outer = 0; outer < scoresIn.length; outer++)
-			{
-				if (scoresIn[outer] < 75)
-				{
-					int[] under75 = new int[scoresIn.length-outer];
-					int[] indices = new int[under75.length];
-					for (int inner = 0; inner < under75.length; inner++)
-					{
-						under75[inner] = scoresIn[outer+inner];
-						indices[inner] = outer; 
-						
-					}
-					int[] outputArray = new int[1+2*(under75.length)];
-						//waste of space because we're not allowed 2D arrays 
-					outputArray[1] = under75.length + 1;
-						//first num = last index number where it switches 
-					//initialize outputArray
-					for (int i = 1; i < outputArray.length; i++)
-					{
-						if (i <= outputArray[1])
-						{
-							outputArray[i] = under75[i];
-						}
-						else //if (i > outputArray[1])
-						{
-							outputArray[i] = indices[i];
-						}
-					}
-					return outputArray;
-				}
-			}
-		}
-		else
-		{
-			System.out.println("Error: Unrecognized calcScoresUnder75Perc " + 
-				"parameter (returned empty array)" + 
-				"\n\tscoresIn: " + scoresIn + 
-				"\n\tinfo1: " + function + 
-				"\n\texp: " + exp + 
-				"\n\tmax: " + max + 
-				"\n\t(Your number will be stored as \'0\')");
-				//notify that we returned empty array 
-			return new int[0];
-		}
-		
-		
-		//if it gets here I did something very wrong or the computer broke
-		System.out.println("the computer broke. (end of calcScoresUnder75Perc method)");
-		return new int[0];
-}
-
-public int[] min(String function, int[] remScoresIn, int iNI, int nextSmall, int lSFA) 
-	// better name = getLeastValue(), return the least value and the index found at 
-	//input: remaining scores needed sorting, index num in, the previous small number, lastSmallFoundAt
-{
-	int least = 0; //first num returned; will be reinitialized
-	int foundAt = remScoresIn.length - 1; //initialize foundAt to last item 
-	
-	int i = 0; //here our friend is again 
-	while(i < remScoresIn.length) //needs to run through whole array to get least value 
-	{
-		if(i == remScoresIn.length-1)
-		{
-			least = nextSmall;
-			foundAt = lSFA; 
-		}
-		else 
-		{
-			least = Math.min(nextSmall, remScoresIn[iNI]); //the min of them 
-			foundAt = iNI; 
-		}
-		//compare nextSmall to the next num; if the next num is smaller, store the next number in remSmall and store the index in foundAt. 
-		//initialize number being swapped out to swapNum, initialize next smallest num to the next place 
-		i++;
-	}
-	return (new int[] {least, foundAt});
-		//note: boolean-like system, where (int)true = 1and (int)false = 0.
-}
-
-public int max(int[] scores, boolean functionIsMax) //used to be (irrelevant now): iNI=indexNumIn, assumes second number is the next indexNum 
-{
-	int iNum = 0;
-	int boundary = 0;
-	for(iNum = 0; iNum < scores.length; iNum++)
-	{
-		if(iNum != scores.length-1)
-		{
-			if(functionIsMax)
-				boundary = Math.max(scores[iNum], scores[iNum + 1]); //the max num of index and num after index 
-			else
-				boundary = Math.min(scores[iNum], scores[iNum + 1]); 
-		}
-	}
-	return boundary;
-}
-
-public int median(int[] finalScores)
-{
-	if (finalScores.length % 2 == 0)
-		return (finalScores[finalScores.length/2-1]+finalScores[finalScores.length/2])/2; //take the middle 2 nums and divide by 2 
-	else //odd 
-		return (finalScores[finalScores.length/2]); //take the middle num
-}
-
-public void printInfo(String operation, int[] fSI) // finalScoresIn; 
-{
-	if (operation.equalsIgnoreCase("print"))
-	{
-		System.out.println("Here is the data you entered: ");
-		for (int i = 0; i < fSI.length; i++)
-		{
-			System.out.printf("Student " + (i+1) + "'s score:%7d\n", fSI[i]);
-		}
-		String studentsU75 = "";
-			//for students under 75; append students 
-		for (int i = 0; i < fSI.length; i++)
-		{
-			if (fSI[i] < 75)
-			{
-				studentsU75 += ("student " + i + ", ");
-			}
-			if (i == fSI.length - 1) //the last one 
-			{
-				studentsU75 = studentsU75.substring(0, fSI.length - 2);
-					//taking off the comma and the space at the end 
-			}
-		}
-		System.out.printf("There were " + calcScoresUnder75Perc(fSI, "operation", 0, 0) + 
-			"students who scored below 75%: " + studentsU75);
-		System.out.println("Here is the data you entered: ");
-		//get data in for loop 
-		int average = 0; 
-		for(int i = 0; i < fSI.length; i++)
-		{
-			System.out.printf("Student " + i + "'s score:%9s\n", fSI[i]);
-			average += fSI[i];
-		}
-		average = average/fSI.length;
-		
-		//print out rest of data 
-		System.out.println("Number of scores: " + fSI.length);
-		System.out.println("Minimum: " + max(fSI, false));
-		System.out.println("Maximum: " + max(fSI, true));
-		System.out.println("Average: " + average);
-		System.out.println("Median: " + median(fSI));
-	}
-}
-	public String calculateIt(String function, String info1, String info2)
+    /*
+    public void run()
+    {
+        int[] scores = getScores();
+        calcResults(scores);
+    }
+    */
+    public void calcResults(int[] scoresIn)                                     //
+    {
+        //print everywhere
+        //prints out all scores 
+        /*
+        for(int i: scoresIn)
+            System.out.print(i + "\t");
+        */
+        int[] sorted = mergeSort("mergeSort", scoresIn, null, null);
+        int minNum = getMin(sorted);
+        int maxNum = getMax(sorted);
+        double average = getAverage(sorted);
+        double median = getMedian(sorted);
+        int[] under75 = getUnder75(sorted);
+        printResults(scoresIn, sorted, minNum, maxNum, average, median, under75);
+    }
+    public void printResults(int[] scoresIn, int[] sortedIn, int min, int max, double averageIn, double medianIn, int[] u75In)
+    {
+        System.out.println("Here is the data you entered: ");
+        for(int i = 0; i < scoresIn.length; i++)
+        {
+            System.out.println("Student " + (i+1) + "'s score:\t" + scoresIn[i]);
+        }
+        System.out.println();
+        
+        System.out.print("There were " + u75In.length + " students who scored below 75%:");
+        for(int i = 0; i < u75In.length; i++)
+        {
+            System.out.print(" student " + (u75In[i]+1));
+            if(i != u75In.length-1)                                             //not the last value
+                System.out.print(",");
+            else
+                System.out.print(".");
+        }
+        System.out.println("\n");
+        
+        int[] finalOutputInts = new int[] {scoresIn.length, min, max};
+        String[] finalOutputLabels = new String[] {"Number of scores:", "Minimum",
+            "Maximum:", "Average:", "Median:"};
+        int firstFew = 0;
+        for(firstFew = 0; firstFew < finalOutputInts.length; firstFew++)
+            System.out.printf("%-20s" + finalOutputInts[firstFew] + "\n", finalOutputLabels[firstFew]);
+        
+        double[] finalOutputDoubles = new double[] {averageIn, medianIn};
+        for(int finish = 0; finish < finalOutputDoubles.length; finish++)
+            System.out.printf("%-20s%,-30.1f\n", finalOutputLabels[firstFew + finish], finalOutputDoubles[finish]);
+        
+    }
+    public int getMax(int[] sortedArray)
+    {
+        return sortedArray[sortedArray.length-1];
+    }
+    public int getMin(int[] sortedArray)
+    {
+        return sortedArray[0];
+    }
+    public double getMedian(int[] sortedArray)
+    {
+        if(sortedArray.length%2==0)                                             //even number of scores
+            return ((double)(sortedArray[(sortedArray.length-1)/2]) + sortedArray[sortedArray.length/2])/2;
+                //avg. of middle 2 nums
+        else                                                                    //odd number of scores
+            return sortedArray[sortedArray.length/2];
+    }
+    public double getAverage(int[] sortedArray)
+    {
+        int total = 0;
+        for(int i = 0; i < sortedArray.length; i++)
+        {
+            total += sortedArray[i];
+        }
+        return ((double)(total)/sortedArray.length);
+        
+    }
+    public int[] getUnder75(int[] scoresIn)
+    {
+        int u75length = 0;
+        for(int i = 0; i < scoresIn.length; i++)//7
+        {
+            if(scoresIn[i] <= 75)
+                u75length++;
+        }
+        
+        int outputIndex = 0;
+        int[] output = new int[u75length];
+        for(int i = 0; i < scoresIn.length; i++)
+        {
+            if(scoresIn[i] <= 75)
+            {
+                output[outputIndex++] = i;                                      //gets the value at its own index
+            }
+        }
+        return output;
+    }
+    
+    // method to sort an array using Merge Sort
+    private int[] mergeSort(String function, int[] array, int[] left, int[] right) 
+    {
+        if (function.equalsIgnoreCase("mergeSort"))
+        {
+            if (array.length <= 1) 
+            {
+                return array; // Base case: Already sorted
+            }
+            
+            int mid = array.length / 2;
+            
+            // manually create left and right subarrays
+            int[] leftfv = new int[mid];
+            int[] rightfv = new int[array.length - mid];
+            
+            for (int i = 0; i < mid; i++) 
+            {
+                leftfv[i] = array[i]; // Copy left half
+            }
+            for (int i = mid; i < array.length; i++) 
+            {
+                rightfv[i - mid] = array[i]; // copy right half
+            }
+            
+            // recursively sort both halves
+            leftfv = mergeSort("mergeSort", leftfv, null, null);
+            rightfv = mergeSort("mergeSort", rightfv, null, null);
+            
+            // merge sorted halves and return result
+            return mergeSort("merge", null, leftfv, rightfv);
+        }
+        else if(function.equalsIgnoreCase("merge"))                             //only using 2 sorted arrays
+        {
+            int[] result = new int[left.length + right.length];
+            int i = 0, j = 0, k = 0;
+            
+            // merge array elements while both halves have elements
+            while (i < left.length && j < right.length) 
+            {
+                if (left[i] <= right[j]) 
+                {
+                    result[k++] = left[i++];
+                } else 
+                {
+                    result[k++] = right[j++];
+                }
+            }
+            
+            // copy remaining elements from left (if any)
+            while (i < left.length) 
+            {
+                result[k++] = left[i++];
+            }
+            
+            // copy remaining elements from right (if any)
+            while (j < right.length) 
+            {
+                result[k++] = right[j++];
+            }
+            
+            return result;
+        }
+        else
+        {
+            System.out.println("mergeSort Error: unrecognized function parameter" + 
+				"\n\tfunction: " + function + 
+				"\n\tarray: " + array.toString() + 
+				"\n\tleft: " + left.toString() + 
+				"\n\tright: " + right.toString() + 
+				"\n\t(Your array will be stored as null)");
+			return null;
+        }
+    }
+    
+    public int[] getScores()
+    {
+        /*
+        int[] scores = new int[Integer.parseInt(calculateIt("getInput", "int", 
+            "How many scores would you like to calculate for?"))];
+            //d&i scores to user input
+        */
+        String storeUserInput = "";                                             //all user input 
+        String nextUserInput = "";                                              //adds onto all user input one at a time 
+            //for getting user input in a manageable fashion 
+        boolean userStop = false; 
+            //stop gathering input when this is true 
+        int numOfItems = 0;
+        do
+        {
+            nextUserInput = calculateIt("getInput", "double", "Please enter " + 
+                "your next score (enter \"Quit\" to stop): \t");               //get next score 
+            storeUserInput = storeUserInput + "|" + nextUserInput;              //concat next score (first one will start it off)
+            userStop = nextUserInput.equalsIgnoreCase("quit");                  //stop when user enters quit 
+            numOfItems++;
+        }while(!userStop);
+        numOfItems--;
+        if(numOfItems == 0)
+            return new int[0];
+        storeUserInput = storeUserInput.substring(1, storeUserInput.lastIndexOf("|"));
+            //cuts off first "|" and last "|quit"
+        //System.out.println("Your scores: " + storeUserInput);
+        
+        //d&i scoreLength 
+        int scoreLength = 0;
+        String total = new String(storeUserInput);
+        for(int i = 0; i < total.length(); i++)                                 //iterate through string
+        {
+            if(total.charAt(i) == '|')                                          //if there is still a char in total 
+            {
+                //increment output (signifying one item) and shorten total to trimmed length
+                //System.out.println();
+                scoreLength++;
+                if(!(total.trim().length() == 1 && total.charAt(0) == '|'))     //charIn isn't the last char in total
+                    total.substring(total.indexOf('|') + 1);
+                else
+                    total = "";
+            }
+        }
+        
+        //d&i score, the return int[]
+        int[] score = new int[++scoreLength];                                   //adds the last item
+        for (int i = 0; i < score.length; i++)
+        {
+            score[i] = Integer.parseInt(storeUserInput.substring(0, storeUserInput.indexOf('.')));
+                //declare score to user input
+            storeUserInput = storeUserInput.substring(storeUserInput.indexOf('|') + 1);
+                //remove the number stored 
+        }
+        return score;
+            //at this point you're returning all of the user scores (unsorted)
+    }
+    /*
+    public int numOfCharsInString(String total, char charIn)
+    {
+        int output = 0;
+        for(int i = 0; i < total.length(); i++)                                 //iterate through string
+        {
+            if(total.charAt(i) == charIn)                                       //if there is still a char in total 
+            {
+                //increment output (signifying one item) and shorten total to trimmed length
+                //System.out.println();
+                output++;
+                if(!(total.trim().length() == 1 && total.charAt(0) == charIn))  //charIn isn't the last char in total
+                    total.substring(total.indexOf(charIn) + 1);
+                else
+                    total = "";
+            }
+        }
+        System.out.println("array length: " + (output + 1));
+        return output;
+    }
+    
+    public boolean hasChar(String total, char charIn)                           //returns true if there is at least 1 of the char in string 
+    {
+        //code for whole string: 
+        boolean output = false; 
+        for(int i = 0; i < total.length(); i++)                                 //i is the char index 
+        {
+            output = (output || total.charAt(i) == charIn);                     //output = previously true or this char matches 
+            //System.out.print(i + "found = " + output);
+            if(output)                                                          //cuts it short if output = true 
+                return output;                                                  //technically don't need this
+        }
+        System.out.print("never gets here; found = false");
+        return output;                                                          //return false if match not found by end of string; return true if found by end of string 
+    }
+    */
+    public String calculateIt(String function, String info1, String info2)
 	{
 		//run has programName and programDescription parameters, userPlaying has no parameters, getInput has prompt and "get" variables 
 		//all of them have function parameter 
@@ -467,7 +350,11 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
 					//header and intro section
 				//call the real meat of the program method here 
 				//ex. var2 = method1(var1);
-				printInfo("print", getScores());
+				int[] receiveScores = getScores();
+				if(receiveScores.length == 0)
+				    System.out.println("No input. Program ending.");
+				else
+				    calcResults(receiveScores);
 				
 				System.out.println();
 			} while(Boolean.valueOf(calculateIt("userPlaying", "", "")));
@@ -495,14 +382,15 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
 		}
 		else if(function.equalsIgnoreCase("getInput")) ///getInput section of it; info1 = get, info2 = promptIn 
 		{
-			Scanner keyboard = new Scanner(System.in);
-			String toReturn = "";
 			System.out.print(info2 + "\n\t-->\t");
-			toReturn = keyboard.nextLine();
+			
+			Scanner keyboard = new Scanner(System.in);
+			String toReturn = keyboard.nextLine();
 			//keyboard.nextLine();
-			if (info1.equalsIgnoreCase("quit"))
+			
+			if (toReturn.equalsIgnoreCase("quit"))
 			{
-				System.out.println("Scores inputted. ");
+				//System.out.println("Scores inputted. ");
 				return toReturn;
 			}
 			else if (info1.equalsIgnoreCase("line"))
@@ -519,43 +407,32 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
 					return toReturn;
 				}
 			}
-			else if (info1.equalsIgnoreCase("int"))
+			else if (info1.equalsIgnoreCase("int") || info1.equalsIgnoreCase("double"))
 			{
-				System.out.print(info1 + " " + toReturn);
-				if (Boolean.valueOf(calculateIt("onlyHas", info1, toReturn)))
+				//System.out.print(info1 + " " + toReturn);
+				Scanner infoScanner = new Scanner(toReturn);
+				if (info1.equalsIgnoreCase("double")&&infoScanner.hasNextDouble())
+                {
+                    double output = infoScanner.nextDouble();
+                    return "" + output;
+                        //will have to Double.parseDouble(getInput("prompt", "double")) to return double 
+                }
+				else if (info1.equalsIgnoreCase("int")&&infoScanner.hasNextInt())
 				{
-					return toReturn;
+					int output = infoScanner.nextInt();
+					return "" + output;
+						//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
 				}
-					//will have to Integer.parseInt(getInput("prompt", "int")) to return integer 
-				else 
+				else
 				{
 					System.out.println("getInput Error: Received other data type when " + 
-						"expected int" + 
-						"\n\tfunction: " + function + 
-						"\n\tinfo1: " + info1 + 
-						"\n\tinfo2: " + info2 + 
-						"\n\t(Your number will be stored as \'0\')");
-					return ("" + 0);
-						//will still have to parse int
-				}
-			}
-			else if (info1.equalsIgnoreCase("double"))
-			{
-				if (Boolean.parseBoolean(calculateIt("onlyHas", info1, toReturn)))
-				{
-					return toReturn;
-				}
-					//will have to Double.parseDouble(getInput("prompt", "int")) to return double 
-				else 
-				{
-					System.out.println("getInput Error: Received other data type when " + 
-						"expected double" + 
+						"expected int/double" + 
 						"\n\tfunction: " + function + 
 						"\n\tinfo1: " + info1 + 
 						"\n\tinfo2: " + info2 + 
 						"\n\t(Your number will be stored as \'0.0\')");
 					return ("" + 0.0);
-						//will still have to parse double
+						//will still have to parse int/double
 				}
 			}
 			else 
@@ -567,43 +444,6 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
 					"\n(return: null)");
 				return null;
 					//return is literally just for program to run (not technically needed)
-			}
-		}
-		else if (function.equalsIgnoreCase("onlyHas")) // parameters: info1 = intOrDouble, info2 = checkThrough
-		{
-			if (info1.equalsIgnoreCase("int") || info1.equalsIgnoreCase("double"))
-			{
-				for (int i = 0; i < info2.length(); i++) //cycle through String info2 (checkThrough) 
-				{
-					if ((int)(info2.charAt(i)) >= 49 && (int)(info2.charAt(i)) <= 1)
-					{
-						//if within ascii range of numbers, continue with the program
-					}
-					else if (((int)(info2.charAt(i)) == 46) && info1.equalsIgnoreCase("double"))
-					{
-						//continue with the program but ONLY if it's in double 
-					}
-					else
-					{
-						return String.valueOf(false); //no longer purely numbers 
-						System.out.println("onlyHas Error: Received other data type when " + 
-							"expected int" + 
-							"\n\tfunction: " + function + 
-							"\n\tinfo1: " + info1 + 
-							"\n\tinfo2: " + info2 + 
-							"\n\t(Your number will be stored as \'0\')");
-					}
-				}
-				return String.valueOf(true); //it made it out without returning false 
-			}
-			else
-			{
-				System.out.println("Internal error: onlyHas method unrecognized info2 (intOrDouble) parameter: " + 
-					"\n\tfunction: " + function + 
-					"\n\tinfo1: " + info1 + 
-					"\n\tinfo2: " + info2 + 
-					"\n\t(returned false)");
-				return Boolean.toString(false);
 			}
 		}
 		//returns a String, no matter the parameters. beware. use parse____ if needed. 
@@ -622,3 +462,4 @@ public void printInfo(String operation, int[] fSI) // finalScoresIn;
 	}
 	//method ends here 
 }
+
