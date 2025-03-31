@@ -143,7 +143,16 @@ class CpPanelHolder extends JPanel
 		selected = 0;													//initialize all fvs to initial values 
 		//tAComponentInfo = 
 		//welcome = 
-		font = new Font("");
+		font = new Font("Arial", Font.BOLD, 10);
+		pp = new PictPanel();
+		val = 0;
+		width = 0;
+		height = 0;
+		widthOfImages = new int[0];
+		heightOfImages = new int[0];
+		
+		add(new RightControlPanel(), BorderLayout.EAST);
+		add(new PictPanel(), BorderLayout.CENTER);
 	}
 	
 	
@@ -160,6 +169,7 @@ class CpPanelHolder extends JPanel
 		public PictPanel()
 		{
 			setLayout(new BorderLayout());
+			setBackground(Color.CYAN);
 			
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
@@ -200,7 +210,7 @@ class CpPanelHolder extends JPanel
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			g.drawImage(image[selected]);								///draws the selected image 
+			g.drawImage(images[selected], 20, 20, this);				///draws the selected image 
 		}
 	}	
 		
@@ -220,7 +230,10 @@ class CpPanelHolder extends JPanel
 		
 		public RightControlPanel()
 		{
-			
+			setLayout(new BorderLayout());
+			add(new TitlePanel(new GridLayout(), BorderLayout.NORTH));
+			add(makePictureMenuBar(), BorderLayout.WEST);				//add jmenubar to west 
+			add(new SelectLabelPanel(new GridLayout()), BorderLayout.EAST);
 		}
 		
 		/** There are a some more classes that you will need here to add to RightControlPanel
@@ -230,25 +243,88 @@ class CpPanelHolder extends JPanel
 		
 		public JMenuBar makePictureMenuBar()
 		{
+			JMenuBar returnjmb = new JMenuBar();
+			JMenu jm = new JMenu("Picture");
 			
+			JMenuItem mountains = new JMenuItem("mountains");
+			JMenuItem water = new JMenuItem("water");
+			JMenuItem trees = new JMenuItem("trees");
+			JMenuItem shanghai = new JMenuItem("shanghai");
+			
+			jm.add(mountains);
+			jm.add(water);
+			jm.add(trees);
+			jm.add(shanghai);
+			
+			returnjmb.add(jm);
+			return returnjmb;
 		}
 		
 		
 		/** Write the Listener/Handler class for the menu **/
-		
+		//jmi.addActionListener(new MenuHandler)
+		class MenuHandler implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				e.getActionCommand();		//gets the JMenuItem name clicked on
+			}
+		}
 		
 		
 		/** write the Listener/Handler class for the text field **/
-		
+		class TextFieldHandler implements ActionListener
+		{//tf.addActionListener(textFieldHandler)
+			public void actionPerformed(ActionEvent e)
+			{
+				String userText = e.getActionCommand();//getText()
+			}
+		}
 		
 		
 		/** write the Listener/Handler class for the slider **/
-		
+		class SliderHandler implements ChangeListener
+		{//jsl.addSliderListener(new SliderHandler())
+			public void stateChanged(ChangeEvent e)
+			{
+				/*
+				int userValue = e.getValue();
+				slider1.getValue
+				*/
+			}
+		}
 		
 		
 		/** write Listener/Handler class for the JRadioButtons **/
+		class RadioButtonHandler implements ActionListener
+		{//rb.add(new RadioButtonHandler())
+			public void actionPerformed(ActionEvent e)
+			{
+				String buttonSelected = e.getActionCommand();
+				
+			}
+		}
 		
+		class TitlePanel extends JPanel
+		{
+			public TitlePanel()
+			{
+				setLayout(new GridLayout());
+				Font titleFont = new Font("Arial", Font.BOLD, 16);
+				add(new JLabel("Control Panel"));
+				add(new JTextField(""));
+			}
+		}
 		
+		class SelectLabelPanel extends JPanel
+		{
+			public SelectLabelPanel()
+			{
+				setLayout(new GridLayout());
+				add(new JLabel("Select color of label");
+				add(new JRadioButton());
+			}
+		}
 		
 	}
 }	// end class ControlPanel
