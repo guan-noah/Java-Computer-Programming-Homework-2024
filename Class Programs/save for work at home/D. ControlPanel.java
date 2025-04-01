@@ -152,7 +152,7 @@ class CpPanelHolder extends JPanel
 		heightOfImages = new int[0];
 		
 		add(new RightControlPanel(), BorderLayout.EAST);
-		add(new PictPanel(), BorderLayout.CENTER);
+		add(pp, BorderLayout.CENTER);
 	}
 	
 	
@@ -169,7 +169,6 @@ class CpPanelHolder extends JPanel
 		public PictPanel()
 		{
 			setLayout(new BorderLayout());
-			setBackground(Color.CYAN);
 			
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
@@ -230,10 +229,11 @@ class CpPanelHolder extends JPanel
 		
 		public RightControlPanel()
 		{
+			setBackground(Color.CYAN);
 			setLayout(new BorderLayout());
-			add(new TitlePanel(new GridLayout(), BorderLayout.NORTH));
+			add(new TitlePanel(), BorderLayout.NORTH);
 			add(makePictureMenuBar(), BorderLayout.WEST);				//add jmenubar to west 
-			add(new SelectLabelPanel(new GridLayout()), BorderLayout.EAST);
+			add(new SelectLabelPanel(), BorderLayout.EAST);
 		}
 		
 		/** There are a some more classes that you will need here to add to RightControlPanel
@@ -320,9 +320,26 @@ class CpPanelHolder extends JPanel
 		{
 			public SelectLabelPanel()
 			{
-				setLayout(new GridLayout());
-				add(new JLabel("Select color of label");
-				add(new JRadioButton());
+				setLayout(new GridLayout(2, 1));
+				add(new JLabel("Select color of label"));
+				add(new RadioPanel());
+			}
+		}
+		class RadioPanel extends JPanel
+		{
+			public RadioPanel()
+			{
+				JRadioButton red = new JRadioButton("Red");
+				JRadioButton blue = new JRadioButton("Blue");
+				JRadioButton magenta = new JRadioButton("Magenta");
+				
+				red.addActionListener(new RadioButtonHandler());
+				blue.addActionListener(new RadioButtonHandler());
+				magenta.addActionListener(new RadioButtonHandler());
+				
+				add(red);
+				add(blue);
+				add(magenta);
 			}
 		}
 		
