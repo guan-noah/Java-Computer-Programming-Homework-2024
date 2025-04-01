@@ -1,5 +1,5 @@
 /**
-
+//note: use AllComponentExample
 ControlPanel.java
 The goal of this program is to get practice with multiple components controlling 
 some aspect of the program as well as work on layouts.  All field variables are given.  
