@@ -132,7 +132,7 @@ class CpPanelHolder extends JPanel
 	private Font font;  												// most fonts are the same, so there is one
 	private PictPanel pp; 												// the variables in the RightControlPanel2 need access to use repaint
 	private int val; 													// value of the slider to change the picture size
-	private int width;
+	private int width;													//width and height of the image to print 
 	private int height;
 	private int [] widthOfImages;  										// stores the width of each image
 	private int [] heightOfImages;  									// stores the height of each image
@@ -141,8 +141,10 @@ class CpPanelHolder extends JPanel
 	{
 		setLayout(new BorderLayout());
 		selected = 0;													//initialize all fvs to initial values 
-		//tAComponentInfo = 
-		//welcome = 
+		int textAreaRows = 0;
+		int textAreaColumns = 0;
+		tAComponentInfo = new JTextArea("What the component changed will show here", textAreaRows, textAreaColumns);
+		welcome = new JLabel("Welcome");								//change to name from JTextField 
 		font = new Font("Arial", Font.BOLD, 10);
 		pp = new PictPanel();
 		val = 0;
@@ -152,7 +154,34 @@ class CpPanelHolder extends JPanel
 		heightOfImages = new int[0];
 		
 		add(new RightControlPanel(), BorderLayout.EAST);
-		add(pp, BorderLayout.CENTER);
+		add(new CenterPan(), BorderLayout.CENTER);
+	}
+	class CenterPan extends JPanel
+	{
+		public CenterPan()
+		{
+			setLayout(new BorderLayout());
+			add(new FormatCenter());
+			add(new JTextArea());
+		}
+		class FormatCenter extends JPanel
+		{
+			public FormatCenter()
+			{
+				setLayout(new GridLayout(2, 1));
+				add(new FormatWelcome());
+				add(pp);
+			}
+		}
+		class FormatWelcome extends JPanel
+		{
+			public FormatWelcome()
+			{
+				setLayout(new FlowLayout());
+				add(welcome);
+			}
+		}
+		
 	}
 	
 	
@@ -173,6 +202,7 @@ class CpPanelHolder extends JPanel
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
 			widthOfImages = new int[names.length];						// create the array for the heights
+			heightOfImages = new int[names.length];
 			
 			for (int i = 0; i < names.length; i++)						// load all of the pictures
 			{	
@@ -181,10 +211,11 @@ class CpPanelHolder extends JPanel
 				// e.g. it could be:  pictures/mountains.jpg **/
 				images[i] = getMyImage(names[i]);						// finish this line  
 				
-				widthOfImages[i] = images[i].getWidth(this);			// find the heights of each picture
+				widthOfImages[i] = images[i].getWidth(this)/4;			// find the heights of each picture
+				heightOfImages[i] = images[i].getHeight(this)/4;
 			}
 			
-		
+			add(new JTextArea());
 		}
 		
 		/** this has been started for you **/ //finished
@@ -209,7 +240,25 @@ class CpPanelHolder extends JPanel
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			g.drawImage(images[selected], 20, 20, this);				///draws the selected image 
+			
+			int resizedWidth = widthOfImages[selected]/4;
+			int widthMin = 0;
+			int widthMax = pp.getWidth()-20;
+			if(resizedWidth > widthMax)
+				resizedWidth = widthMax;
+			else if(resizedWidth < widthMin)
+				resizedWidth = widthMin;
+			
+			int resizedHeight = heightOfImages[selected]/4;
+			int heightMin = 0;
+			int heightMax = pp.getHeight()-250;
+			if(resizedHeight > heightMax)
+				resizedHeight = heightMax;
+			else if(resizedHeight < heightMin)
+				resizedHeight = heightMin;
+			
+			g.drawImage(images[selected], 20, 20, resizedWidth, resizedHeight, this);
+																		///draws the selected image 
 		}
 	}	
 		
@@ -229,36 +278,126 @@ class CpPanelHolder extends JPanel
 		
 		public RightControlPanel()
 		{
-			setBackground(Color.CYAN);
+			tfName = new JTextField("Enter your Name");
+			bg = new ButtonGroup();
+			sSize = new JSlider(JSlider.HORIZONTAL, 0, 200, 20);
+			sSize.setMajorTickSpacing(20);
+			sSize.setPaintTicks(true);
+			sSize.setLabelTable(sSize.createStandardLabels(20));
+			sSize.setPaintLabels(true);
+			sSize.addChangeListener(new SliderHandler());
+			
 			setLayout(new BorderLayout());
 			add(new TitlePanel(), BorderLayout.NORTH);
-			add(makePictureMenuBar(), BorderLayout.WEST);				//add jmenubar to west 
-			add(new SelectLabelPanel(), BorderLayout.EAST);
+			add(new PictMenuPan(), BorderLayout.WEST);				//add jmenubar to west 
+			add(new RadioPanel(), BorderLayout.EAST);
+			add(new SliderPanel(), BorderLayout.SOUTH);
+		}
+		
+		class SliderPanel extends JPanel
+		{
+			public SliderPanel()
+			{
+				add(sSize);
+			}
 		}
 		
 		/** There are a some more classes that you will need here to add to RightControlPanel
 		// You will need to figure them out based on the directions/prompt and the 
 		// sample run in the prompt.  You can figure them out based on your drawing of the
 		// layout, i.e. your pseudocode for this. **/
-		
-		public JMenuBar makePictureMenuBar()
+		class PictMenuPan extends JPanel
 		{
-			JMenuBar returnjmb = new JMenuBar();
-			JMenu jm = new JMenu("Picture");
-			
-			JMenuItem mountains = new JMenuItem("mountains");
-			JMenuItem water = new JMenuItem("water");
-			JMenuItem trees = new JMenuItem("trees");
-			JMenuItem shanghai = new JMenuItem("shanghai");
-			
-			jm.add(mountains);
-			jm.add(water);
-			jm.add(trees);
-			jm.add(shanghai);
-			
-			returnjmb.add(jm);
-			return returnjmb;
+			public PictMenuPan()
+			{
+				setBackground(Color.CYAN);
+				add(makePictureMenuBar());
+			}
+			public JMenuBar makePictureMenuBar()
+			{
+				MenuHandler menuHandler = new MenuHandler();
+				JMenuBar returnjmb = new JMenuBar();
+				JMenu jm = new JMenu("Picture");
+				
+				JMenuItem mountains = new JMenuItem("mountains");
+				JMenuItem water = new JMenuItem("water");
+				JMenuItem trees = new JMenuItem("trees");
+				JMenuItem shanghai = new JMenuItem("shanghai");
+				
+				mountains.addActionListener(menuHandler);
+				water.addActionListener(menuHandler);
+				trees.addActionListener(menuHandler);
+				shanghai.addActionListener(menuHandler);
+							
+				jm.add(mountains);
+				jm.add(water);
+				jm.add(trees);
+				jm.add(shanghai);
+				
+				returnjmb.add(jm);
+				return returnjmb;
+			}
 		}
+		
+		class TitlePanel extends JPanel
+		{
+			public TitlePanel()
+			{
+				setLayout(new GridLayout(2, 1));
+				Font titleFont = new Font("Arial", Font.BOLD, 16);
+				add(new ControlTitle());
+				add(new EnterName());
+			}
+			class ControlTitle extends JPanel
+			{
+				public ControlTitle()
+				{
+					setBackground(Color.CYAN);
+					setLayout(new FlowLayout());
+					add(new JLabel("Control Panel"));
+				}
+			}
+			class EnterName extends JPanel
+			{
+				public EnterName()
+				{
+					setBackground(Color.CYAN);
+					setLayout(new FlowLayout());
+					//JTextField nameUserInput = new JTextField("Enter your Name");
+					//nameUserInput.addActionEvent(new TextFieldHandler());
+					//add(nameUserInput);
+					add(JTextField);
+				}
+			}
+		}
+		
+		class RadioPanel extends JPanel
+		{
+			public RadioPanel()
+			{
+				setBackground(Color.CYAN);
+				setLayout(new GridLayout(4, 1));
+				add(new JLabel("Select color of label"));
+				
+				RadioButtonHandler rbh = new RadioButtonHandler();
+				
+				color1 = addRadioButton("Red", rbh);
+				color2 = addRadioButton("Blue", rbh);
+				color3 = addRadioButton("Magenta", rbh);
+			}
+			public JRadioButton addRadioButton(String radioName, RadioButtonHandler rbh)
+			{
+				JRadioButton jrb = new JRadioButton(radioName);
+				jrb.addActionListener(rbh);
+				jrb.setBackground(Color.CYAN);
+				bg.add(jrb);
+				add(jrb);
+				return jrb;
+			}
+		}
+		
+		
+		
 		
 		
 		/** Write the Listener/Handler class for the menu **/
@@ -278,6 +417,7 @@ class CpPanelHolder extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				String userText = e.getActionCommand();//getText()
+				welcome.(userText);
 			}
 		}
 		
@@ -287,10 +427,8 @@ class CpPanelHolder extends JPanel
 		{//jsl.addSliderListener(new SliderHandler())
 			public void stateChanged(ChangeEvent e)
 			{
-				/*
-				int userValue = e.getValue();
-				slider1.getValue
-				*/
+				int sliderVal = sSize.getValue();
+				
 			}
 		}
 		
@@ -301,47 +439,10 @@ class CpPanelHolder extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				String buttonSelected = e.getActionCommand();
-				
+				tAComponentInfo.setText("Button " + buttonSelected + " was selected. ");
+																		/// resets the text!!! 
+				//other method is textArea.append(String)
 			}
 		}
-		
-		class TitlePanel extends JPanel
-		{
-			public TitlePanel()
-			{
-				setLayout(new GridLayout());
-				Font titleFont = new Font("Arial", Font.BOLD, 16);
-				add(new JLabel("Control Panel"));
-				add(new JTextField(""));
-			}
-		}
-		
-		class SelectLabelPanel extends JPanel
-		{
-			public SelectLabelPanel()
-			{
-				setLayout(new GridLayout(2, 1));
-				add(new JLabel("Select color of label"));
-				add(new RadioPanel());
-			}
-		}
-		class RadioPanel extends JPanel
-		{
-			public RadioPanel()
-			{
-				JRadioButton red = new JRadioButton("Red");
-				JRadioButton blue = new JRadioButton("Blue");
-				JRadioButton magenta = new JRadioButton("Magenta");
-				
-				red.addActionListener(new RadioButtonHandler());
-				blue.addActionListener(new RadioButtonHandler());
-				magenta.addActionListener(new RadioButtonHandler());
-				
-				add(red);
-				add(blue);
-				add(magenta);
-			}
-		}
-		
 	}
 }	// end class ControlPanel
