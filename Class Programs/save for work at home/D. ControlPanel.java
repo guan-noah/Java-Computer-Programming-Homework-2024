@@ -141,8 +141,8 @@ class CpPanelHolder extends JPanel
 	{
 		setLayout(new BorderLayout());
 		selected = 0;													//initialize all fvs to initial values 
-		int textAreaRows = 0;
-		int textAreaColumns = 0;
+		int textAreaRows = 100;
+		int textAreaColumns = 100;
 		tAComponentInfo = new JTextArea("What the component changed will show here", textAreaRows, textAreaColumns);
 		welcome = new JLabel("Welcome");								//change to name from JTextField 
 		font = new Font("Arial", Font.BOLD, 10);
@@ -154,34 +154,25 @@ class CpPanelHolder extends JPanel
 		heightOfImages = new int[0];
 		
 		add(new RightControlPanel(), BorderLayout.EAST);
-		add(new CenterPan(), BorderLayout.CENTER);
+		add(new FormatCenter(), BorderLayout.CENTER);
 	}
-	class CenterPan extends JPanel
+	class FormatCenter extends JPanel
 	{
-		public CenterPan()
+		public FormatCenter()
 		{
 			setLayout(new BorderLayout());
-			add(new FormatCenter());
-			add(new JTextArea());
+			add(new FormatWelcome(), BorderLayout.NORTH);
+			add(pp, BorderLayout.CENTER);								//pictpanel
+			add(tAComponentInfo, BorderLayout.SOUTH);
 		}
-		class FormatCenter extends JPanel
+	}
+	class FormatWelcome extends JPanel
+	{
+		public FormatWelcome()
 		{
-			public FormatCenter()
-			{
-				setLayout(new GridLayout(2, 1));
-				add(new FormatWelcome());
-				add(pp);
-			}
+			setLayout(new FlowLayout());
+			add(welcome);												//centered jlabel
 		}
-		class FormatWelcome extends JPanel
-		{
-			public FormatWelcome()
-			{
-				setLayout(new FlowLayout());
-				add(welcome);
-			}
-		}
-		
 	}
 	
 	
@@ -198,9 +189,13 @@ class CpPanelHolder extends JPanel
 		public PictPanel()
 		{
 			setLayout(new BorderLayout());
+			tAComponentInfo.setPreferredSize(new Dimension());
+			//~ add(tAComponentInfo);
+			//~ add(new TextAreaHolder());
 			
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
+			//~ System.out.println(names.length);
 			widthOfImages = new int[names.length];						// create the array for the heights
 			heightOfImages = new int[names.length];
 			
@@ -211,11 +206,17 @@ class CpPanelHolder extends JPanel
 				// e.g. it could be:  pictures/mountains.jpg **/
 				images[i] = getMyImage(names[i]);						// finish this line  
 				
-				widthOfImages[i] = images[i].getWidth(this)/4;			// find the heights of each picture
-				heightOfImages[i] = images[i].getHeight(this)/4;
+				widthOfImages[i] = images[i].getWidth(this);			// find the heights of each picture
+				heightOfImages[i] = images[i].getHeight(this);
 			}
-			
-			add(new JTextArea());
+		}
+		class TextAreaHolder extends JPanel
+		{
+			public TextAreaHolder()
+			{
+				setLayout(new BorderLayout());
+				add(tAComponentInfo);
+			}
 		}
 		
 		/** this has been started for you **/ //finished
@@ -241,24 +242,22 @@ class CpPanelHolder extends JPanel
 		{
 			super.paintComponent(g);
 			
-			int resizedWidth = widthOfImages[selected]/4;
-			int widthMin = 0;
-			int widthMax = pp.getWidth()-20;
-			if(resizedWidth > widthMax)
-				resizedWidth = widthMax;
-			else if(resizedWidth < widthMin)
-				resizedWidth = widthMin;
 			
-			int resizedHeight = heightOfImages[selected]/4;
-			int heightMin = 0;
-			int heightMax = pp.getHeight()-250;
-			if(resizedHeight > heightMax)
-				resizedHeight = heightMax;
-			else if(resizedHeight < heightMin)
-				resizedHeight = heightMin;
-			
+			int resizedWidth = resizeImg(widthOfImages[selected]/4, pp.getWidth()-20);			
+			int resizedHeight = resizeImg(heightOfImages[selected]/4, pp.getHeight()-250);
+			//because it starts at min width/height, this should never go below 
+			//check for cases where reaches max width but not max height (should be covered)
+						
 			g.drawImage(images[selected], 20, 20, resizedWidth, resizedHeight, this);
 																		///draws the selected image 
+			g.drawImage(images[selected], 20, 20, 500, 800, this);
+			g.drawOval(20, 20, 20, 20);
+		}
+		public int resizeImg(int min, int pageLimit)						//pageLimit can be pageWidth or pageHeight 
+		{
+			if(min < pageLimit + 20)
+				min += val;
+			return min;
 		}
 	}	
 		
@@ -279,6 +278,8 @@ class CpPanelHolder extends JPanel
 		public RightControlPanel()
 		{
 			tfName = new JTextField("Enter your Name");
+			tfName.addActionListener(new TextFieldHandler());
+			//~ System.out.println("");
 			bg = new ButtonGroup();
 			sSize = new JSlider(JSlider.HORIZONTAL, 0, 200, 20);
 			sSize.setMajorTickSpacing(20);
@@ -286,18 +287,30 @@ class CpPanelHolder extends JPanel
 			sSize.setLabelTable(sSize.createStandardLabels(20));
 			sSize.setPaintLabels(true);
 			sSize.addChangeListener(new SliderHandler());
+			sSize.setBackground(Color.CYAN);
 			
 			setLayout(new BorderLayout());
 			add(new TitlePanel(), BorderLayout.NORTH);
-			add(new PictMenuPan(), BorderLayout.WEST);				//add jmenubar to west 
-			add(new RadioPanel(), BorderLayout.EAST);
+			add(new MainControl(), BorderLayout.CENTER);
 			add(new SliderPanel(), BorderLayout.SOUTH);
+		}
+		
+		class MainControl extends JPanel
+		{
+			public MainControl()
+			{
+				setLayout(new GridLayout(1, 2));
+				add(new PictMenuPan());									//add jmenubar
+				add(new RadioPanel());
+			}
 		}
 		
 		class SliderPanel extends JPanel
 		{
 			public SliderPanel()
 			{
+				setLayout(new GridLayout());
+				setBackground(Color.CYAN);
 				add(sSize);
 			}
 		}
@@ -320,9 +333,9 @@ class CpPanelHolder extends JPanel
 				JMenu jm = new JMenu("Picture");
 				
 				JMenuItem mountains = new JMenuItem("mountains");
-				JMenuItem water = new JMenuItem("water");
-				JMenuItem trees = new JMenuItem("trees");
 				JMenuItem shanghai = new JMenuItem("shanghai");
+				JMenuItem trees = new JMenuItem("trees");
+				JMenuItem water = new JMenuItem("water");
 				
 				mountains.addActionListener(menuHandler);
 				water.addActionListener(menuHandler);
@@ -366,7 +379,7 @@ class CpPanelHolder extends JPanel
 					//JTextField nameUserInput = new JTextField("Enter your Name");
 					//nameUserInput.addActionEvent(new TextFieldHandler());
 					//add(nameUserInput);
-					add(JTextField);
+					add(tfName);
 				}
 			}
 		}
@@ -406,7 +419,17 @@ class CpPanelHolder extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				e.getActionCommand();		//gets the JMenuItem name clicked on
+				String pictureName = e.getActionCommand();
+				if("mountains".equalsIgnoreCase(pictureName))
+					selected = 0;
+				else if("shanghai".equalsIgnoreCase(pictureName))
+					selected = 1;
+				else if("trees".equalsIgnoreCase(pictureName))
+					selected = 2;
+				else if("water".equalsIgnoreCase(pictureName))
+					selected = 3;
+				
+				tAComponentInfo.append("Picture " + pictureName + " was drawn.\n");
 			}
 		}
 		
@@ -416,8 +439,9 @@ class CpPanelHolder extends JPanel
 		{//tf.addActionListener(textFieldHandler)
 			public void actionPerformed(ActionEvent e)
 			{
-				String userText = e.getActionCommand();//getText()
-				welcome.(userText);
+				String userText = tfName.getText();
+				/*e.getActionCommand();*/								//textField.getText(); //also the name of the user 
+				welcome.setText("Welcome " + userText);
 			}
 		}
 		
@@ -427,8 +451,7 @@ class CpPanelHolder extends JPanel
 		{//jsl.addSliderListener(new SliderHandler())
 			public void stateChanged(ChangeEvent e)
 			{
-				int sliderVal = sSize.getValue();
-				
+				val = sSize.getValue();
 			}
 		}
 		
@@ -439,7 +462,7 @@ class CpPanelHolder extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				String buttonSelected = e.getActionCommand();
-				tAComponentInfo.setText("Button " + buttonSelected + " was selected. ");
+				tAComponentInfo.setText("Button " + buttonSelected + " was selected. \n");
 																		/// resets the text!!! 
 				//other method is textArea.append(String)
 			}
