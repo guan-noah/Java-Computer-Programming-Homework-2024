@@ -141,11 +141,8 @@ class CpPanelHolder extends JPanel
 	{
 		setLayout(new BorderLayout());
 		selected = 0;													//initialize all fvs to initial values 
-		int textAreaRows = 100;
-		int textAreaColumns = 100;
-		tAComponentInfo = new JTextArea("What the component changed will show here", textAreaRows, textAreaColumns);
-		welcome = new JLabel("Welcome");								//change to name from JTextField 
-		font = new Font("Arial", Font.BOLD, 10);
+										//change to name from JTextField 
+		font = new Font("Arial", Font.BOLD, 15);
 		pp = new PictPanel();
 		val = 0;
 		width = 0;
@@ -188,10 +185,26 @@ class CpPanelHolder extends JPanel
 		
 		public PictPanel()
 		{
+			welcome = new JLabel("Welcome");//welcome label
+			int textAreaRows = 10;
+			int textAreaColumns = 0;
+			tAComponentInfo = new JTextArea("What the component changed will show here\n", 
+				textAreaRows, textAreaColumns);
+			JPanel welcomeHolder = new JPanel();
+			welcome.setFont(font);
+			
+			///krish's solution (doesn't work)
+			//~ setLayout(new BorderLayout());
+			//~ welcomeHolder.add(welcome);
+			//~ add(BorderLayout.NORTH, welcomeHolder);
+			//~ add(BorderLayout.SOUTH, tAComponentInfo);
+			
+			///my code
 			setLayout(new BorderLayout());
-			tAComponentInfo.setPreferredSize(new Dimension());
-			//~ add(tAComponentInfo);
-			//~ add(new TextAreaHolder());
+			tAComponentInfo.setPreferredSize(new Dimension(10, 0));		//doesn't work
+			//~ add(tAComponentInfo);										//doesn't work (component disappearance error)
+			add(new TextAreaHolder());									//only one that works 
+			//~ add(new TextAreaHolder(), BorderLayout.SOUTH);				//doesn't work (component disappearance error) 
 			
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
@@ -204,11 +217,15 @@ class CpPanelHolder extends JPanel
 				/** since all of the images are in a directory called pictures, each file
 				// name needs the following before the file name:   "pictures/" + 
 				// e.g. it could be:  pictures/mountains.jpg **/
-				images[i] = getMyImage(names[i]);						// finish this line  
+				images[i] = getMyImage("pictures/" + names[i]);						// finish this line  
 				
 				widthOfImages[i] = images[i].getWidth(this);			// find the heights of each picture
 				heightOfImages[i] = images[i].getHeight(this);
 			}
+			
+			val = 0;
+			selected = 0;												//reset
+			
 		}
 		class TextAreaHolder extends JPanel
 		{
