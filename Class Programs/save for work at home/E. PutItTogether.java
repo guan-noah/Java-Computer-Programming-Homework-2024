@@ -1,9 +1,46 @@
-// 
-// 
+// Noah Guan
+// 4/3/2025
 // PutItTogether.java  
-// 
+// P.6 Java w/ Mr. Yu
 
 /// imports
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+//~ import java.awt.event.KeyEvent;
+//~ import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+
+
 
 public class PutItTogether
 {	
@@ -20,7 +57,7 @@ public class PutItTogether
 	public void run()
 	{
 		JFrame frame = new JFrame("PutItTogether");
-		frame.setSize( 800, 700);				
+		frame.setSize( 800, 800 );				
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		frame.setLocation(0,0);
 		frame.setResizable(true);
@@ -30,26 +67,36 @@ public class PutItTogether
 	}
 }
 
-// this panel holds the main cards/panel 
+/// this panel holds the main cards/panel 
 class PutItTogetherHolder extends JPanel 
 {	
 	public PutItTogetherHolder()
 	{
 		setBackground(Color.CYAN);
 
-		CardLayout cards = new CardLayout();
+		CardLayout cards = new CardLayout();							//has 6 different cards 
 		setLayout(cards);
 		
 		Information info = new Information();
 		FirstPagePanel fpp = new FirstPagePanel(this, cards, info);
 		FixedPanelHolder hph = new FixedPanelHolder(info);
 		
-		add(fpp, "First");
-		add(hph, "Home");
+		add(fpp, "First");												
+		/*card 1 = welcome (JLabel); terms and conditions (JTextArea & JScrollPane); enter name (JTextField); accept (JCheckBox)*/
+		add(hph, "Home");												
+		/*card 2 = welcome name (JLabel); programDescription (JTextArea); please select... (JLabel); TwoPeople/Colors/Masterpiece (JRadioButtons); Home (JButton)*/
+		//~ add();						
+		/*card 3 = */
+		//~ add();						
+		/*card 4 = */
+		//~ add();						
+		/*card 5 = */
+		//~ add();						
+		/*card 6 = */
 	}
 }
 
-// First page to show up.  Gives information, asks for name.  Goes to Home page.
+/// First page to show up.  Gives information, asks for name.  Goes to Home page.
 class FirstPagePanel extends JPanel
 {
 	private PutItTogetherHolder panelCards;
@@ -68,7 +115,14 @@ class FixedPanelHolder extends JPanel
 {
 	private Information info;
 	private JButton homeButton;
-	
+	public FixedPanelHolder()
+	{
+		
+	}
+	public FixedPanelHolder(Information infoIn)
+	{
+		info = infoIn;
+	}
 	
 }
 
@@ -92,9 +146,9 @@ class HomePanelHolder extends JPanel
 class HomePanel extends JPanel
 {
 	
-	// Since the label for the name was created when the classes constructor was called
+	/** Since the label for the name was created when the classes constructor was called
 	// it needs to be updated after the user types in the name into the text field.
-	// Update that label in paintComponent.
+	// Update that label in paintComponent. **/
 	public void paintComponent(Graphics g)
 	{
 	}
@@ -104,18 +158,55 @@ class HomePanel extends JPanel
 
 class BothPictPanel extends JPanel implements MouseListener
 {
-	
+	public BothPictPanel()
+	{
+		
+	}
+	public void mouseClicked(MouseEvent evt)
+	{
+		
+	}
+	public void mousePressed(MouseEvent evt)
+	{
+		
+	}
+	public void mouseReleased(MouseEvent evt)
+	{
+		
+	}
+	public void mouseEntered(MouseEvent evt)
+	{
+		
+	}
+	public void mouseExited(MouseEvent evt)
+	{
+		
+	}
 }
 
 class MyPictPanel extends JPanel implements ActionListener
 {
-	
+	public MyPictPanel()
+	{
+		
+	}
+	public void actionPerformed(ActionEvent evt)
+	{
+		
+	}
 }
 
 
 class FriendPictPanel extends JPanel implements ActionListener
 {
-	
+	public FriendPictPanel()
+	{
+		
+	}
+	public void actionPerformed(ActionEvent evt)
+	{
+		
+	}
 }
 
 class DrawPanel extends JPanel
@@ -151,4 +242,3 @@ class Information
 		name = nameIn;
 	}
 }
-
