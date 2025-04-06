@@ -58,6 +58,7 @@ import java.io.PrintWriter;
 import java.io.IOException; 
 import java.util.Scanner;
 */
+
 class TeacherInfo
 {
 	private int[] grades, scores;
@@ -189,20 +190,30 @@ class TeacherInfo
 
                 //get data from nextLine; guiding points = end of indicator and next indicator index 
                 String data = "";
-                if (nextIndicator.equals("no_colon_left_in_line"))
+                if (!nextIndicator.equals("no_colon_left_in_line"))
+                {
+                    System.out.println("nextLine: |" + nextLine + "|\nsubstring from indicatorEnds to nextIndicatorIndex" + 
+                        " from (" + indicatorEnds + " to " + nextIndicatorIndex + ")");
+                    System.out.println("data reinitialization: " + nextLine.substring(indicatorEnds, nextIndicatorIndex).trim());
                     data = nextLine.substring(indicatorEnds, nextIndicatorIndex).trim();
+                }
                                                                             //no more data to gather because no more indicators 
                 else
-                    data = nextLine.substring(nextLine.indexOf(indicator)).trim(); 
+                {
+                    if(nextLine.contains(indicator))
+                        data = nextLine.substring(nextLine.indexOf(indicator)).trim(); 
+                }
                                                                             //safeguard: only initializes between if there are 2 (in this case, there is no next indicator)
                 //System.out.println("data: \"" + data + "\"");
                 pll += nextLine.indexOf(data);
                 
+                System.out.println("indicator: " + indicator + "\ndata: " + data);
                 //start filtering data
                 if (indicator.equalsIgnoreCase("Teacher:"))
                     ivTeacherData[1] = data;	//get the teacher name 
                 else if (indicator.equalsIgnoreCase("Class:"))
                 {
+                    //System.out.println("data: " + data);
                     ivTeacherData[2] = data.substring(0, data.indexOf('-'));      //get everything before the dash (course number)
                 }
                 else if (indicator.equalsIgnoreCase("Course:"))
@@ -211,10 +222,10 @@ class TeacherInfo
                 }
                 else if (indicator.equalsIgnoreCase("Scores:"))
                 {
-                    String[] scoresGradesLine = getScores(nextLine);                         //gather all scores! returned nextLine bec. that entails the next header 
-                    nextLine = scoresGradesLine[scoresGradesLine.length-1];
+                    String[] scoresGradesLine = getScores(nextLine);            //gather all scores -- returned nextLine bec. that entails the next header 
+                    nextLine += scoresGradesLine[scoresGradesLine.length-1];
                     //reset field vars while 
-                    for(int i = 0; i < scoresGradesLine.length; i++)
+                    for(int i = 0; i < /*scoresGradesLine.length*/scores.length; i++)
                     {
                         ivScores[i] = scores[i];
                     }
@@ -310,6 +321,7 @@ class TeacherInfo
 	}
 	public boolean checkCourseNum(String allCourseNums, int userCourseNum)
 	{
+        System.out.println("allCourseNums: " + allCourseNums + "\nuserCourseNum: " + userCourseNum);
         boolean output = false;                                         //output var
         int before = 0;
         int after = allCourseNums.indexOf(' ');                         //again, for getting course nums separated by spaces in between
