@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -79,6 +79,8 @@ class PutItTogetherHolder extends JPanel
 		
 		add(fpp, "First");
 		add(hph, "Home");
+		cards.show(this, "First");
+		
 	}
 }
 
@@ -93,10 +95,39 @@ class FirstPagePanel extends JPanel
 	public FirstPagePanel(PutItTogetherHolder panelCardsIn, CardLayout cardsIn, Information infoIn)
 	{
 		setBackground(Color.CYAN);
-		setLayout(new FlowLayout());
+		setLayout(new FlowLayout(FlowLayout.CENTER, 10000, 50));		//insanely long horizontal gap, vertical gap
+		cards = cardsIn;
+		panelCards = panelCardsIn;
+		info = infoIn;
+		
+		String areaText = "Welcome to my program. This program is an " + 
+			"attempt to try and put together what we have learned this " + 
+			"year. It has examples of multiple layouts and components " + 
+			"as well as using graphics to draw pictures.";
+		JTextArea jta = new JTextArea(areaText);
+		jta.setLineWrap(true);
+		jta.setWrapStyleWord(true);
+		jta.setEditable(false);
+		JScrollPane scroll = new JScrollPane(jta);
+		//scroll.add(jta);
+		add(jta);
+		add(scroll);
+				
+		tfName = new JTextField("Type your name");
+		tfName.addActionListener(new TextFieldHandler());
+		add(tfName);
+		
+		cardsIn.show(panelCardsIn, "Home");
 	}
 	
 }
+class TextFieldHandler implements ActionListener
+{
+	public void actionPerformed(ActionEvent evt)
+	{
+		///implementation
+	}
+} 
 
 class FixedPanelHolder extends JPanel
 {
@@ -157,13 +188,19 @@ class BothPictPanel extends JPanel implements MouseListener
 
 class MyPictPanel extends JPanel implements ActionListener
 {
-	public void actionPerformed(ActionEvent evt) {} 
+	public void actionPerformed(ActionEvent evt) 
+	{
+		
+	} 
 }
 
 
 class FriendPictPanel extends JPanel implements ActionListener
 {
-	public void actionPerformed(ActionEvent evt) {}
+	public void actionPerformed(ActionEvent evt) 
+	{
+		
+	}
 }
 
 class DrawPanel extends JPanel
