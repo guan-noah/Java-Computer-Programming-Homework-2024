@@ -17,6 +17,14 @@ int[] readFile(int userCourseNumber) returns [continueProgram (0 for false, 1 fo
     else 
         return [0 (false), numOfCourses]
 
+more readFile pseudocode: 
+
+precondition: one class in. 
+default: print all array info, then reset all arrays 
+if accuratecourse 
+    store class info 
+
+
 */
 import java.io.File;
 import java.io.FileNotFoundException; 
@@ -24,19 +32,6 @@ import java.io.PrintWriter;
 import java.io.IOException; 
 import java.util.Scanner;
 
-public class Main
-{
-	public static void main(String[] args) 
-	{
-		Main m = new Main();
-		m.run();
-	}
-	public void run()
-	{
-	    TeacherInfo ti = new TeacherInfo();
-	    ti.fakeMain();
-	}
-}
 class TeacherInfo
 {
 	private int[] grades, scores;                                               //3 required ivs 
@@ -46,71 +41,6 @@ class TeacherInfo
 	private Scanner fileInput;
 	private PrintWriter fileOutput;
 	private String inFileName, outFileName;								//for reading the file and for writing to file 
-	
-	public int[] readFile(int userCourseNum)
-	{
-        int[] ivGrades = new int[5];                                            //d&i instance storage vars
-        int[] ivScores = new int[101];
-        String[] ivTeacherData = new String[3];
-        
-                                                                                //d&i return vars 
-        int continueProgram = 0;                                                //0 if false (default), 1 if true
-        int numOfCourses = 0; 
-        
-        String line = "";                                                       //for processing; have to keep this in here because have to store it in instance vars
-        String label = "";
-        String data = "";
-        boolean reachedScores = false;
-
-        while(fileInput.hasNextLine())                                          //you can comment this line out and still have it work
-        {
-            line = line + reformat(fileInput.nextLine());
-            
-            while(line.length() != 0)                                           //process until line is done 
-            {
-                String[] labelDataRemLine = getLineInfo(line);
-                label = labelDataRemLine[0];
-                data = labelDataRemLine[1];
-                //System.out.println("line = " + labelDataRemLine[2]);
-                line = labelDataRemLine[2];
-                //print data for now until i can get all sorted out and stored 
-                System.out.println("label: " + label + "\ndata: " + data + "\nline: " + line + "\n");
-                
-                //store data (using label and data)
-                if (label.equalsIgnoreCase("Teacher:"))
-                    ivTeacherData[0] = data;                                    //get the teacher name 
-                else if (label.equalsIgnoreCase("Class:"))
-                {
-                    ivTeacherData[2] = data.substring(0, data.indexOf('-'));    //get everything before the dash (course number)
-                    ivTeacherData[1] = data.substring(data.indexOf(' ')).trim();//course name
-                }
-                else if(label.equalsIgnoreCase("Scores:"))
-                {
-                    ivScores = getScores(fileInput);                            //get scores from fileInput //in the next revision, input line; get scores from line
-                    ivGrades = convertToGrades(ivScores);
-                    
-                    System.out.println("\t\t**CLASS**");
-                    System.out.println("Teacher: " + ivTeacherData[0]);
-                    System.out.println("Course Name: " + ivTeacherData[1]);
-                    System.out.println("Course Number: " + ivTeacherData[2] + "\n\n");
-                    System.out.println("Scores:");
-                    for(int i: ivScores)
-                        System.out.print(i + "\t");
-                    System.out.println();
-                    System.out.println("Grades:");
-                    for(int i: ivGrades)
-                        System.out.print(i + "\t");
-                    System.out.println("\n\n");
-                    
-                    ivGrades = new int[5];                                              //reset ivs 
-                    ivScores = new int[101];
-                    ivTeacherData = new String[3];
-                }
-            }
-        }
-        
-        return new int[] {continueProgram, numOfCourses};
-	}
 	
 	public TeacherInfo()
 	{
@@ -123,6 +53,11 @@ class TeacherInfo
 		outFileName = "";												//instantiate to inFileName-results.txt
         fileNames = new String[] {inFileName, outFileName};
 	}
+	public static void main(String[] args) 
+	{
+		TeacherInfo ti = new TeacherInfo();
+	    ti.fakeMain();
+	}
 	public void fakeMain()
 	{
 		System.out.println("\n\n\nWelcome the TeacherInfo! This program will collect all of " + 
@@ -131,16 +66,25 @@ class TeacherInfo
         
 		makeFiles();
 		
-		int[] receive = readFile(Integer.parseInt(utilMethod("getInput", "int", 
-            "Please enter the course number for data you would like")));
+		int userCourseNumber = Integer.parseInt(utilMethod("getInput", "int", 
+            "Please enter the course number for data you would like"));
+		int[] receive = readFile(userCourseNumber);
 		boolean continueProgram = (receive[0] == 1);
 		int numOfCourses = receive[1];
-		/*
+		
+		System.out.println("continueProgram = " + continueProgram);
+		System.out.println("numOfCourses = " + numOfCourses);
+		
 		if(continueProgram)
 		{
             outputData(numOfCourses);                                           //call outputData
 		}
-		*/
+		else
+		{
+		    System.out.println("Since " + teacherData[0] + " does not teach " + 
+                "course number " + userCourseNumber + ", there is no data to report.");
+		}
+		
 		System.out.println("\n\n\n");
 	}
 	public void makeFiles()
@@ -184,6 +128,118 @@ class TeacherInfo
 		//try: fileOutput = new PrintWriter(outFile);
 		//catch: IOException; System.err.println(); System.exit(2)
 		//outFileName = inFileName.substring(0, inFileName.indexOf('.txt') + "-results.txt");
+	}
+	public int[] readFile(int userCourseNum)
+	{
+        int[] ivGrades = new int[5];                                            //d&i instance storage vars; separated by class
+        int[] ivScores = new int[101];
+        String[] ivTeacherData = new String[3];
+        
+                                                                                //d&i return vars 
+        int continueProgram = 0;                                                //0 if false (default), 1 if true
+        int numOfCourses = 0; 
+        
+        String line = "";                                                       //for processing; have to keep this in here because have to store it in instance vars
+        String label = "";
+        String data = "";
+        boolean reachedScores = false;
+        boolean accurateCourse = false;
+
+        while(fileInput.hasNextLine())                                          //you can comment this line out and still have it work
+        {
+            line = line + ' ' + reformat(fileInput.nextLine());
+            
+            while(line.length() != 0)                                           //process until line is done 
+            {
+                String[] labelDataRemLine = getLineInfo(line);
+                label = labelDataRemLine[0];
+                data = labelDataRemLine[1];
+                //System.out.println("line = " + labelDataRemLine[2]);
+                line = labelDataRemLine[2];
+                //System.out.println("label: " + label + "\ndata: " + data + "\nline: " + line + "\n");//print data for now until I can get all sorted out and stored 
+                
+                //store data (using label and data)
+                if (label.equalsIgnoreCase("Teacher:"))
+                    ivTeacherData[0] = data;                                    //get the teacher name 
+                else if (label.equalsIgnoreCase("Class:"))
+                {
+                    ivTeacherData[2] = data.substring(0, data.indexOf('-'));    //get everything before the dash (course number)
+                    ivTeacherData[1] = data.substring(data.indexOf(' ')).trim();//course name
+                    accurateCourse = (ivTeacherData[2].equalsIgnoreCase("" + userCourseNum));
+                }
+                else if(label.equalsIgnoreCase("Scores:"))                      //mini-method inside here to keep input line in this method
+                {
+                    String scoresInLine = ""; 
+                    boolean continueScores = true;
+                    boolean overrideContinue = true;                            //uhh... again, kinda redundant and wish I could make this more efficient
+                    while(continueScores)
+                    {
+                        if(fileInput.hasNextLine())
+                            scoresInLine = reformat(fileInput.nextLine());      //get next line
+                        else
+                            overrideContinue = false;                           //end of file
+                        
+                        if(scoresInLine.indexOf(' ') == -1)
+                            continueScores = true;                              //case: random empty line
+                        else
+                            continueScores = !scoresInLine.substring(0, scoresInLine.indexOf(' ')).trim().equalsIgnoreCase("Teacher:");
+                                                                                //keep on going until the first label in line                         
+                        
+                        if(!overrideContinue)
+                            continueScores = overrideContinue;                  //same as declare continueScores to false
+                        
+                        if(continueScores)                                      //only if next line isn't label (another check... a little redundant (I wish I could think of something more efficient but this will do for now))
+                        {
+                            int[] receiveScores = getScores(scoresInLine);      //input line; get scores from line
+                            for(int i = 0; i < receiveScores.length; i++)
+                                ivScores[i] += receiveScores[i];                //input scores into instance variable
+                        }
+                        
+                    }//end of while(continueScores)
+                    line = scoresInLine.trim();                                 //append scoresInLine to line
+                    ivGrades = convertToGrades(ivScores);
+                    
+                    /*
+                    System.out.println("\n\t\t**CLASS (singular)**");           //print out class 
+                    System.out.println("Teacher: " + ivTeacherData[0]);
+                    System.out.println("Course Name: " + ivTeacherData[1]);
+                    System.out.println("Course Number: " + ivTeacherData[2] + "\n\n");
+                    System.out.println("Scores:");
+                    for(int i: ivScores)
+                        System.out.print(i + "\t");
+                    System.out.println();
+                    System.out.println("Grades:");
+                    for(int i: ivGrades)
+                        System.out.print(i + "\t");
+                    System.out.println("\n\n");
+                    */
+                    
+                    if(accurateCourse)                                          //only store if accurate course
+                    {
+                        numOfCourses++;
+                        for(int i = 0; i < teacherData.length; i++)
+                            teacherData[i] = ivTeacherData[i];
+                        for(int i = 0; i < scores.length; i++)
+                            scores[i] += ivScores[i];
+                        for(int i = 0; i < grades.length; i++)
+                            grades[i] += ivGrades[i];
+                    }
+                    else
+                        teacherData[0] = ivTeacherData[0];                      //only keep teacher name for error message
+                    
+                    ivGrades = new int[5];                                      //reset ivs 
+                    ivScores = new int[101];
+                    ivTeacherData = new String[3];
+                }//end of else if(label.equalsIgnoreCase("Scores:"))
+            }//end of while(line.length() != 0)
+        }//end of while(fileInput.hasNextLine())
+        
+        if(teacherData[2] != null)                                              //course has been found 
+        {
+            continueProgram = 1;
+        }                                                                       //else continueProgram = 0;
+        
+        return new int[] {continueProgram, numOfCourses};
 	}
 	public String reformat(String lineIn)
 	{
@@ -252,35 +308,7 @@ class TeacherInfo
         }
         return output;
 	}
-	public int[] getScores(Scanner fileInput)
-	{
-        int[] scoresOutput = new int[101];
-        
-        String nextInput = fileInput.next();                                    //for processing 
-        int nextScore = 0;
-        Scanner scoreScanner = new Scanner(nextInput);
-        
-        while(!contains(nextInput, ':')&&fileInput.hasNext())
-        {
-            scoreScanner = new Scanner(nextInput);
-            if(scoreScanner.hasNextDouble())                                    //basically if nextInput = double
-            {
-                double scoreIn = scoreScanner.nextDouble();
-                nextScore = Integer.parseInt(("" + scoreIn).substring(0, ("" + scoreIn).indexOf('.')));
-                                                                                //get integer part of the double
-            }
-            if(nextScore >= 0 && nextScore < scores.length)
-            {
-                scoresOutput[nextScore]++;
-                //gradesStorage = convertToGrades(nextScore);
-            }
-            else
-                System.out.println("Score value " + nextScore + " rejected: out of score bounds (0 to 100)");
-                                                                                //if I have time/if I really want to, I would pass in the class name and class info as well so I can be more specific with this error
-            nextInput = fileInput.next();
-        }
-        return scoresOutput;
-	}
+	
 	//stores in grades[] array 
 	public int[] convertToGrades(int[] scoresIn)
 	{
@@ -304,9 +332,82 @@ class TeacherInfo
         
         return gradesStorage;
     }
-	
-	
-	
+	/** Precondition: nextLine passed in && nextLine has (scores || empty line) 
+	Postcondition: return all scores in nextLine 
+	**/
+	public int[] getScores(String nextLine)
+	{
+        //System.out.println("nextLine: " + nextLine);
+        //utilMethod("getInput", "line", "continue");                           //to stop it (no problems anymore, removed)
+        int[] scoresInLine = new int[101];
+        Scanner scoreScanner = new Scanner(nextLine);                           //for processing 
+        int nextScore = 0;
+        while(scoreScanner.hasNext())                                           //while still has in line
+        {
+            if(scoreScanner.hasNextDouble())                                    //basically if nextInput = double; should always be true 
+            {
+                double scoreIn = scoreScanner.nextDouble();
+                nextScore = Integer.parseInt(("" + scoreIn).substring(0, ("" + scoreIn).indexOf('.')));
+                                                                                //get integer part of the double
+            }
+            else
+                System.out.println("No more doubles in line (shouldn't be happening according to file format). ");
+            
+            if(nextScore >= 0 && nextScore < scores.length)
+            {
+                //System.out.println("score inputted: " + nextScore);
+                scoresInLine[nextScore]++;
+            }
+            else
+                System.out.println("Score value " + nextScore + " rejected: out of score bounds (0 to 100)");
+                                                                                //if I have time/if I really want to, I would pass in the class name and class info as well so I can be more specific with this error
+        }
+        return scoresInLine;
+	}
+	public void outputData(int numOfCoursesIn)
+	{
+        System.out.println(":) you made it");
+        
+        int totalNumOfScores = 0;
+        for(int i = 0; i < grades.length; i++)
+            totalNumOfScores += grades[i];
+        System.out.println("Data for: " + teacherData[0]);
+        System.out.print("Course number: " + teacherData[2] + "\t");
+        System.out.println("Course: " + teacherData[1]);
+        System.out.println("Number of sections: " + numOfCoursesIn);
+        
+        System.out.println("Total # of scores = " + totalNumOfScores);
+        
+        System.out.println("\nData version 1: All scores printed from high to low: ");
+        int numPrinted = 0;
+        for(int i = scores.length - 1; i >= 0; i--)
+        {
+            for(int scoreRepetition = 0; scoreRepetition < scores[i]; scoreRepetition++)
+            {
+                System.out.printf("%5d", i);
+                numPrinted++;
+                if(numPrinted%15 == 0)
+                    System.out.println(/*"\tnumPrinted = " + numPrinted*/);
+            }
+        }
+        System.out.println("\nData version 2: Here are all of the scores grouped " + 
+            "together by 90's, 80's etc.");
+        //int numPrinted = 0;
+        for(int i = scores.length - 1; i >= 0; i--)                             //i = index in array
+        {
+            for(int scoreRepetition = 0; scoreRepetition < scores[i]; scoreRepetition++)
+            {
+                System.out.printf("%5d", i);
+                if(i%10 == 0)
+                    System.out.println();
+                //numPrinted++;
+                //if(numPrinted%15 == 0)
+                //    System.out.println(/*"\tnumPrinted = " + numPrinted*/);
+            }
+        }
+        
+        System.out.println();
+	}
 	public String utilMethod(String function, String info1, String info2)
 	{
         if(function.equalsIgnoreCase("getInput")) ///getInput section of it; info1 = get, info2 = promptIn 
