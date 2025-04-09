@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -75,10 +76,16 @@ class PutItTogetherHolder extends JPanel
 		
 		Information info = new Information();
 		FirstPagePanel fpp = new FirstPagePanel(this, cards, info);
-		FixedPanelHolder hph = new FixedPanelHolder(info);
+		HomePanelHolder homeph = new HomePanelHolder(info);
+		FixedPanelHolder fph = new FixedPanelHolder(info);
+		BothPictPanel bpp = new BothPictPanel(info);
+		MyPictPanel mypp = new MyPictPanel();
+		FriendPictPanel friendpp = new FriendPictPanel();
 		
 		add(fpp, "First");
-		add(hph, "Home");
+		add(homeph, "Home");
+		add(fph, "FixedPanel");
+		add(bpp, "BothPicts");
 		cards.show(this, "First");
 		
 	}
@@ -99,35 +106,64 @@ class FirstPagePanel extends JPanel
 		cards = cardsIn;
 		panelCards = panelCardsIn;
 		info = infoIn;
-		
+							//how to set textarea font 
 		String areaText = "Welcome to my program. This program is an " + 
 			"attempt to try and put together what we have learned this " + 
 			"year. It has examples of multiple layouts and components " + 
-			"as well as using graphics to draw pictures.";
-		JTextArea jta = new JTextArea(areaText);
+			"as well as using graphics to draw pictures.\n\n";
+		JTextArea jta = new JTextArea(areaText, 8, 15);
+		jta.setFont(new Font("Arial", Font.PLAIN, 30));	
 		jta.setLineWrap(true);
 		jta.setWrapStyleWord(true);
 		jta.setEditable(false);
 		JScrollPane scroll = new JScrollPane(jta);
-		//scroll.add(jta);
-		add(jta);
+		scroll.setVisible(true);
 		add(scroll);
 				
 		tfName = new JTextField("Type your name");
-		tfName.addActionListener(new TextFieldHandler());
+		tfName.addActionListener(new TextFieldHandler());				//don't know if we need this
 		add(tfName);
 		
-		cardsIn.show(panelCardsIn, "Home");
+		JCheckBox iUnderstand = new JCheckBox("I Understand the " + 
+			"directions. Take me to the next page");
+		iUnderstand.addActionListener(new CheckBoxHandler());
+		add(iUnderstand);
 	}
-	
-}
-class TextFieldHandler implements ActionListener
-{
-	public void actionPerformed(ActionEvent evt)
+	/*
+	public void paintComponent(Graphics g)
 	{
-		///implementation
+		g.setColor(Color.RED);
+		g.drawString("Please type in your name.", 300, 400);
 	}
-} 
+	*/
+	class CheckBoxHandler implements ActionListener						//has to be inside to access cards
+	{
+		public void actionPerformed(ActionEvent evt)
+		{
+			/*String text = tfName.getText();								//if user edited text in text field 
+			if(!text.equalsIgnoreCase("Type your name"))
+			*/
+				cards.show(panelCards, "Home");							//show next 
+			/*
+			else
+			{
+				repaint();
+			}
+			*/
+		}
+	}
+	/* Text Field Handler -- don't know if we need this*/
+	class TextFieldHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent evt)
+		{
+			///implementation
+		}
+	}
+}
+/*** Handlers ***/
+
+
 
 class FixedPanelHolder extends JPanel
 {
