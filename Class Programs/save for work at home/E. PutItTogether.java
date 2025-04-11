@@ -1,45 +1,56 @@
 // Noah Guan
-// 04-07-2025
+// Started 04/07/2025, Restarted 4/10/2025 
+/* Work Timeline: 
+4/10/2025
+	2:00 to 6:00
+	10:00 to 
+*/
 // PutItTogether.java  
 // Period 6 Java w/ Mr. Yu
 
-///imports 
+/// imports
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.awt.Image;
 import javax.imageio.ImageIO;
+import java.io.IOException;
+
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+//~ import java.awt.event.KeyEvent;
+//~ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
+import java.awt.Dimension;
 
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-
-/** the setup class (done) **/
-public class PutItTogether												
+public class PutItTogether
 {	
 	public PutItTogether()
 	{
@@ -54,9 +65,9 @@ public class PutItTogether
 	public void run()
 	{
 		JFrame frame = new JFrame("PutItTogether");
-		frame.setSize( 800, 700 );				
+		frame.setSize( 800, 800);				
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
-		frame.setLocation(0,0);
+		frame.setLocation(00,50);
 		frame.setResizable(true);
 		PutItTogetherHolder pith = new PutItTogetherHolder(); 		
 		frame.getContentPane().add( pith );		
@@ -64,7 +75,9 @@ public class PutItTogether
 	}
 }
 
-/** this panel holds the main cards/panel (-- this class holds everything) **/ 
+/** this panel holds the main cards/panel 
+ * the way this program is structured: pass CardLayout and JPanel through all the other panels
+ * so that the other panels can show each other (call the method)**/
 class PutItTogetherHolder extends JPanel 
 {	
 	public PutItTogetherHolder()
@@ -76,20 +89,10 @@ class PutItTogetherHolder extends JPanel
 		
 		Information info = new Information();
 		FirstPagePanel fpp = new FirstPagePanel(this, cards, info);
-		HomePanelHolder homeph = new HomePanelHolder(info);
-		FixedPanelHolder fph = new FixedPanelHolder(info);
-		BothPictPanel bpp = new BothPictPanel(info);
-		MyPictPanel mypp = new MyPictPanel();
-		FriendPictPanel friendpp = new FriendPictPanel();
+		FixedPanelHolder hph = new FixedPanelHolder(info);
 		
 		add(fpp, "First");
-		add(homeph, "Home");
-		add(fph, "FixedPanel");
-		add(bpp, "BothPicts");
-		add(mypp, "MyPictPanel");
-		add(friendpp, "FriendPictPanel");
-		cards.show(this, "First");
-		
+		add(hph, "Home");
 	}
 }
 
@@ -103,8 +106,10 @@ class FirstPagePanel extends JPanel
 	
 	public FirstPagePanel(PutItTogetherHolder panelCardsIn, CardLayout cardsIn, Information infoIn)
 	{
+		
 		setBackground(Color.CYAN);
-		setLayout(new FlowLayout(FlowLayout.CENTER, 10000, 50));		//insanely long horizontal gap, vertical gap
+ 		setLayout(new FlowLayout(FlowLayout.CENTER, 10000, 50));		//insanely long horizontal gap, vertical gap
+ 		
 		cards = cardsIn;
 		panelCards = panelCardsIn;
 		info = infoIn;
@@ -112,9 +117,9 @@ class FirstPagePanel extends JPanel
 		String areaText = "Welcome to my program. This program is an " + 
 			"attempt to try and put together what we have learned this " + 
 			"year. It has examples of multiple layouts and components " + 
-			"as well as using graphics to draw pictures.\n\n";
-		JTextArea jta = new JTextArea(areaText, 8, 15);
-		jta.setFont(new Font("Arial", Font.PLAIN, 30));	
+			"as well as using graphics to draw pictures.\n\n\n";
+		JTextArea jta = new JTextArea(areaText, 8, 20);
+		jta.setFont(new Font("Arial", Font.PLAIN, 23));	
 		jta.setLineWrap(true);
 		jta.setWrapStyleWord(true);
 		jta.setEditable(false);
@@ -123,7 +128,7 @@ class FirstPagePanel extends JPanel
 		add(scroll);
 				
 		tfName = new JTextField("Type your name");						//create textfield
-		tfName.addActionListener(new TextFieldHandler());				//don't know if we need this
+		tfName.addActionListener(new AListen());
 		add(tfName);
 		
 		JCheckBox iUnderstand = new JCheckBox("I Understand the " + 
@@ -131,136 +136,342 @@ class FirstPagePanel extends JPanel
 		iUnderstand.addActionListener(new CheckBoxHandler());
 		add(iUnderstand);
 	}
-	/*
-	public void paintComponent(Graphics g)
-	{
-		g.setColor(Color.RED);
-		g.drawString("Please type in your name.", 300, 400);
-	}
-	*/
+	class AListen implements ActionListener
+ 	{
+ 		public void actionPerformed(ActionEvent evt)
+ 		{
+ 			info.setName(tfName.getText());
+ 			//cards.show(panelCards, "Home");
+ 			
+ 		}
+ 	}
 	class CheckBoxHandler implements ActionListener						//has to be inside to access cards
-	{
-		public void actionPerformed(ActionEvent evt)
-		{
-			String text = tfName.getText();								//if user edited text in text field 
-			/*
-			if(!text.equalsIgnoreCase("Type your name"))
-			*/
-			{
-				info.setString(text);
-				cards.show(panelCards, "Home");							//show next 
-			}
-			/*
-			else
-			{
-				repaint();
-			}
-			*/
-		}
-	}
-	/* Text Field Handler -- don't know if we need this*/
-	class TextFieldHandler implements ActionListener
-	{
-		public void actionPerformed(ActionEvent evt)
-		{
-			///implementation
-		}
-	}
+ 	{
+ 		public void actionPerformed(ActionEvent evt)
+ 		{
+ 			/*String text = tfName.getText();								//if user edited text in text field 
+ 			if(!text.equalsIgnoreCase("Type your name"))
+ 			*/
+ 				cards.show(panelCards, "Home");							//show next 
+ 			/*
+ 			else
+ 			{
+ 				repaint();
+ 			}
+ 			*/
+ 		}
+ 	}
 }
-/*** Handlers ***/
 
-
-
-class FixedPanelHolder extends JPanel									//the panel at the bottom that always has the home button
+/** just the home panel at bottom **/
+class FixedPanelHolder extends JPanel									///CRUCIAL: MUST CHANGE TO NULLLAYOUT. PLEASE COME BACK AND REVISE THIS WHEN DONE. 
 {
 	private Information info;
 	private JButton homeButton;
-	public FixedPanelHolder()
-	{
-		info = new Information();
-		doActions();
-	}
+	private HomePanelHolder hpholder;
+	
 	public FixedPanelHolder(Information infoIn)
 	{
 		info = infoIn;
-	}
-	public void doActions()
-	{
+		
+		setBackground(Color.YELLOW);
+		setLayout(new BorderLayout());
+		
+		hpholder = new HomePanelHolder(info);
+		
 		homeButton = new JButton("Home");
 		homeButton.addActionListener(new HomeButtonHandler());
+		
+		JPanel hbpan = new JPanel();									//homebuttonpanel (bottom yellow bar with home button)
+		hbpan.setBackground(Color.YELLOW);
+		hbpan.setLayout(new FlowLayout());
+		hbpan.add(homeButton);											//homebutton
+		
+		add(hbpan, BorderLayout.SOUTH);
+		add(hpholder, BorderLayout.CENTER);
 	}
 	class HomeButtonHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent evt)
 		{
-			//~ CardLayout cards = Info
+			hpholder.getHomePan().repaint();
+			hpholder.getCardLayout().show(hpholder, "Home");
 		}
 	}
+	
 }
-
+/** has the CardLayout; contains the other JPanels  **/
 class HomePanelHolder extends JPanel
 {
 	private Image picture;
 	private Information info;
 	private String pictName;
 	private CardLayout cards;
+	private HomePanel homepan;
 	
 	public HomePanelHolder (Information infoIn)
 	{
+		info = infoIn;
+		cards = new CardLayout();
+		
+		setLayout(cards);
+		homepan = new HomePanel(this, cards, info);
+		add(homepan, "Home");
+		BothPictPanel bothpictpan = new BothPictPanel(this, cards);
+		add(bothpictpan, "BothPicts");
+		MyPictPanel mypictpan = new MyPictPanel(this, cards);
+		add(mypictpan, "MyPict");
+		FriendPictPanel friendpictpan = new FriendPictPanel(this, cards);
+		add(friendpictpan, "FriendPict");
+		DrawPanel drawpan = new DrawPanel();
+		add(drawpan, "DrawPan");
+		//~ MasterPiecePan masterpiece = new MasterPiecePan();
+		//~ add(masterpiece, "Masterpiece");
+		
+		//~ Class classReference = new Class();
+		//~ in panelHolder class: add(classReference, "ClassName");
+		//~ to show: cardLayout.show(panelHolder, "ClassName");
 	}
-
-	public CardLayout getCardLayout()
+	
+	public HomePanel getHomePan()
+	{
+		return homepan;
+	}
+	
+	public CardLayout getCardLayout()									//crucial for any class that wants to go to another page 
 	{
 		return cards;
 	}
 }
-
+/** the second yellow page **/
 class HomePanel extends JPanel
 {
-	
+	private HomePanelHolder hph;
+	private CardLayout cards;
+	private Information info;
+	private JLabel username;
+	ButtonGroup homegroup;
+	public HomePanel(HomePanelHolder hphIn, CardLayout cardsIn, Information infoIn)
+	{
+		hph = hphIn;
+		cards = cardsIn;
+		info = infoIn;
+	 	System.out.println("Constructor: " + info.getName());
+		username = new JLabel("Welcome " + info.getName());				//currently says null at the time of construction 
+		
+		setBackground(Color.YELLOW);
+		addComponents();
+	}
 	// Since the label for the name was created when the classes constructor was called
 	// it needs to be updated after the user types in the name into the text field.
 	// Update that label in paintComponent.
 	public void paintComponent(Graphics g)
 	{
+		super.paintComponent(g);
+		//~ setBackground(Color.YELLOW);
+		System.out.println("paintComponent: " + info.getName());
+		username.setText("Welcome " + info.getName());					///NOTE!! I screwed up a ton. If you create a JLabel, you should just use the same one instead of creating a new one. The new one doesn't even change. 
 	}
 	
-	
+	public void addComponents()
+ 	{
+ 		Font largeBold = new Font("Arial", Font.BOLD, 40);
+ 		Font smallBold = new Font("Times New Roman", Font.BOLD, 20);
+ 		setBackground(Color.YELLOW);
+ 		setLayout(new BorderLayout(0, 100));							//hgap, vgap so the 0 shouldn't really matter 
+ 		
+ 		username.setFont(largeBold);
+ 		username.setPreferredSize(new Dimension(800, 80));//800x800 panel
+ 		add(username, BorderLayout.NORTH);
+  		
+																		//build JTextArea and scrollbar
+		String areaText = "Welcome to my program. This program is an " + 
+			"attempt to try and put together what we have learned this " + 
+			"year. It has examples of multiple layouts and components " + 
+			"as well as using graphics to draw pictures.\n\n\n";
+		JTextArea jta = new JTextArea(areaText, 8, 20);
+		jta.setFont(new Font("Arial", Font.PLAIN, 23));	
+		jta.setLineWrap(true);
+		jta.setWrapStyleWord(true);
+		jta.setEditable(false);
+		JScrollPane scroll = new JScrollPane(jta);
+		scroll.setVisible(true);
+  		jta.setBackground(Color.YELLOW);
+  		
+  		JLabel selectOne = new JLabel("Select one of the two options");	//build JLabel
+  		selectOne.setBackground(Color.YELLOW);
+  		selectOne.setFont(smallBold);
+  		
+  		JPanel centerPan = new JPanel();								///builds center textarea formatting 
+  		centerPan.setLayout(new BorderLayout(15, 50));					//hgap, vgap
+  		centerPan.add(scroll, BorderLayout.NORTH);
+  		centerPan.add(selectOne, BorderLayout.SOUTH);
+  		
+  		homegroup = new ButtonGroup();
+  		RadioButtonHandler rbhandler = new RadioButtonHandler();
+  		JRadioButton b1 = new JRadioButton("To see information about a friend and me.");//according to prompt; "A picture of two people" in pictures
+  		homegroup.add(b1);
+  		b1.addActionListener(rbhandler);
+  		
+  		JRadioButton b2 = new JRadioButton("To make some colors and draw some shapes.");//according to prompt; "Draw Panel" in picture
+  		homegroup.add(b2);
+  		b2.addActionListener(rbhandler);
+  		
+  		//~ JRadioButton b3 = new JRadioButton("Masterpiece");
+  		//~ homegroup.add(b3);
+  		//~ b3.addActionListener(rbhandler);
+  		
+  		JPanel radioButtonPan = new JPanel();							///builds button formatting JPanel (bottom)
+  		radioButtonPan.setBackground(Color.YELLOW);
+  		radioButtonPan.setLayout(new GridLayout(2, 1, 0, 20));			//rows, columns, hgap, vgap; change to 3 1 0 20 when you add Masterpiece panel
+  		radioButtonPan.add(b1);											//add all buttons to radioButtonPan
+  		radioButtonPan.add(b2);
+  		//~ radioButtonPan.add(b3);
+  		
+  		add(centerPan, BorderLayout.CENTER);
+  		add(radioButtonPan, BorderLayout.SOUTH);						//add radioButtonPan to actual panel
+ 	}
+ 	class RadioButtonHandler implements ActionListener
+ 	{
+ 		public void actionPerformed(ActionEvent evt)
+ 		{
+			homegroup.clearSelection();
+ 			String buttonname = evt.getActionCommand();
+ 			if(buttonname.equalsIgnoreCase("To see information about a friend and me."))
+ 				cards.show(hph, "BothPicts");
+ 			else if(buttonname.equalsIgnoreCase("To make some colors and draw some shapes."))
+ 				cards.show(hph, "DrawPan");
+ 			//~ else if(buttonname.equalsIgnoreCase("Masterpiece"))
+ 				//~ cards.show(cardsPan, "");
+ 		}
+ 	}
 }
 
 class BothPictPanel extends JPanel implements MouseListener
 {
-	Information info;
-	public BothPictPanel()
+	private HomePanelHolder hph;
+	private CardLayout cards;
+	
+	private JLabel username;
+	
+	private String imgName;
+	private Image image;
+	private int xpos, ypos, sizeX, sizeY;
+	
+	public BothPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
-		info = null;
+		hph = hphIn;
+		cards = cardsIn;
+		setLayout(null);
+		setBackground(Color.BLUE);
+		
+		imgName = "ni-ki_jungwon.jpeg";
+		image = null;
+		
+		drawImage();
+		addMouseListener(this);
 	}
-	public BothPictPanel(Information infoIn)
+	public void drawImage()
 	{
-		info = infoIn;
+		xpos = 0;
+		ypos = 200;
+		sizeX = 670;
+		sizeY = 447;
+		
+		createImg();
+		
+		//~ repaint();
 	}
-	public void mouseClicked(MouseEvent evt) {}
-	public void mouseEntered(MouseEvent evt) {}
-	public void mouseExited(MouseEvent evt) {}
-	public void mouseReleased(MouseEvent evt) {}
-	public void mousePressed(MouseEvent evt) {}
+	public void createImg()
+	{
+		File imageFile = new File(imgName);
+		try
+		{
+			image = ImageIO.read(imageFile);
+		}
+		catch(IOException e)
+		{
+			System.err.println("\n\n\n" + imgName + " can't be found.\n\n");
+			e.printStackTrace();
+		}
+	}
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);										//if I don't put super.paintComponent, the background doesn't set. 
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Roboto", Font.BOLD, 30));
+		g.drawString("Click on Ni-Ki or Jungwon to see their pages", 0, 50);//give it 10 px headspace 
+		g.drawImage(image, xpos, ypos, sizeX, sizeY, this);
+	}
+	public void mouseClicked(MouseEvent evt)							//nikiX = 340; jungwonX = sizeX-nikiX; heights stay 447
+ 	{
+		System.out.print("mouse clicked: y pos ");
+		int nikiX = 340;												//how far over niki is
+		//~ int jungwonX = sizeX-nikiX;
+		int x = evt.getX();
+		int y = evt.getY();
+		if(ypos <= y && y <= ypos + sizeY)
+		{
+			System.out.println("correct; ");
+			if(xpos <= x && x <= nikiX)
+				cards.show(hph, "MyPict");								//call MyPictPan
+			else if(nikiX <= x && x <= sizeX)
+				cards.show(hph, "FriendPict");							//call FriendPictPan
+		}
+		else
+			System.out.println("incorrect; ");							//only printed out for y pos; could have done x pos deeper inside the if statements if wanted  
+ 	}
+ 	public void mousePressed(MouseEvent evt) {}
+ 	public void mouseReleased(MouseEvent evt) {}
+ 	public void mouseEntered(MouseEvent evt) {}
+ 	public void mouseExited(MouseEvent evt) {}
 }
 
-class MyPictPanel extends JPanel implements ActionListener
+/** person 1: ni-ki **/
+class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way of not copying over every method except the mouseListener parts; that minor inefficiency is fine
 {
-	public void actionPerformed(ActionEvent evt) 
+	public MyPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
-		
-	} 
-}
-
-
-class FriendPictPanel extends JPanel implements ActionListener
-{
-	public void actionPerformed(ActionEvent evt) 
+		super(hphIn, cardsIn);											//now we should have all the fvs and methods of the super class 
+		finishConstructing();											//this allows for class-specific "constructor" editing 
+	}
+	public void finishConstructing()
+	{
+		setBackground(Color.WHITE);
+		setLayout(new BorderLayout());									//will this override the previous layout? 
+	}
+	public void paintComponent(Graphics g)								///make BothPictPanel polymorphic 
 	{
 		
 	}
+	public void actionPerformed(ActionEvent evt)
+ 	{
+		
+ 	}
+ 	//~ public void mouseClicked(MouseEvent evt) {} 					//maybe later, as a challenge, implement the same sectioning; edit BothPictPanel to be polymorphic
+}
+
+/** person 2: jungwon **/
+class FriendPictPanel extends BothPictPanel implements ActionListener	//again, got lazy :P
+{																		///toying with the idea of having FriendPictPanel extend MyPictPanel
+	public FriendPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
+	{
+		super(hphIn, cardsIn);											//same logic applies! :)
+		finishConstructing();
+	}
+	public void finishConstructing()
+	{
+		
+	}
+	public void paintComponent(Graphics g)
+	{
+		
+	}
+	public void actionPerformed(ActionEvent evt)
+ 	{
+		
+ 	}
+	//~ public void mouseClicked(MouseEvent evt) {} 					//challenge for this one too
 }
 
 class DrawPanel extends JPanel
@@ -278,75 +489,21 @@ class DrawPanel extends JPanel
 	}
 }
 
-class Information														//very, very powerful class! useful for storage and data parameters
+class Information
 {
-	private String str;
-	private CardLayout cards;
-	private JPanel cardHolder, panelHolder;
+	private String name;
 	
 	public Information()
 	{
-		str = null;
-		cards = null;
-		cardHolder = null;
-		panelHolder = null;
-	}
-	public Information(String strIn)
-	{
-		str = strIn;
-	}
-	public Information(CardLayout cardsIn, JPanel cardHolderIn)
-	{
-		cards = cardsIn;
-		cardHolder = cardHolderIn;
-	}
-	public Information(JPanel panelHolderIn)
-	{
-		panelHolder = panelHolderIn;
 	}
 	
-	public String getString()
+	public String getName()
 	{
-		return str;
+		return name;
 	}
 	
-	public void setString(String strIn)
+	public void setName(String nameIn)
 	{
-		str = strIn;
-	}
-	
-	public JPanel getPanelHeld()
-	{
-		return panelHolder;
-	}
-	
-	public void setPanelHeld(JPanel panelHolderIn)
-	{
-		panelHolder = panelHolderIn;
-	}
-	
-	public CardLayout getCardLayout()
-	{
-		return cards;
-	}
-	
-	public void setCardLayout(CardLayout cardsIn)
-	{
-		cards = cardsIn;
-	}
-	
-	public JPanel getCardPanel()
-	{
-		return cardHolder;
-	}
-	
-	public void setCardPanel(JPanel cardHolderIn)
-	{
-		cardHolder = cardHolderIn;
-	}
-	
-	public Information getInfo()
-	{
-		return this;
+		name = nameIn;
 	}
 }
