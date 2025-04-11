@@ -4,6 +4,8 @@
 4/10/2025
 	2:00 to 6:00
 	10:00 to 1:00
+ 4/11/2025 
+ 	8:00 to 8:20
 */
 // PutItTogether.java  
 // Period 6 Java w/ Mr. Yu
@@ -349,14 +351,20 @@ class HomePanel extends JPanel
 
 class BothPictPanel extends JPanel implements MouseListener
 {
-	private HomePanelHolder hph;
-	private CardLayout cards;
+	protected HomePanelHolder hph;
+	protected CardLayout cards;
 	
-	private JLabel username;
+	protected JLabel username;
 	
-	private String imgName;
-	private Image image;
-	private int xpos, ypos, sizeX, sizeY;
+	protected String imgName;
+	protected Image image;
+	protected int xpos, ypos, sizeX, sizeY;								//image dimensions 
+	
+	
+	protected Font font;												//string dimensions 
+	protected String stringDrawn;
+	protected Color stringColor;
+	protected int xString, yString;
 	
 	public BothPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
@@ -378,6 +386,13 @@ class BothPictPanel extends JPanel implements MouseListener
 		sizeX = 670;
 		sizeY = 447;
 		
+		font = new Font("Roboto", Font.BOLD, 30);
+		stringDrawn = "Click on Ni-Ki or Jungwon to see their pages";
+		stringColor = Color.WHITE;
+		xString = 0;
+		yString = 50;
+		
+		
 		createImg();
 		
 		//~ repaint();
@@ -398,9 +413,9 @@ class BothPictPanel extends JPanel implements MouseListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);										//if I don't put super.paintComponent, the background doesn't set. 
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Roboto", Font.BOLD, 30));
-		g.drawString("Click on Ni-Ki or Jungwon to see their pages", 0, 50);//give it 10 px headspace 
+		g.setColor(stringColor);
+		g.setFont(font);
+		g.drawString(stringDrawn, xString, yString);//give it 10 px headspace 
 		g.drawImage(image, xpos, ypos, sizeX, sizeY, this);
 	}
 	public void mouseClicked(MouseEvent evt)							//nikiX = 340; jungwonX = sizeX-nikiX; heights stay 447
@@ -430,6 +445,7 @@ class BothPictPanel extends JPanel implements MouseListener
 /** person 1: ni-ki **/
 class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way of not copying over every method except the mouseListener parts; that minor inefficiency is fine
 {
+	protected JButton other;
 	public MyPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
 		super(hphIn, cardsIn);											//now we should have all the fvs and methods of the super class 
@@ -437,39 +453,54 @@ class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way
 	}
 	public void finishConstructing()
 	{
-		setBackground(Color.WHITE);
-		setLayout(new BorderLayout());									//will this override the previous layout? 
+		setBackground(Color.WHITE);										//background color 
+		stringColor = Color.BLACK;										//initialize string info
+		stringDrawn = "This is the MyPictPanel";
+		
+		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
+		other = new JButton("See info for the other person");
+		other.addActionListener(this);
+		add(other, BorderLayout.SOUTH);
 	}
 	public void paintComponent(Graphics g)								///make BothPictPanel polymorphic 
 	{
 		
+		super.paintComponent(g);
 	}
 	public void actionPerformed(ActionEvent evt)
  	{
-		
+		cards.show(hph, "FriendPict");
  	}
  	//~ public void mouseClicked(MouseEvent evt) {} 					//maybe later, as a challenge, implement the same sectioning; edit BothPictPanel to be polymorphic
 }
 
 /** person 2: jungwon **/
-class FriendPictPanel extends BothPictPanel implements ActionListener	//again, got lazy :P
+class FriendPictPanel extends MyPictPanel implements ActionListener	//again, got lazy :P
 {																		///toying with the idea of having FriendPictPanel extend MyPictPanel
 	public FriendPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
 		super(hphIn, cardsIn);											//same logic applies! :)
 		finishConstructing();
+		System.out.println("In FriendPictPan");
 	}
 	public void finishConstructing()
 	{
+		super.finishConstructing();
+		stringDrawn = "This is the FriendPictPanel";					//initialize string info
 		
+		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
+		JButton other = new JButton("See info for the other person");
+		other.addActionListener(this);
+		add(other, BorderLayout.SOUTH);
 	}
 	public void paintComponent(Graphics g)
 	{
-		
+		System.out.println("Repaint FriendPictPan");
+		super.paintComponent(g);
 	}
 	public void actionPerformed(ActionEvent evt)
  	{
-		
+		cards.show(hph, "MyPict");
  	}
 	//~ public void mouseClicked(MouseEvent evt) {} 					//challenge for this one too
 }
