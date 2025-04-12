@@ -69,7 +69,7 @@ public class PutItTogether
 		JFrame frame = new JFrame("PutItTogether");
 		frame.setSize( 800, 800);				
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
-		frame.setLocation(00,50);
+		frame.setLocation(00,00);
 		frame.setResizable(true);
 		PutItTogetherHolder pith = new PutItTogetherHolder(); 		
 		frame.getContentPane().add( pith );		
@@ -248,17 +248,16 @@ class HomePanelHolder extends JPanel
 /** the second yellow page **/
 class HomePanel extends JPanel
 {
-	private HomePanelHolder hph;
+	HomePanelHolder hph;
 	private CardLayout cards;
 	private Information info;
 	private JLabel username;
-	ButtonGroup homegroup;
+	private ButtonGroup homegroup;
 	public HomePanel(HomePanelHolder hphIn, CardLayout cardsIn, Information infoIn)
 	{
 		hph = hphIn;
 		cards = cardsIn;
 		info = infoIn;
-	 	System.out.println("Constructor: " + info.getName());
 		username = new JLabel("Welcome " + info.getName());				//currently says null at the time of construction 
 		
 		setBackground(Color.YELLOW);
@@ -271,7 +270,6 @@ class HomePanel extends JPanel
 	{
 		super.paintComponent(g);
 		//~ setBackground(Color.YELLOW);
-		System.out.println("paintComponent: " + info.getName());
 		username.setText("Welcome " + info.getName());					///NOTE!! I screwed up a ton. If you create a JLabel, you should just use the same one instead of creating a new one. The new one doesn't even change. 
 	}
 	
@@ -284,13 +282,17 @@ class HomePanel extends JPanel
  		
  		username.setFont(largeBold);
  		username.setPreferredSize(new Dimension(800, 80));//800x800 panel
- 		add(username, BorderLayout.NORTH);
+ 		JPanel centerLabel = new JPanel();
+ 		centerLabel.setBackground(Color.YELLOW);
+ 		centerLabel.setLayout(new FlowLayout());
+ 		centerLabel.add(username);
+ 		add(centerLabel, BorderLayout.NORTH);
   		
 																		//build JTextArea and scrollbar
 		String areaText = "Welcome to my program. This program is an " + 
 			"attempt to try and put together what we have learned this " + 
 			"year. It has examples of multiple layouts and components " + 
-			"as well as using graphics to draw pictures.\n\n\n";
+			"as well as using graphics to draw pictures.\n\n\n\n\n\n\n";//if the text isn't long enough, it won't show the jscrollbar.
 		JTextArea jta = new JTextArea(areaText, 8, 20);
 		jta.setFont(new Font("Arial", Font.PLAIN, 23));	
 		jta.setLineWrap(true);
@@ -305,9 +307,10 @@ class HomePanel extends JPanel
   		selectOne.setFont(smallBold);
   		
   		JPanel centerPan = new JPanel();								///builds center textarea formatting 
+  		centerPan.setBackground(Color.YELLOW);
   		centerPan.setLayout(new BorderLayout(15, 50));					//hgap, vgap
   		centerPan.add(scroll, BorderLayout.NORTH);
-  		centerPan.add(selectOne, BorderLayout.SOUTH);
+  		centerPan.add(selectOne, BorderLayout.CENTER);
   		
   		homegroup = new ButtonGroup();
   		RadioButtonHandler rbhandler = new RadioButtonHandler();
@@ -324,6 +327,7 @@ class HomePanel extends JPanel
   		//~ b3.addActionListener(rbhandler);
   		
   		JPanel radioButtonPan = new JPanel();							///builds button formatting JPanel (bottom)
+  		radioButtonPan.setPreferredSize(new Dimension(10000, 150));		//has to setPreferredSize 
   		radioButtonPan.setBackground(Color.YELLOW);
   		radioButtonPan.setLayout(new GridLayout(2, 1, 0, 20));			//rows, columns, hgap, vgap; change to 3 1 0 20 when you add Masterpiece panel
   		radioButtonPan.add(b1);											//add all buttons to radioButtonPan
@@ -364,7 +368,7 @@ class BothPictPanel extends JPanel implements MouseListener
 	protected Font font;												//string dimensions 
 	protected String stringDrawn;
 	protected Color stringColor;
-	protected int xString, yString;
+	protected int xString, yString, origX, origY, cutX, cutY;
 	
 	public BothPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
@@ -374,6 +378,7 @@ class BothPictPanel extends JPanel implements MouseListener
 		setBackground(Color.BLUE);
 		
 		imgName = "ni-ki_jungwon.jpeg";
+		imgName = "ni-ki_jungwon.jpg";									//TAKE THIS OUT WHEN RETURN BACK HOME
 		image = null;
 		
 		drawImage();
@@ -383,15 +388,16 @@ class BothPictPanel extends JPanel implements MouseListener
 	{
 		xpos = 0;
 		ypos = 200;
-		sizeX = 670;
-		sizeY = 447;
+		sizeX = cutX = 670;
+		sizeY = cutY = 447;												//note: 447/670 = .667164179!! really close to 2/3 so cropping tool use https://www.resizepixel.com/
+		origX = 0;
+		origY = 0;
 		
 		font = new Font("Roboto", Font.BOLD, 30);
 		stringDrawn = "Click on Ni-Ki or Jungwon to see their pages";
 		stringColor = Color.WHITE;
 		xString = 0;
 		yString = 50;
-		
 		
 		createImg();
 		
@@ -416,25 +422,29 @@ class BothPictPanel extends JPanel implements MouseListener
 		g.setColor(stringColor);
 		g.setFont(font);
 		g.drawString(stringDrawn, xString, yString);//give it 10 px headspace 
-		g.drawImage(image, xpos, ypos, sizeX, sizeY, this);
+		g.drawImage(image, xpos, ypos, xpos + sizeX, ypos + sizeY, origX, origY, cutX, cutY, this);
+		//img, destx1, desty1 (top left), destx2, desty2 (bottom right), origx1, origx2,
+			//origy1, origy2, ImgObserver
+		//convert from img, xpos, ypos, origsizeX, origsizeY
+		
 	}
 	public void mouseClicked(MouseEvent evt)							//nikiX = 340; jungwonX = sizeX-nikiX; heights stay 447
  	{
-		System.out.print("mouse clicked: y pos ");
+		//~ System.out.print("mouse clicked: y pos ");
 		int nikiX = 340;												//how far over niki is
 		//~ int jungwonX = sizeX-nikiX;
 		int x = evt.getX();
 		int y = evt.getY();
 		if(ypos <= y && y <= ypos + sizeY)
 		{
-			System.out.println("correct; ");
+			//~ System.out.println("correct; ");
 			if(xpos <= x && x <= nikiX)
 				cards.show(hph, "MyPict");								//call MyPictPan
 			else if(nikiX <= x && x <= sizeX)
 				cards.show(hph, "FriendPict");							//call FriendPictPan
 		}
-		else
-			System.out.println("incorrect; ");							//only printed out for y pos; could have done x pos deeper inside the if statements if wanted  
+		//~ else
+			//~ System.out.println("incorrect; ");							//only printed out for y pos; could have done x pos deeper inside the if statements if wanted  
  	}
  	public void mousePressed(MouseEvent evt) {}
  	public void mouseReleased(MouseEvent evt) {}
@@ -457,6 +467,9 @@ class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way
 		stringColor = Color.BLACK;										//initialize string info
 		stringDrawn = "This is the MyPictPanel";
 		
+		cutX = 340;														//for drawing picture: origX, origY stays 0, cutY stays 447 for niki; 
+		sizeY = 447;
+		
 		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
 		other = new JButton("See info for the other person");
 		other.addActionListener(this);
@@ -471,7 +484,7 @@ class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way
  	{
 		cards.show(hph, "FriendPict");
  	}
- 	//~ public void mouseClicked(MouseEvent evt) {} 					//maybe later, as a challenge, implement the same sectioning; edit BothPictPanel to be polymorphic
+ 	public void mouseClicked(MouseEvent evt) {} 						//simple overwrite; maybe later, as a challenge, implement the same sectioning; edit BothPictPanel to be polymorphic
 }
 
 /** person 2: jungwon **/
@@ -481,12 +494,14 @@ class FriendPictPanel extends MyPictPanel implements ActionListener	//again, got
 	{
 		super(hphIn, cardsIn);											//same logic applies! :)
 		finishConstructing();
-		System.out.println("In FriendPictPan");
+		//~ System.out.println("In FriendPictPan");
 	}
 	public void finishConstructing()
 	{
 		super.finishConstructing();
 		stringDrawn = "This is the FriendPictPanel";					//initialize string info
+		
+		origX = 340;													//only origX changes for jungwon; 
 		
 		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
 		JButton other = new JButton("See info for the other person");
@@ -495,14 +510,14 @@ class FriendPictPanel extends MyPictPanel implements ActionListener	//again, got
 	}
 	public void paintComponent(Graphics g)
 	{
-		System.out.println("Repaint FriendPictPan");
+		//~ System.out.println("Repaint FriendPictPan");
 		super.paintComponent(g);
 	}
 	public void actionPerformed(ActionEvent evt)
  	{
 		cards.show(hph, "MyPict");
  	}
-	//~ public void mouseClicked(MouseEvent evt) {} 					//challenge for this one too
+	public void mouseClicked(MouseEvent evt) {} 						//simple overwrite; challenge for this one too
 }
 
 class DrawPanel extends JPanel
@@ -510,17 +525,145 @@ class DrawPanel extends JPanel
 	private RightPanel rp;
 	private int amtRed, amtGreen, amtBlue;
 	private int size;
+	private JSlider[] sliders;
+	
+	public DrawPanel()
+	{
+		rp = new RightPanel();
+		LeftPanel lp = new LeftPanel();
+		lp.setPreferredSize(new Dimension(450, 500));					//x, y
+		BottomPanel bp = new BottomPanel();
+		bp.setPreferredSize(new Dimension(800, 100));
+		
+		setLayout(new BorderLayout());
+		add(lp, BorderLayout.WEST);
+		add(rp, BorderLayout.EAST);
+		add(bp, BorderLayout.SOUTH);									//block at bottom (doesn't work :sob:)
+	}
 	
 	public class LeftPanel extends JPanel
 	{
+		public LeftPanel()
+		{
+			setLayout(new GridLayout(4, 2, 0, 50));
+			Font labelFont = new Font("Arial", Font.BOLD, 15);
+			
+			String[] colors = new String[] {"red", "green", "blue", ""};//variables initialized in for loop or helping with initialization
+			JLabel[] changeLabels = new JLabel[4];
+			sliders = new JSlider[4];									//first 3 for color, last slider for size 
+			
+			for(int i = 0; i < colors.length; i++)						//for loop that iterates through all 3 color panels 
+			{
+				changeLabels[i] = new JLabel("Amount " + colors[i]);	//amount <color> label 
+				changeLabels[i].setFont(labelFont);
+				
+				sliders[i] = makeSlider();								//make the slider (general)
+				if(i == 0)
+					sliders[i].addChangeListener(new RedSliderListener());//slider0: also red; adds a different color/size listener for each slider
+				else if(i == 1)
+					sliders[i].addChangeListener(new GreenSliderListener());
+				else if(i == 2)
+					sliders[i].addChangeListener(new BlueSliderListener());
+				else if(i == 3)
+					sliders[i].addChangeListener(new SizeSliderListener());
+				
+				add(changeLabels[i]);
+				add(sliders[i]);
+			}
+			changeLabels[3].setText("Change size");
+			sliders[3].setMinimum(50);
+			sliders[3].setValue(100);
+			
+		}
+		public JSlider makeSlider()
+		{
+			JSlider slider = new JSlider(0, 250, 0);					//from 0 to 250 default location 0
+			slider.setMajorTickSpacing(25);								// create tick marks on slider every 5 units
+			slider.setPaintTicks(true);
+			slider.setLabelTable(slider.createStandardLabels(25) ); 	// create labels on tick marks
+			slider.setPaintLabels(true);
+			slider.setOrientation(JSlider.HORIZONTAL);
+			return slider;
+		}
+		class RedSliderListener implements ChangeListener
+		{
+			public void stateChanged(ChangeEvent evt)
+			{
+				int val = sliders[0].getValue();						//red slider
+				amtRed = val;											//change fv color value to slider value 
+				/* //
+				String sliderName = slider.getString();
+				if(sliderName.equalsIgnoreCase("Red Slider"))
+					amtRed = val;
+				else if(sliderName.equalsIgnoreCase("Blue Slider"))
+					amtBlue = val;
+				else if(sliderName.equalsIgnoreCase("Green Slider"))
+					amtGreen = val;
+				*/
+				rp.repaint();											//NOTE!! It won't repaint itself. You will have to repaint it. 
+			}
+		}
+		class GreenSliderListener implements ChangeListener
+		{
+			public void stateChanged(ChangeEvent evt)
+			{
+				int val = sliders[1].getValue();
+				amtGreen = val;
+				rp.repaint();
+			}
+		}
+		class BlueSliderListener implements ChangeListener
+		{
+			public void stateChanged(ChangeEvent evt)
+			{
+				int val = sliders[2].getValue();
+				amtBlue = val;
+				rp.repaint();
+			}
+		}
+		class SizeSliderListener implements ChangeListener
+		{
+			public void stateChanged(ChangeEvent evt)
+			{
+				int val = sliders[3].getValue();
+				size = val;
+				rp.repaint();
+			}
+		}
 	}
 	
 	public class RightPanel extends JPanel
 	{
+		public RightPanel()
+		{
+			setLayout(new BorderLayout());
+			
+			JLabel descPan = new JLabel();
+			descPan.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));//only one in line so hgap doesn't matter
+			descPan.setPreferredSize(new Dimension(300, 200));
+			
+			JLabel description = new JLabel("This is the drawing Panel");
+			description.setFont(new Font("Arial", Font.BOLD, 15));
+			
+			descPan.add(description);
+			add(descPan, BorderLayout.NORTH);
+			
+			size = 100;
+		}
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+			g.setColor(new Color(amtRed, amtGreen, amtBlue));
+			g.fillRect(0, 200, size, size);
+		}
+	}
+	class BottomPanel extends JPanel
+	{
+		
 	}
 }
 
-class Information
+class Information														//basically only used in PutItTogetherHolder, FirstPagePanel, HomePanelHolder, HomePanel
 {
 	private String name;
 	
