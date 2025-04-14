@@ -1,11 +1,17 @@
 // Noah Guan
-// Started 04/07/2025, Restarted 4/10/2025 
+// Started 04/07/2025, Restarted 4/10/2025, V1 finished
 /* Work Timeline: 
 4/10/2025
-	2:00 to 6:00
-	10:00 to 1:00
- 4/11/2025 
- 	8:00 to 8:20
+	2:00 to 6:00 P.M.
+	10:00 to 1:00 A.M.
+4/11/2025 
+	8:00 to 8:20 A.M. 
+	2:30 to 6:00 A.M.
+	10:40 to 11:00 P.M.
+Colors: 
+	dawn colors: pink (0), light grayish blue (1), grayish blue (2), dark blue (3), dark purple (4)
+	dusk colors: bluish gray (0), peach-pink (1), purple (2), faded purple (3)
+	note: in V1, some colors (i think later ones) don't work for some reason. If wanted, check back on code. 
 */
 // PutItTogether.java  
 // Period 6 Java w/ Mr. Yu
@@ -281,10 +287,10 @@ class HomePanel extends JPanel
  		setLayout(new BorderLayout(0, 100));							//hgap, vgap so the 0 shouldn't really matter 
  		
  		username.setFont(largeBold);
- 		username.setPreferredSize(new Dimension(800, 80));//800x800 panel
+ 		//~ username.setPreferredSize(new Dimension(800, 80));				//800x800 panel ...note for future: this made it go left aligned. better to use the FlowLayout left. 
  		JPanel centerLabel = new JPanel();
  		centerLabel.setBackground(Color.YELLOW);
- 		centerLabel.setLayout(new FlowLayout());
+ 		centerLabel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
  		centerLabel.add(username);
  		add(centerLabel, BorderLayout.NORTH);
   		
@@ -358,17 +364,23 @@ class BothPictPanel extends JPanel implements MouseListener
 	protected HomePanelHolder hph;
 	protected CardLayout cards;
 	
+	protected Color[] dawn, dusk;										//color scheming times!! 
+	
 	protected JLabel username;
 	
 	protected String imgName;
 	protected Image image;
-	protected int xpos, ypos, sizeX, sizeY;								//image dimensions 
+	final int FULL_X = 670, FULL_Y = 447, SPLIT_VAL_L = 340, SPLIT_VAL_R = FULL_X-SPLIT_VAL_L;
+		//basic image dimensions //note: 447/670 = .667164179!! really close to 2/3 so cropping tool use https://www.resizepixel.com/
+	protected int xpos, ypos, xend, yend;								//synthesized image dimensions 
+	protected int xsplitL, xsplitR;										//for separating pics; x left and right splits respectively 
+	protected int destX1, destY1, destX2, destY2, origX1, origY1, origX2, origY2;//for inheritance changes 
 	
 	
 	protected Font font;												//string dimensions 
 	protected String stringDrawn;
 	protected Color stringColor;
-	protected int xString, yString, origX, origY, cutX, cutY;
+	protected int xString, yString;
 	
 	public BothPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
@@ -378,25 +390,58 @@ class BothPictPanel extends JPanel implements MouseListener
 		setBackground(Color.BLUE);
 		
 		imgName = "ni-ki_jungwon.jpeg";
-		imgName = "ni-ki_jungwon.jpg";									//TAKE THIS OUT WHEN RETURN BACK HOME
+		//~ imgName = "ni-ki_jungwon.jpg";									//TAKE THIS OUT WHEN RETURN BACK HOME
 		image = null;
+		setImage();
 		
-		drawImage();
 		addMouseListener(this);
 	}
-	public void drawImage()
+	public Color[] setColorSet(int[] colorSetIn)
 	{
-		xpos = 0;
-		ypos = 200;
-		sizeX = cutX = 670;
-		sizeY = cutY = 447;												//note: 447/670 = .667164179!! really close to 2/3 so cropping tool use https://www.resizepixel.com/
-		origX = 0;
-		origY = 0;
+		if(colorSetIn.length%3 != 0)
+			System.out.println("Error: Incorrect number of RGB modifiers");
 		
-		font = new Font("Roboto", Font.BOLD, 30);
-		stringDrawn = "Click on Ni-Ki or Jungwon to see their pages";
+		Color[] outputColors = new Color[colorSetIn.length/3];
+		for(int i = 0; i < outputColors.length; i++)					//go through outputColors; another way to do it: go through 3 at a time 
+			outputColors[i/3] = new Color(colorSetIn[i], colorSetIn[++i], colorSetIn[++i]);//intialize outputColors while incrementing index 
+		return outputColors;
+	}
+	public void setImage()												//sets all the variables needed to create the image
+	{
+		//DAWN COLORS: 210, 125, 140 (pink); 155, 165, 190 (light grayish blue); 155, 155, 180 (grayish blue); 61, 63, 95 (dark blue); 110, 65, 115 (dark purple) 
+			//ordered from red & light to blue & dark 
+		dawn = new Color[5];
+		int[] dawnVals = new int[] {210, 125, 140, 155, 165, 190, 155, 155, 180, 61, 63, 95, 110, 65, 115};
+		dawn = setColorSet(dawnVals);
+
+		//DUSK COLORS: 135, 150, 175 (bluish gray), 250, 215, 225 (peach-pink); 200, 170, 220 (purple); 185, 175, 220 (faded purple)
+			//ordered from red & dark to blue & light 
+		dusk = new Color[4];
+		int[] duskVals = new int[] {135, 150, 175, 250, 215, 225, 200, 170, 220, 185, 175, 220};
+		dusk = setColorSet(duskVals);
+		
+		xpos = 25;														//initialize synthesized image dimensions (adjusted lengths)
+		ypos = 100;														//xpos and ypos may be changed at discretion 
+		xend = xpos + FULL_X;
+		yend = ypos + FULL_Y;
+		
+		xsplitL = xpos + SPLIT_VAL_L;									//initialize pic separation dimensions (also adjusted lengths)
+		xsplitR = xpos + SPLIT_VAL_R;
+		
+																		//inheritance changes: can change to whatever class initializes it to 
+		destX1 = xpos;													//by definition; never changes 
+		destY1 = ypos;													//same logic 
+		destX2 = xend;													//will change later
+		destY2 = yend;													//never changes 
+		origX1 = 0;														//will change
+		origY1 = 0;														//never changes
+		origX2 = FULL_X;												//will change 
+		origY2 = FULL_Y;												//never changes
+				
+		font = new Font("Roboto", Font.BOLD, 30);						//Label font 
+		stringDrawn = "Click on Ni-Ki or Jungwon to see their pages";	//String information 
 		stringColor = Color.WHITE;
-		xString = 0;
+		xString = 20;
 		yString = 50;
 		
 		createImg();
@@ -422,11 +467,13 @@ class BothPictPanel extends JPanel implements MouseListener
 		g.setColor(stringColor);
 		g.setFont(font);
 		g.drawString(stringDrawn, xString, yString);//give it 10 px headspace 
-		g.drawImage(image, xpos, ypos, xpos + sizeX, ypos + sizeY, origX, origY, cutX, cutY, this);
-		//img, destx1, desty1 (top left), destx2, desty2 (bottom right), origx1, origx2,
-			//origy1, origy2, ImgObserver
-		//convert from img, xpos, ypos, origsizeX, origsizeY
 		
+		g.drawImage(image, destX1, destY1, destX2, destY2, origX1, origY1, origX2, origY2, this);
+		//convert from img, xpos, ypos, origsizeX, origsizeY
+		//img, [canvas: (top left), (bottom right)], [image file: (top left), (bottom right)], ImgObserver
+		//old: 
+			//~ g.drawImage(image, xpos, ypos, end, yend, origStart, 0, end, yend, this);
+			//~ //img, destx1, desty1 (top left), destx2, desty2 (bottom right), origx1, origy1, origx2, origy2, ImgObserver		
 	}
 	public void mouseClicked(MouseEvent evt)							//nikiX = 340; jungwonX = sizeX-nikiX; heights stay 447
  	{
@@ -435,12 +482,12 @@ class BothPictPanel extends JPanel implements MouseListener
 		//~ int jungwonX = sizeX-nikiX;
 		int x = evt.getX();
 		int y = evt.getY();
-		if(ypos <= y && y <= ypos + sizeY)
+		if(ypos <= y && y <= ypos + yend)
 		{
 			//~ System.out.println("correct; ");
 			if(xpos <= x && x <= nikiX)
 				cards.show(hph, "MyPict");								//call MyPictPan
-			else if(nikiX <= x && x <= sizeX)
+			else if(nikiX <= x && x <= xend)
 				cards.show(hph, "FriendPict");							//call FriendPictPan
 		}
 		//~ else
@@ -455,7 +502,12 @@ class BothPictPanel extends JPanel implements MouseListener
 /** person 1: ni-ki **/
 class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way of not copying over every method except the mouseListener parts; that minor inefficiency is fine
 {
-	protected JButton other;
+	protected JButton other;											//unique to MyPictPan and FriendPictPan
+	
+	protected String name, alias, birthday, bloodType, zodiac, nationality, occupation, aboutPerson;
+	protected JTextArea personTA;
+	protected JScrollPane scroller;
+	protected JPanel personPanel;
 	public MyPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
 		super(hphIn, cardsIn);											//now we should have all the fvs and methods of the super class 
@@ -463,17 +515,61 @@ class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way
 	}
 	public void finishConstructing()
 	{
-		setBackground(Color.WHITE);										//background color 
-		stringColor = Color.BLACK;										//initialize string info
+		setBackground(Color.BLUE/*dusk[3]*/);											//background color blue //(faded purple)
+		stringColor = dusk[1];											//initialize string info (color = peach-pink)
 		stringDrawn = "This is the MyPictPanel";
 		
-		cutX = 340;														//for drawing picture: origX, origY stays 0, cutY stays 447 for niki; 
-		sizeY = 447;
+																		//niki changes: destX2 (xend --> xsplitL), origX2 (xend --> SPLIT_VAL_L)
+		destX2 = xsplitL;												//will change 
+		origX2 = SPLIT_VAL_L;											//will change 
 		
+		//old formula:  xpos, ypos, end, yend, origStart, 0, end, yend; end cannot be twice
+		
+																		///unique to MyPictPan and FriendPictPan from here
 		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
-		other = new JButton("See info for the other person");
+		other = new JButton("See info for the other person");			//build switch panel JButton
 		other.addActionListener(this);
+  		
+		//Nishimura Riki (Japanese: 西村力 (にしむら りき), Hangul: 니시무라 리키) -- more well known by his stage name NI-KI (Hangul: 니키, Japanese: ニキ)
+																		//build JTextArea and scrollbar
+		name = "Nishimura Riki (Japanese: 西村力 (にしむら りき), Hangul: 니시무라 리키)";
+		alias = "NI-KI (Hangul: 니키, Japanese: ニキ)";
+		birthday = "2005 December 9";
+		bloodType = "B";
+		zodiac = "Sagittarius (Western)🐆 , Rooster (Chinese)🐥";
+		nationality = "Japanese";
+		occupation = "Member of ENHYPEN, K-pop boy group (Main Dancer, Vocalist, Rapper, Maknae)";
+		buildPersonTA();
+		
+		personTA = new JTextArea("", 8, 20);
+		personTA.setFont(new Font("Dialog", Font.PLAIN, 20));	
+		personTA.setLineWrap(true);
+		personTA.setWrapStyleWord(true);
+		personTA.setEditable(false);
+		scroller = new JScrollPane(personTA);
+		scroller.setPreferredSize(new Dimension(300, 400));
+		scroller.setVisible(true);
+  		personTA.setBackground(dusk[0]);								//text area background = bluish gray 
+  		setPersonText();
+  		
+  		personPanel = new JPanel(new FlowLayout());						//to format; to make sure that it doesn't take up half of the card space 
+  		//~ personPanel.setPreferredSize(new Dimension(300, 400));		//no need as the scroller preferred size already makes it fill up 300 px wide
+  		personPanel.setBackground(dusk[2]);								//text area panel background = purple 
+  		personPanel.add(scroller);
+  		
+  		add(personPanel, BorderLayout.EAST);
 		add(other, BorderLayout.SOUTH);
+	}
+	public void buildPersonTA()
+	{
+		aboutPerson = "This is:\n " + name + "\n\nAlso known as:\n " + alias + 
+			"\n\nBirthday:\n " + birthday + "\n\nBlood Type:\n " + bloodType + 
+			"\n\nZodiac:\n " + zodiac + "\n\nNationality:\n " + nationality + 
+			"\n\nOccupation:\n " + occupation + "\n\n\n\n";				//if the text isn't long enough, it won't show the jscrollbar.
+	}
+	public void setPersonText()
+	{
+		personTA.setText(aboutPerson);
 	}
 	public void paintComponent(Graphics g)								///make BothPictPanel polymorphic 
 	{
@@ -493,20 +589,29 @@ class FriendPictPanel extends MyPictPanel implements ActionListener	//again, got
 	public FriendPictPanel(HomePanelHolder hphIn, CardLayout cardsIn)
 	{
 		super(hphIn, cardsIn);											//same logic applies! :)
-		finishConstructing();
-		//~ System.out.println("In FriendPictPan");
+		//~ super.finishConstructing();									//if it is put here instead, the picture will not draw and all info will look like NI-KI's. This is because Jungwon's finishConstructing is never called. 
 	}
 	public void finishConstructing()
 	{
 		super.finishConstructing();
 		stringDrawn = "This is the FriendPictPanel";					//initialize string info
 		
-		origX = 340;													//only origX changes for jungwon; 
+		origX1 = SPLIT_VAL_L;											//jungwon changes
+		origX2 = FULL_X;
+		destX2 = xsplitR;
 		
-		setLayout(new BorderLayout());									//will this override the previous layout? yes. the picture draws as background.
-		JButton other = new JButton("See info for the other person");
-		other.addActionListener(this);
-		add(other, BorderLayout.SOUTH);
+																		//build JTextArea and scrollbar
+		//Yang Jung-won (양정원)
+		name = "Yang Jung-won (Hangul: 양정원)";
+		alias = "Jungwon (Hangul: 정원)";
+		birthday = "2004 February 9";
+		bloodType = "AB";
+		zodiac = "Aquarius (Western)🐈";
+		nationality = "Korean";
+		occupation = "Leader of ENHYPEN, K-pop boy group (Dancer, Vocalist)";
+		buildPersonTA();
+		setPersonText();
+		personTA.setBackground(dawn[0]);
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -637,6 +742,7 @@ class DrawPanel extends JPanel
 		public RightPanel()
 		{
 			setLayout(new BorderLayout());
+			setBackground(Color.WHITE);
 			
 			JLabel descPan = new JLabel();
 			descPan.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));//only one in line so hgap doesn't matter
