@@ -1,6 +1,12 @@
-//TypeAlong from GameModuleFiles1 
+//TypeAlong from GameModuleFiles1 and GameModuleFiles2 video lectures 
 /*
 
+Noah Guan
+Completed 4/20/2025
+6th Period Java with Mr. Yu
+GameModuleFiles.java
+
+GAMEMODULEFILES1 Pseudocode Notes
 read and write to files 
 ask 4 questoins 
 
