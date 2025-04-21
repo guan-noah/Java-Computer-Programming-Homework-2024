@@ -282,7 +282,7 @@ class QuestionsPanel extends JPanel implements ActionListener
 			answer[i] = new JRadioButton("" + (char)(65 + i) + ". " + data.getAnswer(i));
 			group.add(answer[i]);
 			answer[i].setOpaque(true);
-			answer[i].setBackground(new Color(230, 230, 230));
+			answer[i].setBackground(new Color(230, 230, 230));			/** adding on Noah's #8. (N8) set opaque **/
 			answer[i].setFont(myFont);
 			answer[i].addActionListener(this);
 			answers.add(answer[i]);
@@ -360,7 +360,7 @@ class QuestionsPanel extends JPanel implements ActionListener
 		else if(command.equals("NEXT QUESTION"))						///only saw a glimpse of these methods. logicking it all out now. 
 		{
 			resetQuestion();
-			nextPanel.setEnabled(false);
+			nextPanel.setEnabled(false);								/** N9 have to change these 2 else if logics to differ from the code given in the video **/
 			nextQuestion.setEnabled(false);
 		}
 		else if(command.equals("NEXT PANEL"))
@@ -368,7 +368,6 @@ class QuestionsPanel extends JPanel implements ActionListener
 			data.resetAll();
 			resetQuestion();
 			nextQuestion.setEnabled(false);
-			nextPanel.setEnabled(false);
 			listOfCards.next(primaryPanel);
 		}
 	}
@@ -383,7 +382,7 @@ class QuestionsPanel extends JPanel implements ActionListener
 		//~ answer[0].setText("A. " + data.getAnswer(0));					///used this as a framework. mr. deruiter did it all manually. 
 		for(int i = 0; i < letters.length; i++)							///have to use letters.length because deruiter only had 4 manual code snippets. too lazy to find out if I can use answers.length as well. 
 		{
-			answer[i].setText(letters[i] + ". " + data.getAnswer(i));	
+			answer[i].setText(letters[i] + ". " + data.getAnswer(i));	/** N10 have to add setBackground again and setEnabled true again **/
 			answer[i].setBackground(new Color(230, 230, 230));
 			answer[i].setEnabled(true);
 		}
