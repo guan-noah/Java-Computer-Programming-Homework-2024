@@ -46,7 +46,10 @@ import javax.swing.JSlider;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollBar;
 
+import java.awt.event.AdjustmentListener;
+import java.awt.event.AdjustmentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 //~ import java.awt.event.KeyEvent;
@@ -298,7 +301,7 @@ class HomePanel extends JPanel
 		String areaText = "Welcome to my program. This program is an " + 
 			"attempt to try and put together what we have learned this " + 
 			"year. It has examples of multiple layouts and components " + 
-			"as well as using graphics to draw pictures.\n\n\n\n\n\n\n";//if the text isn't long enough, it won't show the jscrollbar.
+			"as well as using graphics to draw pictures.\n\n\n\n\n\n\n";//if the text isn't long enough, it won't show the jscrollpane.
 		JTextArea jta = new JTextArea(areaText, 8, 20);
 		jta.setFont(new Font("Arial", Font.PLAIN, 23));	
 		jta.setLineWrap(true);
@@ -565,7 +568,7 @@ class MyPictPanel extends BothPictPanel implements ActionListener		//my lazy way
 		aboutPerson = "This is:\n " + name + "\n\nAlso known as:\n " + alias + 
 			"\n\nBirthday:\n " + birthday + "\n\nBlood Type:\n " + bloodType + 
 			"\n\nZodiac:\n " + zodiac + "\n\nNationality:\n " + nationality + 
-			"\n\nOccupation:\n " + occupation + "\n\n\n\n";				//if the text isn't long enough, it won't show the jscrollbar.
+			"\n\nOccupation:\n " + occupation + "\n\n\n\n";				//if the text isn't long enough, it won't show the jscrollpane.
 	}
 	public void setPersonText()
 	{
@@ -631,6 +634,7 @@ class DrawPanel extends JPanel
 	private int amtRed, amtGreen, amtBlue;
 	private int size;
 	private JSlider[] sliders;
+	private JScrollBar changeSize;
 	
 	public DrawPanel()
 	{
@@ -669,15 +673,22 @@ class DrawPanel extends JPanel
 					sliders[i].addChangeListener(new GreenSliderListener());
 				else if(i == 2)
 					sliders[i].addChangeListener(new BlueSliderListener());
-				else if(i == 3)
-					sliders[i].addChangeListener(new SizeSliderListener());
+				//~ else if(i == 3)
+					//~ sliders[i].addChangeListener(new SizeSliderListener());
 				
 				add(changeLabels[i]);
-				add(sliders[i]);
+				if(i != colors.length-1)
+					add(sliders[i]);									//save the last one for jscrollbar 
 			}
+			changeSize = new JScrollBar(JScrollBar.HORIZONTAL, 100, 25, 50, 250);
+			changeSize.addAdjustmentListener(new SizeSliderListener());
+			add(changeSize);
+			/*
 			changeLabels[3].setText("Change size");
 			sliders[3].setMinimum(50);
 			sliders[3].setValue(100);
+			*/
+			
 			
 		}
 		public JSlider makeSlider()
@@ -726,11 +737,22 @@ class DrawPanel extends JPanel
 				rp.repaint();
 			}
 		}
+		/*
 		class SizeSliderListener implements ChangeListener
 		{
 			public void stateChanged(ChangeEvent evt)
 			{
 				int val = sliders[3].getValue();
+				size = val;
+				rp.repaint();
+			}
+		}
+		*/
+		class SizeSliderListener implements AdjustmentListener
+		{
+			public void adjustmentValueChanged(AdjustmentEvent evt)
+			{
+				int val = changeSize.getValue();
 				size = val;
 				rp.repaint();
 			}
