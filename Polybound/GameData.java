@@ -2,11 +2,13 @@
  * GameData.java
  * Project started 4/23/2025
 */
-import java.awt.CardLayout;///krish
-import javax.swing.JPanel;//noah
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+//noah
+///krish
 /* noah */
 /** krish **/
-public class GameData
+public class GameData													//static class 
 {
 	private static CardLayout polyCards;
 	private static JPanel polyPanel;
@@ -27,14 +29,27 @@ public class GameData
 		polyPanel = new JPanel();
 		polyPanel.setLayout(polyCards);
 		
-		MainMenuPanel menu = new MainMenuPanel();						//must feed in to access CardLayout; easier way would just to encapsulate all classes in GameModuleFiles and have fvs 
-		add(menu, "menu");
+		MainMenuPanel menuPan = new MainMenuPanel();						//must feed in to access CardLayout; easier way would just to encapsulate all classes in GameModuleFiles and have fvs 
+		add(menuPan, "menu");
+		/*
+		GamePanel gamePan = new GamePanel();
+		add(gamePan, "game");
 		
-		GamePanel game = new GamePanel();
-		add(game, "game");
+		OptionPanel optionsPan = new OptionPanel();
+		add(optionsPan, "options");
 		
-		OptionPanel options = new OptionPanel();
-		add(options, "options");
+		StatsPanel statsPan = new StatsPanel();
+		add(statsPan, "stats");
+		
+		ImagesPanel imagesPan = new ImagesPanel();
+		add(imagesPan, "images");
+		
+		ProblemPanel problemPan = new ProblemPanel();
+		add(problemPan, "problem");
+		
+		ContentPanel contentPan = new ContentPanel();
+		add(contentPan, "content");
+		*/
 	}
 	
 	
