@@ -1,5 +1,16 @@
-//written by Krish
+/**
+ * Krish Kumar
+ * Period 6
+ * MainMenuPanel.java
+ * 
+ * This class is a JPanel for the main menu that appears when you open
+ * the game. It contains the navigation buttons, and displays the game
+ * logo as well.
+ * 
+ * NOTE: THIS CLASS IS NOT COMPLETE!
+ **/
 
+///import libraries
 import javax.swing.JPanel;
 
 import java.awt.Graphics;
@@ -13,27 +24,35 @@ import java.awt.event.ActionEvent;
 
 public class MainMenuPanel extends JPanel
 {
-	private Image logo;
-	private Popup helpPopup;
-	private Popup highScorePopup;
-	private CardLayout cards;
+	private Image logo; ///Image for the game logo
+	private InfoPopup helpPopup; ///InfoPopup for the "Help" popup
+	private InfoPopup highScorePopup; ///InfoPopup for the "High Scores" popup
+	private CardLayout cards; ///Field to store the main CardLayout
 	
+	/**
+	 * The default constructor, responsible for setting up this
+	 * instance of MainMenuPanel. Specifically, the layout is set to null,
+	 * the game logo is loaded, and the components that are to be displayed
+	 * are set up and added.
+	 **/
 	public MainMenuPanel()
 	{
-		setLayout(null);
+		setLayout(null); ///sets layout to null layout
 		
-		logo = GameData.loadImage("polyboundLogo.jpg");
-		cards = GameData.getCardLayout();
+		logo = GameData.loadImage("polyboundLogo.jpg"); ///loads game logo
+		cards = GameData.getCardLayout(); ///gets main CardLayout
 		
+		///gets the popups
 		helpPopup = getHelpPopup();
 		highScorePopup = getHighScorePopup();
 		
+		///Button setup
 		MainMenuButtonHandler mmBtnHandler = new MainMenuButtonHandler();
-		Button startButton = new Button("START", mmBtnHandler);
-		Button optionsButton = new Button("OPTIONS", mmBtnHandler);
-		Button quitButton = new Button("QUIT", mmBtnHandler);
-		Button highScoreButton = new Button("HI-SCORES", mmBtnHandler);
-		Button helpButton = new Button("HELP", mmBtnHandler);
+		Button startButton = new Button("START", mmBtnHandler, 50);
+		Button optionsButton = new Button("OPTIONS", mmBtnHandler, 50);
+		Button quitButton = new Button("QUIT", mmBtnHandler, 50);
+		Button highScoreButton = new Button("HI-SCORES", mmBtnHandler, 50);
+		Button helpButton = new Button("HELP", mmBtnHandler, 50);
 		
 		startButton.setBounds(400, 410, 400, 100);
 		optionsButton.setBounds(400, 510, 400, 100);
@@ -41,52 +60,74 @@ public class MainMenuPanel extends JPanel
 		highScoreButton.setBounds(50, 350, 300, 100);
 		helpButton.setBounds(850, 350, 300, 100);
 		
+		///adds Buttons to panel
 		add(startButton);
 		add(optionsButton);
 		add(quitButton);
 		add(highScoreButton);
 		add(helpButton);
 		
-		setBackground(Color.BLUE);
+		setBackground(Color.GRAY); ///sets background color to gray
 	}
 	
-	public Popup getHelpPopup()
+	/**
+	 * This method is responsible for setting up the InfoPopup that will
+	 * be the "Help" popup.
+	 **/
+	public InfoPopup getHelpPopup()
 	{
-		Popup toReturn = new Popup("Help");
-		toReturn.setContent("Hello!");
+		InfoPopup toReturn = new InfoPopup("Help"); ///creates new InfoPopup
+		toReturn.setContent("placeholder"); ///currently sets content to placeholder
 		
 		return toReturn;
 	}
 	
-	public Popup getHighScorePopup()
+	/**
+	 * This method is responsible for setting up the InfoPopup that will
+	 * be the "High Scores" popup.
+	 **/
+	public InfoPopup getHighScorePopup()
 	{
-		Popup toReturn = new Popup("High Scores");
+		InfoPopup toReturn = new InfoPopup("High Scores"); ///new InfoPopup
+		toReturn.setContent("placeholder"); ///currently sets content to placeholder
 		
 		return toReturn;
 	}
 	
+	/**
+	 * This is the paintComponent() method inherited from JPanel, overrided
+	 * to display the game's logo.
+	 **/
 	public void paintComponent(Graphics g)
 	{
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(logo, 400, 100, this);
+		super.paintComponent(g); ///superclass paintComponent() call
+		
+		Graphics2D g2d = (Graphics2D) g; ///cast Graphics to Graphics2D
+		g2d.drawImage(logo, 400, 100, this); ///draws the image
 	}
 	
+	/**
+	 * This class is responsible for handling the main menu buttons.
+	 **/
 	class MainMenuButtonHandler implements ActionListener
 	{
+		/**
+		 * This method is called when a main menu button is pressed,
+		 * and determines what to do depending on which button was pressed.
+		 **/
 		public void actionPerformed(ActionEvent evt)
 		{
-			String command = evt.getActionCommand();
+			String command = evt.getActionCommand(); ///gets action command
 
-			if(command.equals("HELP"))
+			if(command.equals("HELP")) ///shows the "Help" popup
 			{
 				helpPopup.show();
 			}
-			else if(command.equals("HI-SCORES"))
+			else if(command.equals("HI-SCORES")) ///shows the "High Scores" popup
 			{
 				highScorePopup.show();
 			}
-			else if(command.equals("QUIT"))
+			else if(command.equals("QUIT")) ///quits the game
 			{
 				System.exit(0);
 			}

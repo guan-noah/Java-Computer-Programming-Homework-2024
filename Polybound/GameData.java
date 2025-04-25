@@ -1,3 +1,15 @@
+ /*
+  * Noah Guan and Krish Kumar
+  * Period 6
+  * GameData.java
+  * 
+  * Contains shared data between classes, as well as utility methods
+  * that are used throughout the game.
+  * 
+  * NOTE: THIS CLASS IS NOT COMPLETE!
+  */
+
+///import libraries
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -5,39 +17,23 @@ import java.io.File;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
- /* Noah Guan
-  * GameData.java
-  * Project started 4/23/2025
- */
- //noah
- ///krish
- /* noah */
- /** krish **/
  public class GameData //static class 
  {
  	private static CardLayout polyCards;
  	
- 	/**
- 	 * Written by Krish, rewrote it for simplicity, also I dunno if you
- 	 * understood the whole static class thing...
- 	 **/
+	///Gets the main CardLayout
  	public static void setCardLayout(CardLayout cardsIn)
  	{
 		polyCards = cardsIn;
 	}
  	
- 	 /**
- 	 * Written by Krish for simplicity
- 	 **/
+	///Returns the main CardLayout
  	public static CardLayout getCardLayout()
  	{
  		return polyCards;
  	}
  	
- 	/**
-	 * This code was written by Krish.
-	 * 
-	 **/
+	///Attempts to load the image from the designated file name
 	public static Image loadImage(String fileName)
 	{
 		File imgFile = new File(fileName);
