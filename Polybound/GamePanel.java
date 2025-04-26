@@ -36,7 +36,7 @@ public class GamePanel
 	public JMenuBar createMenuBar()
 	{
 		JMenu moveSetMenu = new JMenu();
-		ArrayList<String> moveSets = new ArrayList<> [];
+		ArrayList<String> moveSets = new ArrayList<> ();
 		addMoves();
 		
 		for(int i = 0; i < moveSets.size(), i++)
