@@ -46,19 +46,22 @@ public class MainMenuPanel extends JPanel
 		helpPopup = getHelpPopup();
 		highScorePopup = getHighScorePopup();
 		
-		///Button setup
+		///button setup
+		int buttonFont = 45; ///font size for buttons
+		int buttonWidth = 100; ///width for buttons
 		MainMenuButtonHandler mmBtnHandler = new MainMenuButtonHandler();
-		Button startButton = new Button("START", mmBtnHandler, 50);
-		Button optionsButton = new Button("OPTIONS", mmBtnHandler, 50);
-		Button quitButton = new Button("QUIT", mmBtnHandler, 50);
-		Button highScoreButton = new Button("HI-SCORES", mmBtnHandler, 50);
-		Button helpButton = new Button("HELP", mmBtnHandler, 50);
+		Button startButton = new Button("START", mmBtnHandler, buttonFont);
+		Button optionsButton = new Button("OPTIONS", mmBtnHandler, buttonFont);
+		Button quitButton = new Button("QUIT", mmBtnHandler, buttonFont);
+		Button highScoreButton = new Button("HI-SCORES", mmBtnHandler, buttonFont);
+		Button helpButton = new Button("HELP", mmBtnHandler, buttonFont);
 		
-		startButton.setBounds(400, 410, 400, 100);
-		optionsButton.setBounds(400, 510, 400, 100);
-		quitButton.setBounds(400, 610, 400, 100);
-		highScoreButton.setBounds(50, 350, 300, 100);
-		helpButton.setBounds(850, 350, 300, 100);
+		///sets bounds of buttons
+		startButton.setBounds(400, 410, 400, buttonWidth);
+		optionsButton.setBounds(400, 510, 400, buttonWidth);
+		quitButton.setBounds(400, 610, 400, buttonWidth);
+		highScoreButton.setBounds(50, 350, 300, buttonWidth);
+		helpButton.setBounds(850, 350, 300, buttonWidth);
 		
 		///adds Buttons to panel
 		add(startButton);
@@ -130,6 +133,12 @@ public class MainMenuPanel extends JPanel
 			else if(command.equals("QUIT")) ///quits the game
 			{
 				System.exit(0);
+			}
+			else if(command.equals("START"))
+			{
+				CardLayout cards = GameData.getCardLayout();
+				JPanel holder = GameData.getCardHolder();
+				cards.show(holder, "intermission");
 			}
 		}
 	}

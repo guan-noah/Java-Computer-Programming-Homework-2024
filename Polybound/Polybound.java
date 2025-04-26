@@ -30,15 +30,18 @@ public class Polybound
 	public void run()
 	{
 		JFrame frame = new JFrame("Playing Polybound");
-		CardLayout cards = new CardLayout();
-		JPanel deck = new JPanel(cards);
+		JPanel deck = new JPanel(new CardLayout());
 		
-		GameData.setCardLayout(cards);
+		GameData.setCardHolder(deck);
+		
 		frame.setSize(1200, 750);	//normal: 600, 500
 		frame.setLocationRelativeTo(null); //centers everything
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		
 		MainMenuPanel mPanel = new MainMenuPanel();
+		IntermissionPanel imPanel = new IntermissionPanel();
 		deck.add(mPanel, "main menu");
+		deck.add(imPanel, "intermission");
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}

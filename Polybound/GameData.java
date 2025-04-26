@@ -10,27 +10,37 @@
   */
 
 ///import libraries
+import javax.swing.JPanel;
+
 import java.awt.Image;
+import java.awt.CardLayout;
+
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
 
  public class GameData //static class 
  {
  	private static CardLayout polyCards;
+ 	private static JPanel cardHolder;
  	
-	///Gets the main CardLayout
- 	public static void setCardLayout(CardLayout cardsIn)
+	///Gets the main CardLayout and its holder
+ 	public static void setCardHolder(JPanel holderIn)
  	{
-		polyCards = cardsIn;
+		cardHolder = holderIn;
+		polyCards = (CardLayout) cardHolder.getLayout();
 	}
  	
 	///Returns the main CardLayout
  	public static CardLayout getCardLayout()
  	{
  		return polyCards;
+ 	}
+ 	
+ 	///Returns the main CardLayout holder
+ 	public static JPanel getCardHolder()
+ 	{
+ 		return cardHolder;
  	}
  	
 	///Attempts to load the image from the designated file name
