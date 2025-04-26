@@ -36,10 +36,10 @@ public class GamePanel
 	public JMenuBar createMenuBar()
 	{
 		JMenu moveSetMenu = new JMenu();
-		ArrayList<String> moveSets = new ArrayList<> {};
+		ArrayList<String> moveSets = new ArrayList<> [];
 		addMoves();
 		
-		for(int i = 0; i < moveSets.length())
+		for(int i = 0; i < moveSets.size(), i++)
 			moveSet.add(moveSets.get(index));
 	}
 	public JMenuItem getMenuItem(String menuItemName)
