@@ -23,15 +23,63 @@ import java.awt.event.ActionEvent;
 
 public class GamePanel
 {
+	private 
 	private JMenuBar moves;
 	private JButton guide, exit;
+	
+	private UserInfo uInfo;
+	
 	private JTextArea gameTurnInfo;
+	private JPanel sideInfoPan;
+	private GamePanel gameUI;
 	
 	public GamePanel()
 	{
-		moves = createMenuBar();
+		setLayout(new BorderLayout());
 		
-		add(moves);
+		gamePanColor = 
+		
+		gameUI.setPreferredSize(1000, 550);//follows game proposal pseudocode
+		getGameUI();						//makes the rest of game pan
+		add(gameUI, BorderLayout.CENTER);				//adds panel
+		
+		sideInfoPan.setPreferredSize(200, 550);
+		getInfoPan();										//same logic
+		add(sideInfoPan, BorderLayout.WEST);
+		
+		gameTurnInfo.setPreferredSize(1200, 200);
+		getGameTurnInfo();
+		add(gameTurnInfo, BorderLayout.SOUTH);
+	}
+	class GamePanel extends JPanel;
+	{
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+			
+		}
+	}
+	class UserInfo extends JPanel;
+	{
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+			
+		}
+	}
+	public void getGameUI()
+	{
+		gameUI.setBackground(gamePanColor);
+		
+	}
+	public void getInfoPan()
+	{
+		moves = createMenuBar();					//initialize moves
+		sideInfoPan.setLayout(new BorderLayout());
+	}
+	public void getGameTurnInfo()
+	{
+		
 	}
 	public JMenuBar createMenuBar()
 	{
