@@ -13,6 +13,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 
 public class Polybound
 {
@@ -34,9 +35,10 @@ public class Polybound
 		
 		GameData.setCardHolder(deck);
 		
-		frame.setSize(1200, 750);	//normal: 600, 500
+		frame.setMinimumSize(new Dimension(1200, 750));	//sets minimum size
 		frame.setLocationRelativeTo(null); //centers everything
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frame.setResizable(false);
 		
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
