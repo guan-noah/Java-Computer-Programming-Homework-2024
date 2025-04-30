@@ -23,14 +23,26 @@ import java.io.File;
  {
  	private static CardLayout polyCards;
  	private static JPanel cardHolder;
+ 	private static boolean gameStarted;
+ 	//also called gameStarted; once user presses 'Continue' this is set to true
  	
+ 	//all set methods 
 	///Gets the main CardLayout and its holder
  	public static void setCardHolder(JPanel holderIn)
  	{
 		cardHolder = holderIn;
 		polyCards = (CardLayout) cardHolder.getLayout();
 	}
+	public static void setIntro()
+	{
+		gameStarted = true;
+	}
+	public static void gameStarted(boolean gameStartedIn)
+	{
+		gameStarted = gameStartedIn;
+	}
  	
+ 	//all get methods 
 	///Returns the main CardLayout
  	public static CardLayout getCardLayout()
  	{
