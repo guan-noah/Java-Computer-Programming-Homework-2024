@@ -33,10 +33,6 @@ import java.io.File;
 		cardHolder = holderIn;
 		polyCards = (CardLayout) cardHolder.getLayout();
 	}
-	public static void setIntro()
-	{
-		gameStarted = true;
-	}
 	public static void gameStarted(boolean gameStartedIn)
 	{
 		gameStarted = gameStartedIn;
