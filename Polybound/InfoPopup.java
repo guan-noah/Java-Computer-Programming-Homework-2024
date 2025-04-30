@@ -23,9 +23,9 @@ import java.awt.event.ActionEvent;
 
 public class InfoPopup
 {
-	private JFrame popupFrame; ///frame to contain the popup
-	private PopupContent content; ///panel with popup content
-	private String title; ///title of the popup
+	protected JFrame popupFrame; ///frame to contain the popup
+	protected InfoPopupContent content; ///panel with popup content
+	protected String title; ///title of the popup
 	
 	/**
 	 * The constructor, responsible for setting up the instance of
@@ -37,9 +37,9 @@ public class InfoPopup
 		title = titleIn; ///stores popup title in a field
 		
 		popupFrame = getFrame(); ///gets the popup frame
-		content = new PopupContent(); ///creates new PopupContent
+		content = new InfoPopupContent(); ///creates new PopupContent
 		
-		popupFrame.add(content); ///adds content to frame
+		popupFrame.setContentPane(content); ///adds content to frame
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class InfoPopup
 	 * This class is the JPanel that stores the actual content of the
 	 * popup.
 	 **/
-	class PopupContent extends JPanel
+	class InfoPopupContent extends JPanel
 	{
 		private JTextArea contentTextArea; ///the content text area
 		
@@ -88,7 +88,7 @@ public class InfoPopup
 		 * a BorderLayout, and the components that make up the content
 		 * are created/added.
 		 **/		
-		public PopupContent()
+		public InfoPopupContent()
 		{
 			setLayout(new BorderLayout()); ///sets layout to BorderLayout
 			

@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
+import java.awt.Font;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -17,8 +19,10 @@ public class IntermissionPanel extends JPanel
 		setLayout(new BorderLayout());
 		
 		JPanel selectionPanel = getSelections();
+		StatsPanel statsPanel = new StatsPanel();
 		
 		add(selectionPanel, BorderLayout.SOUTH);
+		add(statsPanel, BorderLayout.CENTER);
 	}
 	
 	public JPanel getSelections()
@@ -57,14 +61,22 @@ public class IntermissionPanel extends JPanel
 	
 	class StatsPanel extends JPanel
 	{
+		private Image hpIcon;
+		
 		public StatsPanel()
 		{
 			setBackground(Color.GRAY);
+			hpIcon = GameData.loadImage("healthIcon.png"); //this is subject to change
 		}
 		
-		public void paintComponent()
+		public void paintComponent(Graphics g)
 		{
+			super.paintComponent(g);
 			
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setFont(new Font("SansSerif", Font.BOLD, 130));
+			g2d.drawString("100/100", 440, 280);
+			g2d.drawImage(hpIcon, 50, 100, 345, 240, this);
 		}
 	}
 }

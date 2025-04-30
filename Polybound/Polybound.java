@@ -13,7 +13,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 
 public class Polybound
 {
@@ -30,15 +29,18 @@ public class Polybound
 	///Sets up the game
 	public void run()
 	{
+		Character c = new Character("Dummy");
+		c.print();
+		
 		JFrame frame = new JFrame("Playing Polybound");
 		JPanel deck = new JPanel(new CardLayout());
 		
 		GameData.setCardHolder(deck);
 		
-		frame.setMinimumSize(new Dimension(1200, 750));	//sets minimum size
+		frame.setSize(1200, 750);	//normal: 600, 500
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null); //centers everything
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		frame.setResizable(false);
 		
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
