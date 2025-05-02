@@ -1,5 +1,6 @@
 Dummy
-10
-10
+10..15
+10..20
+0..3
 A test dummy.
 A move|Another move

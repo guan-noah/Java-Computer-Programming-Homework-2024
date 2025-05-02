@@ -33,6 +33,7 @@ import java.io.File;
 		cardHolder = holderIn;
 		polyCards = (CardLayout) cardHolder.getLayout();
 	}
+
 	public static void gameStarted(boolean gameStartedIn)
 	{
 		gameStarted = gameStartedIn;
@@ -63,7 +64,7 @@ import java.io.File;
 		}
 		catch(IOException e)
 		{
-			System.err.printf("Error: Could not read from file \"%s\".", fileName);
+			System.err.printf("Error: Could not read from file \"%s\".%n", fileName);
 		}
 		
 		return toReturn;

@@ -48,7 +48,8 @@ public class IntermissionPanel extends JPanel
 			
 			if(command.equals("Continue"))
 			{
-				
+				GameData.gameStarted(true);
+				///add actual code later
 			}
 			else if(command.equals("Return to Menu"))
 			{

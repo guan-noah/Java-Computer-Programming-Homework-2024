@@ -29,13 +29,19 @@ public class Polybound
 	///Sets up the game
 	public void run()
 	{
-		Character c = new Character("Dummy");
-		c.print();
-		
+		Character[] ch = new Character[10];
+		for(Character c : ch)
+		{
+			c = new Character("Dummy");
+			c.print();
+			System.out.println();
+		}
+				
 		JFrame frame = new JFrame("Playing Polybound");
 		JPanel deck = new JPanel(new CardLayout());
 		
 		GameData.setCardHolder(deck);
+		GameData.gameStarted(false);
 		
 		frame.setSize(1200, 750);	//normal: 600, 500
 		frame.setResizable(false);

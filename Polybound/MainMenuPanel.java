@@ -27,8 +27,6 @@ public class MainMenuPanel extends JPanel
 	private Image logo; ///Image for the game logo
 	private InfoPopup helpPopup; ///InfoPopup for the "Help" popup
 	private InfoPopup highScorePopup; ///InfoPopup for the "High Scores" popup
-	//private 
-	private CardLayout cards; ///Field to store the main CardLayout
 	
 	/**
 	 * The default constructor, responsible for setting up this
@@ -41,7 +39,6 @@ public class MainMenuPanel extends JPanel
 		setLayout(null); ///sets layout to null layout
 		
 		logo = GameData.loadImage("polyboundLogo.jpg"); ///loads game logo
-		cards = GameData.getCardLayout(); ///gets main CardLayout
 		
 		///gets the popups
 		helpPopup = getHelpPopup();

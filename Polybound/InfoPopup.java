@@ -1,4 +1,5 @@
 /**
+ * //THIS CLASS NEEDS NEW DOCUMENTATION AND MORE REWRITING//
  * Krish Kumar
  * Period 6
  * InfoPopup.java
@@ -9,7 +10,6 @@
  **/
 
 ///import libraries
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -21,12 +21,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class InfoPopup
-{
-	protected JFrame popupFrame; ///frame to contain the popup
-	protected InfoPopupContent content; ///panel with popup content
-	protected String title; ///title of the popup
-	
+public class InfoPopup extends Popup
+{	
 	/**
 	 * The constructor, responsible for setting up the instance of
 	 * InfoPopup. Specifically, the passed in popup title is stored,
@@ -34,35 +30,7 @@ public class InfoPopup
 	 **/
 	public InfoPopup(String titleIn)
 	{
-		title = titleIn; ///stores popup title in a field
-		
-		popupFrame = getFrame(); ///gets the popup frame
-		content = new InfoPopupContent(); ///creates new PopupContent
-		
-		popupFrame.setContentPane(content); ///adds content to frame
-	}
-	
-	/**
-	 * This method is responsible for setting up the JFrame that will
-	 * be the actual popup.
-	 **/
-	public JFrame getFrame()
-	{
-		JFrame toReturn = new JFrame(title); ///creates new JFrame
-		
-		///frame setup
-		toReturn.setSize(600, 500);
-		toReturn.setLocationRelativeTo(null);
-		
-		return toReturn;
-	}
-	
-	/**
-	 * This method is responsible for showing the popup.
-	 **/
-	public void show()
-	{
-		popupFrame.setVisible(true); ///makes frame visible
+		super(titleIn);
 	}
 	
 	/**
@@ -71,7 +39,14 @@ public class InfoPopup
 	 **/
 	public void setContent(String contentIn)
 	{
-		content.setContent(contentIn); ///requests change of text
+		InfoPopupContent contentPanel = (InfoPopupContent) content;
+		contentPanel.setContent(contentIn); ///requests change of text
+	}
+	
+	public JPanel getContent()
+	{
+		InfoPopupContent toReturn = new InfoPopupContent();
+		return toReturn;
 	}
 	
 	/**
