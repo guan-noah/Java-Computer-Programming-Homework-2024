@@ -12,6 +12,7 @@
 ///import libraries
 import javax.swing.JPanel;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.CardLayout;
 
@@ -24,12 +25,13 @@ import java.io.File;
  	private static CardLayout polyCards;//these 2 fvs for the CardLayout
  	private static JPanel cardHolder;
  	private static boolean gameStarted;
- 	//also called gameStarted; once user presses 'Continue' this is set to true
+ 	//once user presses 'Continue' this is set to true
+ 	private static Color userColor;
  	private static String userName, enemyName;//for getting info to GamePanel 
  	private static Character user, enemy;
  		//note: in the future, maybe we can change enemy character to 
 			//an enemy character arraylist (for multiple enemies) 
- 	
+	 	
  	//all set methods 
 	///Gets the main CardLayout and its holder
  	public static void setCardHolder(JPanel holderIn)
@@ -45,17 +47,11 @@ import java.io.File;
 	{
 		userName = userNameIn;
 	}
-	
-	public static void setEnemyName(String enemyNameIn)
+	public static void setUserColor(Color userColorIn)
 	{
-		enemyName = enemyNameIn;
+		userColor = userColorIn;
 	}
-	//for creating the first enemy and changing when new enemy comes 
-	public static void changeEnemy(String enemyNameIn)
- 	{
-		enemy = new Character(enemyName);
-	}
- 	
+	
  	//all get methods 
 	///Returns the main CardLayout
  	public static CardLayout getCardLayout()
@@ -96,6 +92,11 @@ import java.io.File;
 	public static String getEnemyName()
 	{
 		return enemyName;
+	}
+	//returns the user color 
+	public static Color getUserColor()
+	{
+		return userColor;
 	}
 	//inclusive # generator
 	public static int getRandom(int low, int high)

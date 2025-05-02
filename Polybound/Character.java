@@ -24,7 +24,7 @@ public class Character
 		loadData();
 		charImage = GameData.loadImage(name.toLowerCase() + ".png");
 	}
-
+	
 	public void loadData()
 	{
 		String fileName = "characters.txt";
