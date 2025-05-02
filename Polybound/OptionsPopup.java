@@ -18,9 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class OptionsPopup
-{
-	private OptionsPopupContent content; ///panel with popup content
-	
+{	
 	/**
 	 * The constructor, responsible for setting up the instance of
 	 * InfoPopup. Specifically, the passed in popup title is stored,
@@ -31,7 +29,6 @@ public class OptionsPopup
 		super("Options");
 		
 		content = new OptionsPopupContent(); ///creates new PopupContent
-		popupFrame.setContentPane(content); ///adds content to frame
 	}
 	
 	/**
@@ -95,22 +92,6 @@ public class OptionsPopup
 			///adds holders to top content panel
 			toReturn.add(goBackHolder);
 			toReturn.add(titleHolder);
-			
-			return toReturn;
-		}
-		
-		/**
-		 * This method is responsible for setting up the close button
-		 * of the popup, as well as its holder and handler.
-		 **/
-		public JPanel getGoBackBtn()
-		{
-			///creates new Button, JPanel to hold it, and GoBackButtonHandler
-			JPanel toReturn = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-			GoBackButtonHandler goBackBtnHandler = new GoBackButtonHandler();
-			Button goBack = new Button("X", goBackBtnHandler, 25);
-			
-			toReturn.add(goBack); ///adds button to holder
 			
 			return toReturn;
 		}

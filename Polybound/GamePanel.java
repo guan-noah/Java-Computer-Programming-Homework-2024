@@ -1,8 +1,7 @@
 /*
  * Noah Guan
  * Period 6
- * InfoPopup.java
- * 
+ * GamePanel.java
  */
 import javax.swing.JPanel;
 

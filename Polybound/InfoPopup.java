@@ -43,7 +43,7 @@ public class InfoPopup extends Popup
 		contentPanel.setContent(contentIn); ///requests change of text
 	}
 	
-	public JPanel getContent()
+	public JPanel getContentPanel()
 	{
 		InfoPopupContent toReturn = new InfoPopupContent();
 		return toReturn;

@@ -27,6 +27,7 @@ public class MainMenuPanel extends JPanel
 	private Image logo; ///Image for the game logo
 	private InfoPopup helpPopup; ///InfoPopup for the "Help" popup
 	private InfoPopup highScorePopup; ///InfoPopup for the "High Scores" popup
+	private Popup popup = new Popup("test");
 	
 	/**
 	 * The default constructor, responsible for setting up this
@@ -132,11 +133,15 @@ public class MainMenuPanel extends JPanel
 			{
 				System.exit(0);
 			}
-			else if(command.equals("START"))
+			else if(command.equals("START")) ///switch to intermission panel
 			{
 				CardLayout cards = GameData.getCardLayout();
 				JPanel holder = GameData.getCardHolder();
 				cards.show(holder, "intermission");
+			}
+			else if(command.equals("OPTIONS")) ///shows the "Options" popup
+			{
+				popup.show();
 			}
 		}
 	}

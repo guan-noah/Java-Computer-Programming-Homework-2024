@@ -12,7 +12,7 @@ public class Popup
 		title = titleIn;
 		
 		popupFrame = getFrame();
-		content = getContent();
+		content = getContentPanel();
 		
 		popupFrame.setContentPane(content);
 		popupFrame.setResizable(false);
@@ -33,7 +33,7 @@ public class Popup
 		return toReturn;
 	}
 	
-	public JPanel getContent()
+	public JPanel getContentPanel()
 	{
 		JPanel toReturn = new JPanel();
 		return toReturn;

@@ -50,8 +50,10 @@ public class Polybound
 		
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
+		GamePanel gPanel = new GamePanel();
 		deck.add(mPanel, "main menu");
 		deck.add(imPanel, "intermission");
+		deck.add(gPanel, "game");
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}
