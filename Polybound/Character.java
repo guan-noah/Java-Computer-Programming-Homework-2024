@@ -142,4 +142,9 @@ public class Character
 		System.out.println(description);
 		System.out.println(moveSet);
 	}
+	
+	public Image getImage()
+	{
+		return GameData.loadImage(name);
+	}
 }
