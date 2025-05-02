@@ -1,6 +1,6 @@
-Dummy
+Circle
+20..30
 10..15
-10..20
-0..3
-A test dummy.
-A move|Another move
+0..4
+The circle serves as the perfect cannon fodder for the polygon army. Not being polygons themselves, they are expendable units that support the larger military.
+Roll|Slam
