@@ -13,7 +13,6 @@
 import javax.swing.JLabel;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Color;
 
 public class Label extends JLabel

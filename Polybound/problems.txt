@@ -1,0 +1,11 @@
+TestCategory|ShortAnswer|TestProblem|Answer
+TestCategory|MultipleChoice|TestMCQ
+A!
+B
+C
+D
+TestCategory|MultipleChoice|TestMCQ
+E
+F
+G
+H!

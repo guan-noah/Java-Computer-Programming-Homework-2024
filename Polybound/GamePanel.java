@@ -32,7 +32,6 @@ public class GamePanel extends JPanel
 	private GameUI gameUI;			//SOUTH; game ui (w/ paintComponent)
 	//goes in gamePanel - user & enemy image sprite, 0 & 1 respectively
 	private Character user, enemy;//GameUI information
-	private String userName, enemyName;
 	private Color gamePanColor;
 	private JPanel sideInfoPan;						//WEST; info panel 
 	
@@ -60,13 +59,14 @@ public class GamePanel extends JPanel
 		getInfoPan();										//same logic
 		add(sideInfoPan, BorderLayout.WEST);
 		
-		//method returns jscrollpane with jtextarea; added to panel		
-		add(getGameTurnInfo(), BorderLayout.SOUTH);
+		///add variable or smth idk
+		getGameTurnInfo();
+		add(gameTurnInfo, BorderLayout.SOUTH);
 	}
 	/* initialize */
 	public void getGameUI()
 	{
-		gameUI = new GameUI(GameData.getUserName());
+		gameUI = new GameUI(); ///kept like this for development purposes
 		gameUI.setPreferredSize(new Dimension(1000, 550));//follows game proposal pseudocode
 		gameUI.setBackground(gamePanColor);
 		
@@ -79,14 +79,10 @@ public class GamePanel extends JPanel
 		sideInfoPan.setPreferredSize(new Dimension(200, 550));
 	}
 	/* initializes the south jtextarea */
-	public JScrollPane getGameTurnInfo()
+	public void getGameTurnInfo()
 	{
-		gameTurnInfo = new JTextArea();	//initialize bottom jtextarea
+		gameTurnInfo = new JTextArea();
 		gameTurnInfo.setPreferredSize(new Dimension(1200, 200));
-		
-		JScrollPane scrollPane = new JScrollPane(gameTurnInfo);
-		
-		return scrollPane;
 	}
 	/* initializes the menubar */
 	public JMenuBar createMenuBar()
@@ -138,9 +134,9 @@ public class GamePanel extends JPanel
 			
 			//x, y, width, height
 			//draws user image
-			g.drawImage(user.getImage(), 200, 150, 200, 200, this);
+			//~g.drawImage(user.getImage(), 200, 150, 200, 200, this);
 			//draws enemy image
-			g.drawImage(enemy.getImage(), 600, 150, 200, 200, this);
+			//~g.drawImage(enemy.getImage(), 600, 150, 200, 200, this);
 		}
 		/*as of now, only used the first time GameUI is called*/
 		public void loadUser(String userSpriteName)
@@ -148,7 +144,7 @@ public class GamePanel extends JPanel
 			user = new Character(userSpriteName);
 		}
 		/*overloaded method; used when we're changing enemy sprite*/
-		public void loadEnemy()
+		public void loadEnemy(String enemyName)
 		{
 			enemy = new Character(enemyName);
 		}
@@ -162,19 +158,4 @@ public class GamePanel extends JPanel
 			
 		}
 	}
-	//get and set methods for enemy name 
-	public String getEnemyName()
-	{
-		return enemyName;
-	}
-	public void setEnemyName(String enemyNameIn)
-	{
-		enemyName = enemyNameIn;
-	}
-	//for creating the first enemy and changing when new enemy comes 
-	public void changeEnemy()
- 	{
-		enemy = new Character(enemyName);
-	}
- 	
 }

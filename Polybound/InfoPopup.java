@@ -1,12 +1,11 @@
 /**
- * //THIS CLASS NEEDS NEW DOCUMENTATION AND MORE REWRITING//
  * Krish Kumar
  * Period 6
  * InfoPopup.java
  * 
  * This class is a framework for an "info popup", like the "Help" or
- * "High Scores" popups. It contains a title label, a text area for content,
- * and a button to close the popup.
+ * "High Scores" popups. It contains a title label, as well as
+ * a text area for its content.
  **/
 
 ///import libraries
@@ -14,23 +13,36 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class InfoPopup extends Popup
-{	
+{
+	private InfoPopupContent infoContent; ///allows access to the JTextArea
+
 	/**
 	 * The constructor, responsible for setting up the instance of
-	 * InfoPopup. Specifically, the passed in popup title is stored,
-	 * and the popup frame/panel are set up.
+	 * InfoPopup. Specifically, the superclass' constructor is called
+	 * for initialization.
 	 **/
 	public InfoPopup(String titleIn)
 	{
 		super(titleIn);
+	}
+
+	/**
+	 * This method is responsible for creating the content
+	 * panel, which will hold the title label, as well as
+	 * the content text area.
+	 */
+	public JPanel getContentPanel()
+	{
+		JPanel toReturn = super.getContentPanel();
+		infoContent = new InfoPopupContent();
+		
+		toReturn.add(infoContent, BorderLayout.CENTER);
+
+		return toReturn;
 	}
 	
 	/**
@@ -39,14 +51,8 @@ public class InfoPopup extends Popup
 	 **/
 	public void setContent(String contentIn)
 	{
-		InfoPopupContent contentPanel = (InfoPopupContent) content;
+		InfoPopupContent contentPanel = (InfoPopupContent) infoContent; ///gets text area panel
 		contentPanel.setContent(contentIn); ///requests change of text
-	}
-	
-	public JPanel getContentPanel()
-	{
-		InfoPopupContent toReturn = new InfoPopupContent();
-		return toReturn;
 	}
 	
 	/**
@@ -59,7 +65,7 @@ public class InfoPopup extends Popup
 		
 		/**
 		 * The default constructor, responsible for setting up the
-		 * instance of PopupContent. Specifically, the layout is set to
+		 * instance of InfoPopupContent. Specifically, the layout is set to
 		 * a BorderLayout, and the components that make up the content
 		 * are created/added.
 		 **/		
@@ -67,11 +73,11 @@ public class InfoPopup extends Popup
 		{
 			setLayout(new BorderLayout()); ///sets layout to BorderLayout
 			
-			JPanel topPanel = getTop(); ///gets top of the popup
+			JPanel titlePanel = getTitle(); ///gets title of the popup
 			JScrollPane contentPane = getScrollPane(); ///gets text area
 			
 			///adds components to panel
-			add(topPanel, BorderLayout.NORTH);
+			add(titlePanel, BorderLayout.NORTH);
 			add(contentPane, BorderLayout.CENTER);
 		}
 		
@@ -96,45 +102,10 @@ public class InfoPopup extends Popup
 			JScrollPane toReturn = new JScrollPane(contentTextArea);
 			
 			///text area setup
+			contentTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
 			contentTextArea.setLineWrap(true);
 			contentTextArea.setWrapStyleWord(true);
 			contentTextArea.setEditable(false);
-			
-			return toReturn;
-		}
-		
-		/**
-		 * This method is responsible for the setup of the top of the
-		 * popup. (close button and title)
-		 **/
-		public JPanel getTop()
-		{
-			///creates new JPanel to hold top content holders
-			JPanel toReturn = new JPanel(new GridLayout(2, 1));
-			
-			///creates new JPanels to hold top content
-			JPanel goBackHolder = getGoBackBtn();
-			JPanel titleHolder = getTitle();
-			
-			///adds holders to top content panel
-			toReturn.add(goBackHolder);
-			toReturn.add(titleHolder);
-			
-			return toReturn;
-		}
-		
-		/**
-		 * This method is responsible for setting up the close button
-		 * of the popup, as well as its holder and handler.
-		 **/
-		public JPanel getGoBackBtn()
-		{
-			///creates new Button, JPanel to hold it, and GoBackButtonHandler
-			JPanel toReturn = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-			GoBackButtonHandler goBackBtnHandler = new GoBackButtonHandler();
-			Button goBack = new Button("X", goBackBtnHandler, 25);
-			
-			toReturn.add(goBack); ///adds button to holder
 			
 			return toReturn;
 		}
@@ -146,27 +117,11 @@ public class InfoPopup extends Popup
 		public JPanel getTitle()
 		{
 			JPanel toReturn = new JPanel(); ///creates new JPanel for holder
-			Label titleLabel = new Label(title, 30); ///creates new Button
+			Label titleLabel = new Label(title, 30); ///creates new Label
 			
 			toReturn.add(titleLabel); ///adds button to holder
 			
 			return toReturn;
-		}
-	}
-	
-	/**
-	 * This class is responsible for handling the closing of the
-	 * popup when the close button is pressed.
-	 **/
-	class GoBackButtonHandler implements ActionListener
-	{
-		/**
-		 * This method is called when the close popup button is clicked,
-		 * and is responsible for hiding the popup.
-		 **/
-		public void actionPerformed(ActionEvent evt)
-		{
-			popupFrame.setVisible(false); ///hides popup
 		}
 	}
 }

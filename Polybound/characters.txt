@@ -2,5 +2,5 @@ Circle
 20..30
 10..15
 0..4
-The circle serves as the perfect cannon fodder for the polygon army. Not being polygons themselves, they are expendable units that support the larger military.
+The circle serves as the perfect cannon fodder for the polygon army. Not being polygons themselves, they are considered expendable, and are also regarded as lesser compared to other shapes.
 Roll|Slam

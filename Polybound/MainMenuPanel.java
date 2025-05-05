@@ -27,7 +27,7 @@ public class MainMenuPanel extends JPanel
 	private Image logo; ///Image for the game logo
 	private InfoPopup helpPopup; ///InfoPopup for the "Help" popup
 	private InfoPopup highScorePopup; ///InfoPopup for the "High Scores" popup
-	private Popup popup = new Popup("test");
+	private OptionsPopup optionsPopup;
 	
 	/**
 	 * The default constructor, responsible for setting up this
@@ -44,6 +44,7 @@ public class MainMenuPanel extends JPanel
 		///gets the popups
 		helpPopup = getHelpPopup();
 		highScorePopup = getHighScorePopup();
+		optionsPopup = new OptionsPopup();
 		
 		///button setup
 		int buttonFont = 45; ///font size for buttons
@@ -79,7 +80,10 @@ public class MainMenuPanel extends JPanel
 	public InfoPopup getHelpPopup()
 	{
 		InfoPopup toReturn = new InfoPopup("Help"); ///creates new InfoPopup
-		toReturn.setContent("placeholder"); ///currently sets content to placeholder
+		toReturn.setContent("Welcome to Polybound!\n\nThis game is a turn-based " +
+			"RPG style game where you must take on the role of one of three characters, " +
+			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
+			"");
 		
 		return toReturn;
 	}
@@ -141,7 +145,7 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("OPTIONS")) ///shows the "Options" popup
 			{
-				popup.show();
+				optionsPopup.show();
 			}
 		}
 	}

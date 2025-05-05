@@ -1,5 +1,6 @@
-//Project started 4/23/2025
 /*
+ * Project started 4/23/2025
+ * 
  * Noah Guan and Krish Kumar
  * Period 6
  * Polybound.java
@@ -29,19 +30,21 @@ public class Polybound
 	///Sets up the game
 	public void run()
 	{
-		Character[] ch = new Character[10];
-		for(Character c : ch)
-		{
-			c = new Character("Dummy");
-			c.print();
-			System.out.println();
-		}
+		///this is some debug code for Characters
+		//~ Character[] ch = new Character[10];
+		//~ for(int i=0; i<ch.length; i++)
+		//~ {
+			//~ ch[i] = new Character("Circle");
+			//~ ch[i].print();
+			//~ System.out.println();
+		//~ }
 				
-		JFrame frame = new JFrame("Playing Polybound");
+		JFrame frame = new JFrame("Polybound");
 		JPanel deck = new JPanel(new CardLayout());
 		
 		GameData.setCardHolder(deck);
-		GameData.gameStarted(false);
+		GameData.setGameStarted(false);
+		
 		
 		frame.setSize(1200, 750);	//normal: 600, 500
 		frame.setResizable(false);
@@ -51,9 +54,11 @@ public class Polybound
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
 		GamePanel gPanel = new GamePanel();
+		ProblemPanel pPanel = new ProblemPanel();
 		deck.add(mPanel, "main menu");
 		deck.add(imPanel, "intermission");
 		deck.add(gPanel, "game");
+		deck.add(pPanel, "problem");
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}
