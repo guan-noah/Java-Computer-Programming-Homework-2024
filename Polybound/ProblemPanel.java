@@ -92,6 +92,7 @@ public class ProblemPanel extends JPanel
                             if(answerChoices[i].indexOf("") != -1)
                             {
                                 answer = i;
+                                answerChoices[i] = GameData.getDataTo(answerChoices[i], "!");
                             }
                         }
 
@@ -100,7 +101,7 @@ public class ProblemPanel extends JPanel
                     }
                     else
                     {
-                        question = line.substring(0, line.indexOf("|"));
+                        question = GameData.getDataTo(line, "|");
                         line = GameData.dataAfter(line, "|");
 
                         String answer = line;
