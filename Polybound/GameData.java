@@ -23,6 +23,7 @@ import java.io.File;
  {
  	private static CardLayout polyCards;//these 2 fvs for the CardLayout
  	private static JPanel cardHolder;
+ 	public static ProblemPanel problemPanel;
  	private static boolean gameStarted;
  	//also called gameStarted; once user presses 'Continue' this is set to true
  	private static String userName;
@@ -46,6 +47,11 @@ import java.io.File;
 	public static void setUserName(String userNameIn)
 	{
 		userName = userNameIn;
+	}
+	
+	public static void setProblemPanel(ProblemPanel pPanelIn)
+	{
+		problemPanel = pPanelIn;
 	}
  	
  	//all get methods 
@@ -77,6 +83,11 @@ import java.io.File;
 		}
 		
 		return toReturn;
+	}
+	///Returns the ProblemPanel 
+	public static ProblemPanel getProblemPanel()
+	{
+		return problemPanel;
 	}
 	
 	//returns the username 

@@ -46,6 +46,7 @@ public class GamePanel extends JPanel
 	 - Initializes the component/other needed variables 
 	 - Connects the components together 
 	 */
+	 //CONSTRUCTOR AND ALL INITIALIZER METHODS LISTED BELOW.
 	public GamePanel()
 	{
 		setLayout(new BorderLayout());
@@ -162,6 +163,20 @@ public class GamePanel extends JPanel
 	{
 		
 	}
+	
+	//ALL GAME FUNCTION METHODS LISTED BELOW. 
+	public void showProblem()
+	{
+		CardLayout cards = GameData.getCardLayout();
+ 		JPanel holder = GameData.getCardHolder();
+ 		
+		ProblemPanel problemPanel = GameData.getProblemPanel();
+		problemPanel.getProblem();//gets problempan from gamedata and gets problem from it
+		
+		cards.show(holder, "problem");//shows actual panel
+	}
+	
+	//ALL CLASSES LISTED BELOW. 
 	/* GameUI; CENTER */
 	class GameUI extends JPanel
 	{
@@ -240,9 +255,11 @@ public class GamePanel extends JPanel
 		public void actionPerformed(ActionEvent evt)
 		{
 			String moveName = evt.getActionCommand();
-			GameProgression.executeMove(moveName);
 			if(enemy != null)
+			{
+				GameProgression.executeMove(moveName, user.getMana());
 				gameTurnInfo.append("\n"+ moveName + " was executed by " + GameProgression.whoseTurn(enemy.getName()));
+			}
 		}
 	}
 	class ShowOther implements ActionListener
@@ -286,7 +303,8 @@ class GameProgression
 {
 	private static int movesExecuted;
 	private static boolean isUserTurn;
-	//~ private static Character enemy; //debating whether to add 
+	//~ private static Character enemy; //don't add any Characters to this class; 
+	//~ input parameters instead. this class is the game PROGRESSION, not the game panel. 
 	
 	//from here on are all the set methods. 
 	/*
@@ -319,14 +337,13 @@ class GameProgression
 	}
 	
 	//from here on are all the game progression tracking methods. 
-	public static void executeMove(String moveName)
+	public static void executeMove(String moveName, int userMana)
 	{
 		//match the move with the file input 
 		//search for move in file 
 		//check if move exceeds user mana 
 		/*
-		int userMana = user.getMana();
-		if(userMana < moveMana)
+		if(userMana < moveMana)				//if not enough mana
 		{
 			String extendedDescription = "\n" + moveName + " (cost: " + moveMana 
 				+ " mana pts) exceeds the " + userMana + " mana pts you have left.";

@@ -9,14 +9,15 @@
 public class MultipleChoiceQuestion
 {
     private String question; ///problem
-    private String[] answerChoices; ///answer choices
+    private String[] answerChoices, explanations; ///answer choices, explanations for choices
     private int answer; ///correct answer index
 
-    public MultipleChoiceQuestion(String questionIn, String[] choicesIn, int answerIn)
+    public MultipleChoiceQuestion(String questionIn, String[] choicesIn, int answerIn, String[] explanationsIn)
     {
         question = questionIn;
         answerChoices = choicesIn;
         answer = answerIn;
+        explanations = explanationsIn;
     }
 
     /**
@@ -42,4 +43,11 @@ public class MultipleChoiceQuestion
     {
         return answerChoices[answer];
     }
+    /*
+     * Returns the explanations.
+     */
+    public String[] getExplanations()
+    {
+		return explanations;
+	}
 }
