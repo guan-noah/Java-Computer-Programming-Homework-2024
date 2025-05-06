@@ -17,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -63,7 +64,8 @@ public class GamePanel extends JPanel
 		
 		///add variable or smth idk
 		getGameTurnInfo();
-		add(gameTurnInfo, BorderLayout.SOUTH);
+		JScrollPane scrollGameTurnInfo = new JScrollPane(gameTurnInfo);
+		add(scrollGameTurnInfo, BorderLayout.SOUTH);
 	}
 	/* initialize */
 	public void getGameUI()
@@ -92,19 +94,26 @@ public class GamePanel extends JPanel
 	/* helper initializer method to getInfoPan's options JPanel */
 	public void getOptions(JPanel optionsIn)
 	{
+		//initialize panel that moves will be centered in (workshopped idea) -- right now moves is a bit to the side 
+		//~ JPanel centerMoves = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		moves = createMenuBar();					//initialize moves
 		moves.setPreferredSize(new Dimension(200, 400));
-		optionsIn.add(moves);//reference should still point to the same JPanel object; should be fine
+		moves.setBackground(Color.CYAN);
+		//~ centerMoves.add(moves); //workshopped idea 
+		optionsIn.add(moves /*centerMoves*/);
+		//for adding, optionsIn reference should still point to the same JPanel object; should be fine
 		
 		JButton guide = new JButton("Guide");			//guide button
 		guide.addActionListener(new ShowOther());
 		guide.setPreferredSize(new Dimension(200, 266));
+		guide.setOpaque(true);					//prep for background color
 		guide.setBackground(Color.YELLOW);
 		optionsIn.add(guide);
 		
 		JButton exit = new JButton("Exit");				//exit button
 		exit.addActionListener(new ShowOther());
 		exit.setPreferredSize(new Dimension(200, 266));
+		exit.setOpaque(true);					//prep for background color
 		exit.setBackground(Color.RED);
 		optionsIn.add(exit);
 		
@@ -123,6 +132,7 @@ public class GamePanel extends JPanel
 	{
 		gameTurnInfo = new JTextArea("Welcome to the GamePanel! Play the game in this panel.");
 		gameTurnInfo.setPreferredSize(new Dimension(1200, 200));
+		gameTurnInfo.setEditable(false);
 	}
 	/* initializes the menubar */
 	public JMenuBar createMenuBar()
@@ -145,23 +155,17 @@ public class GamePanel extends JPanel
 		for (int i = 0; i < 3; i++)
 		{
 			JMenuItem temp = getMenuItem("Move " + i);
-			temp.addActionListener(new MovesListener());
 			outputMenu.add(temp);
 		}
 		
 		return outputMenu;
 	}
-	/* intializes each button */
+	/* intializes each item in menu */
 	public JMenuItem getMenuItem(String menuItemName)
 	{
-		return new JMenuItem(menuItemName);//we can add an int mnemonic if we want 
-	}
-	
-	
-	/* initializes each move */
-	public void addMoves()
-	{
-		
+		JMenuItem item = new JMenuItem(menuItemName);//we can add an int mnemonic if we want 
+		item.addActionListener(new MovesListener());
+		return item;
 	}
 	
 	//ALL GAME FUNCTION METHODS LISTED BELOW. 
@@ -260,6 +264,8 @@ public class GamePanel extends JPanel
 				GameProgression.executeMove(moveName, user.getMana());
 				gameTurnInfo.append("\n"+ moveName + " was executed by " + GameProgression.whoseTurn(enemy.getName()));
 			}
+			else
+				gameTurnInfo.append("\n\tWarning: user set to null. Move " + moveName + " could not be executed.");
 		}
 	}
 	class ShowOther implements ActionListener

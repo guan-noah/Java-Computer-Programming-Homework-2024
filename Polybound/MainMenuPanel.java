@@ -85,7 +85,7 @@ public class MainMenuPanel extends JPanel
 			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
 			"In Polybound, you will be tested on a few skills concerning polynomials, " +
  			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
- 			"Remainder Theorem, and interpreting graphs.\n\n"););
+ 			"Remainder Theorem, and interpreting graphs.\n\n");
 		
 		return toReturn;
 	}

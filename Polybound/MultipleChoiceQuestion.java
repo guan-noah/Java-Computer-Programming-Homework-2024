@@ -37,11 +37,11 @@ public class MultipleChoiceQuestion
     }
 
     /**
-     * Returns the answer. 
+     * Returns the answer index. 
      **/
-    public String getAnswer()
+    public int getAnswer()
     {
-        return answerChoices[answer];
+        return answer;//problemPanel implementation requires an index. 
     }
     /*
      * Returns the explanations.
