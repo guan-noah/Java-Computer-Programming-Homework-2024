@@ -3,6 +3,7 @@
  * Period 6
  * SelectUserInfoPanel.java
  * 
+ * This class 
 
 
  */
@@ -56,6 +57,7 @@ public class SelectUserInfoPanel extends JPanel
 	public void getSelection()
 	{
 		selection = new JPanel();
+		selection.setBackground(Color.BLACK);
 		selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
 			"Please enter your information"));
 	}

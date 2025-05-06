@@ -1,12 +1,11 @@
-Polynomial Arithmetic|Short Answer|Blah blah blah|Blah|You must consider blah-2.
-Polynomial Arithmetic|Short Answer|Blah blah blah blah|Blah blah|You must consider blah-2.
-Polynomial Arithmetic|Multiple Choice|Wow
-Wow1|it isn't wow enough.
-Wow2|it isn't wow enough.
-Wow3|it isn't wow enough.
-Wow4!|it's wow enough!
-Factoring|Multiple Choice|Hello
-How are you|you forgot to say hello.
-Hi|it's too basic.
-Yo|this isn't Spanish bud.
-What's good!|it's cool, and a greeting!
+TestCategory|ShortAnswer|TestProblem|Answer
+TestCategory|MultipleChoice|TestMCQ
+A!
+B
+C
+D
+TestCategory|MultipleChoice|TestMCQ
+E
+F
+G
+H!

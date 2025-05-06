@@ -10,15 +10,13 @@ public class MultipleChoiceQuestion
 {
     private String question; ///problem
     private String[] answerChoices; ///answer choices
-    private String[] explanations; ///explanations for choices
     private int answer; ///correct answer index
 
-    public MultipleChoiceQuestion(String questionIn, String[] choicesIn, int answerIn, String[] explanationsIn)
+    public MultipleChoiceQuestion(String questionIn, String[] choicesIn, int answerIn)
     {
         question = questionIn;
         answerChoices = choicesIn;
         answer = answerIn;
-        explanations = explanationsIn;
     }
 
     /**
@@ -40,13 +38,8 @@ public class MultipleChoiceQuestion
     /**
      * Returns the answer. 
      **/
-    public int getAnswer()
+    public String getAnswer()
     {
-        return answer;
-    }
-
-    public String[] getExplanations()
-    {
-        return explanations;
+        return answerChoices[answer];
     }
 }

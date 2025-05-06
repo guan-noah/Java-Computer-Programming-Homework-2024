@@ -10,13 +10,11 @@ public class ShortAnswerQuestion
 {
     private String question; ///problem
     private String answer; ///correct answer
-    private String explanation;
 
-    public ShortAnswerQuestion(String questionIn, String answerIn, String explanationIn)
+    public ShortAnswerQuestion(String questionIn, String answerIn)
     {
         question = questionIn;
         answer = answerIn;
-        explanation = explanationIn;
     }
 
     /**
@@ -33,10 +31,5 @@ public class ShortAnswerQuestion
     public String getAnswer()
     {
         return answer;
-    }
-
-    public String getExplanation()
-    {
-        return explanation;
     }
 }

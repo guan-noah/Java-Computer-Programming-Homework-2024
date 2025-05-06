@@ -34,8 +34,8 @@ public class Character
 	}
 
 	/**
-	 * Attempts to load the data of the specified Character represented
-	 * by this instance.
+	 * Attempts to access the file and load the data of the specified 
+	 * Character represented by this instance.
 	 **/
 	public void loadData()
 	{
@@ -46,42 +46,52 @@ public class Character
 		try
 		{
 			read = new Scanner(characterFile);
-			
-			String line = new String();
-			while(read.hasNext() && !line.equals(name))
-			{
-				line = read.nextLine();
-			}
-			
-			line = read.nextLine();
-			int hpLow = Integer.parseInt(GameData.getDataTo(line, ".."));
-			int hpHigh = Integer.parseInt(GameData.dataAfter(line, ".."));
-			maxHP = GameData.getRandom(hpLow, hpHigh);
-			
-			line = read.nextLine();
-			int manaLow = Integer.parseInt(GameData.getDataTo(line, ".."));
-			int manaHigh = Integer.parseInt(GameData.dataAfter(line, ".."));
-			maxMana = GameData.getRandom(manaLow, manaHigh);
-			
-			line = read.nextLine();
-			int defenseLow = Integer.parseInt(GameData.getDataTo(line, ".."));
-			int defenseHigh = Integer.parseInt(GameData.dataAfter(line, ".."));
-			defense = GameData.getRandom(defenseLow, defenseHigh);
-			
-			description = read.nextLine();
-			
-			line = read.nextLine(); ///gets the moveset
-			while(line.indexOf("|") != -1)
-			{
-				moveSet.add(GameData.getDataTo(line, "|"));
-				line = GameData.dataAfter(line, "|");
-			}
-			moveSet.add(line);
+			cacheData(read);
 		}
 		catch(FileNotFoundException e)
 		{
 			System.err.printf("Error: Could not locate file \"%s\".", fileName);
 		}
+	}
+	/*
+	 * Helper method to loadData, improves encapsulation and actually 
+	 * initializes the fvs
+	 */
+	public void cacheData(Scanner readIn)
+	{
+		String line = new String();
+		
+		while(readIn.hasNext() && !line.equals(name))
+		{
+			line = readIn.nextLine();	//character name on this line
+			System.out.println(line);
+		}
+		
+		line = readIn.nextLine();		//character hp data on this line
+		maxHP = getRandomRange(line);
+		
+		line = readIn.nextLine();	//character mana data on this line
+		maxMana = getRandomRange(line);
+		
+		line = readIn.nextLine();//character defense data on this line
+		defense = getRandomRange(line);
+		
+		description = readIn.nextLine();			//self-explanatory
+		
+		line = readIn.nextLine();					///gets the moveset
+		while(line.indexOf("|") != -1)//processes the moveset; moves separated by bars
+		{
+			moveSet.add(GameData.getDataTo(line, "|"));
+			line = GameData.dataAfter(line, "|");
+		}
+		moveSet.add(line);			//get last move after the last bar
+	}
+	public int getRandomRange(String lineIn)//gets an int from a random range in a String
+	//different from GameData number generator bec. that can be used for other functions
+	{
+		int low = Integer.parseInt(GameData.getDataTo(lineIn, ".."));
+		int high = Integer.parseInt(GameData.dataAfter(lineIn, ".."));
+		return GameData.getRandom(low, high);
 	}
 	
 	/**
@@ -125,7 +135,13 @@ public class Character
 			mana = 0;
 		}
 	}
-	
+	/*
+	 * Returns this Character's name.
+	 */
+	public String getName()
+	{
+		return name;
+	}
 	/**
 	 * Returns this Character's current health.
 	 **/
@@ -169,12 +185,12 @@ public class Character
 	///debug method
 	public void print()
 	{
-		System.out.println(name);
-		System.out.println(maxHP);
-		System.out.println(maxMana);
-		System.out.println(defense);
-		System.out.println(description);
-		System.out.println(moveSet);
+		System.out.println("Name: |" + name + "|");
+		System.out.println("Maximum hitpoints: |" + maxHP + "|");
+		System.out.println("Maximum mana: |" + maxMana + "|");
+		System.out.println("Defense: |" + defense + "|");
+		System.out.println("Description: |" + description + "|");
+		System.out.println("Moveset: |" + moveSet + "|");
 	}
 	
 	/**

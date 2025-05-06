@@ -13,7 +13,6 @@
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.CardLayout;
 
 public class Polybound
@@ -46,6 +45,7 @@ public class Polybound
 		GameData.setCardHolder(deck);
 		GameData.setGameStarted(false);
 		
+		
 		frame.setSize(1200, 750);	//normal: 600, 500
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null); //centers everything
@@ -59,9 +59,6 @@ public class Polybound
 		deck.add(imPanel, "intermission");
 		deck.add(gPanel, "game");
 		deck.add(pPanel, "problem");
-
-		GameData.setProblemPanel(pPanel);
-
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}
