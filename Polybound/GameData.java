@@ -23,6 +23,7 @@ import java.io.File;
  {
  	private static CardLayout polyCards;//these 2 fvs for the CardLayout
  	private static JPanel cardHolder;
+	private static ProblemPanel problemPanel;
  	private static boolean gameStarted;
  	//also called gameStarted; once user presses 'Continue' this is set to true
  	private static String userName;
@@ -117,6 +118,16 @@ import java.io.File;
 		}
 
 		return str.substring(0, str.indexOf(regex));
+	}
+
+	public static void setProblemPanel(ProblemPanel pPanelIn)
+	{
+		problemPanel = pPanelIn;
+	}
+
+	public static ProblemPanel getProblemPanel()
+	{
+		return problemPanel;
 	}
 	
 	/* reads from a text file of moves and outputs move 

@@ -75,7 +75,10 @@ public class IntermissionPanel extends JPanel
 				
 				CardLayout cards = GameData.getCardLayout();
 				JPanel holder = GameData.getCardHolder();
-				cards.show(holder, "game");
+				ProblemPanel problemPanel = GameData.getProblemPanel();
+
+				problemPanel.getProblem();
+				cards.show(holder, "problem");
 				///add actual code later
 			}
 			else if(command.equals("Return to Menu"))

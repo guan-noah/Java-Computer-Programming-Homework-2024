@@ -83,7 +83,9 @@ public class MainMenuPanel extends JPanel
 		toReturn.setContent("Welcome to Polybound!\n\nThis game is a turn-based " +
 			"RPG style game where you must take on the role of one of three characters, " +
 			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
-			"");
+			"In Polybound, you will be tested on a few skills concerning polynomials, " +
+			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
+			"Remainder Theorem, and interpreting graphs.\n\n");
 		
 		return toReturn;
 	}
@@ -95,7 +97,8 @@ public class MainMenuPanel extends JPanel
 	public InfoPopup getHighScorePopup()
 	{
 		InfoPopup toReturn = new InfoPopup("High Scores"); ///new InfoPopup
-		toReturn.setContent("placeholder"); ///currently sets content to placeholder
+		toReturn.setContent("No high scores :(\n" +
+			"Play a game to achieve one! :D"); ///currently sets content to placeholder
 		
 		return toReturn;
 	}

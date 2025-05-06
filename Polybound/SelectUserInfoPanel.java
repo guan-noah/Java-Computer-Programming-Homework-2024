@@ -56,7 +56,6 @@ public class SelectUserInfoPanel extends JPanel
 	public void getSelection()
 	{
 		selection = new JPanel();
-		selection.setBackground(GameData.getUserColor());
 		selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
 			"Please enter your information"));
 	}
