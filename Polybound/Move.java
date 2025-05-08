@@ -1,5 +1,5 @@
 /*
- * Krish Kumar
+ * Noah Guan
  * Period 6
  * Move.java
  * Modeled after Character, this class represents a move 
