@@ -21,9 +21,9 @@ import java.awt.Color;
 import java.awt.Font;							//for labels/instructions
 import java.awt.Dimension;								//preferred size
 import java.awt.BorderLayout;							//layout imports
+import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
-import java.awt.CardLayout;
 
 import java.awt.event.ActionListener;				//for the buttons 
 import java.awt.event.ActionEvent;
@@ -42,85 +42,91 @@ address
 social security number 
 */
 public class SelectUserInfoPanel extends JPanel
-{
-	JPanel selection, bottomButtons;
+{	
 	public SelectUserInfoPanel()
 	{
+		//panel size is 1200 by 750 
 		setLayout(new BorderLayout());
-		
-		getSelection();
+		resetValues();
+	}
+	/* for resetting and for extended constructor the first time */
+	public void resetValues()
+	{
+		JPanel selection = getSelection();
 		add(selection, BorderLayout.CENTER);
 		
-		getBottomButtons();
-		add(bottomButtons, BorderLayout.SOUTH);
+		JPanel bottomButtonPan = getBottomButtons();
+		add(bottomButtonPan, BorderLayout.SOUTH);
 	}
 	
-	public void getSelection()
+	/* gets selection */
+	public JPanel getSelection()
 	{
-		selection = new JPanel(new BorderLayout());
-		selection.setBackground(Color.BLACK /*GameData.getUserColor()*/);
-		selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
-			"Please enter your information"));//create the border
+		JPanel selection = new JPanel();
+		selection.setPreferredSize(new Dimension(1200, 650));
+		selection.setBackground(Color.GRAY /*GameData.getUserColor()*/);
+		selection.setBorder(BorderFactory.createEmptyBorder());
+		//~ selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
+			//~ "Please enter your information")); //just a test 
 		
-		selection.add(new Label("Please enter your information", 100), BorderLayout.NORTH); //create another title 
-		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
-		selection.add(centerSelect, BorderLayout.CENTER);
+		//add label
+		Font titleFont = new Font("Serif", Font.BOLD, 180);
+		Label label = new Label("Please enter your information: ", titleFont, Color.WHITE);
+		//~ add grid
+		//~ add jradiobutton selection 
+		
+		return selection;
 	}
 	
-	public JPanel getCenter()
+	/* gets bottom button panel */
+	public JPanel getBottomButtons()
 	{
-		JPanel toReturn = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 75));
+		//the panel 
+		JPanel bottomButtonPan = new JPanel();
+		bottomButtonPan.setPreferredSize(new Dimension(1200, 100));
+		bottomButtonPan.setBackground(Color.BLACK);
 		
-		JPanel grid = getGrid();
-		toReturn.add(grid);
-		
-		String[] options = new String[] {"option1", "option2", "option3"};
-		JPanel radioButtonPan = getRadioButtons(options);
-		toReturn.add(radioButtonPan);
-		
-		return toReturn;
-	}
-	public JPanel getGrid()
-	{
-		JPanel output = new JPanel(new GridLayout());
-		
-	}
-	public void getBottomButtons()
-	{
-		bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
-		bottomButtons.setPreferredSize(new Dimension(1200, 100));
-		
-		addLinkedButton("Back", "main menu", Color.RED, bottomButtons);
-		addLinkedButton("Continue", "intermission", Color.YELLOW, bottomButtons);
-	}
-	
-	/* helper method, like toDiffScreen button in GamePanel*/
-	public void addLinkedButton(String name, String toPanel, Color background, JPanel addTo)
-	{
-		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel));//any button
-		toDiffScreen.setPreferredSize(new Dimension(200, 266));
-		toDiffScreen.setOpaque(true);					//prep for background color
-		toDiffScreen.setBackground(background);
-		addTo.add(toDiffScreen);
-	}
-	/* handler for the buttons */
-	class SwitchPanels implements ActionListener
-	{
-		private String toPanel;
-		public SwitchPanels(String toPanelIn)
+		//initialization of names -- very easily changeable
+		String[] names = new String[] {"Back", "Continue"};
+		Button[] bottomButtons = new Button[names.length];
+		bottomButtonPan.setLayout(new FlowLayout(names.length));
+		//initialize 
+		for(int i = 0; i < names.length; i++)
 		{
-			toPanel = toPanelIn;
+			bottomButtons[i] = new Button(names[i], new ButtonListener(), 90);//font size 90
+			bottomButtons[i].setPreferredSize(new Dimension(200, 10));
+			bottomButtonPan.add(bottomButtons[i]);
 		}
-		
+		return bottomButtonPan;
+	}
+	class ButtonListener implements ActionListener
+	{
 		public void actionPerformed(ActionEvent evt)
 		{
-			String componentName = evt.getActionCommand();
+			String command = evt.getActionCommand();
 			CardLayout cards = GameData.getCardLayout();
 			JPanel holder = GameData.getCardHolder();
-			
-			cards.show(holder, toPanel);//shows the panel 
+			if(command.equals("Back"))
+			{
+				resetValues();
+				cards.show(holder, "main menu");
+			}
+			else if(command.equals("Continue"))
+			{
+				cards.show(holder, "");
+			}
+			else if(command.equals(""))
+			{
+				cards.show(holder, "");
+			}
 		}
 	}
+	
+	
+	
+	
+	
+	/* an example from Noah's PutItTogether.java */
 	class DrawPanel extends JPanel
 	{
 		private RightPanel rp;

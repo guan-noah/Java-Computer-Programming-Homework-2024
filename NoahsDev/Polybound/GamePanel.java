@@ -94,20 +94,28 @@ public class GamePanel extends JPanel
 	/* helper initializer method to getInfoPan's options JPanel */
 	public void getOptions(JPanel optionsIn)
 	{
-		moves = getMenuBar();					//initialize moves
-		moves.setPreferredSize(new Dimension(200, 268));
-		moves.setOpaque(true);
-		moves.setBackground(Color.CYAN);
-		optionsIn.add(moves);
-		//for adding, optionsIn reference should still point to the same JPanel object; should be fine
-		
 		//initialize panel that moves will be centered in (workshopped idea) -- right now moves is a bit to the side 
 		//~ JPanel centerMoves = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		moves = createMenuBar();					//initialize moves
+		moves.setPreferredSize(new Dimension(200, 400));
+		moves.setBackground(Color.CYAN);
 		//~ centerMoves.add(moves); //workshopped idea 
-		//~ optionsIn.add(centerMoves); //workshopped idea
-				
-		getDiffScreenButton("Guide", Color.YELLOW, optionsIn);//add the 2 buttons using method
-		getDiffScreenButton("Exit", Color.RED, optionsIn);
+		optionsIn.add(moves /*centerMoves*/);
+		//for adding, optionsIn reference should still point to the same JPanel object; should be fine
+		
+		JButton guide = new JButton("Guide");			//guide button
+		guide.addActionListener(new ShowOther());
+		guide.setPreferredSize(new Dimension(200, 266));
+		guide.setOpaque(true);					//prep for background color
+		guide.setBackground(Color.YELLOW);
+		optionsIn.add(guide);
+		
+		JButton exit = new JButton("Exit");				//exit button
+		exit.addActionListener(new ShowOther());
+		exit.setPreferredSize(new Dimension(200, 266));
+		exit.setOpaque(true);					//prep for background color
+		exit.setBackground(Color.RED);
+		optionsIn.add(exit);
 		
 		/*
 		 * workshopped idea: instead of exit, make a Quit Game button that 
@@ -119,15 +127,6 @@ public class GamePanel extends JPanel
 		optionsIn.add(quit);
 		*/
 	}
-	/* another helper method to getOptions to initialize buttons efficiently */
-	public void getDiffScreenButton(String name, Color background, JPanel addTo)
-	{
-		Button toDiffScreen = new Button(name, new ShowOther());//any button
-		toDiffScreen.setPreferredSize(new Dimension(200, 266));
-		toDiffScreen.setOpaque(true);					//prep for background color
-		toDiffScreen.setBackground(background);
-		addTo.add(toDiffScreen);
-	}
 	/* initializes the south jtextarea */
 	public void getGameTurnInfo()
 	{
@@ -136,17 +135,17 @@ public class GamePanel extends JPanel
 		gameTurnInfo.setEditable(false);
 	}
 	/* initializes the menubar */
-	public JMenuBar getMenuBar()
+	public JMenuBar createMenuBar()
 	{
 		JMenuBar outputMenuBar = new JMenuBar();
 		outputMenuBar.setPreferredSize(new Dimension(200, 268));
 		outputMenuBar.setBackground(Color.CYAN);
-		outputMenuBar.add(getMoveSetMenu());
+		outputMenuBar.add(createMoveSetMenu());
 		
 		return outputMenuBar;
 	}
 	/* initializes the menu with the menuitems*/
-	public JMenu getMoveSetMenu()
+	public JMenu createMoveSetMenu()
 	{
 		JMenu outputMenu = new JMenu("Moves");
 		//~ for each move in Moves file: 
@@ -169,14 +168,16 @@ public class GamePanel extends JPanel
 		return item;
 	}
 	
-	/* makes button to show questionPanel */
-	public JButton getQuestionButton()
+	//ALL GAME FUNCTION METHODS LISTED BELOW. 
+	public void showProblem()
 	{
-		JButton toReturn = new JButton("Next Question");
-		toReturn.setBackground(Color.GREEN);
-		toReturn.addActionListener(new ShowOther());
+		CardLayout cards = GameData.getCardLayout();
+ 		JPanel holder = GameData.getCardHolder();
+ 		
+		ProblemPanel problemPanel = GameData.getProblemPanel();
+		problemPanel.getProblem();//gets problempan from gamedata and gets problem from it
 		
-		return toReturn;
+		cards.show(holder, "problem");//shows actual panel
 	}
 	
 	//ALL CLASSES LISTED BELOW. 
@@ -260,6 +261,7 @@ public class GamePanel extends JPanel
 			String moveName = evt.getActionCommand();
 			if(enemy != null)
 			{
+				//concept: make message show letter by letter (replace gameTurnInfo.append)
 				GameProgression.executeMove(moveName, user.getMana());
 				gameTurnInfo.append("\n"+ moveName + " was executed by " + GameProgression.whoseTurn(enemy.getName()));
 			}
@@ -272,6 +274,9 @@ public class GamePanel extends JPanel
 		public void actionPerformed(ActionEvent evt)
 		{
 			String command = evt.getActionCommand();
+			
+			//concept: make message show letter by letter (replace gameTurnInfo.append)
+			gameTurnInfo.append("\n\t(Guide button pressed.)");
 			CardLayout cards = GameData.getCardLayout();
 			JPanel holder = GameData.getCardHolder();
 			
@@ -279,25 +284,12 @@ public class GamePanel extends JPanel
 			//~ in the future, we'll create another popup for a game guide. 
 			//~ right now, it just sends the user back to the main menu 
 			{
-				gameTurnInfo.append("\n\t(Guide button pressed.)");
 				cards.show(holder, "main menu");
 				///add actual code later
 			}
-			else if(command.equals("Exit")) //if user pressed exit button, exit game and print to console. 
+			else if(command.equals("Exit"))
 			{
-				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
-					//~ commented out right now because of program inefficiency if kept
-				//~ in the future, we'll have a popup (are you sure you want to exit?)
-				//~ (for debugging purposes)
-				System.out.println("User exited the program via button.");
-				System.exit(0);
-			}
-			else if(command.equals("Next Question"));
-			{
-				ProblemPanel problemPanel = GameData.getProblemPanel();
-				problemPanel.getProblem();//gets problempan from gamedata and gets problem from it
-				
-				cards.show(holder, "problem");//shows actual panel
+				cards.show(holder, "intermission");
 			}
 			/* extension of workshopped idea: 
 			 * 
@@ -359,10 +351,15 @@ class GameProgression
 		{
 			String extendedDescription = "\n" + moveName + " (cost: " + moveMana 
 				+ " mana pts) exceeds the " + userMana + " mana pts you have left.";
+			//concept: make message show letter by letter (replace gameTurnInfo.append)
 			gameTurnPanel.append("Not enough mana." *//*+ extendedDescription*//*);
 		}
 		else
-			executeMoveEffects(moveName, moveInfo);
+		{
+			CardLayout layout = GameData.getCardLayout();
+			JPanel holder = GameData.getCardHolder();
+			layout.show("problem", holder);
+		}
 		*/
 	}
 	/* helper method for executeMove -- does the effects functions */
