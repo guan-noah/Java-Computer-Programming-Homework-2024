@@ -80,7 +80,11 @@ public class SelectUserInfoPanel extends JPanel
 		
 		return toReturn;
 	}
-	
+	public JPanel getGrid()
+	{
+		JPanel output = new JPanel(new GridLayout());
+		
+	}
 	public void getBottomButtons()
 	{
 		bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
