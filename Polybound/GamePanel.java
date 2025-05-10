@@ -259,6 +259,13 @@ public class GamePanel extends JPanel
 		public void actionPerformed(ActionEvent evt)
 		{
 			String moveName = evt.getActionCommand();
+
+			///integrate later, for now here for testing
+			ProblemPanel problemPanel = GameData.getProblemPanel();
+			problemPanel.getProblem();
+			CardLayout cards = GameData.getCardLayout();
+			JPanel holder = GameData.getCardHolder();
+			cards.show(holder, "problem");
 			if(enemy != null)
 			{
 				GameProgression.executeMove(moveName, user.getMana());
@@ -290,8 +297,9 @@ public class GamePanel extends JPanel
 					//~ commented out right now because of program inefficiency if kept
 				//~ in the future, we'll have a popup (are you sure you want to exit?)
 				//~ (for debugging purposes)
-				System.out.println("User exited the program via button.");
-				System.exit(0);
+				CardLayout cards = GameData.getCardLayout();
+				JPanel holder = GameData.getCardHolder();
+				cards.show(holder, "intermission");
 			}
 			/* extension of workshopped idea: 
 			 * 

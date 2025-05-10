@@ -5,10 +5,8 @@
  * 
  * This class stores the problem content, and also displays it.
  * ***SERIOUSLY NEEDS DOCUMENTATION***
- * //okay sir krish 
  **/
 
-//imports
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -35,10 +33,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class ProblemPanel extends JPanel//jpanel
+public class ProblemPanel extends JPanel
 {
 	private JPanel currProblemContent;
-	private int prev;
+	private int prevType;
 	private String prevCategory;
 
 	private InfoPopup correctPopup;
@@ -59,7 +57,7 @@ public class ProblemPanel extends JPanel//jpanel
         setLayout(new BorderLayout());
 
 		currProblemContent = null;
-		prev = -1;
+		prevType = -1;
 		prevCategory = new String();
         
 		correctPopup = new InfoPopup("Correct!");
@@ -106,7 +104,7 @@ public class ProblemPanel extends JPanel//jpanel
 			{
 				ArrayList<MultipleChoiceQuestion> category = mcqList.get(chosen);
 
-				if(category.size() > 0 && !(prev == problemType && prevCategory.equals(chosenCategory)))
+				if(category.size() > 0 && !(prevType == problemType && prevCategory.equals(chosenCategory)))
 				{
 					currMCQ = category.get(GameData.getRandom(0, category.size()-1));
 					successfulProblem = true;
@@ -116,7 +114,7 @@ public class ProblemPanel extends JPanel//jpanel
 			{
 				ArrayList<ShortAnswerQuestion> category = saqList.get(chosen);
 
-				if(category.size() > 0 && !(prev == problemType && prevCategory.equals(chosenCategory)))
+				if(category.size() > 0 && !(prevType == problemType && prevCategory.equals(chosenCategory)))
 				{
 					currSAQ = category.get(GameData.getRandom(0, category.size()-1));
 					successfulProblem = true;
@@ -124,7 +122,7 @@ public class ProblemPanel extends JPanel//jpanel
 			}
 		}
 
-		prev = problemType;
+		prevType = problemType;
 		prevCategory = chosenCategory;
 
 		JPanel contentHolder = new JPanel(new GridLayout(2,1));
@@ -370,14 +368,14 @@ public class ProblemPanel extends JPanel//jpanel
 
 					CardLayout cards = GameData.getCardLayout();
 					JPanel holder = GameData.getCardHolder();
-					cards.show(holder, "intermission");
+					cards.show(holder, "game");
 				}
 			}
 			else if(command.equals("RETURN"))
 			{
 				CardLayout cards = GameData.getCardLayout();
 				JPanel holder = GameData.getCardHolder();
-				cards.show(holder, "intermission");
+				cards.show(holder, "game");
 			}
 		}
 	}
@@ -414,6 +412,7 @@ public class ProblemPanel extends JPanel//jpanel
 		{
 			setBackground(Color.DARK_GRAY);
 			setLayout(new FlowLayout(FlowLayout.CENTER, 20, 60));
+
 			selectedAnswer = null;
 
 			if(currMCQ == null) ///problem type is saq
@@ -434,13 +433,10 @@ public class ProblemPanel extends JPanel//jpanel
 
 		public JTextField getAnswerField()
 		{
-			JTextField toReturn = new JTextField("Type your answer.", 30);
+			TextField toReturn = new TextField("Type your answer.", 30, 30);
 			AnswerFieldHandler answerFieldHandler = new AnswerFieldHandler(); 
 
 			toReturn.setPreferredSize(new Dimension(toReturn.getWidth(), 50));
-			toReturn.setFont(new Font("SansSerif", Font.BOLD, 30));
-			toReturn.setForeground(Color.GRAY);
-			toReturn.addFocusListener(answerFieldHandler);
 			toReturn.addActionListener(answerFieldHandler);
 
 			return toReturn;
@@ -458,6 +454,7 @@ public class ProblemPanel extends JPanel//jpanel
 				toReturn[i] = new JRadioButton(answerChoices[i]);
 				toReturn[i].setFont(new Font("SansSerif", Font.BOLD, 30));
 				toReturn[i].setForeground(Color.WHITE);
+				toReturn[i].setOpaque(false);
 				toReturn[i].addActionListener(ansHandler);
 				bg.add(toReturn[i]);
 			}
@@ -473,23 +470,11 @@ public class ProblemPanel extends JPanel//jpanel
 			}
 		}
 
-		class AnswerFieldHandler implements ActionListener, FocusListener
+		class AnswerFieldHandler implements ActionListener
 		{
 			public void actionPerformed(ActionEvent evt)
 			{
 				selectedAnswer = evt.getActionCommand();
-			}
-
-			public void focusGained(FocusEvent evt)
-			{
-				answerField.setForeground(Color.BLACK);
-				answerField.setText("");
-			}
-
-			public void focusLost(FocusEvent evt)
-			{
-				answerField.setForeground(Color.GRAY);
-				answerField.setText("Type your answer.");
 			}
 		}
 	}
