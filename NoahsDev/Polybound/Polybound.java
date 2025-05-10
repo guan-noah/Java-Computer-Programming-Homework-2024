@@ -52,10 +52,12 @@ public class Polybound
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		
 		MainMenuPanel mPanel = new MainMenuPanel();
+		SelectUserInfoPanel suiPanel = new SelectUserInfoPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
 		GamePanel gPanel = new GamePanel();
 		ProblemPanel pPanel = new ProblemPanel();
 		deck.add(mPanel, "main menu");
+		deck.add(suiPanel, "select user info");
 		deck.add(imPanel, "intermission");
 		deck.add(gPanel, "game");
 		deck.add(pPanel, "problem");

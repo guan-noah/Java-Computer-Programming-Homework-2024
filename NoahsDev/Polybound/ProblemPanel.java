@@ -472,7 +472,7 @@ public class ProblemPanel extends JPanel//jpanel
 				selectedAnswer = evt.getActionCommand();
 			}
 		}
-
+		//future: add all non-panel classes as nested classes in an Utility class 
 		class AnswerFieldHandler implements ActionListener, FocusListener
 		{
 			public void actionPerformed(ActionEvent evt)

@@ -135,24 +135,18 @@ public class MainMenuPanel extends JPanel
 			{
 				highScorePopup.show();
 			}
-			else if(command.equals("QUIT")) //if user pressed exit button, exit game and print to console. 
+			else if(command.equals("QUIT")) ///quits the game
 			{
-				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
-					//~ commented out right now because of program inefficiency if kept
-				//~ in the future, we'll have a popup (are you sure you want to exit?)
-				//~ (for debugging purposes)
-				System.out.println("User exited the program via button.");
 				System.exit(0);
 			}
 			else if(command.equals("START")) ///switch to intermission panel
 			{
 				CardLayout cards = GameData.getCardLayout();
 				JPanel holder = GameData.getCardHolder();
-				cards.show(holder, "intermission");
+				cards.show(holder, "select user info");
 			}
 			else if(command.equals("OPTIONS")) ///shows the "Options" popup
 			{
-				//the options popup is essentially accessibility settings 
 				optionsPopup.show();
 			}
 		}
