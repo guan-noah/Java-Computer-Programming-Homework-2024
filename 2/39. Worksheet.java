@@ -106,6 +106,7 @@ import java.io.FileNotFoundException;									//don't really need this because w
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Scanner;
+/*//main class required for online compiler
 public class Main
 {
     public static void main(String args[])
@@ -114,7 +115,7 @@ public class Main
         w.writeFile();
     }
 }
-
+*/
 class Worksheet
 {
 	private int[] num1, num2;									//fvs num1, num2, and answer 
@@ -243,7 +244,7 @@ class Worksheet
 		{
 		    finalAnswer = answer[i-1];
 		    output.printf("%-20s", i + ". " + finalAnswer.substring(finalAnswer.indexOf('=')+1));
-		    if(i%4==1)
+		    if(i%4==0)
 		        output.println("");
 		}
 		
