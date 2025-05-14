@@ -55,7 +55,7 @@ public class SelectUserInfoPanel extends JPanel
 		userCharacters = new ArrayList<>();
 		//~ userCharacter = getCharacters();//after GameProgression is done, 
 			//we will get user character list, add it here, and create method
-		numberSelection = new ArrayList<>();
+		numbers = new ArrayList<>();
 		
 		//if your favorite color is not in here, potentially add a color picker 
 		colors = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, 
@@ -77,21 +77,23 @@ public class SelectUserInfoPanel extends JPanel
 	{
 		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
+		bottomButtons.setBackground(Color.RED);
 		
-		addLinkedButton("Back", "main menu", Color.RED, bottomButtons);
-		addLinkedButton("Continue", "intermission", Color.YELLOW, bottomButtons);
+		bottomButtons.add(addLinkedButton("Back", "main menu", Color.RED));
+		bottomButtons.add(addLinkedButton("Continue", "intermission", Color.YELLOW));
+		//~ bottomButtons.add(new JLabel("Hi"));
 		
 		return bottomButtons;
 	}
 	
 	/* helper method, like toDiffScreen button in GamePanel*/
-	public void addLinkedButton(String name, String toPanel, Color background, JPanel addTo)
+	public Button addLinkedButton(String name, String toPanel, Color background)
 	{
 		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel), 200);//any button
 		toDiffScreen.setPreferredSize(new Dimension(200, 266));
 		//~ toDiffScreen.setOpaque(true);					//prep for background color
 		//~ toDiffScreen.setBackground(background);
-		addTo.add(toDiffScreen);
+		return toDiffScreen;
 	}
 	
 	//first half (done! good.)
