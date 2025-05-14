@@ -69,7 +69,7 @@ public class TestPanelRunner
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(true);
-		SelectUserInfoPanel testPanel = new SelectUserInfoPanel(); 		
+		GamePanel testPanel = new GamePanel(); 		
 		frame.getContentPane().add( testPanel );		
 		frame.setVisible(true);		
 	}

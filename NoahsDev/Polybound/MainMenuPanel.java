@@ -143,7 +143,8 @@ public class MainMenuPanel extends JPanel
 			{
 				CardLayout cards = GameData.getCardLayout();
 				JPanel holder = GameData.getCardHolder();
-				cards.show(holder, "select user info");
+				//~ cards.show(holder, "intermission"); //to help Noah develop select info panel 
+				cards.show(holder, "select info");
 			}
 			else if(command.equals("OPTIONS")) ///shows the "Options" popup
 			{
