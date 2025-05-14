@@ -1,0 +1,86 @@
+//Classwork 9/25/2024 - Math Classes 
+import Scanner;
+
+public class MathFunctions
+{
+    public static void main (String[] args)
+    {
+        
+    }
+}
+
+public class Pythagorean
+{
+    public static void main (String[] args)
+    {
+        double hypotenuse = -27.5;
+        int leg1 = 4;
+        int leg1 = 5;
+        hypotenuse = length (leg1, leg2);
+        System.out.printf("The value of ");
+    }
+}
+
+public class MeanProg3Nums
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+public class TriangleArea
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+public class SquareRoot
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+public class 
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+public class 
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+public class 
+{
+    public static void main (String[] args)
+    {
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
