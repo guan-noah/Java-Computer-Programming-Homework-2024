@@ -14,6 +14,8 @@ import javax.swing.JScrollBar;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.BorderFactory;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,6 +25,7 @@ import java.awt.Dimension;								//preferred size
 import java.awt.BorderLayout;							//layout imports
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.awt.CardLayout;
 
 import java.awt.event.ActionListener;				//for the buttons 
 import java.awt.event.ActionEvent;
@@ -31,7 +34,7 @@ import java.awt.event.AdjustmentEvent;
 import javax.swing.event.ChangeListener;			//for the JSliders
 import javax.swing.event.ChangeEvent;
 
-
+import java.util.ArrayList;
 /* class that asks for user information, including but not limited to: 
 name 
 favorite color (steal rgb sliders from PutItTogether
@@ -42,31 +45,220 @@ social security number
 */
 public class SelectUserInfoPanel extends JPanel
 {
-	JPanel selection, bottomButtons;
+	ArrayList<Character> userCharacters;
+	Color[] colors;
+	//~ ArrayList<JButtonGroup>
+	
 	public SelectUserInfoPanel()
 	{
+		userCharacters = new ArrayList<>();
+		//~ userCharacter = getCharacters();//after GameProgression is done, 
+			//we will get user character list, add it here, and create method
+		//if your favorite color is not in here, potentially add a color picker 
+		colors = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, 
+			Color.GREEN, Color.BLUE, Color.MAGENTA, Color.PINK, Color.CYAN, 
+			Color.WHITE, Color.GRAY, Color.DARK_GRAY, Color.BLACK/*, null*/};
+			//12 colors. if we add color picker, uncomment null and implement method. 
+		
 		setLayout(new BorderLayout());
-		
-		getSelection();
-		add(selection, BorderLayout.CENTER);
-		
-		getBottomButtons();
+		/*
+		JPanel selectionAdd = getSelection();
+		add(selectionAdd, BorderLayout.CENTER);
+		*/
+		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
-	
-	public void getSelection()
+	//second half
+	/* returns the back and continue buttons */
+	public JPanel getBottomButtons()
 	{
-		selection = new JPanel();
+		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
+		bottomButtons.setPreferredSize(new Dimension(1200, 100));
+		
+		addLinkedButton("Back", "main menu", Color.RED, bottomButtons);
+		addLinkedButton("Continue", "intermission", Color.YELLOW, bottomButtons);
+		
+		return bottomButtons;
+	}
+	
+	/* helper method, like toDiffScreen button in GamePanel*/
+	public void addLinkedButton(String name, String toPanel, Color background, JPanel addTo)
+	{
+		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel), 200);//any button
+		toDiffScreen.setPreferredSize(new Dimension(200, 266));
+		//~ toDiffScreen.setOpaque(true);					//prep for background color
+		//~ toDiffScreen.setBackground(background);
+		addTo.add(toDiffScreen);
+	}
+	
+	//first half
+	public JPanel getSelection()
+	{
+		JPanel selection = new JPanel(new BorderLayout());
 		selection.setBackground(Color.BLACK /*GameData.getUserColor()*/);
 		selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
-			"Please enter your information"));
+			"Please enter your information"));//create the border
+		
+		selection.add(new Label("Please enter your information", 100), BorderLayout.NORTH); //create another title 
+		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
+		selection.add(centerSelect, BorderLayout.CENTER);
+		return selection;
 	}
 	
-	public void getBottomButtons()
+	public JPanel getCenter()
 	{
-		bottomButtons = new JPanel();
+		JPanel toReturn = new JPanel(new BorderLayout()/*FlowLayout(FlowLayout.CENTER, 0, 75)*/);
+		
+		Label title = new Label("Please enter your information.", 150);
+		
+		String[] prompts = new String[] {"First Name", "Last Name", "Character", 
+			"Favorite Color", "Email", "School ID", "Country", "Address", 
+			"Birthday", "Social Security Number", "Credit Card Number", 
+			"Shoe Size", "Face ID"};
+			//the prompts for the data 
+		String[] types = new String[] {"Field", "Field", "Radio|userCharacters", 
+			"Radio|colors", "Field", "Field", "Field", "Field", "Radio", 
+			"Field", "Field", "Field", "Field"};
+		JPanel grid = getGrid(prompts, types);
+		toReturn.add(grid, BorderLayout.WEST);
+		
+		String[] options = new String[] {"option1", "option2", "option3"};
+		JPanel radioButtonPan = getRadioButtons(options);
+		toReturn.add(radioButtonPan, BorderLayout.EAST);
+		
+		return toReturn;
+	}
+	//helper 1 to getCenter 
+	public JPanel getGrid(String[] prompts, String[] types)
+	{
+		int rows = prompts.length;
+		JPanel grid = new JPanel(new GridLayout(rows, 2));
+		for(int index = 0; index < rows; index++)
+		{
+			String currentPrompt = prompts[index];//the prompt as a label
+			//create the description, create the label 
+			Label description = new Label(currentPrompt, 20);
+			//create the component where user enters data (here starts the method complexity!)
+			JPanel enterData = getEnterData(types[index], currentPrompt);
+			
+			//add components to grid
+			grid.add(description);
+			grid.add(enterData);
+		}
+		return grid;
+	}
+	//helper 1a to helper1 
+	public JPanel getEnterData(String type, String prompt)
+	{
+		JPanel enterData = new JPanel();
+		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
+		if(isRadioButton < 0)
+		{
+			TextField enterText = new TextField(prompt, prompt.length() + 5, 20);
+			enterData.add(enterText);
+		}
+		else
+		{
+			//needs indexOf('|')+1 to get whatever is after the '|' but not the '|' itself 
+			JPanel choice = getRadioButtons(getOptionNames(type.substring(type.indexOf('|')+1)));
+			enterData.add(choice);
+		}
+		return enterData;
+	}
+	//helper 2 to getCenter and helper1a
+	public JPanel getRadioButtons(String[] options)
+	{
+		ButtonGroup group = new ButtonGroup();
+		//gives the handler the button group to clear selection 
+		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
+		JPanel radioPan = new JPanel(new FlowLayout());
+		int numOfButtons = options.length;
+		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
+		for(int i = 0; i < numOfButtons; i++)
+		{
+			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
+			radioButtons[i].addActionListener(new RadioButtonHandler());
+			radioPan.add(radioButtons[i]);
+		}
+		return radioPan;
+	}
+	//helper utility method to getCenter 
+	public String[] getOptionNames(String arrayName)
+	{
+		int arrayLength = 0;
+		String[] output = null;
+		if(arrayName.equals("colors"))
+		{
+			arrayLength = colors.length;
+			output = new String[arrayLength];
+			for(int i = 0; i < arrayLength; i++)
+			{
+				output[i] = colors[i].toString();//can add a .find() method later to parse actual color name
+				//for programming purposes
+				System.out.println(output[i]);
+			}
+		}
+		else if(arrayName.equals("userCharacters"))
+		{
+			arrayLength = userCharacters.size();
+			output = new String[arrayLength];
+			for(int i = 0; i < arrayLength; i++)
+			{
+				output[i] = userCharacters.get(i).toString();//same logic with .find() method
+				//for programming purposes
+				System.out.println(output[i]);
+			}
+		}
+		if(output == null)
+		{
+			System.out.println("Warning: getOptions method in Select " + 
+				"User Info Panel returns null array!\n\tArrayName:" + arrayName);
+		}
+		return output;
 	}
 	
+	//FROM HERE ON ARE THE HANDLERS. 
+	/* handler for the grid radio buttons */
+	class RadioButtonHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent evt)
+		{
+			
+		}
+	}
+	/* handler for the clear button */
+	class ClearGroupHandler implements ActionListener
+	{
+		private ButtonGroup group;
+		public ClearGroupHandler(ButtonGroup groupIn)
+		{
+			group = groupIn;
+		}
+		public void actionPerformed(ActionEvent evt)
+		{
+			group.clearSelection();//this is all it does. 
+		}
+	}
+	/* handler for the switch panels buttons */
+	class SwitchPanels implements ActionListener
+	{
+		private String toPanel;
+		public SwitchPanels(String toPanelIn)
+		{
+			toPanel = toPanelIn;
+		}
+		
+		public void actionPerformed(ActionEvent evt)
+		{
+			String componentName = evt.getActionCommand();
+			CardLayout cards = GameData.getCardLayout();
+			JPanel holder = GameData.getCardHolder();
+			
+			cards.show(holder, toPanel);//shows the panel 
+		}
+	}
+	
+	//DRAWPANEL CLASS from PutItTogether.java. 
 	class DrawPanel extends JPanel
 	{
 		private RightPanel rp;

@@ -1,3 +1,15 @@
+/**
+ * Krish Kumar
+ * Period 6
+ * TextField.java
+ * 
+ * This class extends from JTextField. The purpose of it is to allow for a
+ * much simpler implementation of text fields and their FocusListeners
+ * within the game.
+ * 
+ * NOTE: THIS CLASS IS VERY MUCH SUBJECT TO CHANGE!
+ **/
+
 import javax.swing.JTextField;
 
 import java.awt.Color;

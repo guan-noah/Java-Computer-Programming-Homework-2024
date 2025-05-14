@@ -8,7 +8,9 @@
 
 public class ShortAnswerQuestion
 {
-    private String question, answer, explanation; ///problem, correct answer, explanation
+    private String question; ///problem
+    private String answer; ///correct answer
+    private String explanation;
 
     public ShortAnswerQuestion(String questionIn, String answerIn, String explanationIn)
     {
@@ -32,12 +34,9 @@ public class ShortAnswerQuestion
     {
         return answer;
     }
-    
-    /*
-     * Returns the explanation.
-     */
+
     public String getExplanation()
     {
-		return explanation;
-	}
+        return explanation;
+    }
 }
