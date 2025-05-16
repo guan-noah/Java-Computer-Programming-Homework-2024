@@ -43,8 +43,7 @@ public class TextField extends JTextField
     {
         public void focusGained(FocusEvent evt)
         {
-			String existingText = getText();
-			if(existingText.equals("")||existingText.equals(defaultText))
+			if(getFont() == UNSELECTED)
 			{
 				setForeground(Color.BLACK);
 				setFont(SELECTED);
@@ -55,11 +54,11 @@ public class TextField extends JTextField
         public void focusLost(FocusEvent evt)
         {
 			String existingText = getText();
-			if(existingText.equals("")||existingText.equals(defaultText))
+			if(existingText.equals(""))
 			{
+				setText(defaultText);
 				setForeground(Color.GRAY);
 				setFont(UNSELECTED);
-				setText(defaultText);
 			}
 			//else don't reset text because the user actually inputted something
         }
