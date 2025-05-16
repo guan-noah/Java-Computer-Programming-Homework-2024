@@ -26,7 +26,7 @@ import java.io.File;
  	public static ProblemPanel problemPanel;
  	private static boolean gameStarted;
  	//also called gameStarted; once user presses 'Continue' this is set to true
- 	private static String userName;
+ 	private static String userName;//for high score
  	
  	//all set methods 
 	///Gets the main CardLayout and its holder
