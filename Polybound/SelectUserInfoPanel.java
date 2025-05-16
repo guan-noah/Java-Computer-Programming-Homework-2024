@@ -71,6 +71,41 @@ public class SelectUserInfoPanel extends JPanel
 		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
+	
+	/**
+	 * Returns the passed in color as a String if it is in the Color[]
+	 * array colors. If not, it returns null.
+	 **/
+	public String colorToString(Color colorIn)
+	{
+		if(colorIn == Color.RED)
+			return "red";
+		if(colorIn == Color.ORANGE)
+			return "orange";	
+		if(colorIn == Color.YELLOW)
+			return "yellow";
+		if(colorIn == Color.GREEN)
+			return "green";
+		if(colorIn == Color.BLUE)
+			return "blue";
+		if(colorIn == Color.MAGENTA)
+			return "magenta";
+		if(colorIn == Color.PINK)
+			return "pink";
+		if(colorIn == Color.CYAN)
+			return "cyan";
+		if(colorIn == Color.WHITE)
+			return "white";
+		if(colorIn == Color.GRAY)
+			return "gray";
+		if(colorIn == Color.DARK_GRAY)
+			return "dark gray";
+		if(colorIn == Color.BLACK)
+			return "black";
+			
+		return null;
+	}
+	
 	//second half
 	/* returns the back and continue buttons */
 	public JPanel getBottomButtons()
@@ -206,7 +241,7 @@ public class SelectUserInfoPanel extends JPanel
 			output = new String[arrayLength];
 			for(int i = 0; i < arrayLength; i++)
 			{
-				output[i] = colors[i].toString();//can add a .find() method later to parse actual color name
+				output[i] = colorToString(colors[i]);//can add a .find() method later to parse actual color name
 				//for programming purposes
 				System.out.println(output[i]);
 			}
