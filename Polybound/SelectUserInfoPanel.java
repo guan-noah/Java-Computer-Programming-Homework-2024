@@ -47,6 +47,7 @@ public class SelectUserInfoPanel extends JPanel
 {
 	ArrayList<Character> userCharacters;
 	Color[] colors;
+	ArrayList<Integer> numbers;
 	//~ ArrayList<JButtonGroup>
 	
 	public SelectUserInfoPanel()
@@ -54,6 +55,8 @@ public class SelectUserInfoPanel extends JPanel
 		userCharacters = new ArrayList<>();
 		//~ userCharacter = getCharacters();//after GameProgression is done, 
 			//we will get user character list, add it here, and create method
+		numbers = new ArrayList<>();
+		
 		//if your favorite color is not in here, potentially add a color picker 
 		colors = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, 
 			Color.GREEN, Color.BLUE, Color.MAGENTA, Color.PINK, Color.CYAN, 
@@ -61,10 +64,10 @@ public class SelectUserInfoPanel extends JPanel
 			//12 colors. if we add color picker, uncomment null and implement method. 
 		
 		setLayout(new BorderLayout());
-		/*
+		
 		JPanel selectionAdd = getSelection();
 		add(selectionAdd, BorderLayout.CENTER);
-		*/
+		
 		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
@@ -74,32 +77,36 @@ public class SelectUserInfoPanel extends JPanel
 	{
 		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
+		bottomButtons.setBackground(Color.RED);
 		
-		addLinkedButton("Back", "main menu", Color.RED, bottomButtons);
-		addLinkedButton("Continue", "intermission", Color.YELLOW, bottomButtons);
+		bottomButtons.add(new Label("Show this", 30, Color.BLACK));
+		bottomButtons.add(addLinkedButton("Back", "main menu", Color.RED));
+		bottomButtons.add(addLinkedButton("Continue", "intermission", Color.YELLOW));
+		//~ bottomButtons.add(new JLabel("Hi"));
 		
 		return bottomButtons;
 	}
 	
 	/* helper method, like toDiffScreen button in GamePanel*/
-	public void addLinkedButton(String name, String toPanel, Color background, JPanel addTo)
+	public Button addLinkedButton(String name, String toPanel, Color background)
 	{
 		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel), 200);//any button
 		toDiffScreen.setPreferredSize(new Dimension(200, 266));
 		//~ toDiffScreen.setOpaque(true);					//prep for background color
-		//~ toDiffScreen.setBackground(background);
-		addTo.add(toDiffScreen);
+		toDiffScreen.setBackground(background);
+		return toDiffScreen;
 	}
 	
-	//first half
+	//first half (done! good.)
 	public JPanel getSelection()
 	{
 		JPanel selection = new JPanel(new BorderLayout());
-		selection.setBackground(Color.BLACK /*GameData.getUserColor()*/);
-		selection.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), 
-			"Please enter your information"));//create the border
+		selection.setBackground(Color.BLACK);
+		selection.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));//create the border
 		
-		selection.add(new Label("Please enter your information", 100), BorderLayout.NORTH); //create another title 
+		Label prompt = new Label("Please enter your information:", 75);
+		prompt.setForeground(Color.MAGENTA);
+		selection.add(prompt, BorderLayout.NORTH); //create the prompt 
 		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
 		selection.add(centerSelect, BorderLayout.CENTER);
 		return selection;
@@ -107,42 +114,44 @@ public class SelectUserInfoPanel extends JPanel
 	
 	public JPanel getCenter()
 	{
-		JPanel toReturn = new JPanel(new BorderLayout()/*FlowLayout(FlowLayout.CENTER, 0, 75)*/);
-		
-		Label title = new Label("Please enter your information.", 150);
-		
+		//the prompts for the data
 		String[] prompts = new String[] {"First Name", "Last Name", "Character", 
-			"Favorite Color", "Email", "School ID", "Country", "Address", 
+			"Favorite Color"/*, "Email", "School ID", "Country", "Address", 
 			"Birthday", "Social Security Number", "Credit Card Number", 
-			"Shoe Size", "Face ID"};
-			//the prompts for the data 
+			"Shoe Size", "Face ID"*/};//the rest are jokes. 
+		//the component for the type of answer response we want (for each prompt) 
 		String[] types = new String[] {"Field", "Field", "Radio|userCharacters", 
-			"Radio|colors", "Field", "Field", "Field", "Field", "Radio", 
-			"Field", "Field", "Field", "Field"};
+			"Radio|colors"/*, "Field", "Field", "Field", "Field", "Radio|numbers", 
+			"Field", "Field", "Field", "Field"*/};
+		
+		//get the grid of prompts and types -- the center panel 
 		JPanel grid = getGrid(prompts, types);
-		toReturn.add(grid, BorderLayout.WEST);
+		grid.setPreferredSize(new Dimension(1150, 600));
 		
-		String[] options = new String[] {"option1", "option2", "option3"};
-		JPanel radioButtonPan = getRadioButtons(options);
-		toReturn.add(radioButtonPan, BorderLayout.EAST);
-		
-		return toReturn;
+		return grid;
 	}
 	//helper 1 to getCenter 
 	public JPanel getGrid(String[] prompts, String[] types)
 	{
 		int rows = prompts.length;
-		JPanel grid = new JPanel(new GridLayout(rows, 2));
+		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
+		grid.setPreferredSize(new Dimension(950, 600));
+		grid.setBackground(Color.CYAN);
+		
 		for(int index = 0; index < rows; index++)
 		{
 			String currentPrompt = prompts[index];//the prompt as a label
-			//create the description, create the label 
+			
+			//create the label that corresponds to the data enter component 
+			JPanel prompt = new JPanel();
 			Label description = new Label(currentPrompt, 20);
+			prompt.add(description);
+			
 			//create the component where user enters data (here starts the method complexity!)
 			JPanel enterData = getEnterData(types[index], currentPrompt);
 			
 			//add components to grid
-			grid.add(description);
+			grid.add(prompt);
 			grid.add(enterData);
 		}
 		return grid;
@@ -171,15 +180,19 @@ public class SelectUserInfoPanel extends JPanel
 		ButtonGroup group = new ButtonGroup();
 		//gives the handler the button group to clear selection 
 		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
-		JPanel radioPan = new JPanel(new FlowLayout());
+		
 		int numOfButtons = options.length;
+		JPanel radioPan = new JPanel(new GridLayout(3, numOfButtons/3+1, 5, 5));
 		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
 		for(int i = 0; i < numOfButtons; i++)
 		{
 			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
 			radioButtons[i].addActionListener(new RadioButtonHandler());
+			//~ radioButtons[i].setPreferredSize(new Dimension(100, 150));
+			group.add(radioButtons[i]);
 			radioPan.add(radioButtons[i]);
 		}
+		radioPan.add(clear);
 		return radioPan;
 	}
 	//helper utility method to getCenter 
@@ -223,7 +236,7 @@ public class SelectUserInfoPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent evt)
 		{
-			
+			String componentName = evt.getActionCommand();
 		}
 	}
 	/* handler for the clear button */

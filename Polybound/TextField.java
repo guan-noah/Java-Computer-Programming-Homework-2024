@@ -38,21 +38,30 @@ public class TextField extends JTextField
         TextFieldFocusHandler tfFocusHandler = new TextFieldFocusHandler();
         addFocusListener(tfFocusHandler);
     }
-
+	
     class TextFieldFocusHandler implements FocusListener
     {
         public void focusGained(FocusEvent evt)
         {
-            setForeground(Color.BLACK);
-            setFont(SELECTED);
-            setText("");
+			String existingText = getText();
+			if(existingText.equals("")||existingText.equals(defaultText))
+			{
+				setForeground(Color.BLACK);
+				setFont(SELECTED);
+				setText("");
+			}
         }
 
         public void focusLost(FocusEvent evt)
         {
-            setForeground(Color.GRAY);
-            setFont(UNSELECTED);
-            setText(defaultText);
+			String existingText = getText();
+			if(existingText.equals("")||existingText.equals(defaultText))
+			{
+				setForeground(Color.GRAY);
+				setFont(UNSELECTED);
+				setText(defaultText);
+			}
+			//else don't reset text because the user actually inputted something
         }
     }
 }
