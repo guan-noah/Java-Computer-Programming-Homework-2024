@@ -3,7 +3,7 @@
  * Period 6
  * SelectUserInfoPanel.java
  * 
- * This class 
+ * 
 
 
  */
@@ -79,6 +79,7 @@ public class SelectUserInfoPanel extends JPanel
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
 		bottomButtons.setBackground(Color.RED);
 		
+		bottomButtons.add(new Label("Show this", 30, Color.BLACK));
 		bottomButtons.add(addLinkedButton("Back", "main menu", Color.RED));
 		bottomButtons.add(addLinkedButton("Continue", "intermission", Color.YELLOW));
 		//~ bottomButtons.add(new JLabel("Hi"));
@@ -92,7 +93,7 @@ public class SelectUserInfoPanel extends JPanel
 		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel), 200);//any button
 		toDiffScreen.setPreferredSize(new Dimension(200, 266));
 		//~ toDiffScreen.setOpaque(true);					//prep for background color
-		//~ toDiffScreen.setBackground(background);
+		toDiffScreen.setBackground(background);
 		return toDiffScreen;
 	}
 	
@@ -132,7 +133,7 @@ public class SelectUserInfoPanel extends JPanel
 		
 		String[] options = new String[] {"option1", "option2", "option3"};
 		JPanel radioButtonPan = getRadioButtons(options);
-		radioButtonPan.setPreferredSize(new Dimension(200, 600));
+		//note: cannot set size for radio buttons because it is used for both 
 		radioButtonPan.setBackground(Color.GREEN);
 		toReturn.add(radioButtonPan, BorderLayout.EAST);
 		
@@ -142,20 +143,24 @@ public class SelectUserInfoPanel extends JPanel
 	public JPanel getGrid(String[] prompts, String[] types)
 	{
 		int rows = prompts.length;
-		JPanel grid = new JPanel(new GridLayout(rows, 2, 5, 5));//the jpanel containing grid 
+		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
 		grid.setPreferredSize(new Dimension(950, 600));
 		grid.setBackground(Color.CYAN);
 		
 		for(int index = 0; index < rows; index++)
 		{
 			String currentPrompt = prompts[index];//the prompt as a label
-			//create the description, create the label 
+			
+			//create the label that corresponds to the data enter component 
+			JPanel prompt = new JPanel();
 			Label description = new Label(currentPrompt, 20);
+			prompt.add(description);
+			
 			//create the component where user enters data (here starts the method complexity!)
 			JPanel enterData = getEnterData(types[index], currentPrompt);
 			
 			//add components to grid
-			grid.add(description);
+			grid.add(prompt);
 			grid.add(enterData);
 		}
 		return grid;
@@ -185,14 +190,14 @@ public class SelectUserInfoPanel extends JPanel
 		//gives the handler the button group to clear selection 
 		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
 		
-		//may not want FlowLayout to be completely honest
-		JPanel radioPan = new JPanel(new FlowLayout());
 		int numOfButtons = options.length;
+		JPanel radioPan = new JPanel(new GridLayout(3, numOfButtons/3+1, 5, 5));
 		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
 		for(int i = 0; i < numOfButtons; i++)
 		{
 			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
 			radioButtons[i].addActionListener(new RadioButtonHandler());
+			//~ radioButtons[i].setPreferredSize(new Dimension(100, 150));
 			group.add(radioButtons[i]);
 			radioPan.add(radioButtons[i]);
 		}
