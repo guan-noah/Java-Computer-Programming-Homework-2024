@@ -16,56 +16,133 @@ import java.awt.Image;
 import java.awt.CardLayout;
 
 import javax.imageio.ImageIO;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.File;
+import java.util.ArrayList;
 
  public class GameData //static class 
  {
  	private static CardLayout polyCards;//these 2 fvs for the CardLayout
  	private static JPanel cardHolder;
- 	public static ProblemPanel problemPanel;
- 	private static boolean gameStarted;
- 	//also called gameStarted; once user presses 'Continue' this is set to true
- 	private static String userName;
+	private static ProblemPanel problemPanel;
+	private static GamePanel gamePanel;
+	private static IntermissionPanel intermissionPanel;
+	
+	private static boolean demoMode; ///if true, answers don't affect moves
+
+	///actual game data
+	private static Character player; ///player's character
+
+	private static String userName; ///player name
+	private static int enemiesDefeated; ///enemies defeated
+	private static boolean gameStarted; ///tutorial beat
  	
- 	//all set methods 
 	///Gets the main CardLayout and its holder
- 	public static void setCardHolder(JPanel holderIn)
+ 	public static void setCards(JPanel holderIn)
  	{
 		cardHolder = holderIn;
 		polyCards = (CardLayout) cardHolder.getLayout();
 	}
+
+	public static void switchCard(String cardIn)
+	{
+		polyCards.show(cardHolder, cardIn);
+	}
+
 	public static void setGameStarted(boolean gameStartedIn)
 	{
 		gameStarted = gameStartedIn;
 	}
+
 	public static boolean gameIsStarted()
 	{
 		return gameStarted;
+	}
+
+	public static void setDemoMode(boolean isOn)
+	{
+		demoMode = isOn;
+	}
+
+	public static boolean isDemoModeOn()
+	{
+		return demoMode;
+	}
+
+	public static void setGamePanel(GamePanel gamePanelIn)
+	{
+		gamePanel = gamePanelIn;
+	}
+	
+	public static void startGame(boolean isTutorial)
+	{
+		switchCard("game");
+		gamePanel.start(isTutorial);
+	}
+
+	public static void setIntermissionPanel(IntermissionPanel imPanelIn)
+	{
+		intermissionPanel = imPanelIn;
+	}
+
+	public static void refreshStats()
+	{
+		intermissionPanel.refreshStats();
+	}
+
+	public static void executeUserMove(boolean success)
+	{
+		gamePanel.executeUserMove(success);
 	}
 
 	public static void setUserName(String userNameIn)
 	{
 		userName = userNameIn;
 	}
-	
+
+	//returns the username 
+	public static String getUserName()
+	{
+		return userName;
+	}
+
+	public static void setEnemiesDefeated(int count)
+	{
+		enemiesDefeated = count;
+	}
+
+	public static void incrementEnemiesDefeated()
+	{
+		enemiesDefeated++;
+	}
+
+	public static int getEnemiesDefeated()
+	{
+		return enemiesDefeated;
+	}
+
+	public static void setPlayerCharacter(Character playerIn)
+	{
+		player = playerIn;
+		System.out.println(player.getName());
+	}
+
+	public static Character getPlayerCharacter()
+	{
+		return player;
+	}
+
 	public static void setProblemPanel(ProblemPanel pPanelIn)
 	{
 		problemPanel = pPanelIn;
 	}
- 	
- 	//all get methods 
-	///Returns the main CardLayout
- 	public static CardLayout getCardLayout()
- 	{
- 		return polyCards;
- 	}
- 	
- 	///Returns the main CardLayout holder
- 	public static JPanel getCardHolder()
- 	{
- 		return cardHolder;
- 	}
+
+	public static void getProblem()
+	{
+		problemPanel.getProblem();
+		switchCard("problem");
+	}
  	
 	///Attempts to load the image from the designated file name
 	public static Image loadImage(String fileName)
@@ -84,17 +161,62 @@ import java.io.File;
 		
 		return toReturn;
 	}
-	///Returns the ProblemPanel 
-	public static ProblemPanel getProblemPanel()
+
+	public static void writeData(boolean saveContinues)
 	{
-		return problemPanel;
+		String fileName = "saveData.txt";
+		File dataFile = new File(fileName);
+		PrintWriter write = null;
+
+		try
+		{
+			write = new PrintWriter(dataFile);
+
+			if(saveContinues)
+			{
+				write.println(userName);
+				write.println(player.getName());
+				write.println(player.getLevel());
+				write.println(enemiesDefeated);
+				write.println(player.getHP() + "/" + player.getMaxHP());
+				write.println(player.getMana() + "/" + player.getMaxMana());
+				write.println(player.getDefense());
+			}
+			else
+			{
+				write.println("No save found.");
+			}
+			write.close();
+		}
+		catch(IOException e)
+		{
+			System.err.printf("Error: Could not write to file \"%s\"", fileName);
+		}
 	}
-	
-	//returns the username 
-	public static String getUserName()
+
+	public static void writeHighScore()
 	{
-		return userName;
+		String fileName = "highscores.txt";
+		File dataFile = new File(fileName);
+		PrintWriter write = null;
+
+		try
+		{
+			write = new PrintWriter(dataFile);
+
+			write.print(userName + " - ");
+			write.print(enemiesDefeated + " enemies defeated (");
+			write.println(player.getName() + ")");
+
+			write.close();
+		}
+		catch(IOException e)
+		{
+			System.err.printf("Error: Could not write to file \"%s\"", fileName);
+		}
 	}
+
+
 	//inclusive # generator
 	public static int getRandom(int low, int high)
 	{
@@ -129,4 +251,13 @@ import java.io.File;
 
 		return str.substring(0, str.indexOf(regex));
 	}
+	
+	/* reads from a text file of moves and outputs move 
+	 * loads the move in GameData and when we have to access it, we request it */
+	//~ public static ArrayList<Move> getMoveset(String characterName)
+	//~ {
+		//~ reads from a file with a list of all the moves based on character name
+		//~ returns move object arraylist 
+	//~ }
+	
  }

@@ -4,7 +4,11 @@
  * ProblemPanel.java
  * 
  * This class stores the problem content, and also displays it.
- * ***SERIOUSLY NEEDS DOCUMENTATION***
+ * 
+ * NOTE: THIS CLASS IS GOING TO BE REWORKED A BIT DUE TO THE DEPRECATION
+ * OF ShortAnswerQuestion
+ * This also means that ShortAnswerQuestion WILL NOT BE PRESENT in the
+ * Week 4 code at all.
  **/
 
 import javax.swing.JPanel;
@@ -41,6 +45,8 @@ public class ProblemPanel extends JPanel
 
 	private InfoPopup correctPopup;
 	private InfoPopup incorrectPopup;
+
+	private TextField answerField;
 
 	private String[] categories;
 
@@ -272,110 +278,127 @@ public class ProblemPanel extends JPanel
 
 	class BottomButtonHandler implements ActionListener
 	{
+		public void checkMCQ(String toCheck)
+		{
+			String answer = currMCQ.getAnswerChoices()[currMCQ.getAnswer()];
+			boolean isCorrect = toCheck.equalsIgnoreCase(answer);
+			String content;
+
+			if(isCorrect)
+			{
+				content = "Nice job! You got the " +
+				"question right!\n\nYour Answer: " + selectedAnswer +
+				"\nActual Answer: " + answer + "\n\nExplanations:";
+
+				String[] options = currMCQ.getAnswerChoices();
+				String[] explanations = currMCQ.getExplanations();
+				for(int i=0; i<explanations.length; i++)
+				{
+					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+
+					if(i == currMCQ.getAnswer())
+					{
+						content += " is correct because ";
+					}
+					else
+					{
+						content += " is incorrect because ";
+					}
+
+					content += explanations[i];
+				}
+
+				correctPopup.setContent(content);
+				correctPopup.show();
+			}
+			else
+			{
+				content = "Better luck next time... You got the " +
+				"question wrong.\n\nYour Answer: " + selectedAnswer +
+				"\nActual Answer: " + answer + "\n\nExplanations: ";
+
+				String[] options = currMCQ.getAnswerChoices();
+				String[] explanations = currMCQ.getExplanations();
+				for(int i=0; i<explanations.length; i++)
+				{
+					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+
+					if(i == currMCQ.getAnswer())
+					{
+						content += " is correct because ";
+					}
+					else
+					{
+						content += " is incorrect because ";
+					}
+
+					content += explanations[i];
+				}
+
+				incorrectPopup.setContent(content);
+				incorrectPopup.show();
+			}
+
+			GameData.switchCard("game");
+			GameData.executeUserMove(isCorrect);
+		}
+
+		public void checkSAQ(String toCheck)
+		{
+			String answer = currSAQ.getAnswer();
+			boolean isCorrect = toCheck.equalsIgnoreCase(answer);
+			String content;
+
+			if(isCorrect)
+			{
+				content = "Nice job! You got the " +
+				"question right!\n\nYour Answer: " + selectedAnswer +
+				"\nActual Answer: " + answer + "\n\nExplanation: " +
+				currSAQ.getExplanation();
+
+				correctPopup.setContent(content);
+				correctPopup.show();
+			}
+			else
+			{
+				content = "Better luck next time... You got the " +
+				"question wrong.\n\nYour Answer: " + selectedAnswer +
+				"\nActual Answer: " + answer + "\n\nExplanation: " +
+				currSAQ.getExplanation();
+
+				incorrectPopup.setContent(content);
+				incorrectPopup.show();
+			}
+
+			GameData.switchCard("game");
+			GameData.executeUserMove(isCorrect);
+		}
+
 		public void actionPerformed(ActionEvent evt)
 		{
 			String command = evt.getActionCommand();
 
 			if(command.equals("SUBMIT"))
 			{
-				if(selectedAnswer != null)
+				if(currMCQ == null)
 				{
-
-					String answer;
-					if(currMCQ == null)
+					if(answerField.isSelected())
 					{
-						answer = currSAQ.getAnswer();
+						selectedAnswer = answerField.getText();
+						checkSAQ(selectedAnswer);
 					}
-					else
+				}
+				else
+				{
+					if(selectedAnswer != null)
 					{
-						answer = currMCQ.getAnswerChoices()[currMCQ.getAnswer()];
+						checkMCQ(selectedAnswer);
 					}
-
-					if(answer.equalsIgnoreCase(selectedAnswer))
-					{
-						String content;
-						if(currMCQ == null)
-						{
-							content = "Nice job! You got the " +
-								"question right!\n\nYour Answer: " + selectedAnswer +
-								"\nActual Answer: " + answer + "\n\nExplanation: " +
-								currSAQ.getExplanation();
-						}
-						else
-						{
-							content = "Nice job! You got the " +
-							"question right!\n\nYour Answer: " + selectedAnswer +
-							"\nActual Answer: " + answer + "\n\nExplanations:";
-
-							String[] options = currMCQ.getAnswerChoices();
-							String[] explanations = currMCQ.getExplanations();
-							for(int i=0; i<explanations.length; i++)
-							{
-								content += "\nOption " + (i+1) + " (" + options[i] + ")";
-
-								if(i == currMCQ.getAnswer())
-								{
-									content += " is correct because ";
-								}
-								else
-								{
-									content += " is incorrect because ";
-								}
-
-								content += explanations[i];
-							}
-						}
-						correctPopup.setContent(content);
-						correctPopup.show();
-					}
-					else
-					{
-						String content;
-						if(currMCQ == null)
-						{
-							content = "Better luck next time... You got the " +
-								"question wrong.\n\nYour Answer: " + selectedAnswer +
-								"\nActual Answer: " + answer + "\n\nExplanation: " +
-								currSAQ.getExplanation();
-						}
-						else
-						{
-							content = "Better luck next time... You got the " +
-							"question wrong.\n\nYour Answer: " + selectedAnswer +
-							"\nActual Answer: " + answer + "\n\nExplanations: ";
-
-							String[] options = currMCQ.getAnswerChoices();
-							String[] explanations = currMCQ.getExplanations();
-							for(int i=0; i<explanations.length; i++)
-							{
-								content += "\nOption " + (i+1) + " (" + options[i] + ")";
-
-								if(i == currMCQ.getAnswer())
-								{
-									content += " is correct because ";
-								}
-								else
-								{
-									content += " is incorrect because ";
-								}
-
-								content += explanations[i];
-							}
-						}
-						incorrectPopup.setContent(content);
-						incorrectPopup.show();
-					}
-
-					CardLayout cards = GameData.getCardLayout();
-					JPanel holder = GameData.getCardHolder();
-					cards.show(holder, "game");
 				}
 			}
 			else if(command.equals("RETURN"))
 			{
-				CardLayout cards = GameData.getCardLayout();
-				JPanel holder = GameData.getCardHolder();
-				cards.show(holder, "game");
+				GameData.switchCard("game");
 			}
 		}
 	}
@@ -386,11 +409,12 @@ public class ProblemPanel extends JPanel
 		public ContentPanel(String categoryIn)
 		{
 			setBackground(Color.GRAY);
-			setLayout(new FlowLayout(FlowLayout.CENTER, 500, 50));
+			setLayout(new FlowLayout(FlowLayout.CENTER, 500, 40));
 			if(currMCQ == null) ///problem type is saq
 			{
-				Label category = new Label(categoryIn.toUpperCase(), 65);
-				Label question = new Label(currSAQ.getQuestion(), 40);
+				Label category = new Label(categoryIn.toUpperCase(), 55);
+				Label question = new Label(currSAQ.getQuestion(), 25);
+
 				add(category);
 				add(question);
 			}
@@ -398,16 +422,20 @@ public class ProblemPanel extends JPanel
 			{
 				Label category = new Label(categoryIn.toUpperCase(), 65);
 				Label question = new Label(currMCQ.getQuestion(), 40);
+				Label demoMode = new Label("DEMO MODE ON", 40);
+
 				add(category);
 				add(question);
+				if(GameData.isDemoModeOn())
+				{
+					add(demoMode);
+				}
 			}
 		}
     }
     
     class AnswerPanel extends JPanel
     {
-		private JTextField answerField;
-
 		public AnswerPanel()
 		{
 			setBackground(Color.DARK_GRAY);
@@ -431,13 +459,11 @@ public class ProblemPanel extends JPanel
 			}
 		}
 
-		public JTextField getAnswerField()
+		public TextField getAnswerField()
 		{
 			TextField toReturn = new TextField("Type your answer.", 30, 30);
-			AnswerFieldHandler answerFieldHandler = new AnswerFieldHandler(); 
 
 			toReturn.setPreferredSize(new Dimension(toReturn.getWidth(), 50));
-			toReturn.addActionListener(answerFieldHandler);
 
 			return toReturn;
 		}
@@ -463,14 +489,6 @@ public class ProblemPanel extends JPanel
 		}
 
 		class AnswerChoiceHandler implements ActionListener
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				selectedAnswer = evt.getActionCommand();
-			}
-		}
-
-		class AnswerFieldHandler implements ActionListener
 		{
 			public void actionPerformed(ActionEvent evt)
 			{

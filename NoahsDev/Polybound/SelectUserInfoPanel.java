@@ -3,7 +3,7 @@
  * Period 6
  * SelectUserInfoPanel.java
  * 
- * 
+ * This class 
 
 
  */
@@ -45,19 +45,19 @@ social security number
 */
 public class SelectUserInfoPanel extends JPanel
 {
-	ArrayList<Character> userCharacters;
-	Color[] colors;
-	ArrayList<Integer> numbers;
+	private Color[] colors;
+	private TextField nameField;
+	private String charName;
+	private JRadioButton[] charButtons;
 	//~ ArrayList<JButtonGroup>
 	
 	public SelectUserInfoPanel()
 	{
-		userCharacters = new ArrayList<>();
 		//~ userCharacter = getCharacters();//after GameProgression is done, 
 			//we will get user character list, add it here, and create method
-		numbers = new ArrayList<>();
 		
 		//if your favorite color is not in here, potentially add a color picker 
+		charName = null;
 		colors = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, 
 			Color.GREEN, Color.BLUE, Color.MAGENTA, Color.PINK, Color.CYAN, 
 			Color.WHITE, Color.GRAY, Color.DARK_GRAY, Color.BLACK/*, null*/};
@@ -71,41 +71,67 @@ public class SelectUserInfoPanel extends JPanel
 		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
+	
+	/**
+	 * Returns the passed in color as a String if it is in the Color[]
+	 * array colors. If not, it returns null.
+	 **/
+	public String colorToString(Color colorIn)
+	{
+		if(colorIn == Color.RED)
+			return "red";
+		if(colorIn == Color.ORANGE)
+			return "orange";	
+		if(colorIn == Color.YELLOW)
+			return "yellow";
+		if(colorIn == Color.GREEN)
+			return "green";
+		if(colorIn == Color.BLUE)
+			return "blue";
+		if(colorIn == Color.MAGENTA)
+			return "magenta";
+		if(colorIn == Color.PINK)
+			return "pink";
+		if(colorIn == Color.CYAN)
+			return "cyan";
+		if(colorIn == Color.WHITE)
+			return "white";
+		if(colorIn == Color.GRAY)
+			return "gray";
+		if(colorIn == Color.DARK_GRAY)
+			return "dark gray";
+		if(colorIn == Color.BLACK)
+			return "black";
+			
+		return null;
+	}
+	
 	//second half
 	/* returns the back and continue buttons */
 	public JPanel getBottomButtons()
 	{
-		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 200));
+		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
+		int buttonFont = 55;
+		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
+		Button toMenu = new Button("Return", new SwitchPanels("main menu"), buttonFont);
+
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
-		bottomButtons.setBackground(Color.RED);
+		bottomButtons.setBackground(Color.DARK_GRAY);
 		
-		bottomButtons.add(new Label("Show this", 30, Color.BLACK));
-		bottomButtons.add(addLinkedButton("Back", "main menu", Color.RED));
-		bottomButtons.add(addLinkedButton("Continue", "intermission", Color.YELLOW));
-		//~ bottomButtons.add(new JLabel("Hi"));
+		bottomButtons.add(finish);
+		bottomButtons.add(toMenu);
 		
 		return bottomButtons;
-	}
-	
-	/* helper method, like toDiffScreen button in GamePanel*/
-	public Button addLinkedButton(String name, String toPanel, Color background)
-	{
-		Button toDiffScreen = new Button(name, new SwitchPanels(toPanel), 200);//any button
-		toDiffScreen.setPreferredSize(new Dimension(200, 266));
-		//~ toDiffScreen.setOpaque(true);					//prep for background color
-		toDiffScreen.setBackground(background);
-		return toDiffScreen;
 	}
 	
 	//first half (done! good.)
 	public JPanel getSelection()
 	{
 		JPanel selection = new JPanel(new BorderLayout());
-		selection.setBackground(Color.BLACK);
+		selection.setBackground(Color.GRAY);
 		selection.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));//create the border
 		
-		Label prompt = new Label("Please enter your information:", 75);
-		prompt.setForeground(Color.MAGENTA);
+		Label prompt = new Label("Create New Game", 75);
 		selection.add(prompt, BorderLayout.NORTH); //create the prompt 
 		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
 		selection.add(centerSelect, BorderLayout.CENTER);
@@ -114,30 +140,17 @@ public class SelectUserInfoPanel extends JPanel
 	
 	public JPanel getCenter()
 	{
-		JPanel toReturn = new JPanel(new BorderLayout(10, 0)/*FlowLayout(FlowLayout.CENTER, 0, 75)*/);
-			//the center panel, including the buttons and the grid 
-		toReturn.setPreferredSize(new Dimension(1150, 600));
-		
 		//the prompts for the data
-		String[] prompts = new String[] {"First Name", "Last Name", "Character", 
-			"Favorite Color"/*, "Email", "School ID", "Country", "Address", 
-			"Birthday", "Social Security Number", "Credit Card Number", 
-			"Shoe Size", "Face ID"*/};//the rest are jokes. 
+		String[] prompts = new String[] {"Name", "Favorite Color",
+			"Character"};
 		//the component for the type of answer response we want (for each prompt) 
-		String[] types = new String[] {"Field", "Field", "Radio|userCharacters", 
-			"Radio|colors"/*, "Field", "Field", "Field", "Field", "Radio|numbers", 
-			"Field", "Field", "Field", "Field"*/};
+		String[] types = new String[] {"Field", "Radio|colors", "Radio|userCharacters"};
 		
-		JPanel grid = getGrid(prompts, types);//get the grid of prompts and types 
-		toReturn.add(grid, BorderLayout.WEST);
+		//get the grid of prompts and types -- the center panel 
+		JPanel grid = getGrid(prompts, types);
+		grid.setPreferredSize(new Dimension(1150, 600));
 		
-		String[] options = new String[] {"option1", "option2", "option3"};
-		JPanel radioButtonPan = getRadioButtons(options);
-		//note: cannot set size for radio buttons because it is used for both 
-		radioButtonPan.setBackground(Color.GREEN);
-		toReturn.add(radioButtonPan, BorderLayout.EAST);
-		
-		return toReturn;
+		return grid;
 	}
 	//helper 1 to getCenter 
 	public JPanel getGrid(String[] prompts, String[] types)
@@ -145,7 +158,7 @@ public class SelectUserInfoPanel extends JPanel
 		int rows = prompts.length;
 		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
 		grid.setPreferredSize(new Dimension(950, 600));
-		grid.setBackground(Color.CYAN);
+		grid.setBackground(Color.LIGHT_GRAY);
 		
 		for(int index = 0; index < rows; index++)
 		{
@@ -172,8 +185,14 @@ public class SelectUserInfoPanel extends JPanel
 		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
 		if(isRadioButton < 0)
 		{
-			TextField enterText = new TextField(prompt, prompt.length() + 5, 20);
+			String defaultText = "Enter in your " + prompt.toLowerCase() + ".";
+			TextField enterText = new TextField(defaultText, defaultText.length(), 20);
 			enterData.add(enterText);
+
+			if(prompt.equals("Name"))
+			{
+				nameField = enterText;
+			}
 		}
 		else
 		{
@@ -191,7 +210,7 @@ public class SelectUserInfoPanel extends JPanel
 		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
 		
 		int numOfButtons = options.length;
-		JPanel radioPan = new JPanel(new GridLayout(3, numOfButtons/3+1, 5, 5));
+		JPanel radioPan = new JPanel(new GridLayout(4, 3));
 		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
 		for(int i = 0; i < numOfButtons; i++)
 		{
@@ -201,10 +220,15 @@ public class SelectUserInfoPanel extends JPanel
 			group.add(radioButtons[i]);
 			radioPan.add(radioButtons[i]);
 		}
+		if(options[0].equals("Line"))
+		{
+			charButtons = radioButtons;
+		}
 		radioPan.add(clear);
 		return radioPan;
 	}
-	//helper utility method to getCenter 
+	//helper utility method to getCenter
+	//userCharacter
 	public String[] getOptionNames(String arrayName)
 	{
 		int arrayLength = 0;
@@ -215,21 +239,15 @@ public class SelectUserInfoPanel extends JPanel
 			output = new String[arrayLength];
 			for(int i = 0; i < arrayLength; i++)
 			{
-				output[i] = colors[i].toString();//can add a .find() method later to parse actual color name
+				output[i] = colorToString(colors[i]);
 				//for programming purposes
 				System.out.println(output[i]);
 			}
 		}
 		else if(arrayName.equals("userCharacters"))
 		{
-			arrayLength = userCharacters.size();
-			output = new String[arrayLength];
-			for(int i = 0; i < arrayLength; i++)
-			{
-				output[i] = userCharacters.get(i).toString();//same logic with .find() method
-				//for programming purposes
-				System.out.println(output[i]);
-			}
+			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
+			output = userCharacters;
 		}
 		if(output == null)
 		{
@@ -245,7 +263,23 @@ public class SelectUserInfoPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent evt)
 		{
-			String componentName = evt.getActionCommand();
+			String command = evt.getActionCommand();
+			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
+			boolean isCharacterSelection = false;
+
+			for(int i=0; i<userCharacters.length; i++)
+			{
+				if(command.equals(userCharacters[i]))
+				{
+					charName = userCharacters[i];
+					isCharacterSelection = true;
+				}
+			}
+
+			if(!isCharacterSelection)
+			{
+				///favorite color code here
+			}
 		}
 	}
 	/* handler for the clear button */
@@ -258,7 +292,7 @@ public class SelectUserInfoPanel extends JPanel
 		}
 		public void actionPerformed(ActionEvent evt)
 		{
-			group.clearSelection();//this is all it does. 
+			group.clearSelection();//this is all it does.
 		}
 	}
 	/* handler for the switch panels buttons */
@@ -270,13 +304,40 @@ public class SelectUserInfoPanel extends JPanel
 			toPanel = toPanelIn;
 		}
 		
+		/// TODO make it so that the game actually ends when you defeat an enemy
+		/// make a game over screen
+		/// get levelling up to work
+		/// problems, moves, and images
 		public void actionPerformed(ActionEvent evt)
 		{
-			String componentName = evt.getActionCommand();
-			CardLayout cards = GameData.getCardLayout();
-			JPanel holder = GameData.getCardHolder();
-			
-			cards.show(holder, toPanel);//shows the panel 
+			String command = evt.getActionCommand();
+
+			if(command.equals("Finish"))
+			{
+				///check to see if the radio buttons are selected
+				boolean characterSelected = false;
+				for(int i=0; i<charButtons.length; i++)
+				{
+					if(charButtons[i].isSelected())
+					{
+						characterSelected = true;
+					}
+				}
+
+				///all required fields are entered
+				if(characterSelected && nameField.isSelected())
+				{
+					GameData.setUserName(nameField.getText());
+					GameData.setPlayerCharacter(new Character(charName, 1));
+					GameData.setEnemiesDefeated(0);
+
+					GameData.switchCard(toPanel);
+				}
+			}
+			else if(command.equals("Return"))
+			{
+				GameData.switchCard(toPanel);//shows the panel 
+			}
 		}
 	}
 	

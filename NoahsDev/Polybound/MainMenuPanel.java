@@ -22,12 +22,17 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MainMenuPanel extends JPanel
 {
 	private Image logo; ///Image for the game logo
 	private InfoPopup helpPopup; ///InfoPopup for the "Help" popup
 	private InfoPopup highScorePopup; ///InfoPopup for the "High Scores" popup
 	private OptionsPopup optionsPopup;
+	private GameFoundPopup gameFoundPopup;
 	
 	/**
 	 * The default constructor, responsible for setting up this
@@ -45,6 +50,7 @@ public class MainMenuPanel extends JPanel
 		helpPopup = getHelpPopup();
 		highScorePopup = getHighScorePopup();
 		optionsPopup = new OptionsPopup();
+		gameFoundPopup = new GameFoundPopup();
 		
 		///button setup
 		int buttonFont = 45; ///font size for buttons
@@ -84,8 +90,8 @@ public class MainMenuPanel extends JPanel
 			"RPG style game where you must take on the role of one of three characters, " +
 			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
 			"In Polybound, you will be tested on a few skills concerning polynomials, " +
- 			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
- 			"Remainder Theorem, and interpreting graphs.\n\n");
+			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
+			"Remainder Theorem, and interpreting graphs.\n\n");
 		
 		return toReturn;
 	}
@@ -97,8 +103,7 @@ public class MainMenuPanel extends JPanel
 	public InfoPopup getHighScorePopup()
 	{
 		InfoPopup toReturn = new InfoPopup("High Scores"); ///new InfoPopup
-		toReturn.setContent("No high scores :(\n" +
- 			"Play a game to achieve one! :D"); ///currently sets content to placeholder
+		
 		return toReturn;
 	}
 	
@@ -133,6 +138,35 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("HI-SCORES")) ///shows the "High Scores" popup
 			{
+				String fileName = "highscores.txt";
+				File dataFile = new File(fileName);
+				Scanner read = null;
+				String setContent = "";
+
+				try
+				{
+					read = new Scanner(dataFile);
+
+					String line = read.nextLine();
+					if(!line.equals("No high scores."))
+					{
+						setContent += line + "\n";
+						while(read.hasNext())
+						{
+							setContent += read.nextLine() + "\n";
+						}
+					}
+					else
+					{
+						setContent = "No high scores :(\nPlay a game to achieve one! :D";
+					}
+				}
+				catch(FileNotFoundException e)
+				{
+					setContent = "Oh no! We couldn't load your high score data!";
+				}
+
+				highScorePopup.setContent(setContent); 
 				highScorePopup.show();
 			}
 			else if(command.equals("QUIT")) ///quits the game
@@ -141,10 +175,14 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("START")) ///switch to intermission panel
 			{
-				CardLayout cards = GameData.getCardLayout();
-				JPanel holder = GameData.getCardHolder();
-				//~ cards.show(holder, "intermission"); //to help Noah develop select info panel 
-				cards.show(holder, "select info");
+				if(GameData.gameIsStarted())
+				{
+					gameFoundPopup.show();
+				}
+				else
+				{
+					GameData.switchCard("user info");
+				}
 			}
 			else if(command.equals("OPTIONS")) ///shows the "Options" popup
 			{

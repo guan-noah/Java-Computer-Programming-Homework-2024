@@ -37,7 +37,7 @@ public class Label extends JLabel
 	public Label(String text, int fontSize)
 	{
 		super(text); ///superclass constructor call
-		setFont(new Font("SansSerif", Font.BOLD, fontSize)); ///font is configured
+		setFont(new Font("Verdana", Font.BOLD, fontSize)); ///font is configured
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class Label extends JLabel
 	public Label(String text, int fontSize, Color labelColor)
 	{
 		super(text); ///superclass constructor call
-		setFont(new Font("SansSerif", Font.BOLD, fontSize)); ///font is configured
+		setFont(new Font("Verdana", Font.BOLD, fontSize)); ///font is configured
 		setForeground(labelColor); ///color is set
 	}
 }

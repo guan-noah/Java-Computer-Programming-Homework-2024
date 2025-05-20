@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import java.awt.Font;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class InfoPopup extends Popup
 {
@@ -51,8 +52,7 @@ public class InfoPopup extends Popup
 	 **/
 	public void setContent(String contentIn)
 	{
-		InfoPopupContent contentPanel = (InfoPopupContent) infoContent; ///gets text area panel
-		contentPanel.setContent(contentIn); ///requests change of text
+		infoContent.setContent(contentIn); ///requests change of text
 	}
 	
 	/**
@@ -102,7 +102,9 @@ public class InfoPopup extends Popup
 			JScrollPane toReturn = new JScrollPane(contentTextArea);
 			
 			///text area setup
-			contentTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
+			contentTextArea.setFont(new Font("Verdana", Font.PLAIN, 25));
+			contentTextArea.setBackground(Color.DARK_GRAY);
+			contentTextArea.setForeground(Color.WHITE);
 			contentTextArea.setLineWrap(true);
 			contentTextArea.setWrapStyleWord(true);
 			contentTextArea.setEditable(false);
@@ -119,6 +121,7 @@ public class InfoPopup extends Popup
 			JPanel toReturn = new JPanel(); ///creates new JPanel for holder
 			Label titleLabel = new Label(title, 30); ///creates new Label
 			
+			toReturn.setBackground(Color.LIGHT_GRAY);
 			toReturn.add(titleLabel); ///adds button to holder
 			
 			return toReturn;
