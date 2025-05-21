@@ -38,12 +38,17 @@ public class TextField extends JTextField
         TextFieldFocusHandler tfFocusHandler = new TextFieldFocusHandler();
         addFocusListener(tfFocusHandler);
     }
+
+    public boolean isSelected()
+    {
+        return getFont() == SELECTED;
+    }
 	
     class TextFieldFocusHandler implements FocusListener
     {
         public void focusGained(FocusEvent evt)
         {
-			if(getFont() == UNSELECTED)
+			if(!isSelected())
 			{
 				setForeground(Color.BLACK);
 				setFont(SELECTED);

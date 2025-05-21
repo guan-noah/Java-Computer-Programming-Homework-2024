@@ -1,4 +1,6 @@
 /**
+ * NOTE: This class has been marked to be renamed to Question, as
+ * a result of the ShortAnswerQuestion deprecation.
  * Krish Kumar
  * Period 6
  * MultipleChoiceQuestion.java
@@ -9,7 +11,8 @@
 public class MultipleChoiceQuestion
 {
     private String question; ///problem
-    private String[] answerChoices, explanations; ///answer choices, explanations for choices
+    private String[] answerChoices; ///answer choices
+    private String[] explanations; ///explanations for choices
     private int answer; ///correct answer index
 
     public MultipleChoiceQuestion(String questionIn, String[] choicesIn, int answerIn, String[] explanationsIn)
@@ -37,17 +40,15 @@ public class MultipleChoiceQuestion
     }
 
     /**
-     * Returns the answer index. 
+     * Returns the answer. 
      **/
     public int getAnswer()
     {
-        return answer;//problemPanel implementation requires an index. 
+        return answer;
     }
-    /*
-     * Returns the explanations.
-     */
+
     public String[] getExplanations()
     {
-		return explanations;
-	}
+        return explanations;
+    }
 }

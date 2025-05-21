@@ -1,12 +1,239 @@
-Polynomial Arithmetic|Short Answer|Blah blah blah|Blah|You must consider blah-2.
-Polynomial Arithmetic|Short Answer|Blah blah blah blah|Blah blah|You must consider blah-2.
-Polynomial Arithmetic|Multiple Choice|Wow
-Wow1|it isn't wow enough.
-Wow2|it isn't wow enough.
-Wow3|it isn't wow enough.
-Wow4!|it's wow enough!
-Factoring|Multiple Choice|Hello
-How are you|you forgot to say hello.
-Hi|it's too basic.
-Yo|this isn't Spanish bud.
-What's good!|it's cool, and a greeting!
+Polynomial Arithmetic|Multiple Choice|What is (x + 3)(x + 2)?
+x^2 + 5x + 6!|Correct expansion.
+x^2 + 6x + 5|Mixed up coefficients.
+x^2 + 3x + 2|Only first terms added.
+x^2 + 2x + 3|Incorrect middle term.
+
+Polynomial Arithmetic|Multiple Choice|Simplify (4x^2 + 2x) - (x^2 - 5x)
+3x^2 + 7x!|Correct subtraction.
+5x^2 - 3x|Incorrect operation.
+3x^2 - 3x|Wrong sign on x.
+4x^2 - 7x|Incorrect subtraction.
+
+Polynomial Arithmetic|Multiple Choice|What is (2x - 1)(x + 5)?
+2x^2 + 9x - 5!|Correct expansion.
+2x^2 + 10x - 1|Incorrect distribution.
+2x^2 - 9x + 5|Wrong sign on x.
+2x^2 + 4x + 5|Incorrect middle term.
+
+Polynomial Arithmetic|Multiple Choice|Which is equivalent to (x + 7)^2?
+x^2 + 14x + 49!|Perfect square expansion.
+x^2 + 7x + 49|Missed doubling middle term.
+x^2 + 49|Forgot middle term.
+x^2 + 14x + 7|Incorrect constant.
+
+Polynomial Arithmetic|Multiple Choice|What is (5x^2 + 3x) + (2x^2 - 4x)?
+7x^2 - 1x!|Correct sum.
+3x^2 - 1x|Missed a term.
+7x^2 + 7x|Incorrect sum.
+10x^2 - 1x|Incorrect addition.
+
+Polynomial Arithmetic|Multiple Choice|What is the simplified result of (x^2 - 2x + 3) - (2x^2 + x - 1)?
+-x^2 - 3x + 4!|Correct subtraction.
+x^2 - 3x + 4|Wrong sign on x^2.
+-x^2 + 3x + 2|Incorrect calculation.
+3x^2 + x + 2|Incorrect operation.
+
+Polynomial Arithmetic|Multiple Choice|What is (x - 4)(x + 6)?
+x^2 + 2x - 24!|Correct expansion.
+x^2 + 10x + 24|Incorrect product.
+x^2 - 10x - 24|Wrong sign on x.
+x^2 + 24|Missed middle term.
+
+Polynomial Arithmetic|Multiple Choice|Which is equivalent to (2x - 3)^2?
+4x^2 - 12x + 9!|Correct expansion.
+2x^2 - 6x + 9|Missed squaring coefficients.
+4x^2 + 9|Missed middle term.
+4x^2 + 12x + 9|Wrong sign on middle term.
+
+Polynomial Arithmetic|Multiple Choice|What is (x^2 + 2x) + (3x^2 - 5x)?
+4x^2 - 3x!|Correct sum.
+4x^2 + 7x|Incorrect sign on x.
+2x^2 - 3x|Incorrect sum.
+3x^2 - 3x|Missed a term.
+
+Polynomial Arithmetic|Multiple Choice|Simplify (6x^2 - 3x) - (2x^2 + 4x)
+4x^2 - 7x!|Correct difference.
+8x^2 + x|Wrong operation.
+4x^2 + x|Incorrect sign.
+6x^2 - 7x|Incorrect subtraction.
+
+Factoring|Multiple Choice|Factor x^2 + 7x + 12
+(x + 3)(x + 4)!|Correct factors.
+(x - 3)(x + 4)|Wrong sign on 3.
+(x + 6)(x + 2)|Incorrect product.
+(x + 1)(x + 12)|Incorrect sum.
+
+Factoring|Multiple Choice|Factor x^2 - 16
+(x + 4)(x - 4)!|Difference of squares.
+(x - 8)(x + 2)|Incorrect factors.
+(x + 8)(x - 2)|Incorrect product.
+(x - 4)(x - 4)|Not correct.
+
+Factoring|Multiple Choice|What is the correct factorization of x^2 - 4x - 21?
+(x - 7)(x + 3)!|Correct factors.
+(x + 7)(x - 3)|Wrong sign.
+(x - 1)(x - 21)|Incorrect product.
+(x + 1)(x - 21)|Incorrect sum.
+
+Factoring|Multiple Choice|Which is the factored form of x^2 + 10x + 25?
+(x + 5)(x + 5)!|Perfect square.
+(x + 2)(x + 12)|Incorrect product.
+(x + 10)(x + 1)|Incorrect sum.
+(x + 6)(x + 4)|Incorrect factors.
+
+Factoring|Multiple Choice|Factor x^2 - 6x + 9
+(x - 3)(x - 3)!|Perfect square.
+(x + 3)(x - 3)|Incorrect sign.
+(x - 9)(x + 1)|Incorrect product.
+(x - 6)(x - 1)|Incorrect sum.
+
+Factoring|Multiple Choice|Factor x^2 + 2x - 15
+(x + 5)(x - 3)!|Correct factors.
+(x - 5)(x + 3)|Wrong sign.
+(x + 15)(x - 1)|Incorrect product.
+(x + 1)(x - 15)|Incorrect sum.
+
+Factoring|Multiple Choice|What is the correct factorization of x^2 - x - 20?
+(x - 5)(x + 4)!|Correct factors.
+(x + 5)(x - 4)|Wrong sign.
+(x - 10)(x + 2)|Incorrect product.
+(x + 10)(x - 2)|Incorrect sum.
+
+Factoring|Multiple Choice|Which is the factored form of x^2 + 13x + 36?
+(x + 9)(x + 4)!|Correct factors.
+(x + 12)(x + 3)|Incorrect product.
+(x + 6)(x + 7)|Incorrect sum.
+(x + 18)(x - 2)|Incorrect factors.
+
+Factoring|Multiple Choice|Factor x^2 - 25
+(x + 5)(x - 5)!|Difference of squares.
+(x - 25)(x + 1)|Incorrect factors.
+(x + 25)(x - 1)|Incorrect product.
+(x - 5)(x - 5)|Not correct.
+
+Factoring|Multiple Choice|Factor x^2 + 4x + 3
+(x + 1)(x + 3)!|Correct factors.
+(x - 1)(x + 3)|Wrong sign.
+(x + 2)(x + 2)|Incorrect product.
+(x + 3)(x + 4)|Incorrect sum.
+
+Polynomial Remainder Theorem|Multiple Choice|What is the remainder when f(x) = x^2 + 3x + 2 is divided by (x - 1)?
+6!|f(1) = 1 + 3 + 2 = 6.
+4|Incorrect sum.
+2|Not correct.
+0|Not divisible.
+
+Polynomial Remainder Theorem|Multiple Choice|Find the remainder when f(x) = 2x^2 - x + 1 is divided by (x + 2)
+7!|f(-2) = 8 + 2 + 1 = 7.
+3|Incorrect calculation.
+-1|Not correct.
+5|Incorrect value.
+
+Polynomial Remainder Theorem|Multiple Choice|Remainder of f(x) = x^3 - 2x + 5 divided by (x - 3)?
+20!|f(3) = 27 - 6 + 5 = 26.
+14|Incorrect sum.
+8|Wrong calculation.
+0|Not divisible.
+
+Polynomial Remainder Theorem|Multiple Choice|What is the remainder when f(x) = x^2 - 4x + 7 is divided by (x + 1)?
+12!|f(-1) = 1 + 4 + 7 = 12.
+10|Incorrect addition.
+-2|Incorrect value.
+7|Missed a term.
+
+Polynomial Remainder Theorem|Multiple Choice|Find the remainder when f(x) = 3x^2 + 2x - 8 is divided by (x - 2)
+4!|f(2) = 12 + 4 - 8 = 8.
+0|Incorrect calculation.
+2|Wrong value.
+-8|Incorrect sign.
+
+Polynomial Remainder Theorem|Multiple Choice|Remainder when f(x) = x^3 + x^2 + x + 1 is divided by (x - 1)?
+4!|f(1) = 1 + 1 + 1 + 1 = 4.
+3|Missed a term.
+2|Incorrect sum.
+0|Not divisible.
+
+Polynomial Remainder Theorem|Multiple Choice|What is the remainder when f(x) = 2x^3 - 5x + 4 is divided by (x + 2)?
+-12!|f(-2) = -16 + 10 + 4 = -2.
+0|Incorrect calculation.
+-2|Incorrect sign.
+2|Wrong value.
+
+Polynomial Remainder Theorem|Multiple Choice|Find the remainder when f(x) = x^2 + 7x + 12 is divided by (x - 3)
+24!|f(3) = 9 + 21 + 12 = 42.
+18|Incorrect calculation.
+12|Missed a term.
+0|Not divisible.
+
+Polynomial Remainder Theorem|Multiple Choice|Remainder when f(x) = x^4 - x^2 + 1 is divided by (x - 1)?
+1!|f(1) = 1 - 1 + 1 = 1.
+0|Not divisible.
+2|Incorrect sum.
+-1|Wrong sign.
+
+Polynomial Remainder Theorem|Multiple Choice|What is the remainder when f(x) = x^2 + 2x + 1 is divided by (x - 2)?
+9!|f(2) = 4 + 4 + 1 = 9.
+7|Incorrect calculation.
+5|Wrong value.
+0|Not divisible.
+
+End Behavior|Multiple Choice|What is the end behavior of f(x) = -2x^6 + 5x^3 - 1?
+Falls left, falls right!|Even degree, negative leading.
+Rises left, rises right|Incorrect sign.
+Rises left, falls right|Odd degree needed.
+Falls left, rises right|Incorrect.
+
+End Behavior|Multiple Choice|Describe the end behavior of f(x) = 4x^7 - 3x^2 + 2
+Falls left, rises right!|Odd degree, positive leading.
+Rises left, falls right|Wrong sign.
+Falls left, falls right|Not odd degree.
+Rises left, rises right|Incorrect.
+
+End Behavior|Multiple Choice|End behavior of f(x) = -x^5 + 2x^3 - 3
+Rises left, falls right!|Odd degree, negative lead.
+Falls left, rises right|Wrong sign.
+Rises left, rises right|Not odd degree.
+Falls left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|What is the end behavior of f(x) = 3x^4 - 2x^2 + 7?
+Rises left, rises right!|Even degree, positive lead.
+Falls left, falls right|Incorrect sign.
+Falls left, rises right|Odd degree needed.
+Rises left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|End behavior of f(x) = -7x^2 + 4x - 9
+Falls left, falls right!|Even degree, negative lead.
+Rises left, rises right|Incorrect sign.
+Falls left, rises right|Odd degree needed.
+Rises left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|What is the end behavior of f(x) = 5x^3 - 2x + 1?
+Falls left, rises right!|Odd degree, positive lead.
+Rises left, falls right|Wrong sign.
+Rises left, rises right|Not odd degree.
+Falls left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|Describe the end behavior of f(x) = -6x^4 + 3x^2 - 2
+Falls left, falls right!|Even degree, negative lead.
+Rises left, rises right|Incorrect sign.
+Falls left, rises right|Odd degree needed.
+Rises left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|What is the end behavior of f(x) = x^8 - 2x^3 + 1?
+Rises left, rises right!|Even degree, positive lead.
+Falls left, falls right|Incorrect sign.
+Falls left, rises right|Odd degree needed.
+Rises left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|End behavior of f(x) = -x^7 + x^5 - x
+Rises left, falls right!|Odd degree, negative lead.
+Falls left, rises right|Wrong sign.
+Rises left, rises right|Not odd degree.
+Falls left, falls right|Incorrect.
+
+End Behavior|Multiple Choice|What is the end behavior of f(x) = 2x^6 - 5x^2 + 4?
+Rises left, rises right!|Even degree, positive lead.
+Falls left, falls right|Incorrect sign.
+Falls left, rises right|Odd degree needed.
+Rises left, falls right|Incorrect.

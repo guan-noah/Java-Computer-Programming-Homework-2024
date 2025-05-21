@@ -1,4 +1,6 @@
 /**
+ * NOTE: This class is deprecated, and has been marked for removal.
+ * 
  * Krish Kumar
  * Period 6
  * ShortAnswerQuestion.java
