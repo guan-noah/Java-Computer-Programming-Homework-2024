@@ -1,9 +1,6 @@
 /*
  * Noah Guan
- * Period 6 
- * GuidePopup.java
  */
-//imports 
 
 public class GuidePopup extends Popup
 {
