@@ -3,8 +3,7 @@
  * Period 6
  * SelectUserInfoPanel.java
  * 
- * This class 
-
+ * This panel gathers the user information and inputs it into GameData. 
 
  */
 
@@ -79,56 +78,25 @@ public class SelectUserInfoPanel extends JPanel
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
 	
-	/**
-	 * Returns the passed in color as a String if it is in the Color[]
-	 * array colors. If not, it returns null.
-	 **/
-	public String colorToString(Color colorIn)
-	{
-		if(colorIn == Color.RED)
-			return "red";
-		if(colorIn == Color.ORANGE)
-			return "orange";	
-		if(colorIn == Color.YELLOW)
-			return "yellow";
-		if(colorIn == Color.GREEN)
-			return "green";
-		if(colorIn == Color.BLUE)
-			return "blue";
-		if(colorIn == Color.MAGENTA)
-			return "magenta";
-		if(colorIn == Color.PINK)
-			return "pink";
-		if(colorIn == Color.CYAN)
-			return "cyan";
-		if(colorIn == Color.WHITE)
-			return "white";
-		if(colorIn == Color.GRAY)
-			return "gray";
-		if(colorIn == Color.DARK_GRAY)
-			return "dark gray";
-		if(colorIn == Color.BLACK)
-			return "black";
-			
-		return null;
-	}
-	
 	/* 
 	 * returns the back to menu and continue to game buttons (toMenu and 
 	 * finish, respectively). 
 	 */
 	public JPanel getBottomButtons()
 	{
+		//initializes holder panel 
 		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
-		int buttonFont = 55;
-		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
-		Button toMenu = new Button("Return", new SwitchPanels("main menu"), buttonFont);
-
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
 		bottomButtons.setBackground(Color.DARK_GRAY);
 		
-		bottomButtons.add(finish);
+		//initializes buttons 
+		int buttonFont = 55;
+		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
+		Button toMenu = new Button("Return to Menu", new SwitchPanels("main menu"), buttonFont);
+		
+		//adds buttons to panel 
 		bottomButtons.add(toMenu);
+		bottomButtons.add(finish);
 		
 		return bottomButtons;
 	}
@@ -220,12 +188,18 @@ public class SelectUserInfoPanel extends JPanel
 		//determine if radioButton 
 		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
 		
+		//determine which component to add to panel based on isRadioButton 
 		if(isRadioButton < 0)
 		{
+			//initialize text field with prompt (doesn't need a listener)
 			String defaultText = "Enter in your " + prompt.toLowerCase() + ".";
 			TextField enterText = new TextField(defaultText, defaultText.length(), 20);
 			enterData.add(enterText);
-
+			
+			//for now, this will be the only text field. The finish button
+				//listener takes the name from nameField only, so we need
+				//the nameField pointer to also point to this instance 
+				//variable before reference discard at the end of this method. 
 			if(prompt.equals("Name"))
 			{
 				nameField = enterText;
@@ -233,22 +207,31 @@ public class SelectUserInfoPanel extends JPanel
 		}
 		else
 		{
+			//initialize jradiobuttons with getRadioButtons method. 
 			//needs indexOf('|')+1 to get whatever is after the '|' but not the '|' itself 
 			JPanel choice = getRadioButtons(getOptionNames(type.substring(type.indexOf('|')+1)));
 			enterData.add(choice);
 		}
 		return enterData;
 	}
-	//helper 2 to getCenter and helper1a
+	/*
+	 * called from getEnterData. Given a String array options, this 
+	 * method returns a grid of JRadioButtons, with each string in options 
+	 * becoming the name of a JRadioButton. 
+	 */
 	public JPanel getRadioButtons(String[] options)
 	{
+		//Initializes radio button group and button to clear current selection. 
 		ButtonGroup group = new ButtonGroup();
 		//gives the handler the button group to clear selection 
 		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
 		
+		//Initializes the JPanel with the grid of 12 buttons and JRadioButtons 
 		int numOfButtons = options.length;
 		JPanel radioPan = new JPanel(new GridLayout(4, 3));
 		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
+		
+		//initializes the radiobuttons in a for loop
 		for(int i = 0; i < numOfButtons; i++)
 		{
 			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
@@ -257,41 +240,87 @@ public class SelectUserInfoPanel extends JPanel
 			group.add(radioButtons[i]);
 			radioPan.add(radioButtons[i]);
 		}
-		if(options[0].equals("Line"))
+		
+		//when finish button pressed, program will check char buttons.
+		//make sure the instance variable points to the field variable  
+		if(options[0].equals("Line"))//does this if the first button name is "Line"
 		{
 			charButtons = radioButtons;
 		}
+		
+		//add clear button
 		radioPan.add(clear);
 		return radioPan;
 	}
-	//helper utility method to getCenter
-	//userCharacter
+	
+	/* 
+	 * Called by getCenter. 
+	 * Returns the names of the JRadioButtons given the array name. 
+	 */
 	public String[] getOptionNames(String arrayName)
 	{
 		int arrayLength = 0;
 		String[] output = null;
 		if(arrayName.equals("colors"))
 		{
+			//if array we want to access is colors, we use the colorToString
+			//method to return their an array of their names (corresponding strings). 
 			arrayLength = colors.length;
 			output = new String[arrayLength];
 			for(int i = 0; i < arrayLength; i++)
 			{
 				output[i] = colorToString(colors[i]);
-				//for programming purposes
-				System.out.println(output[i]);
 			}
 		}
 		else if(arrayName.equals("userCharacters"))
 		{
+			//if array we want to access is userCharacters, we return 
+			//the 3 user character strings. 
 			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
 			output = userCharacters;
 		}
-		if(output == null)
+		//check if output is null -- could also code this as if(output == null)
+		else
 		{
 			System.out.println("Warning: getOptions method in Select " + 
 				"User Info Panel returns null array!\n\tArrayName:" + arrayName);
 		}
+		
 		return output;
+	}
+	
+	/**
+	 * Returns the passed in color as a String if it is in the Color[]
+	 * array colors. If not, it returns null.
+	 **/
+	public String colorToString(Color colorIn)
+	{
+		if(colorIn == Color.RED)
+			return "red";
+		if(colorIn == Color.ORANGE)
+			return "orange";	
+		if(colorIn == Color.YELLOW)
+			return "yellow";
+		if(colorIn == Color.GREEN)
+			return "green";
+		if(colorIn == Color.BLUE)
+			return "blue";
+		if(colorIn == Color.MAGENTA)
+			return "magenta";
+		if(colorIn == Color.PINK)
+			return "pink";
+		if(colorIn == Color.CYAN)
+			return "cyan";
+		if(colorIn == Color.WHITE)
+			return "white";
+		if(colorIn == Color.GRAY)
+			return "gray";
+		if(colorIn == Color.DARK_GRAY)
+			return "dark gray";
+		if(colorIn == Color.BLACK)
+			return "black";
+			
+		return null;
 	}
 	
 	//FROM HERE ON ARE THE HANDLERS. 
@@ -341,10 +370,6 @@ public class SelectUserInfoPanel extends JPanel
 			toPanel = toPanelIn;
 		}
 		
-		/// TODO make it so that the game actually ends when you defeat an enemy
-		/// make a game over screen
-		/// get levelling up to work
-		/// problems, moves, and images
 		public void actionPerformed(ActionEvent evt)
 		{
 			String command = evt.getActionCommand();

@@ -56,8 +56,8 @@ public class IntermissionPanel extends JPanel
 		Button returnButton = new Button("Return to Menu", selectHandler, buttonFont);
 		
 		toReturn.setBackground(Color.DARK_GRAY);
-		toReturn.add(continueButton);
 		toReturn.add(returnButton);
+		toReturn.add(continueButton);
 		
 		return toReturn;
 	}

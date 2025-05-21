@@ -252,9 +252,9 @@ public class UpgradePopup extends Popup
                 System.out.println(player.getMaxHP());
                 System.out.println(player.getMaxMana());
 				
-				//remove the 
+				//set popup frame to not visible 
                 popupFrame.setVisible(false);
-                GameData.refreshStats();
+                GameData.refreshStats();	//refresh 
                 GameData.writeData(true); ///writes data
             }
         }

@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 	///actual game data
 	private static Character player; ///player's character
-
 	private static String userName; ///player name
 	private static int enemiesDefeated; ///enemies defeated
 	private static boolean gameStarted; ///tutorial beat
@@ -44,58 +43,90 @@ import java.util.ArrayList;
 		cardHolder = holderIn;
 		polyCards = (CardLayout) cardHolder.getLayout();
 	}
-
+	/*
+	 * This method 
+	 */
 	public static void switchCard(String cardIn)
 	{
 		polyCards.show(cardHolder, cardIn);
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setGameStarted(boolean gameStartedIn)
 	{
 		gameStarted = gameStartedIn;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static boolean gameIsStarted()
 	{
 		return gameStarted;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setDemoMode(boolean isOn)
 	{
 		demoMode = isOn;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static boolean isDemoModeOn()
 	{
 		return demoMode;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setGamePanel(GamePanel gamePanelIn)
 	{
 		gamePanel = gamePanelIn;
 	}
 	
+	/*
+	 * This method 
+	 */
 	public static void startGame(boolean isTutorial)
 	{
 		switchCard("game");
 		gamePanel.start(isTutorial);
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setIntermissionPanel(IntermissionPanel imPanelIn)
 	{
 		intermissionPanel = imPanelIn;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void refreshStats()
 	{
 		intermissionPanel.refreshStats();
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void executeUserMove(boolean success)
 	{
 		gamePanel.executeUserMove(success);
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setUserName(String userNameIn)
 	{
 		userName = userNameIn;
@@ -107,37 +138,58 @@ import java.util.ArrayList;
 		return userName;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setEnemiesDefeated(int count)
 	{
 		enemiesDefeated = count;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void incrementEnemiesDefeated()
 	{
 		enemiesDefeated++;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static int getEnemiesDefeated()
 	{
 		return enemiesDefeated;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setPlayerCharacter(Character playerIn)
 	{
 		player = playerIn;
 		System.out.println(player.getName());
 	}
 
+	/*
+	 * This method 
+	 */
 	public static Character getPlayerCharacter()
 	{
 		return player;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void setProblemPanel(ProblemPanel pPanelIn)
 	{
 		problemPanel = pPanelIn;
 	}
 
+	/*
+	 * This method 
+	 */
 	public static void getProblem()
 	{
 		problemPanel.getProblem();
@@ -162,6 +214,9 @@ import java.util.ArrayList;
 		return toReturn;
 	}
 
+	/*
+	 * This method saves the user data in the text file. 
+	 */
 	public static void writeData(boolean saveContinues)
 	{
 		String fileName = "saveData.txt";
@@ -194,6 +249,9 @@ import java.util.ArrayList;
 		}
 	}
 
+	/*
+	 * This method stores the high score in the text file. 
+	 */
 	public static void writeHighScore()
 	{
 		String fileName = "highscores.txt";

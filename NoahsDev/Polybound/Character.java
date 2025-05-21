@@ -26,8 +26,8 @@
 	 private int rating; ///used to measure the difficulty of the character
 	 private int level; ///level, which will scale enemy stats
 	 
-	/**
-	 * Null character for placeholder. 
+	/*
+	 * Null character for placeholder. should not be used in working game. 
 	 */
 	public Character()
 	{
@@ -43,7 +43,11 @@
 		rating = 0;
 		level = 1;
 	}
-
+	
+	/*
+	 * initialize character with given name and level 
+	 * should be the main constructor used. 
+	 */
 	 public Character(String nameIn, int levelIn)
 	 {
 		 name = nameIn;
@@ -54,7 +58,9 @@
 		 String imagePath = removeSpaces(name + ".png").toLowerCase();
 		 charImage = GameData.loadImage(imagePath);
 	 }
-
+	/*
+	 * reinitialize the character stats (change fvs to parameter inputs)
+	 */
 	 public void overrideStats(int hpIn, int maxHPIn, int manaIn, int maxManaIn, int defenseIn)
 	 {
 		hp = hpIn;
@@ -70,18 +76,21 @@
 	  **/
 	 public String removeSpaces(String toEdit)
 	 {
-		 String result = new String();
+		 String result = "";//create string to return
 		 
+		 //iterate through original string, rebuilding result string char by char
 		 for(int i=0; i<toEdit.length(); i++)
 		 {
-			 char curr = toEdit.charAt(i);
+			 char curr = toEdit.charAt(i);//the current char
 			 
+			 //if the current char is a space, add a hyphen to result. 
 			 if(curr == ' ')
 			 {
 				 result += "-";
 			 }
 			 else
 			 {
+				 //if it's any other char, simply add it to result as well.
 				 result += curr;
 			 }
 		 }
@@ -95,6 +104,7 @@
 	  **/
 	 public void loadData()
 	 {
+		 //like Polybound.java, just the standard loading logic 
 		 String fileName = "characters.txt";
 		 File characterFile = new File(fileName);
 		 Scanner read = null;
@@ -102,6 +112,7 @@
 		 try
 		 {
 			 read = new Scanner(characterFile);
+			 //get data from file 
 			 cacheData(read);
 		 }
 		 catch(FileNotFoundException e)
@@ -164,13 +175,19 @@
 		}
 	 }
 	/*
+	 * precondition: string is in format 
+	 * int1..int2 
+	 * where int1 is lower and int2 is higher
 	 * This method gets an int from a random range in a String. 
 	 * 	 different from GameData number generator bec. that can be used for other functions
 	 */
 	 public int getRandomRange(String lineIn)
 	 {
+		 //get low number from line 
 		 int low = Integer.parseInt(GameData.getDataTo(lineIn, ".."));
+		 //get high number from line 
 		 int high = Integer.parseInt(GameData.dataAfter(lineIn, ".."));
+		 //return a random integer between the numbers 
 		 return GameData.getRandom(low, high);
 	 }
 	 
@@ -182,7 +199,10 @@
 	 {
 		 return hp < 1;
 	 }
-
+	
+	/*
+	 * Increments the user level. 
+	 */
 	 public void increaseLevel()
 	 {
 		level++;
@@ -339,6 +359,14 @@
 		 return moveSet;
 	 }
 	 
+	 /**
+	  * Returns this Character's Image.
+	  **/
+	 public Image getImage()
+	 {
+		 return charImage;
+	 }
+	 
 	 /* debug method
 	  * Prints out everything about the character. 
 	  */
@@ -350,13 +378,5 @@
 		 System.out.println("Defense: |" + defense + "|");
 		 System.out.println("Description: |" + description + "|");
 		 System.out.println("Moveset: |" + moveSet + "|");
-	 }
-	 
-	 /**
-	  * Returns this Character's Image.
-	  **/
-	 public Image getImage()
-	 {
-		 return charImage;
 	 }
  }
