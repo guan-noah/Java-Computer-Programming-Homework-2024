@@ -45,14 +45,18 @@ social security number
 */
 public class SelectUserInfoPanel extends JPanel
 {
-	private Color[] colors;
+	//text fields for data input 
+	private Color[] colors;//user favorite color 
 	private TextField nameField;
 	private String charName;
 	private JRadioButton[] charButtons;
-	//~ ArrayList<JButtonGroup>
 	
+	/*
+	 * Initialize the data input variables, then initialize the panel. 
+	 */
 	public SelectUserInfoPanel()
 	{
+		//DATA INPUT VARIABLES SETUP
 		//~ userCharacter = getCharacters();//after GameProgression is done, 
 			//we will get user character list, add it here, and create method
 		
@@ -63,11 +67,14 @@ public class SelectUserInfoPanel extends JPanel
 			Color.WHITE, Color.GRAY, Color.DARK_GRAY, Color.BLACK/*, null*/};
 			//12 colors. if we add color picker, uncomment null and implement method. 
 		
+		//PANEL SETUP
 		setLayout(new BorderLayout());
 		
+		//selection panel with all the components to get data
 		JPanel selectionAdd = getSelection();
 		add(selectionAdd, BorderLayout.CENTER);
 		
+		//navigation buttons
 		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
 	}
@@ -106,8 +113,10 @@ public class SelectUserInfoPanel extends JPanel
 		return null;
 	}
 	
-	//second half
-	/* returns the back and continue buttons */
+	/* 
+	 * returns the back to menu and continue to game buttons (toMenu and 
+	 * finish, respectively). 
+	 */
 	public JPanel getBottomButtons()
 	{
 		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
@@ -124,20 +133,32 @@ public class SelectUserInfoPanel extends JPanel
 		return bottomButtons;
 	}
 	
-	//first half (done! good.)
+	/*
+	 * another "holder" JPanel for layout purposes. 
+	 * returns the main jpanel that gathers user information.
+	 * has a border (BorderFactory), and a prompt at the top of the screen. 
+	 * the center panel is the grid of components that gather the information. 
+	 */
 	public JPanel getSelection()
 	{
+		//set up the JPanel
 		JPanel selection = new JPanel(new BorderLayout());
 		selection.setBackground(Color.GRAY);
 		selection.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));//create the border
 		
+		//add components to JPanel 
 		Label prompt = new Label("Create New Game", 75);
 		selection.add(prompt, BorderLayout.NORTH); //create the prompt 
 		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
 		selection.add(centerSelect, BorderLayout.CENTER);
+		
 		return selection;
 	}
 	
+	/*
+	 * Called from getSelection. Sets up the actual grid of components, 
+	 * with the data we want for each component. 
+	 */
 	public JPanel getCenter()
 	{
 		//the prompts for the data
@@ -152,14 +173,22 @@ public class SelectUserInfoPanel extends JPanel
 		
 		return grid;
 	}
-	//helper 1 to getCenter 
+	
+	/* 
+	 * Noah's brainchild. As you can see, he likes for loops. 
+	 * Called from getCenter. Given the data wanted for each component, it 
+	 * sets up a grid of data gathering components and a corresponding prompting label. 
+	 */
 	public JPanel getGrid(String[] prompts, String[] types)
 	{
+		//the amount of data gathering components 
 		int rows = prompts.length;
+		//create the grid 
 		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
 		grid.setPreferredSize(new Dimension(950, 600));
 		grid.setBackground(Color.LIGHT_GRAY);
 		
+		//initialize the grid in a for loop. 
 		for(int index = 0; index < rows; index++)
 		{
 			String currentPrompt = prompts[index];//the prompt as a label
@@ -178,11 +207,19 @@ public class SelectUserInfoPanel extends JPanel
 		}
 		return grid;
 	}
-	//helper 1a to helper1 
+	
+	/*
+	 * Called from getGrid. Given the current type of component and the prompt, 
+	 * it returns a JPANEL with the actual component in it. This allows 
+	 * for polymorphism as a JPanel can contain different components. 
+	 */
 	public JPanel getEnterData(String type, String prompt)
 	{
+		//set up basic JPanel container 
 		JPanel enterData = new JPanel();
+		//determine if radioButton 
 		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
+		
 		if(isRadioButton < 0)
 		{
 			String defaultText = "Enter in your " + prompt.toLowerCase() + ".";
