@@ -84,16 +84,19 @@ public class SelectUserInfoPanel extends JPanel
 	 */
 	public JPanel getBottomButtons()
 	{
+		//initializes holder panel 
 		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
-		int buttonFont = 55;
-		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
-		Button toMenu = new Button("Return", new SwitchPanels("main menu"), buttonFont);
-
 		bottomButtons.setPreferredSize(new Dimension(1200, 100));
 		bottomButtons.setBackground(Color.DARK_GRAY);
 		
-		bottomButtons.add(finish);
+		//initializes buttons 
+		int buttonFont = 55;
+		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
+		Button toMenu = new Button("Return to Menu", new SwitchPanels("main menu"), buttonFont);
+		
+		//adds buttons to panel 
 		bottomButtons.add(toMenu);
+		bottomButtons.add(finish);
 		
 		return bottomButtons;
 	}
