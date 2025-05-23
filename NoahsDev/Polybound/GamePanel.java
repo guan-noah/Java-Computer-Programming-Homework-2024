@@ -50,7 +50,7 @@ public class GamePanel extends JPanel
 	private JMenuBar moves;				//Options arrangement components 
 	private JMenu moveMenu;
 	private Button guide;
-	private Button exit;
+	private Button next;
 	private Font optionFont;
 	private Round round;
 
@@ -104,13 +104,14 @@ public class GamePanel extends JPanel
 
 		round = new Round(isTutorial); ///starts round
 	}
-
+	
+	/* execute user's move */
 	public void executeUserMove(boolean success)
 	{
 		round.executeUserMove(success);
 	}
 
-	/* initialize */
+	/* initialize game interface panel */
 	public void getGameUI()
 	{
 		gameUI = new GameUI();
@@ -145,16 +146,16 @@ public class GamePanel extends JPanel
 		//for adding, optionsIn reference should still point to the same JPanel object; should be fine
 		
 		ShowOther showOtherHandler = new ShowOther();
-		guide = new Button("Guide", showOtherHandler, optionFont);			//guide button
+		guide = new Button("Guide", showOtherHandler, optionFont);//guide button
 		guide.setPreferredSize(new Dimension(200, 266));
 		optionsIn.add(guide);
 		
-		exit = new Button("Exit", showOtherHandler, optionFont);				//exit button
-		exit.setPreferredSize(new Dimension(200, 266));				//prep for background color
-		optionsIn.add(exit);
+		next = new Button("Next", showOtherHandler, optionFont);//next button to intermission panel
+		next.setPreferredSize(new Dimension(200, 266));
+		optionsIn.add(next);
 		
 		/*
-		 * workshopped idea: instead of exit, make a Quit Game button that 
+		 * workshopped idea: instead of next, make a Quit Game button that 
 		 * makes a popup; popup has 2 options: either start over - link to main menu
 		 * ...or actually quit program - System.exit(0)
 		
@@ -167,43 +168,47 @@ public class GamePanel extends JPanel
 	public void getGameTurnInfo()
 	{
 		gameTurnInfo = new JTextArea(8, 50);
-		gameTurnInfo.setForeground(Color.WHITE);
+		gameTurnInfo.setForeground(Color.WHITE);//white text
 		gameTurnInfo.setBackground(Color.DARK_GRAY);
 		gameTurnInfo.setFont(new Font("Verdana", Font.PLAIN, 20));
-		gameTurnInfo.setEditable(false);
+		gameTurnInfo.setEditable(false);//cannot edit text area
 	}
 	/* initializes the menubar */
 	public JMenuBar createMenuBar()
 	{
-		JMenuBar outputMenuBar = new JMenuBar();
-		outputMenuBar.add(createMoveSetMenu());
+		JMenuBar outputMenuBar = new JMenuBar();//initialize menu bar
+		outputMenuBar.add(createMoveSetMenu());//add move set jmenu to it
 		
 		return outputMenuBar;
 	}
 	/* initializes the menu with the menuitems*/
 	public JMenu createMoveSetMenu()
 	{
+		//initialize the move jmenu
 		moveMenu = new JMenu("Moves");
 		moveMenu.setFont(optionFont);
 		moveMenu.setPreferredSize(new Dimension(300, 100));
-		//~ for each move in Moves file: 
-			//~ JMenuItem tempMenuItem = getMenuItem(enemy.getMoveSet(index));
-			//~ tempMenuItem.addActionListener(new MovesListener());
-			//~ outputMenu.add(tempMenuItem));
-
-		MovesListener moveHandler = new MovesListener();
+		
+		//initialize handlers and moveset 
+		MovesListener moveHandler = new MovesListener();//handler
 		Font menuItemFont = new Font("SansSerif", Font.ITALIC, 20);
-		ArrayList<String> moveSet = user.getMoveset();
+		ArrayList<String> moveSet = user.getMoveset();//gets user moveset
+		
+		//upper limit of how many moves user gets = levels + 2, caps at moveset size
 		int bound = user.getLevel()+2;
 		if(bound > moveSet.size())
 		{
 			bound = moveSet.size();
 		}
+		
+		//initialize and add items to move jmenu 
 		for(int i=0; i<bound; i++)
 		{
+			//initialize each menu item and each move with name of move 
 			JMenuItem item = new JMenuItem(moveSet.get(i));
 			Move move = new Move(moveSet.get(i));
-
+			
+			//complete initialization of menu item 
 			item.addActionListener(moveHandler);
 			item.setFont(menuItemFont);
 			item.setToolTipText(move.getDescription());
@@ -222,16 +227,19 @@ public class GamePanel extends JPanel
 		private int turn;			//how many turns completed in round
 		private Move toExecute;			//user or enemy move to execute 
 		private boolean isTutorial;
-
+		
+		//initialize round 
 		public Round(boolean isTutorialIn)
 		{
 			turn = 0;
 			isTutorial = isTutorialIn;
 
-			gameTurnInfo.setText("");
-
+			gameTurnInfo.setText("");//reset text field 
+			
+			//deending on the game, it 
 			if(isTutorial)
 			{
+				//default enemy is training dummy. 
 				enemy = new Character("Training Dummy", 1);
 				gameTurnInfo.append("Welcome to your first battle. Here, you will " +
 					"learn the basics of battle, as well as some polynomial skills " +
@@ -245,18 +253,27 @@ public class GamePanel extends JPanel
 			}
 			else
 			{
+				//to get actual enemy, call method 
 				getEnemy();
 			}
-
+			
+			//start the round! 
 			startTurn();
 		}
-
+		
+		/*
+		 * Gets enemy in game. Sets a random enemy with random level for 
+		 * user to oppose. 
+		 */
 		public void getEnemy()
 		{
 			String[] enemyNames = {"Circle"/*, "Circle Rebel", "Funky Monkey"*/};
+			//random enemy name 
 			int random = GameData.getRandom(0, enemyNames.length-1);
+			//random level 
 			int level = GameData.getRandom(1, 10);
-
+			
+			//(re)initialize enemy 
 			enemy = new Character(enemyNames[random], level);
 		}
 		/**
@@ -268,13 +285,17 @@ public class GamePanel extends JPanel
 			if(!enemy.isDefeated() && !user.isDefeated()) ///round continues
 			{
 				turn++;
-
+				
+				//get user moveset 
 				ArrayList<String> moveSet = user.getMoveset();
+				//again, user moveset is the level+2, capped at the size of the array
 				int bound = user.getLevel()+2;
 				if(bound > moveSet.size())
 				{
 					bound = moveSet.size();
 				}
+				
+				//gets a random move's name (within user mana). 
 				int random = GameData.getRandom(0, bound-1);
 				Move checkForMana = new Move(moveSet.get(random));
 
@@ -284,47 +305,63 @@ public class GamePanel extends JPanel
 					random = GameData.getRandom(0, bound-1);
 					checkForMana = new Move(moveSet.get(random));
 				}
-
+				
+				//update information to bottom text area. 
 				gameTurnInfo.append("Turn " + turn + "\n");
 				gameTurnInfo.append("Make your move... Select a move from the moves menu.\n");
 				gameTurnInfo.append("Stuck on what to use? Consider using " + moveSet.get(random) + ".\n");
 			}
 			else ///round has ended
 			{
-				if(!isTutorial)
+				if(!isTutorial)//if in actual game
 				{
+					//decide whether lost or won. 
 					if(enemy.isDefeated())
 					{
-						gameTurnInfo.append("\nYou won!");
+						//if won, 
+						gameTurnInfo.append("\nYou won! Press \"Next\" " + 
+							"for the next round. ");
 						GameData.incrementEnemiesDefeated();
 					}
 					else
 					{
-						gameTurnInfo.append("\n\nGame over...");
+						//if lost, tell them they lost and write their high score 
+						//in the future, we can direct them straight to the main menu. 
+						gameTurnInfo.append("\n\nGame over... Press " + 
+							"\"Next\" and return to the main menu to see " + 
+							"how you stack up with other players!");
 						GameData.writeHighScore();
 					}
 				}
-				else
+				else 		//special tutorial accomodations. 
 				{
+					//they will win this round. the dummy doesn't do any damage.
 					gameTurnInfo.append("\nCongratulations! You have completed the tutorial.\n" +
 						"Now, get ready to start fending off the Polygon Empire. Good luck!");
+					//start the game! lucky them. they already defeated one "enemy". 
 					GameData.setGameStarted(true);
 					GameData.incrementEnemiesDefeated();
 				}
-
+				
+				//Write user information to text file 
 				GameData.writeData(enemy.isDefeated());
+				
+				//restrict access to guide and move menu buttons. Can only 
+					//click on "next" button. 
 				moveMenu.setEnabled(false);
 				guide.setEnabled(false);
 			}
 		}
 
-		/**
+		/*
 		 * Configures the player's move.
+		 * Returns if user has enough mana to execute. 
 		 */
 		public boolean setMoveToExecute(String moveName)
 		{
-			toExecute = new Move(moveName);
-
+			toExecute = new Move(moveName);//(re)initialize toExecute to move parameter.
+			
+			//compare move cost and user mana 
 			if(toExecute.getCost() <= user.getMana())
 			{
 				return true;
@@ -338,58 +375,77 @@ public class GamePanel extends JPanel
 		 */
 		public void executeUserMove(boolean success)
 		{
-			if(success)
+			//Logic checks if move success first; then if the demo mode is on
+			//At last, it will fail to execute the move
+			if(success)					//if the user can execute move
 			{
+				//execute move via executeMove() in class Move 
 				String toPrint = toExecute.executeMove(user, enemy, turn);
+				//update text area 
 				gameTurnInfo.append(toPrint + "\n");
 			}
 			else if(GameData.isDemoModeOn()) ///demo mode is on
 			{
-				gameTurnInfo.append("As a result of demo mode, the move miraculously was executed.\n");
+				//update text area and execute anyway (even though user 
+					//shouldn't be able to execute move)
+				gameTurnInfo.append("As a result of demo mode, the move " + 
+					"was miraculously executed.\n");
 				String toPrint = toExecute.executeMove(user, enemy, turn);
 				gameTurnInfo.append(toPrint + "\n");
 			}
 			else
 			{
+				//update text area with fail message
 				gameTurnInfo.append(user.getName() + " failed to use " + toExecute.getName() + ".\n");
 			}
-
+			
+			//enemy's turn! the second half of the round. 
 			configureEnemyMove();
 		}
 
 		/**
 		 * Configures the enemy's move.
 		 * Assumptions:
-		 * -All characters have at least 1 no mana move.
+		 * -All characters have at least 1 no mana move. (has a while loop)
 		 */
 		public void configureEnemyMove()
 		{
+			//get name of enemy 
 			String name = enemy.getName();
+			
+			//deadly funky monkey. (also executes if enemy is at exactly half health)
 			if(name.equals("Funky Monkey") && enemy.getHP() ==  enemy.getMaxHP()/2)
 			{
+				//ultimate move -- one-shots opponent. 
 				toExecute = new Move("Vertex of Finality");
 				executeEnemyMove();
 			}
 			else
 			{
+				//initialize enemy move set 
 				ArrayList<String> moveSet = enemy.getMoveset();
+				//get a random move for enemy to execute 
 				int getMove = GameData.getRandom(0, moveSet.size()-1);
-	
 				toExecute = new Move(moveSet.get(getMove));
-	
+				
+				//if enemy has enough mana 
 				if(toExecute.getCost() <= enemy.getMana())
 				{
+					//and if enemy is alive and well
 					if(!enemy.isDefeated())
 					{
+						//execute the move 
 						executeEnemyMove();
 					}
 					else
 					{
+						//start a new turn!  
 						startTurn();
 					}
 				}
 				else
 				{
+					//recursive. choose another move and start again. 
 					configureEnemyMove();
 				}
 			}
@@ -400,27 +456,33 @@ public class GamePanel extends JPanel
 		 */
 		public void executeEnemyMove()
 		{
+			//update the text area
 			String toPrint = toExecute.executeMove(enemy, user, turn);
 			gameTurnInfo.append(toPrint + "\n\n");
+			//start a new turn! 
 			startTurn();
 		}
 	}
 	/* GameUI; CENTER */
 	class GameUI extends JPanel implements ActionListener, MouseMotionListener
 	{
-		private Timer updateTimer;
-		private boolean descriptionShowing;
-
+		private Timer updateTimer;			//so we have time for animation
+		private boolean descriptionShowing;//
+		
+		//initialize timer 
 		public GameUI()
 		{
 			updateTimer = new Timer(0, this);
 			updateTimer.start();
 		}
-
+		/*
+		 * paintComponent method. Called by repaint(). 
+		 */
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
 			
+			//THESE VARIABLES ARE FOR PSEUDOCODE PURPOSES (may be implemented later). 
 			//~ int xLoc; //fixed location for now 
 			//~ int yLoc;
 			
@@ -434,15 +496,16 @@ public class GamePanel extends JPanel
 			//draws enemy image
 			//~g.drawImage(enemy.getImage(), 600, 150, 200, 200, this);
 			
+			//if there is an enemy (not tutorial)
 			if(enemy != null)
 			{
 				drawEnemy(g, enemy.getName());
 			}
 			
-			g.setColor(Color.BLACK);
-
+			g.setColor(Color.BLACK);//set color to black to draw strings
 			g.drawString(user.getName(), 200, 375); //draw user and enemy labels
-
+			
+			//draw enemy information in panel 
 			if(enemy != null)
 			{
 				g.drawString(enemy.getName(), 600, 375);
@@ -451,22 +514,28 @@ public class GamePanel extends JPanel
 				g.drawString("Defense: " + enemy.getDefense(), 600, 450);
 			}
 		}
-
+		
+		/*
+		 * draws enemy given enemy name 
+		 */
 		public void drawEnemy(Graphics g, String name)
 		{
 			Graphics2D g2d = (Graphics2D) g;
-
+			
+			//logic differs based on the enemy 
 			if(name.equals("Circle"))
 			{
+				//draw the enemy
 				g.setColor(Color.RED);
 				g.fillOval(600, 150, 200, 200);
 
 				g.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(8));
+				g2d.setStroke(new BasicStroke(8));//the border weight 
 				g2d.drawOval(600, 150, 200, 200);
 			}
 			else if(name.equals("Circle Rebel"))
 			{
+				//draw the enemy
 				g.setColor(Color.BLUE);
 				g.fillOval(600, 150, 200, 200);
 
@@ -474,12 +543,12 @@ public class GamePanel extends JPanel
 				g2d.setStroke(new BasicStroke(8));
 				g2d.drawOval(600, 150, 200, 200);
 			}
-			else
+			else//placeholder is a 200x200 square for now 
 			{
 				g.fillRect(600, 150, 200, 200);
 			}
 		}
-
+		
 		public void actionPerformed(ActionEvent evt)
 		{
 			if(evt.getSource() == updateTimer)
@@ -515,16 +584,20 @@ public class GamePanel extends JPanel
 			updateInfoTimer = new Timer(0, this);
 			updateInfoTimer.start();
 		}
-
+		
+		/*
+		 * paintComponent method. Called by repaint(). 
+		 */
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			//can also be "Serif"
+			
+			//can also be "Serif" (font doesn't matter)
 			//cannot get hp and mana at the moment as user is not set 
-
+			
 			g.setFont(new Font("Verdana", Font.BOLD, 35));
 			g.drawString(user.getName(), 0, 35);
-
+			
 			g.setFont(new Font("Verdana", Font.BOLD, 25));
 			g.drawString("HP: " + user.getHP() + "/" + user.getMaxHP(), 0, 70);
 			g.drawString("Mana: " + user.getMana() + "/" + user.getMaxMana(), 0, 105);
@@ -532,9 +605,13 @@ public class GamePanel extends JPanel
 			
 			//placeholders 
 		}
-
+		
+		/*
+		 * paintComponent method. Called by repaint(). 
+		 */
 		public void actionPerformed(ActionEvent evt)
 		{
+			//
 			if(evt.getSource() == updateInfoTimer)
 			{
 				repaint();
@@ -575,29 +652,34 @@ public class GamePanel extends JPanel
 				GameData.switchCard("main menu");
 				///add actual code later
 			}
-			else if(command.equals("Exit")) //if user pressed exit button, exit game and print to console. 
+			else if(command.equals("Next")) //if user pressed next button, next game and print to console. 
 			{
-				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
+				//~ gameTurnInfo.append("\n\t(Next button pressed.)"); //in the future, uncomment with the popup; 
 					//~ commented out right now because of program inefficiency if kept
 				//~ in the future, we'll have a popup (are you sure you want to exit?)
 				//~ (for debugging purposes)
 				if(!user.isDefeated())
 				{
+					//if user is not defeated, show intermission panel 
 					GameData.switchCard("intermission");
+					//get number of defeated enemies and user level 
 					int defeatedEnemies = GameData.getEnemiesDefeated();
 					int level = user.getLevel();
-
+					
+					//when user defeats the same number of enemies as 5x their level
 					if(defeatedEnemies >= level*5)
 					{
+						//increase user level and give user the upgrade popup 
 						user.increaseLevel();
 						upgradePopup.resetPoints();
 						upgradePopup.show();
-
-						GameData.writeData(true); ///writes data
+						
+						GameData.writeData(true); //saves data to file
 					}
 				}
 				else
 				{
+					//if user is defeated, end game and go to main menu 
 					GameData.setGameStarted(false);
 					GameData.switchCard("main menu");
 				}
