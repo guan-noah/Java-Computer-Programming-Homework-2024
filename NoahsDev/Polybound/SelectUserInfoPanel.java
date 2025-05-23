@@ -327,21 +327,31 @@ public class SelectUserInfoPanel extends JPanel
 	/* handler for the grid radio buttons */
 	class RadioButtonHandler implements ActionListener
 	{
+		/*
+		 * action performed method. called when radio button clicked. 
+		 */
 		public void actionPerformed(ActionEvent evt)
 		{
+			//get command
 			String command = evt.getActionCommand();
+			//initialize user characters options array
 			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
+			//
 			boolean isCharacterSelection = false;
-
+			
+			//iterate through user characters array
 			for(int i=0; i<userCharacters.length; i++)
 			{
+				//if the current character is selected 
 				if(command.equals(userCharacters[i]))
 				{
+					//reinitialize character name to selected character string
 					charName = userCharacters[i];
 					isCharacterSelection = true;
 				}
 			}
-
+			
+			//if character not selected 
 			if(!isCharacterSelection)
 			{
 				///favorite color code here
@@ -356,27 +366,37 @@ public class SelectUserInfoPanel extends JPanel
 		{
 			group = groupIn;
 		}
+		/*
+		 * action performed method. called when jbutton clicked. 
+		 */
 		public void actionPerformed(ActionEvent evt)
 		{
-			group.clearSelection();//this is all it does.
+			group.clearSelection();//this is all it does. clear the button selection
 		}
 	}
 	/* handler for the switch panels buttons */
 	class SwitchPanels implements ActionListener
 	{
 		private String toPanel;
+		/*
+		 * constructor takes in panel to switch to
+		 */
 		public SwitchPanels(String toPanelIn)
 		{
 			toPanel = toPanelIn;
 		}
 		
+		/*
+		 * action performed method called when 
+		 */
 		public void actionPerformed(ActionEvent evt)
 		{
 			String command = evt.getActionCommand();
-
+			
+			//choose which segment of code based on the command
 			if(command.equals("Finish"))
 			{
-				///check to see if the radio buttons are selected
+				//check to see if the character radio buttons are selected
 				boolean characterSelected = false;
 				for(int i=0; i<charButtons.length; i++)
 				{
@@ -386,19 +406,21 @@ public class SelectUserInfoPanel extends JPanel
 					}
 				}
 
-				///all required fields are entered
+				//all required fields are entered
 				if(characterSelected && nameField.isSelected())
 				{
+					//set data in GameData class 
 					GameData.setUserName(nameField.getText());
 					GameData.setPlayerCharacter(new Character(charName, 1));
 					GameData.setEnemiesDefeated(0);
-
+					
+					//show the panel
 					GameData.switchCard(toPanel);
 				}
 			}
 			else if(command.equals("Return"))
 			{
-				GameData.switchCard(toPanel);//shows the panel 
+				GameData.switchCard(toPanel);//show the panel 
 			}
 		}
 	}
@@ -414,12 +436,14 @@ public class SelectUserInfoPanel extends JPanel
 		
 		public DrawPanel()
 		{
-			rp = new RightPanel();
+			//initialize right panel, left panel and bottom panel information
+			rp = new RightPanel();//no preferred size; just takes the rest of space
 			LeftPanel lp = new LeftPanel();
 			lp.setPreferredSize(new Dimension(450, 500));					//x, y
 			JPanel bottomPanel = new JPanel();
 			bottomPanel.setPreferredSize(new Dimension(800, 100));
 			
+			//initialize draw panel information
 			setLayout(new BorderLayout());
 			add(lp, BorderLayout.WEST);
 			add(rp, BorderLayout.EAST);
@@ -430,6 +454,7 @@ public class SelectUserInfoPanel extends JPanel
 		{
 			public LeftPanel()
 			{
+				//initialize basic panel info and data needed to initialize components
 				setLayout(new GridLayout(4, 2, 0, 50));
 				Font labelFont = new Font("Arial", Font.BOLD, 15);
 				
@@ -437,11 +462,14 @@ public class SelectUserInfoPanel extends JPanel
 				JLabel[] changeLabels = new JLabel[4];
 				sliders = new JSlider[4];									//first 3 for color, last slider for size 
 				
+				//iterate through colors 
 				for(int i = 0; i < colors.length; i++)						//for loop that iterates through all 3 color panels 
 				{
+					//for each color, initialize label
 					changeLabels[i] = new JLabel("Amount " + colors[i]);	//amount <color> label 
 					changeLabels[i].setFont(labelFont);
 					
+					//initialize slider 
 					sliders[i] = makeSlider();								//make the slider (general)
 					if(i == 0)
 						sliders[i].addChangeListener(new RedSliderListener());//slider0: also red; adds a different color/size listener for each slider
@@ -495,7 +523,7 @@ public class SelectUserInfoPanel extends JPanel
 					rp.repaint();											//NOTE!! It won't repaint itself. You will have to repaint it. 
 				}
 			}
-			class GreenSliderListener implements ChangeListener
+			class GreenSliderListener implements ChangeListener				//same logic as other listeners
 			{
 				public void stateChanged(ChangeEvent evt)
 				{
@@ -504,7 +532,7 @@ public class SelectUserInfoPanel extends JPanel
 					rp.repaint();
 				}
 			}
-			class BlueSliderListener implements ChangeListener
+			class BlueSliderListener implements ChangeListener				//same logic 
 			{
 				public void stateChanged(ChangeEvent evt)
 				{
@@ -524,7 +552,7 @@ public class SelectUserInfoPanel extends JPanel
 				}
 			}
 			*/
-			class SizeSliderListener implements AdjustmentListener
+			class SizeSliderListener implements AdjustmentListener		//same logic, but data gathered from a slider 
 			{
 				public void adjustmentValueChanged(AdjustmentEvent evt)
 				{
@@ -534,26 +562,36 @@ public class SelectUserInfoPanel extends JPanel
 				}
 			}
 		}
-		
+		/*
+		 * Panel where output is drawn. 
+		 */
 		public class RightPanel extends JPanel
 		{
 			public RightPanel()
 			{
+				//set panel 
 				setLayout(new BorderLayout());
 				setBackground(Color.WHITE);
 				
+				//initialize description panel 
 				JLabel descPan = new JLabel();
 				descPan.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));//only one in line so hgap doesn't matter
 				descPan.setPreferredSize(new Dimension(300, 200));
 				
+				//initialize description
 				JLabel description = new JLabel("This is the drawing Panel");
 				description.setFont(new Font("Arial", Font.BOLD, 15));
 				
+				//add description to description panel and desc. panel to right panel
 				descPan.add(description);
 				add(descPan, BorderLayout.NORTH);
 				
+				//default size from initialization
 				size = 100;
 			}
+			/*
+			 * called by rp.repaint(). (re)draws the output square. 
+			 */
 			public void paintComponent(Graphics g)
 			{
 				super.paintComponent(g);
