@@ -137,9 +137,6 @@ public class UpgradePopup extends Popup
             Button addDefense = new Button("+ Defense Point", pointHandler, 35);
             Button removeDefense = new Button("- Defense Point", pointHandler, 35);
 			
-			toReturn.setBackground(Color.LIGHT_GRAY); //background of jpanel is light gray 
-				//note: can't really see it as of now because there's a grid. 
-			
 			//add all buttons to the grid 
             toReturn.add(addHP);
             toReturn.add(removeHP);

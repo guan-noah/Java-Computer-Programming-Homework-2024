@@ -72,17 +72,21 @@ public class Button extends JButton
 		setFont(buttonFont); ///font is configured
 		addActionListener(buttonListener); ///adds the ActionListener
 		setFocusPainted(false);
-		
+
+		//set hovered over to false, initialize button handler
 		isHoveredOver = false;
 		ButtonHandler btnHandler = new ButtonHandler();
 		addMouseListener(btnHandler);
 	}
-
+	/*
+	 * paint component method. called by repaint()
+	 */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-
+		Graphics2D g2d = (Graphics2D) g;//create graphics 
+		
+		//if user hovered over 
 		if(isHoveredOver)
 		{
 			g2d.setStroke(new BasicStroke(10));
@@ -92,21 +96,31 @@ public class Button extends JButton
 		
 		g2d.dispose();
 	}
-
+	/*
+	 * class determines if hovered over. that's all it does 
+	 */
 	class ButtonHandler implements MouseListener
 	{
+		/*
+		 * if mouse enters component 
+		 */
 		public void mouseEntered(MouseEvent evt)
 		{
 			isHoveredOver = true;
 			repaint();
 		}
 
+		/*
+		 * if mouse exits component 
+		 */
 		public void mouseExited(MouseEvent evt)
 		{
 			isHoveredOver = false;
 			repaint();
 		}
-
+		/*
+		 * empty methods to finish implementation 
+		 */
 		public void mousePressed(MouseEvent evt)
 		{}
 		public void mouseClicked(MouseEvent evt)
