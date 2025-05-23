@@ -1,0 +1,103 @@
+Pass
+0
+0..0
+0..0
+0..0
+0..0
+Pass a turn without doing anything.
+
+Banana
+0
+1..1
+1..1
+-1..-1
+-1..-1
+Eat a delicious banana and steal 1 HP and Mana from the enemy.
+
+Slam
+0
+0..0
+0..0
+-8..-8
+0..0
+The basic move of all shapes. Damage is dealt to the whole team.
+
+Slam II
+0
+0..0
+0..0
+-25..-25
+0..0
+A slam attack reserved for only the strongest polygons. No polygon has dared to learn Slam III. Not even the Square Overlord himself. Damage is dealt to the whole team.
+
+Roll
+3
+0..0
+0..0
+-12..-14
+0..0
+The forbidden move of the non-polygons.
+
+Poke
+2
+0..0
+0..0
+-15..-18
+0..0
+A sharper, more powerful move based solely on a polygon's natural edges.
+
+Constant Force
+0
+0..0
+0..0
+-5..-8
+0..0
+Deals consistent damage at all times. Doesn't require mana.
+
+Recover
+0
+5..8
+4..6
+0..0
+0..0
+Recovers a slight amount of HP and Mana.
+
+Recover II
+0
+15..20
+10..14
+0..0
+0..0
+Recovers a larger amount of HP and Mana.
+
+Recover III
+0
+40..45
+30..35
+0..0
+0..0
+Recovers a huge amount of HP and Mana for the whole team.
+
+Quadratic Growth!
+0
+Deals damage scaling quadratically off of Turn Number/3. Caps at 8^2.
+
+Perfect Square!
+0
+If your mana and HP are exactly the same, this attack will deal 2x the damage.
+
+Square Buster!
+0
+Pierces all defense, and deals damage scaling quadratically to the enemy's defense.
+
+Vertex of Finality!
+0
+If at perfectly half health, instantly defeats the enemy. Otherwise, it deals no damage. Uses all mana, even if you have more than the threshold.
+
+Self Destruct
+0
+-1000..-1000
+0..0
+0..0
+0..0
+Self destructs the user.
