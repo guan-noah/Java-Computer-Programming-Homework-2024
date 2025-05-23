@@ -1,0 +1,101 @@
+Line
+35..35
+15..15
+0..0
+0
+Clean. Consistent. Precise. The Line is very straightforward, providing reliable, low-mana moves with reliable results that can get you from Point A to Point B with minimal effort.
+Team Self Destruct|Constant Force|Recover|Slope Breaker|Recover II|Tangent move|Strike of the Undefined
+
+Quadratic
+30..30
+20..20
+0..0
+0
+The Quadratic is a master of balance, finding opportunity when the right conditions present themselves. Many of its moves revolve around the right timing/opportunity, so patience and strategy is needed.
+Constant Force|Recover|Quadratic Growth|Square Buster|Recover II|Vertex of Finality
+
+Cubic
+25..25
+25..25
+0..0
+0
+An arbiter of chaos, The Cubic is quite unpredictable compared to its lower degree counterparts. Its irregular flips and turns provide a factor of uncertainty in its moves, giving it incredible potential, but also the chance to backfire.
+Constant Force|Recover|Curve Flip|Recover II|Triple Root Surge|Recover III|Dimensions of Possibility
+
+Training Dummy
+30..30
+0..0
+2..2
+0
+A basic training dummy.
+Pass
+
+Circle
+40..45
+20..25
+0..4
+0
+The Circle is the perfect cannon fodder for the Polygon Empire. Being non-polygons themselves, many polygons believed that circles were inferior, thus leading to their mass-conscription into the war. Circles yearn for the day they re-achieve autonomy, and efforts such as the 360th Rebellion have been made to secure their freedom.
+Roll|Slam|Recover
+
+Triangle
+30..40
+25..30
+0..2
+0
+pointy and sharp but weaker
+Poke|Slam|Recover
+
+Square
+0..0
+0..0
+0..0
+0
+square
+Pass
+
+Pentagon
+0..0
+0..0
+0..0
+0
+advanced triangle/circle, can do roll and poke
+
+Hexagon
+0..0
+0..0
+0..0
+0
+maybe some hex thing idk
+
+Unit Circle
+300..300
+50..50
+8..10
+5
+Big burly circle
+Advanced Roll|Slam|Recover II
+
+Right Triangle
+0..0
+0..0
+0..0
+5
+Really buff Triangle
+Pass
+
+Square Overlord
+2000..2000
+100..100
+20..20
+5
+scary
+Poke|Slam II|Recover
+
+Funky Monkey
+500..500
+100..100
+0..0
+4
+he's funky with it (guaranteed to use Vertex of Finality if possible)
+Pass|Banana|Vertex of Finality
