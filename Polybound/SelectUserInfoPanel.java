@@ -3,8 +3,7 @@
  * Period 6
  * SelectUserInfoPanel.java
  * 
- * This class 
-
+ * This panel gathers the user information and inputs it into GameData. 
 
  */
 
@@ -45,14 +44,18 @@ social security number
 */
 public class SelectUserInfoPanel extends JPanel
 {
-	private Color[] colors;
+	//text fields for data input 
+	private Color[] colors;//user favorite color 
 	private TextField nameField;
 	private String charName;
 	private JRadioButton[] charButtons;
-	//~ ArrayList<JButtonGroup>
 	
+	/*
+	 * Initialize the data input variables, then initialize the panel. 
+	 */
 	public SelectUserInfoPanel()
 	{
+		//DATA INPUT VARIABLES SETUP
 		//~ userCharacter = getCharacters();//after GameProgression is done, 
 			//we will get user character list, add it here, and create method
 		
@@ -63,13 +66,227 @@ public class SelectUserInfoPanel extends JPanel
 			Color.WHITE, Color.GRAY, Color.DARK_GRAY, Color.BLACK/*, null*/};
 			//12 colors. if we add color picker, uncomment null and implement method. 
 		
+		//PANEL SETUP
 		setLayout(new BorderLayout());
 		
+		//selection panel with all the components to get data
 		JPanel selectionAdd = getSelection();
 		add(selectionAdd, BorderLayout.CENTER);
 		
+		//navigation buttons
 		JPanel bottomButtons = getBottomButtons();
 		add(bottomButtons, BorderLayout.SOUTH);
+	}
+	
+	/* 
+	 * returns the back to menu and continue to game buttons (toMenu and 
+	 * finish, respectively). 
+	 */
+	public JPanel getBottomButtons()
+	{
+		//initializes holder panel 
+		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
+		bottomButtons.setPreferredSize(new Dimension(1200, 100));
+		bottomButtons.setBackground(Color.DARK_GRAY);
+		
+		//initializes buttons 
+		int buttonFont = 55;
+		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
+		Button toMenu = new Button("Return to Menu", new SwitchPanels("main menu"), buttonFont);
+		
+		//adds buttons to panel 
+		bottomButtons.add(toMenu);
+		bottomButtons.add(finish);
+		
+		return bottomButtons;
+	}
+	
+	/*
+	 * another "holder" JPanel for layout purposes. 
+	 * returns the main jpanel that gathers user information.
+	 * has a border (BorderFactory), and a prompt at the top of the screen. 
+	 * the center panel is the grid of components that gather the information. 
+	 */
+	public JPanel getSelection()
+	{
+		//set up the JPanel
+		JPanel selection = new JPanel(new BorderLayout());
+		selection.setBackground(Color.GRAY);
+		selection.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));//create the border
+		
+		//add components to JPanel 
+		Label prompt = new Label("Create New Game", 75);
+		selection.add(prompt, BorderLayout.NORTH); //create the prompt 
+		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
+		selection.add(centerSelect, BorderLayout.CENTER);
+		
+		return selection;
+	}
+	
+	/*
+	 * Called from getSelection. Sets up the actual grid of components, 
+	 * with the data we want for each component. 
+	 */
+	public JPanel getCenter()
+	{
+		//the prompts for the data
+		String[] prompts = new String[] {"Name", "Favorite Color",
+			"Character"};
+		//the component for the type of answer response we want (for each prompt) 
+		String[] types = new String[] {"Field", "Radio|colors", "Radio|userCharacters"};
+		
+		//get the grid of prompts and types -- the center panel 
+		JPanel grid = getGrid(prompts, types);
+		grid.setPreferredSize(new Dimension(1150, 600));
+		
+		return grid;
+	}
+	
+	/* 
+	 * Noah's brainchild. As you can see, he likes for loops. 
+	 * Called from getCenter. Given the data wanted for each component, it 
+	 * sets up a grid of data gathering components and a corresponding prompting label. 
+	 */
+	public JPanel getGrid(String[] prompts, String[] types)
+	{
+		//the amount of data gathering components 
+		int rows = prompts.length;
+		//create the grid 
+		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
+		grid.setPreferredSize(new Dimension(950, 600));
+		grid.setBackground(Color.LIGHT_GRAY);
+		
+		//initialize the grid in a for loop. 
+		for(int index = 0; index < rows; index++)
+		{
+			String currentPrompt = prompts[index];//the prompt as a label
+			
+			//create the label that corresponds to the data enter component 
+			JPanel prompt = new JPanel();
+			Label description = new Label(currentPrompt, 20);
+			prompt.add(description);
+			
+			//create the component where user enters data (here starts the method complexity!)
+			JPanel enterData = getEnterData(types[index], currentPrompt);
+			
+			//add components to grid
+			grid.add(prompt);
+			grid.add(enterData);
+		}
+		return grid;
+	}
+	
+	/*
+	 * Called from getGrid. Given the current type of component and the prompt, 
+	 * it returns a JPANEL with the actual component in it. This allows 
+	 * for polymorphism as a JPanel can contain different components. 
+	 */
+	public JPanel getEnterData(String type, String prompt)
+	{
+		//set up basic JPanel container 
+		JPanel enterData = new JPanel();
+		//determine if radioButton 
+		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
+		
+		//determine which component to add to panel based on isRadioButton 
+		if(isRadioButton < 0)
+		{
+			//initialize text field with prompt (doesn't need a listener)
+			String defaultText = "Enter in your " + prompt.toLowerCase() + ".";
+			TextField enterText = new TextField(defaultText, defaultText.length(), 20);
+			enterData.add(enterText);
+			
+			//for now, this will be the only text field. The finish button
+				//listener takes the name from nameField only, so we need
+				//the nameField pointer to also point to this instance 
+				//variable before reference discard at the end of this method. 
+			if(prompt.equals("Name"))
+			{
+				nameField = enterText;
+			}
+		}
+		else
+		{
+			//initialize jradiobuttons with getRadioButtons method. 
+			//needs indexOf('|')+1 to get whatever is after the '|' but not the '|' itself 
+			JPanel choice = getRadioButtons(getOptionNames(type.substring(type.indexOf('|')+1)));
+			enterData.add(choice);
+		}
+		return enterData;
+	}
+	/*
+	 * called from getEnterData. Given a String array options, this 
+	 * method returns a grid of JRadioButtons, with each string in options 
+	 * becoming the name of a JRadioButton. 
+	 */
+	public JPanel getRadioButtons(String[] options)
+	{
+		//Initializes radio button group and button to clear current selection. 
+		ButtonGroup group = new ButtonGroup();
+		//gives the handler the button group to clear selection 
+		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
+		
+		//Initializes the JPanel with the grid of 12 buttons and JRadioButtons 
+		int numOfButtons = options.length;
+		JPanel radioPan = new JPanel(new GridLayout(4, 3));
+		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
+		
+		//initializes the radiobuttons in a for loop
+		for(int i = 0; i < numOfButtons; i++)
+		{
+			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
+			radioButtons[i].addActionListener(new RadioButtonHandler());
+			//~ radioButtons[i].setPreferredSize(new Dimension(100, 150));
+			group.add(radioButtons[i]);
+			radioPan.add(radioButtons[i]);
+		}
+		
+		//when finish button pressed, program will check char buttons.
+		//make sure the instance variable points to the field variable  
+		if(options[0].equals("Line"))//does this if the first button name is "Line"
+		{
+			charButtons = radioButtons;
+		}
+		
+		//add clear button
+		radioPan.add(clear);
+		return radioPan;
+	}
+	
+	/* 
+	 * Called by getCenter. 
+	 * Returns the names of the JRadioButtons given the array name. 
+	 */
+	public String[] getOptionNames(String arrayName)
+	{
+		int arrayLength = 0;
+		String[] output = null;
+		if(arrayName.equals("colors"))
+		{
+			//if array we want to access is colors, we use the colorToString
+			//method to return their an array of their names (corresponding strings). 
+			arrayLength = colors.length;
+			output = new String[arrayLength];
+			for(int i = 0; i < arrayLength; i++)
+			{
+				output[i] = colorToString(colors[i]);
+			}
+		}
+		else if(arrayName.equals("userCharacters"))
+		{
+			//if array we want to access is userCharacters, we return 
+			//the 3 user character strings. 
+			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
+			output = userCharacters;
+		}
+		//check if output is null -- could also code this as if(output == null)
+		else
+		{
+			System.out.println("Warning: getOptions method in Select " + 
+				"User Info Panel returns null array!\n\tArrayName:" + arrayName);
+		}
+		
+		return output;
 	}
 	
 	/**
@@ -104,157 +321,6 @@ public class SelectUserInfoPanel extends JPanel
 			return "black";
 			
 		return null;
-	}
-	
-	//second half
-	/* returns the back and continue buttons */
-	public JPanel getBottomButtons()
-	{
-		JPanel bottomButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
-		int buttonFont = 55;
-		Button finish = new Button("Finish", new SwitchPanels("intermission"), buttonFont);
-		Button toMenu = new Button("Return", new SwitchPanels("main menu"), buttonFont);
-
-		bottomButtons.setPreferredSize(new Dimension(1200, 100));
-		bottomButtons.setBackground(Color.DARK_GRAY);
-		
-		bottomButtons.add(finish);
-		bottomButtons.add(toMenu);
-		
-		return bottomButtons;
-	}
-	
-	//first half (done! good.)
-	public JPanel getSelection()
-	{
-		JPanel selection = new JPanel(new BorderLayout());
-		selection.setBackground(Color.GRAY);
-		selection.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));//create the border
-		
-		Label prompt = new Label("Create New Game", 75);
-		selection.add(prompt, BorderLayout.NORTH); //create the prompt 
-		JPanel centerSelect = getCenter();//create center selection (grid and jradiobuttons)
-		selection.add(centerSelect, BorderLayout.CENTER);
-		return selection;
-	}
-	
-	public JPanel getCenter()
-	{
-		//the prompts for the data
-		String[] prompts = new String[] {"Name", "Favorite Color",
-			"Character"};
-		//the component for the type of answer response we want (for each prompt) 
-		String[] types = new String[] {"Field", "Radio|colors", "Radio|userCharacters"};
-		
-		//get the grid of prompts and types -- the center panel 
-		JPanel grid = getGrid(prompts, types);
-		grid.setPreferredSize(new Dimension(1150, 600));
-		
-		return grid;
-	}
-	//helper 1 to getCenter 
-	public JPanel getGrid(String[] prompts, String[] types)
-	{
-		int rows = prompts.length;
-		JPanel grid = new JPanel(new GridLayout(rows, 2, 10, 10));//the jpanel containing grid 
-		grid.setPreferredSize(new Dimension(950, 600));
-		grid.setBackground(Color.LIGHT_GRAY);
-		
-		for(int index = 0; index < rows; index++)
-		{
-			String currentPrompt = prompts[index];//the prompt as a label
-			
-			//create the label that corresponds to the data enter component 
-			JPanel prompt = new JPanel();
-			Label description = new Label(currentPrompt, 20);
-			prompt.add(description);
-			
-			//create the component where user enters data (here starts the method complexity!)
-			JPanel enterData = getEnterData(types[index], currentPrompt);
-			
-			//add components to grid
-			grid.add(prompt);
-			grid.add(enterData);
-		}
-		return grid;
-	}
-	//helper 1a to helper1 
-	public JPanel getEnterData(String type, String prompt)
-	{
-		JPanel enterData = new JPanel();
-		int isRadioButton = type.indexOf('|'); //if it is, it will be an int 0 or greater
-		if(isRadioButton < 0)
-		{
-			String defaultText = "Enter in your " + prompt.toLowerCase() + ".";
-			TextField enterText = new TextField(defaultText, defaultText.length(), 20);
-			enterData.add(enterText);
-
-			if(prompt.equals("Name"))
-			{
-				nameField = enterText;
-			}
-		}
-		else
-		{
-			//needs indexOf('|')+1 to get whatever is after the '|' but not the '|' itself 
-			JPanel choice = getRadioButtons(getOptionNames(type.substring(type.indexOf('|')+1)));
-			enterData.add(choice);
-		}
-		return enterData;
-	}
-	//helper 2 to getCenter and helper1a
-	public JPanel getRadioButtons(String[] options)
-	{
-		ButtonGroup group = new ButtonGroup();
-		//gives the handler the button group to clear selection 
-		Button clear = new Button("Clear selection", new ClearGroupHandler(group));
-		
-		int numOfButtons = options.length;
-		JPanel radioPan = new JPanel(new GridLayout(4, 3));
-		JRadioButton[] radioButtons = new JRadioButton[numOfButtons];
-		for(int i = 0; i < numOfButtons; i++)
-		{
-			radioButtons[i] = new JRadioButton(options[i]/*, Icon icon */);
-			radioButtons[i].addActionListener(new RadioButtonHandler());
-			//~ radioButtons[i].setPreferredSize(new Dimension(100, 150));
-			group.add(radioButtons[i]);
-			radioPan.add(radioButtons[i]);
-		}
-		if(options[0].equals("Line"))
-		{
-			charButtons = radioButtons;
-		}
-		radioPan.add(clear);
-		return radioPan;
-	}
-	//helper utility method to getCenter
-	//userCharacter
-	public String[] getOptionNames(String arrayName)
-	{
-		int arrayLength = 0;
-		String[] output = null;
-		if(arrayName.equals("colors"))
-		{
-			arrayLength = colors.length;
-			output = new String[arrayLength];
-			for(int i = 0; i < arrayLength; i++)
-			{
-				output[i] = colorToString(colors[i]);
-				//for programming purposes
-				System.out.println(output[i]);
-			}
-		}
-		else if(arrayName.equals("userCharacters"))
-		{
-			String[] userCharacters = {"Line", "Quadratic", "Cubic"};
-			output = userCharacters;
-		}
-		if(output == null)
-		{
-			System.out.println("Warning: getOptions method in Select " + 
-				"User Info Panel returns null array!\n\tArrayName:" + arrayName);
-		}
-		return output;
 	}
 	
 	//FROM HERE ON ARE THE HANDLERS. 
@@ -304,10 +370,6 @@ public class SelectUserInfoPanel extends JPanel
 			toPanel = toPanelIn;
 		}
 		
-		/// TODO make it so that the game actually ends when you defeat an enemy
-		/// make a game over screen
-		/// get levelling up to work
-		/// problems, moves, and images
 		public void actionPerformed(ActionEvent evt)
 		{
 			String command = evt.getActionCommand();

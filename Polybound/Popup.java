@@ -6,7 +6,7 @@
  * A generic framework for a popup. This class is intended to
  * be extended from.
  **/
-
+//imports 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -27,10 +27,10 @@ public class Popup
 	{
 		title = titleIn;
 		
-		popupFrame = getFrame();
-		content = getContentPanel();
+		popupFrame = getFrame();//create the frame 
+		content = getContentPanel();//create the information in the frame
 		
-		popupFrame.setContentPane(content);
+		popupFrame.setContentPane(content);//fill the frame
 		popupFrame.setResizable(false);
 	}
 	
@@ -48,12 +48,16 @@ public class Popup
 
 		return toReturn;
 	}
-	
+	/*
+	 * This method creates the information in frame. 
+	 * It makes a BorderLayout JPanel, which holds the close button at the top. 
+	 */
 	public JPanel getContentPanel()
 	{
 		JPanel toReturn = new JPanel(new BorderLayout());
 		JPanel closeBtnHolder = getCloseBtn();
-
+		
+		//add close button to jpanel 
 		toReturn.add(closeBtnHolder, BorderLayout.NORTH);
 
 		return toReturn;
