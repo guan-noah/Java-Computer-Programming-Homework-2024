@@ -3,791 +3,964 @@ Polynomial Arithmetic|Divide. [(y^3) - 3(y^2) + 4y - 6] / y
 (y^2) - 3y + 4 - 6|(forgetting to divide the last term by y)
 (y^3) - 3(y^2) + 4y - 6/y|(only dividing the last term by y)
 (y^2) - 3y + 4 + 6 / y|(sign error)
+
 Polynomial Arithmetic|Divide. [12(x^5) - 15(x^4) - 18(x^3)] / 3(x^2)
 4(x^3) - 5(x^2) - 6x!|The question asks for the quotient of polynomials. Incorrect answers stem from incorrectly dividing each term, miscalculating exponents or sign errors. 
 4(x^3) - 5(x^2) - 6|(forgetting to divide the last term by x^2)
 4(x^7) - 5(x^6) - 6(x^5)|(incorrectly adding exponents)
 4(x^3) + 5(x^2) - 6x|(sign error)
+
 Polynomial Arithmetic|Divide. [4(a^7)(b^6) - 6(a^6)(b^8) + 12(a^2)(b^10)] / 2(a^2)(b^6)
 2(a^5) - 3(a^4)(b^2) + 6(b^4)!|The question asks for the quotient of polynomials. Incorrect answers stem from incorrectly dividing each term or miscalculating exponents. 
 2(a^5) - 3(a^4)(b^2) + 6(a^4)(b^4)|(incorrectly subtracting exponents in the last term)
 2(a^5) - 3(a^3)(b^2) + 6(b^4)|(incorrectly subtracting exponents in the second term)
 2(a^5) - 3(a^4)(b^2) + 6(b^4) + 2|(adding a constant)
+
 Polynomial Arithmetic|Divide. [9(d^5) - 6(d^4) + 12(d^3) - 7] / d
 9(d^4) - 6(d^3) + 12(d^2) - 7 / d!|The question asks for the quotient of polynomials. Incorrect answers stem from incorrectly dividing each term or sign errors. 
 9(d^4) - 6(d^3) + 12(d^2) - 7|(forgetting to divide the last term by d)
 9(d^5) - 6(d^4) + 12(d^3) - 7/d|(only dividing the last term by d)
 9(d^4) - 6(d^3) + 12(d^2) + 7 / d|(sign error)
+
 Polynomial Arithmetic|Divide. [-39(x^8) + 27(x^6) + 12(x^3) - 24] / -3(x^3)
 13(x^5) - 9(x^3) - 4 + 8 / (x^3)!|The question asks for the quotient of polynomials. Incorrect answers stem from incorrectly dividing each term, miscalculating exponents or sign errors. 
 13(x^5) - 9(x^3) - 4|(forgetting to divide the last term by -3x^3)
 -13(x^5) + 9(x^3) + 4 - 8 / (x^3)|(sign errors)
 13(x^5) - 9(x^3) - 4 + 8x^3|(incorrectly handling the exponent in the last term)
+
 Polynomial Remainder Theorem|Divide, using synthetic division. [(y^3) - 1] / [y - 1]
 (y^2) + y + 1!|The question asks for the quotient of polynomials. Incorrect answers stem from forgetting terms or sign errors in synthetic division. 
 (y^2) - y + 1|(sign error in synthetic division)
 (y^2) + y + 1 - 2 / [y - 1]|(incorrect remainder)
 (y^2) + 1|(forgetting the middle term)
+
 Polynomial Remainder Theorem|Divide, using synthetic division. [(x^3) + 64] / [x + 4]
 (x^2) - 4x + 16!|The question asks for the quotient of polynomials. Incorrect answers stem from forgetting terms or sign errors in synthetic division. 
 (x^2) + 4x + 16|(sign error in synthetic division)
 (x^2) - 4x - 16|(sign error in synthetic division)
 (x^2) + 16|(forgetting the middle term)
+
 Polynomial Remainder Theorem|Divide, using synthetic division. [(y^3) + 1] / [y - 1]
 (y^2) + y + 1 + 2 / [y - 1]!|The question asks for the quotient of polynomials. Incorrect answers stem from forgetting the remainder term or sign errors in synthetic division. 
 (y^2) + y + 1|(forgetting the remainder)
 (y^2) - y + 1 + 2 / [y - 1]|(sign error in synthetic division)
 (y^2) + y - 1 + 2 / [y - 1]|(sign error in synthetic division)
+
 Polynomial Remainder Theorem|Divide, using synthetic division. [(y^3) - 64] / [y + 4]
 (y^2) - 4y + 16 - 128 / [y + 4]!|The question asks for the quotient of polynomials. Incorrect answers stem from forgetting the remainder term or sign errors in synthetic division. 
 (y^2) - 4y + 16|(forgetting the remainder)
 (y^2) + 4y + 16 - 128 / [y + 4]|(sign error in synthetic division)
 (y^2) - 4y - 16 - 128 / [y + 4]|(sign error in synthetic division)
+
 Polynomial Remainder Theorem|Evaluate P(x) for each of the given values of x. P(x) = (x^3) - 2(x^2) - 5x + 6; x = -1, x = -2
 8; 0!|The question asks for the remainder of polynomial division. Incorrect answers stem from arithmetic or sign errors in substitution. 
 -8; 0|(sign error when substituting x = -1)
 8; -8|(sign error when substituting x = -2)
 8; 2|(arithmetic error when substituting x = -2)
+
 Polynomial Remainder Theorem|Evaluate P(x) for each of the given values of x. P(x) = (x^3) - 7x - 6; x = 1, x = 3
 -12; 0!|The question asks for the remainder of polynomial division. Incorrect answers stem from sign errors or arithmetic errors in substitution. 
 12; 0|(sign error when substituting x = 1)
 -12; 12|(arithmetic error when substituting x = 3)
 -12; -12|(arithmetic error when substituting x = 3)
+
 Polynomial Remainder Theorem|Evaluate P(x) for each of the given values of x. P(x) = (x^4) + 5(x^3) + 5(x^2) - 5x - 6; x = 1, x = -3
 0; 0!|The question asks for the remainder of polynomial division. Incorrect answers stem from arithmetic errors in substitution. 
 1; 0|(arithmetic error when substituting x = 1)
 0; 1|(arithmetic error when substituting x = -3)
 1; 1|(arithmetic errors for both values)
+
 Polynomial Remainder Theorem|Determine whether the first polynomial is a factor of the second polynomial. [x - 3] (x^3) + (x^2) - 9x - 9
 yes!|The question involves determining whether the remainder is 0 (synthetic division may be used). Incorrect answers stem from calculation errors or misunderstanding the factor theorem (an assumption that more information is needed shows a lack of understanding about the factor theorem). 
 no|(incorrectly evaluating the polynomial at x = 3)
 yes, with remainder|(misunderstanding the factor theorem)
 cannot be determined|(assuming more information is needed)
+
 Polynomial Remainder Theorem|Determine whether the first polynomial is a factor of the second polynomial. [x + 4]; (x^3) - 12x + 16
 yes!|The question involves determining whether the remainder is 0 (synthetic division may be used). Incorrect answers stem from calculation errors or misunderstanding the factor theorem (an assumption that more information is needed shows a lack of understanding about the factor theorem). 
 no|(incorrectly evaluating the polynomial at x = -4)
 yes, with remainder|(misunderstanding the factor theorem)
 cannot be determined|(assuming more information is needed)
+
 Polynomial Remainder Theorem|Determine whether the first polynomial is a factor of the second polynomial. [x + 1]; (x^3) + (x^2) + x + 1
 yes!|The question involves determining whether the remainder is 0 (synthetic division may be used). Incorrect answers stem from calculation errors or misunderstanding the factor theorem (an assumption that more information is needed shows a lack of understanding about the factor theorem). 
 no|(incorrectly evaluating the polynomial at x = -1)
 yes, with remainder|(misunderstanding the factor theorem)
 cannot be determined|(assuming more information is needed)
+
 Polynomial Remainder Theorem|Determine whether the first polynomial is a factor of the second polynomial. [x - 1]; (x^3) + 5(x^2) - 6x - 2
 no!|The question involves determining whether the remainder is 0 (synthetic division). Incorrect answers stem from calculation errors or misunderstanding the factor theorem (an assumption that more information is needed shows a lack of understanding about the factor theorem). 
 yes|(incorrectly evaluating the polynomial at x = 1)
 yes, with remainder|(misunderstanding the factor theorem)
 cannot be determined|(assuming more information is needed)
+
 Polynomial Remainder Theorem|Determine whether the first polynomial is a factor of the second polynomial. [x - 5]; 2(x^3) - 11(x^2) + 6x - 5
 yes!|The question involves determining whether the remainder is 0 (synthetic division). Incorrect answers stem from calculation errors or misunderstanding the factor theorem (an assumption that more information is needed shows a lack of understanding about the factor theorem). 
 no|(incorrectly evaluating the polynomial at x = 5)
 yes, with remainder|(misunderstanding the factor theorem)
 cannot be determined|(assuming more information is needed)
+
 Polynomial Arithmetic|Write a polynomial of least degree and integer coefficients with the given factors. [2x - 1], [x + 2], [x - 2]
 2(x^3) - (x^2) - 8x + 4!|The question involves polynomial expansion, multiplying the terms to see the least degree (highest power). Incorrect answers stem from not completely expanding the polynomial or sign errors.
 (2x - 1)(x + 2)(x - 2)|(not expanding the polynomial)
 2(x^3) + (x^2) - 8x - 4|(sign error during expansion)
 2(x^3) - (x^2) - 8x - 4|(sign error during expansion)
+
 Polynomial Arithmetic|Write a polynomial of least degree and integer coefficients with the given factors. [x - 2/3] , [x + 1], [x - 3]
 3(x^3) - 8(x^2) - 5x + 6!|The question involves polynomial expansion, multiplying the terms to see the least degree (highest power). Incorrect answers stem from not completely expanding the polynomial or sign errors.
 (x - 2/3)(x + 1)(x - 3)|(not expanding the polynomial and clearing the fraction)
 (x - 2/3)(x^2 - 2x - 3)|(partially expanding the polynomial)
 3(x^3) - 8(x^2) - 5x - 6|(sign error during expansion)
+
 Polynomial Arithmetic|Write a polynomial of least degree and integer coefficients with the given factors. [x + sqrt(2)], [x - sqrt(2)], [x + 3]
 (x^3) + 3(x^2) - 2x - 6!|The question involves polynomial expansion, multiplying the terms to see the least degree (highest power). Incorrect answers stem from not expanding the polynomial or sign errors.
 (x + sqrt(2))(x - sqrt(2))(x + 3)|(not expanding the polynomial)
 (x^2 - 2)(x + 3)|(partially expanding the polynomial)
 (x^3) + 3(x^2) + 2x + 6|(sign error during expansion)
+
 Polynomial Arithmetic|Write a polynomial of least degree and integer coefficients with the given factors. [x + 3i], [x - 3i], [2x + 1]
 2(x^3) + (x^2) + 18x + 9!|
 (x + 3i)(x - 3i)(2x + 1)|(not expanding the polynomial)
 (x^2 + 9)(2x + 1)|(partially expanding the polynomial)
 2(x^3) + (x^2) - 18x - 9|(sign error during expansion)
+
 Polynomial Arithmetic|Number Theory: The product of 3 binomials is [2(x^3) + 7(x^2) - 7x - 12]. If one binomial is [x + 1], what are the other two binomials? [x + 4]; [2x - 3]
 [x + 4]; [2x - 3]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial after the initial factor is divided out.
 [x - 4]; [2x + 3]|(sign errors)
 [x + 3]; [2x - 4]|(incorrect factorization)
 [x + 4]; [x - 3]|(incorrect factorization)
+
 Polynomial Arithmetic|Number Theory: The product of 4 numbers can be represented by [(x^4) - (x^3) + 10(x^2) - 8x]. One number was represented by x and another by [x + 1]. What expressions were used to represent the other 2 dimensions? [x + 2]; [x - 4]
 [x + 2]; [x - 4]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial after the initial factor is divided out.
 [x - 2]; [x + 4]|(sign errors)
 [x + 2]; [x + 4]|(incorrect factorization)
 [x - 2]; [x - 4]|(incorrect factorization)
+
 Factoring|A polynomial equation and one of its zeros are given. Find the remaining zeros. P(x) = (x^3) - 7(x^2) + 7x + 15; 5
 -1; 3!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial after the initial factor is divided out.
 1; -3|(sign errors)
 -1; -3|(incorrect factorization)
 1; 3|(incorrect factorization)
+
 Factoring|A polynomial equation and one of its zeros are given. Find the remaining zeros. P(x) = (x^3) - 3(x^2) - 33x + 35; 1
 7; -5!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial after the initial factor is divided out.
 -7; 5|(sign errors)
 7; 5|(incorrect factorization)
 -7; -5|(incorrect factorization)
+
 Factoring|A polynomial equation and one of its zeros are given. Find the remaining zeros. P(x) = (x^3) - 3(x^2) + 4x - 12; 2
 2i; -2i!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial after the initial factor is divided out.
 -2i; -2i|(sign errors)
 2i; 2i|(incorrect factorization)
 -2i; 3|(incorrect factorization)
+
 Polynomial Remainder Theorem|Determine the maximum numbers of positive and negative real solutions of the equation. (x^3) - 7(x^2) + x + 5 = 0
 2 (+); 1 (-)!|The question requires Descartes’ Rule of Signs in conjunction with the Polynomial Remainder Theorem and synthetic division. Incorrect answers stem from miscounting sign changes. 
 1 (+); 2 (-)|(miscounting sign changes)
 3 (+); 0 (-)|(miscounting sign changes)
 0 (+); 3 (-)|(miscounting sign changes)
+
 Polynomial Remainder Theorem|Determine the maximum numbers of positive and negative real solutions of the equation. 2(x^4) - (x^3) - x + 3 = 0
 2 (+); 0 (-)!|The question requires Descartes’ Rule of Signs in conjunction with the Polynomial Remainder Theorem and synthetic division. Incorrect answers stem from miscounting sign changes. 
 0 (+); 2 (-)|(miscounting sign changes)
 2 (+); 2 (-)|(miscounting sign changes)
 0 (+); 0 (-)|(miscounting sign changes)
+
 Factoring|Find the solutions of the equation. (x^3) + 6(x^2) - x - 6 = 0
 -1, 1; -6!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 1, -1; 6|(sign errors)
 -1, 1; 0|(incorrect factorization)
 -1, 2; -3|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. 2(d^3) + 3(d^2) - 8d - 12 = 0
 -2; 2; [-3/2]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 2; -2; [3/2]|(sign errors)
 -2; 2; 3|(incorrect factorization)
 -2; 3; [-3/2]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. 3(t^3) + 10(t^2) - t - 12 = 0
 1; -3; [-4/3]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -1; 3; [4/3]|(sign errors)
 1; -3; 4|(incorrect factorization)
 1; 3; [-4/3]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^3) - 6(x^2) - 11x - 6 = 0
 2; 1; 3!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -2; -1; -3|(sign errors)
 2; 1; -3|(incorrect factorization)
 2; -1; 3|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^4) - 4(x^3) - (x^2) - 16x - 12 = 0
 no rational zeros!| zeros: (x = -0.6851566924, x = 4.9528977576, 2 imaginary). The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -1; -2; 2i; -2i|(incorrect factorization)
 1; 2; 2i; -2i|(sign errors)
 1; -2; 2i; -2i|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (z^3) - 10(z^2) - 32 = 0
 no rational zeros!| zeros: (z = 10.304, 2 imaginary). The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 4, -2, -2|(incorrect factorization)
 4, 2i, -2i|(incorrect factorization)
 -4, 2i, -2i|(sign errors)
+
 Factoring|Find the solutions of the equation. (r^3) - r - 16= 0
 4, -2, -2!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 no rational zeros|(incorrect factorization)
 4, 2i, -2i|(incorrect factorization)
 -4, 2i, -2i|(sign errors)
+
 Factoring|Find the solutions of the equation. 4(c^3) + 5(c^2) - 2c - 3 = 0
 [3/4], -1, -1!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 [-3/4], 1, 1|(sign errors)
 [3/4], 1, -1|(incorrect factorization)
 [3/4], -1, 1|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^3) - 5(x^2) + 9x - 5 = 0
 1; [2 + i]; [2 - i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -1; [2 + i]; [2 - i]|(sign errors)
 1; [2 + i]; [2 + i]|(incorrect factorization)
 1; [2 - i]; [2 - i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (z^3) - 4(z^2) + 9z - 10 = 0
 2; [1 + 2i]; [1 - 2i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -2; [1 + 2i]; [1 - 2i]|(sign errors)
 2; [1 + 2i]; [1 + 2i]|(incorrect factorization)
 2; [1 - 2i]; [1 - 2i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (z^3) - 5(z^2) + 7z + 13 = 0
 -1; [3 + 2i]; [3 - 2i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 1; [3 + 2i]; [3 - 2i]|(sign errors)
 -1; [3 + 2i]; [3 + 2i]|(incorrect factorization)
 -1; [3 - 2i]; [3 - 2i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^4) + (x^3) + (x^2) - 9x - 10 = 0
 -1; -2; [-1 + 2i]; [-1 - 2i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 1; 2; [-1 + 2i]; [-1 - 2i]|(sign errors)
 -1; -2; [-1 + 2i]; [-1 + 2i]|(incorrect factorization)
 -1; -2; [-1 - 2i]; [-1 - 2i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. 2(x^3) - 7(x^2) + 10x - 6 = 0
 [3/2]; [1 + i]; [1 - i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 [-3/2]; [1 + i]; [1 - i]|(sign errors)
 [3/2]; [1 + i]; [1 + i]|(incorrect factorization)
 [3/2]; [1 - i]; [1 - i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^4) - 3(x^3) + 7(x^2) + 21x - 26 = 0
 1; -2; [2 + 3i]; [2 - 3i]!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 -1; 2; [2 + 3i]; [2 - 3i]|(sign errors)
 1; -2; [2 + 3i]; [2 + 3i]|(incorrect factorization)
 1; -2; [2 - 3i]; [2 - 3i]|(incorrect factorization)
+
 Factoring|Find the solutions of the equation. (x^5) - 3(x^4) + 4(x^3) - 8(x^2) + 16 = 0
 -1; 2; 2; 2i; -2i!|The question requires complete factorization. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division.
 1; -2; -2; 2i; -2i|(sign errors)
 -1; 2; 2; 2i; 2i|(incorrect factorization)
 -1; 2; 2; -2i; -2i|(incorrect factorization)
+
 Polynomial Arithmetic|Number Theory: Find 3 consecutive integers whose product is 60.
 3, 4, 5!|This question involves setting up an equation and solving it: [x][x + 1][x + 2] = 60. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division. 
 -3, -4, -5|(sign errors)
 2, 5, 6|(incorrect factorization)
 3, 5, 4|(incorrect factorization)
+
 Polynomial Arithmetic|Number Theory: Find 4 consecutive integers whose product is 120.
 2, 3, 4, 5!|This question involves setting up an equation and solving it: [x][x + 1][x + 2][x + 3] = 120. The incorrect answers arise from sign errors or errors in factoring the resulting polynomial using synthetic division. 
 -2, -3, -4, -5|(sign errors)
 1, 2, 3, 4|(incorrect factorization)
 2, 2, 5, 6|(incorrect factorization, did not recheck question specifications)
+
 Polynomial Remainder Theorem|For the function, determine if a real zero occurs between -1 and 0. f(x) = (x^3) - (x^2) - 1
 no!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate -1 and 0). The incorrect answers arise from misevaluation of the function, misunderstanding the theorems, or uncertainty. 
 yes|(incorrectly evaluating the function at -1 and 0)
 cannot be determined|(assuming more information is needed)
 maybe|(uncertainty)
+
 Polynomial Remainder Theorem|For the function, determine if a real zero occurs between -1 and 0. f(x) = -(x^3) + (x^2) - 1
 yes!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate -1 and 0). The incorrect answers arise from misevaluation of the function, misunderstanding the theorems, or uncertainty. 
 no|(incorrectly evaluating the function at -1 and 0)
 cannot be determined|(assuming more information is needed)
 maybe|(uncertainty)
+
 Polynomial Remainder Theorem|For the function, determine if a real zero occurs between -1 and 0. f(x) = (x^4) - (x^3) + (x^2) - 1
 yes!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate -1 and 0). The incorrect answers arise from misevaluation of the function, misunderstanding the theorems, or uncertainty. 
 no|(incorrectly evaluating the function at -1 and 0)
 cannot be determined|(assuming more information is needed)
 maybe|(uncertainty)
+
 Polynomial Remainder Theorem|For the function, determine if a real zero occurs between -1 and 0. f(x) = (x^4) + (x^2) + 2
 no!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate -1 and 0). The incorrect answers arise from misevaluation of the function, misunderstanding the theorems, or uncertainty. 
 yes|(incorrectly evaluating the function at -1 and 0)
 cannot be determined|(assuming more information is needed)
 maybe|(uncertainty)
+
 Polynomial Remainder Theorem|Find a real zero, to the nearest tenth, between the given values. y = (x^3) + 2(x^2) - 5x + 1; 1 and 2
 1.3!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate 1 and 2). The incorrect answers arise from misevaluation of the function in approximation, as all are relatively close in range. 
 1.2|(arithmetic error in approximation)
 1.4|(arithmetic error in approximation)
 1.5|(arithmetic error in approximation)
+
 Polynomial Remainder Theorem|Find a real zero, to the nearest tenth, between the given values. y = 2(x^3) - (x^2) - 3x - 1; 1 and 2
 1.6!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate 1 and 2). The incorrect answers arise from misevaluation of the function in approximation, as all are relatively close in range. 
 1.5|(arithmetic error in approximation)
 1.7|(arithmetic error in approximation)
 1.8|(arithmetic error in approximation)
+
 Polynomial Remainder Theorem|Find a real zero, to the nearest tenth, of y = (x^4) - 3(x^3) - 2(x^2) + 3x + 8 between 1 and 2.
 1.8!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate 1 and 2). The incorrect answers arise from misevaluation of the function in approximation, as all are relatively close in range. 
 1.7|(arithmetic error in approximation)
 1.9|(arithmetic error in approximation)
 1.6|(arithmetic error in approximation)
+
 End Behavior|Consider the graphs of the following functions: a) y = 3x / [5x - 4]; b) y = [(x^2) + 1] / [x + 2]; c) y = 8 / (x^2). Which graph has an x-intercept?
 a!|The question involves identifying intercepts. Incorrect answers stem from misidentifying/mislocating intercepts in the function.
 b|(incorrectly identifying the x-intercept)
 c|(incorrectly identifying the x-intercept)
 none|(incorrectly identifying the x-intercept)
+
 End Behavior|Consider the graphs of the following functions: a) y = 3x / [5x - 4]; b) y = [(x^2) + 1] / [x + 2]; c) y = 8 / (x^2). Which graph has a vertical asymptote but no horizontal asymptote?
 b!|The question involves identifying asymptotes. Incorrect answers stem from misidentifying/mislocating asymptotes in the function.
 a|(incorrectly identifying the asymptotes)
 c|(incorrectly identifying the asymptotes)
 none|(incorrectly identifying the asymptotes)
+
 End Behavior|Consider the graphs of the following functions: a) y = 3x / [5x - 4]; b) y = [(x^2) + 1] / [x + 2]; c) y = 8 / (x^2). Which graph has a y-intercept but no x-intercept?
 b!|The question involves identifying intercepts. Incorrect answers stem from misidentifying/mislocating intercepts in the function.
 a|(incorrectly identifying the intercepts)
 c|(incorrectly identifying the intercepts)
 none|(incorrectly identifying the intercepts)
+
 End Behavior|Consider the graphs of the following functions: a) y = 3x / [5x - 4]; b) y = [(x^2) + 1] / [x + 2]; c) y = 8 / (x^2). For which graph is the y-axis a vertical asymptote?
 c!|The question involves identifying asymptotes. Incorrect answers stem from misidentifying/mislocating asymptotes in the function.
 a|(incorrectly identifying the asymptotes)
 b|(incorrectly identifying the asymptotes)
 none|(incorrectly identifying the asymptotes)
+
 End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = 4 / x
 no int.; x = 0; asymptote: y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
-x-int.: 0; asymptote: y = 0|(incorrectly identifying the intercepts)
-y-int.: 0; asymptote: x = 0|(incorrectly identifying the intercepts)
+x-int.:  0; asymptote: y = 0|(incorrectly identifying the intercepts)
+y-int.:  0; asymptote: x = 0|(incorrectly identifying the intercepts)
 x = 0; y = 0|(incorrectly identifying the intercepts and asymptotes)
-QuestionFor the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [x + 1] / (x^2) 
-x-int.|-1; y-int.|none; asymptote|x = 0; asymptote|y = 0!|The x-intercept is found by setting y=0, which gives x=-1. The y-intercept does not exist because x=0 is not in the domain. The vertical asymptote is x=0, and the horizontal asymptote is y=0.
-x-int.|-1; y-int.|1; asymptote|x = 0; asymptote|y = 0; - The y-intercept cannot be 1 because substituting x=0 into the equation results in division by zero, making the function undefined at x=0.
-x-int.|1; y-int.|-1; asymptote|x = -1; - The x-intercept cannot be 1 because substituting x=1 into the equation does not result in y=0.
-QuestionFor the graph of the function, determine the intercepts and the asymptotes, if they exist. y = (x^2) / [x + 1] 
-x-int.|0; y-int.|0; asymptotes|x = -1; y = x!|The x-intercept is found by setting y=0, which gives x=0. The y-intercept is found by setting x=0, which gives y=0. The vertical asymptote is x=-1, and the oblique asymptote is y=x.
-no x-int.; y-int.|[-1/2]; asymptotes|x = 2; x = -2; y = 1 - The x-intercept is 0, not non-existent, because when x=0, y=0.
-x-int.|1; y-int.|1; asymptotes|x = 1; y = 0 - The x-intercept is 0, not 1, because when x=0, y=0.
-QuestionFor the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [(x^2) + 2] / [(x^2) - 4] 
-x-int.|none; y-int.|-1/2; asymptotes|x = 2; x = -2; y = 1!|The x-intercept does not exist because the numerator is always positive. The y-intercept is found by setting x=0, which gives y=-1/2. The vertical asymptotes are x=2 and x=-2, and the horizontal asymptote is y=1.
-x-int.|3; -3; y-int.|[9/4]; asymptotes|x = 2; x = -2; y = 1 - The x-intercepts cannot be 3 and -3 because substituting x=3 or x=-3 into the equation does not result in y=0.
-x-int.|2; -2; y-int.|-1/2; asymptotes|x = 2; x = -2; y = 0 - The x-intercepts cannot be 2 and -2 because substituting x=2 or x=-2 into the equation results in division by zero, making the function undefined at these points.
-QuestionFor the graph of the function, determine the intercepts and the asymptotes, if they exist. y = 25 / x 
-no int.; asymptotes|x = 0; y = 0!|There are no x or y intercepts because the function never equals zero and is undefined at x=0. The vertical asymptote is x=0, and the horizontal asymptote is y=0.
-x-int.|0; y-int.|0; asymptotes|x = 5; y = 5 - The x and y intercepts cannot be 0 because the function is undefined at x=0 and never equals zero.
-x-int.|5; y-int.|5; asymptotes|x = 0; y = 0 - The x and y intercepts cannot be 5 because substituting x=5 into the equation does not result in y=0, and vice versa.
-QuestionFor the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [x + 3] / [x + 1][x + 2] 
-x-int.|-3; y-int.|3/2; asymptotes|x = -1; x = -2; y = 0!|The x-intercept is found by setting y=0, which gives x=-3. The y-intercept is found by setting x=0, which gives y=3/2. The vertical asymptotes are x=-1 and x=-2, and the horizontal asymptote is y=0.
-x-int.|-3; y-int.|3/2; asymptotes|x = -1; x = -2; y = 1 - The horizontal asymptote cannot be y=1 because as x approaches infinity, y approaches 0.
-x-int.|3; y-int.|-3/2; asymptotes|x = 1; x = 2; y = 0 - The x-intercept cannot be 3 because substituting x=3 into the equation does not result in y=0.
+
+
+End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [x + 1] / (x^2) 
+x-int.: -1; y-int.: none; asymptote: x = 0; asymptote: y = 0!|The x-intercept is found by setting y=0, which gives x=-1. The y-intercept does not exist because x=0 is not in the domain. The vertical asymptote is x=0, and the horizontal asymptote is y=0.
+x-int.: -1; y-int.: 1; asymptote: x = 0; asymptote: y = 0;|The y-intercept cannot be 1 because substituting x=0 into the equation results in division by zero, making the function undefined at x=0.
+x-int.: 1; y-int.: -1; asymptote: x = -1;|The x-intercept cannot be 1 because substituting x=1 into the equation does not result in y=0.
+x-int.: -1; y-int.: 0; asymptote: x = -1; asymptote: y = 0;|The y-intercept cannot be 0 because substituting x=0 into the equation results in division by zero, making the function undefined at x=0. The vertical asymptote cannot be x=-1 because substituting x=-1 into the equation does not result in division by zero.
+
+End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = (x^2) / [x + 1] 
+x-int.: 0; y-int.: 0; asymptotes: x = -1; y = x!|The x-intercept is found by setting y=0, which gives x=0. The y-intercept is found by setting x=0, which gives y=0. The vertical asymptote is x=-1, and the oblique asymptote is y=x.
+no x-int.; y-int.: [-1/2]; asymptotes: x = 2; x = -2; y = 1|The x-intercept is 0, not non-existent, because when x=0, y=0.
+x-int.: 1; y-int.: 1; asymptotes: x = 1; y = 0|The x-intercept is 0, not 1, because when x=0, y=0.
+x-int.: 0; y-int.: 0; asymptotes: x = 1; y = x|The vertical asymptote cannot be x=1 because substituting x=1 into the equation does not result in division by zero.
+
+End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [(x^2) + 2] / [(x^2) - 4] 
+x-int.: none; y-int.: -1/2; asymptotes: x = 2; x = -2; y = 1!|The x-intercept does not exist because the numerator is always positive. The y-intercept is found by setting x=0, which gives y=-1/2. The vertical asymptotes are x=2 and x=-2, and the horizontal asymptote is y=1.
+x-int.: 3; -3; y-int.: [9/4]; asymptotes: x = 2; x = -2; y = 1|The x-intercepts cannot be 3 and -3 because substituting x=3 or x=-3 into the equation does not result in y=0.
+x-int.: 2; -2; y-int.: -1/2; asymptotes: x = 2; x = -2; y = 0|The x-intercepts cannot be 2 and -2 because substituting x=2 or x=-2 into the equation results in division by zero, making the function undefined at these points.
+x-int.: none; y-int.: -1/2; asymptotes: x = 2; x = -2; y = 0|The horizontal asymptote cannot be y=0 because as x approaches infinity, y approaches 1.
+
+End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = 25 / x 
+no int.; asymptotes: x = 0; y = 0!|There are no x or y intercepts because the function never equals zero and is undefined at x=0. The vertical asymptote is x=0, and the horizontal asymptote is y=0.
+x-int.: 0; y-int.: 0; asymptotes: x = 5; y = 5|The x and y intercepts cannot be 0 because the function is undefined at x=0 and never equals zero.
+x-int.: 5; y-int.: 5; asymptotes: x = 0; y = 0|The x and y intercepts cannot be 5 because substituting x=5 into the equation does not result in y=0, and vice versa.
+​​x-int.: 0; y-int.: 0; asymptotes: x = 0; y = 1|The y-intercept cannot be 0 because the function is undefined at x=0 and never equals zero. The horizontal asymptote cannot be y=1 because as x approaches infinity, y approaches 0.
+
+End Behavior|For the graph of the function, determine the intercepts and the asymptotes, if they exist. y = [x + 3] / [x + 1][x + 2] 
+x-int.: -3; y-int.: 3/2; asymptotes: x = -1; x = -2; y = 0!|The x-intercept is found by setting y=0, which gives x=-3. The y-intercept is found by setting x=0, which gives y=3/2. The vertical asymptotes are x=-1 and x=-2, and the horizontal asymptote is y=0.
+x-int.: -3; y-int.: 3/2; asymptotes: x = -1; x = -2; y = 1|The horizontal asymptote cannot be y=1 because as x approaches infinity, y approaches 0.
+x-int.: 3; y-int.: -3/2; asymptotes: x = 1; x = 2; y = 0|The x-intercept cannot be 3 because substituting x=3 into the equation does not result in y=0.
+x-int.: -3; y-int.: 3/2; asymptotes: x = -1; x = -2; y = 2|The horizontal asymptote cannot be y=2 because as x approaches infinity, y approaches 0.
+
 Polynomial Arithmetic|Divide. [15(z^6) - 12(z^5) - 36(z^3)] / 3(z^2) 
 5(z^4) - 4(z^3) - 12z!|Dividing each term by 3(z^2) results in 5(z^4) - 4(z^3) - 12z.
-5(z^3) - 4(z^2) - 12z - The exponents are incorrect after dividing by z^2.
-5(z^4) - 4(z^3) - 12(z^1) - The exponent of the last term is incorrect after dividing by z^2.
-5(z^4) - 4(z^3) - 12(z^5) - The exponent of the last term is incorrect and should be z to the power of 1.
+5(z^3) - 4(z^2) - 12z|The exponents are incorrect after dividing by z^2.
+5(z^4) - 4(z^3) - 12(z^1)|The exponent of the last term is incorrect after dividing by z^2.
+5(z^4) - 4(z^3) - 12(z^5)|The exponent of the last term is incorrect and should be z to the power of 1.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) - 8(x^2) - 12x + 15] / [x - 3] 
 (x^2) - 5x - 27 - 66 / [x - 3]!|Using synthetic division with 3, the result is (x^2) - 5x - 27 with a remainder of -66, so the answer is (x^2) - 5x - 27 - 66 / [x - 3].
-(x^2) - 11x + 21 + 78 / [x - 3] - The coefficients are incorrect after performing synthetic division.
-(x^2) - 5x - 27 + 66 / [x - 3] - The remainder has the wrong sign after performing synthetic division.
-(x^2) - 11x - 45 - The remainder is missing after performing synthetic division.
-QuestionEvaluate the polynomial for the  given value of x. [(x^3) + 2(x^2) - 7x + 6]; x = - 4 
+(x^2) - 11x + 21 + 78 / [x - 3]|The coefficients are incorrect after performing synthetic division.
+(x^2) - 5x - 27 + 66 / [x - 3]|The remainder has the wrong sign after performing synthetic division.
+(x^2) - 11x - 45|The remainder is missing after performing synthetic division.
+
+Polynomial Remainder Theorem|Evaluate the polynomial for the  given value of x. [(x^3) + 2(x^2) - 7x + 6]; x = - 4 
 -10!|Substituting x = -4 into the polynomial gives (-4)^3 + 2(-4)^2 - 7(-4) + 6 = -64 + 32 + 28 + 6 = 2.
--2 - The calculation is incorrect; substituting x = -4 into the polynomial does not result in -2.
-6 - The calculation is incorrect; substituting x = -4 into the polynomial does not result in 6.
--6 - The calculation is incorrect; substituting x = -4 into the polynomial does not result in -6.
-QuestionDetermine whether the given binomial is a factor of the other polynomial. [x - 3]; (x^3) + (x^2) - 9x - 9 
+-2|The calculation is incorrect; substituting x = -4 into the polynomial does not result in -2.
+6|The calculation is incorrect; substituting x = -4 into the polynomial does not result in 6.
+-6|The calculation is incorrect; substituting x = -4 into the polynomial does not result in -6.
+
+Polynomial Remainder Theorem|Determine whether the given binomial is a factor of the other polynomial. [x - 3]; (x^3) + (x^2) - 9x - 9 
 no!|Using synthetic division or the factor theorem, substituting x=3 into the polynomial gives (3)^3 + (3)^2 - 9(3) - 9 = 27 + 9 - 27 - 9 = 0, so (x-3) is a factor.
-maybe - A definitive answer can be determined by using synthetic division or the factor theorem.
-cannot be determined - A definitive answer can be determined by using synthetic division or the factor theorem.
+yes|(incorrectly evaluating the polynomial at x = 3)
+maybe|A definitive answer can be determined by using synthetic division or the factor theorem.
+cannot be determined|A definitive answer can be determined by using synthetic division or the factor theorem.
+
 Factoring|Factor the polynomial completely over the integers. (x^3) - 9(x^2) + 23x - 15 
 [x - 1] [x - 3] [x - 5]!|By trying integer factors of -15, we find that x=1, x=3, and x=5 are roots, so the factored form is [x - 1] [x - 3] [x - 5].
-[x + 3][x + 1][x + 5] - The signs are incorrect; substituting x=-3, x=-1, or x=-5 into the original polynomial does not result in zero.
-[x - 3][x - 1][x + 5] - The sign of the last factor is incorrect; substituting x=-5 into the original polynomial does not result in zero.
-[x - 3][x + 1][x - 5] - The sign of the second factor is incorrect; substituting x=-1 into the original polynomial does not result in zero.
-QuestionFind the rational solutions of the equation. 2(x^3) - (x^2) - 13x - 6 = 0 
+[x + 3][x + 1][x + 5]|The signs are incorrect; substituting x=-3, x=-1, or x=-5 into the original polynomial does not result in zero.
+[x - 3][x - 1][x + 5]|The sign of the last factor is incorrect; substituting x=-5 into the original polynomial does not result in zero.
+[x - 3][x + 1][x - 5]|The sign of the second factor is incorrect; substituting x=-1 into the original polynomial does not result in zero.
+
+Factoring|Find the rational solutions of the equation. 2(x^3) - (x^2) - 13x - 6 = 0 
 -1/2; 3!|By the Rational Root Theorem, possible rational roots are ±1, ±2, ±3, ±6, ±1/2, ±3/2. Testing these values, we find that -1/2, -2, and 3 are the rational solutions.
-[1/2]; -2; -3 - 1/2 is not a solution because substituting x=1/2 into the equation does not result in zero.
-[1/2]; 2; 3 - 1/2 is not a solution because substituting x=1/2 into the equation does not result in zero.
-[-1/2]; -2; -3 - -3 is not a solution because substituting x=-3 into the equation does not result in zero.
-QuestionFind the complex solutions of the equation. (x^3) - 6(x^2) + x - 6 = 0 
+[1/2]; -2; -3|1/2 is not a solution because substituting x=1/2 into the equation does not result in zero.
+[1/2]; 2; 3|1/2 is not a solution because substituting x=1/2 into the equation does not result in zero.
+[-1/2]; -2; -3|-3 is not a solution because substituting x=-3 into the equation does not result in zero.
+
+
+Factoring|Find the complex solutions of the equation. (x^3) - 6(x^2) + x - 6 = 0 
 6; i; -i!|Factoring by grouping gives (x^2)(x - 6) + 1(x - 6) = (x^2 + 1)(x - 6) = 0, so the solutions are x = 6, x = i, and x = -i.
-1; -1 - 1 and -1 are not solutions because substituting x=1 or x=-1 into the equation does not result in zero.
-6; -6 - -6 is not a solution because substituting x=-6 into the equation does not result in zero.
-QuestionGraph the function and find its real zeros. Approximate any nonintegral zeros to the nearest tenth. f(x) = (x^3) - 6(x^2) - x + 30 
+1; -1|1 and -1 are not solutions because substituting x=1 or x=-1 into the equation does not result in zero.
+6; -6|-6 is not a solution because substituting x=-6 into the equation does not result in zero.
+1; 6|1 is not a solution because substituting x=1 into the equation does not result in zero.
+
+End Behavior|Graph the function and find its real zeros. Approximate any nonintegral zeros to the nearest tenth. f(x) = (x^3) - 6(x^2) - x + 30 
 -3; 2; 5!|By testing integer factors of 30, we find that x=-2, x=3, and x=5 are roots, so the real zeros are -2, 3, and 5.
-2; -3; -5 - -3 and -5 are not zeros because substituting x=-3 or x=-5 into the equation does not result in zero.
-2; 3; -5 - -5 is not a zero because substituting x=-5 into the equation does not result in zero.
--2; -3; -5 - -3 and -5 are not zeros because substituting x=-3 or x=-5 into the equation does not result in zero.
-QuestionThe length of a 400-cubic-foot rectangular storage bin is 2 ft greater than its width and 5 ft greater than its height. Find its dimensions. 
-l|10 ft; w|8 ft; h|5 ft!|Let w be the width, then l = w + 2 and h = w - 3. The volume is lwh = (w + 2)(w)(w - 3) = 400. Solving for w gives w = 8, so l = 10 and h = 5.
-l|8 ft; w|10 ft; h|5 ft - The length cannot be 8 ft and the width 10 ft because the length is defined as 2 ft greater than the width.
-l|5 ft; w|8 ft; h|10 ft - The length cannot be 5 ft, the width 8 ft, and the height 10 ft because the length is defined as 2 ft greater than the width and 5 ft greater than the height.
-l|10 ft; w|5 ft; h|8 ft - The width cannot be 5 ft and the height 8 ft because the length is defined as 2 ft greater than the width and 5 ft greater than the height.
-QuestionDetermine the intercepts and the asymptotes, if any, for the graph of the function. Then sketch the graph. y = 2 / x 
+2; -3; -5|-3 and -5 are not zeros because substituting x=-3 or x=-5 into the equation does not result in zero.
+2; 3; -5|-5 is not a zero because substituting x=-5 into the equation does not result in zero.
+-2; -3; -5|-3 and -5 are not zeros because substituting x=-3 or x=-5 into the equation does not result in zero.
+
+Factoring|The length of a 400-cubic-foot rectangular storage bin is 2 ft greater than its width and 5 ft greater than its height. Find its dimensions. 
+l: 10 ft; w: 8 ft; h: 5 ft!|Let w be the width, then l = w + 2 and h = w - 3. The volume is lwh = (w + 2)(w)(w - 3) = 400. Solving for w gives w = 8, so l = 10 and h = 5.
+l: 8 ft; w: 10 ft; h: 5 ft|The length cannot be 8 ft and the width 10 ft because the length is defined as 2 ft greater than the width.
+l: 5 ft; w: 8 ft; h: 10 ft|The length cannot be 5 ft, the width 8 ft, and the height 10 ft because the length is defined as 2 ft greater than the width and 5 ft greater than the height.
+l: 10 ft; w: 5 ft; h: 8 ft|The width cannot be 5 ft and the height 8 ft because the length is defined as 2 ft greater than the width and 5 ft greater than the height.
+
+
+End Behavior|Determine the intercepts and the asymptotes, if any, for the graph of the function. Then sketch the graph. y = 2 / x 
 no int.; x = 0; y = 0!|There are no x or y intercepts because the function never equals zero and is undefined at x=0. The vertical asymptote is x=0, and the horizontal asymptote is y=0.
-x-int|0; y-int|0; x = 2; y = 2 - The x and y intercepts cannot be 0 because the function is undefined at x=0 and never equals zero.
-x-int|2; y-int|2; x = 0; y = 0 - The x and y intercepts cannot be 2 because the function never equals zero.
+x-int.: 0; y-int.: 0; x = 2; y = 2|The x and y intercepts cannot be 0 because the function is undefined at x=0 and never equals zero.
+x-int.: 2; y-int.: 2; x = 0; y = 0|The x and y intercepts cannot be 2 because the function never equals zero.
+x-int.: 1; y-int.: 1; x = 0; y = 0|The x and y intercepts cannot be 1 because the function never equals zero.
+
 Polynomial Arithmetic|Divide. [(x^3)(y^5) - (x^4)(y^6) + (x^4)(y^3)] / (x^2)(y^3) 
 x(y^2) - (x^2)(y^3) +(x^2)!|Dividing each term by (x^2)(y^3) results in x(y^2) - (x^2)(y^3) + (x^2).
-(x^5)(y^8) - (x^8)(y^9) + (x^8)(y^6) - The operation is division, not multiplication, so the exponents should be subtracted, not added.
-x(y^2) - (x^2)(y^3) - (x^2) - The sign of the last term is incorrect after dividing by (x^2)(y^3).
-x(y^2) + (x^2)(y^3) + (x^2) - The signs of the second and third terms are incorrect after dividing by (x^2)(y^3).
+(x^5)(y^8) - (x^8)(y^9) + (x^8)(y^6)|The operation is division, not multiplication, so the exponents should be subtracted, not added.
+x(y^2) - (x^2)(y^3) - (x^2)|The sign of the last term is incorrect after dividing by (x^2)(y^3).
+x(y^2) + (x^2)(y^3) + (x^2)|The signs of the second and third terms are incorrect after dividing by (x^2)(y^3).
+
 Polynomial Arithmetic|Divide. [(y^3) - 81] / [y + 1] 
 (y^2) - y + 1 - 82 / [y + 1]!|Using long division or synthetic division, the result is (y^2) - y + 1 with a remainder of -82, so the answer is (y^2) - y + 1 - 82 / [y + 1].
-(y^2) + y + 1 - 82 / [y + 1] - The signs of the coefficients are incorrect after performing the division.
-(y^2) - y + 1 + 82 / [y + 1] - The sign of the remainder is incorrect after performing the division.
-(y^2) - 1 + 82 / [y + 1] - The coefficients are incorrect after performing the division.
+(y^2) + y + 1 - 82 / [y + 1]|The signs of the coefficients are incorrect after performing the division.
+(y^2) - y + 1 + 82 / [y + 1]|The sign of the remainder is incorrect after performing the division.
+(y^2) - 1 + 82 / [y + 1]|The coefficients are incorrect after performing the division.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) - 14(x^2) + 6x + 4] / [x - 2] 
 (x^2) - 12x - 18 - 32 / [x - 2]!|Using synthetic division with 2, the result is (x^2) - 12x - 18 with a remainder of -32, so the answer is (x^2) - 12x - 18 - 32 / [x - 2].
-(x^2) - 16x + 38 - 72 / [x - 2] - The coefficients are incorrect after performing synthetic division.
-(x^2) - 12x + 18 - 32 / [x - 2] - The sign of the constant term is incorrect after performing synthetic division.
-(x^2) - 16x - 38 - The remainder is missing after performing synthetic division.
-QuestionEvaluate P(x) = (x^3) + 2(x^2) - 9x - 18 for x = 2. 
+(x^2) - 16x + 38 - 72 / [x - 2]|The coefficients are incorrect after performing synthetic division.
+(x^2) - 12x + 18 - 32 / [x - 2]|The sign of the constant term is incorrect after performing synthetic division.
+(x^2) - 16x - 38|The remainder is missing after performing synthetic division.
+
+Polynomial Remainder Theorem|Evaluate P(x) = (x^3) + 2(x^2) - 9x - 18 for x = 2. 
 -18!|Use synthetic division. To check, substituting x = 2 into the polynomial gives (2)^3 + 2(2)^2 - 9(2) - 18 = 8 + 8 - 18 - 18 = -20.
-20 - The calculation is incorrect; substituting x = 2 into the polynomial does not result in 20.
-0 - The calculation is incorrect; substituting x = 2 into the polynomial does not result in 0.
--10 - The calculation is incorrect; substituting x = 2 into the polynomial does not result in -10.
+20|The calculation is incorrect; substituting x = 2 into the polynomial does not result in 20.
+0|The calculation is incorrect; substituting x = 2 into the polynomial does not result in 0.
+-10|The calculation is incorrect; substituting x = 2 into the polynomial does not result in -10.
+
 Factoring|Factor the polynomial completely over the integers. x - 1; (x^3) - 6(x^2) + 11x - 6 
 [x - 1][x - 2][x - 3]!|Using synthetic division or the factor theorem, we find that x=1 is a root. Dividing by (x-1) gives (x^2 - 5x + 6), which factors to (x-2)(x-3), so the complete factorization is [x - 1][x - 2][x - 3].
-[x + 1][x + 2][x + 3] - The signs are incorrect; substituting x=-1, x=-2, or x=-3 into the original polynomial does not result in zero.
-[x - 1][x + 2][x + 3] - The signs are incorrect; substituting x=-2 or x=-3 into the original polynomial does not result in zero.
-[x - 1][x - 2][x + 3] - The sign of the last factor is incorrect; substituting x=-3 into the original polynomial does not result in zero.
-QuestionFind the rational solutions of the equation. 2(x^3) - 11(x^2) + 18x - 9 = 0 
+[x + 1][x + 2][x + 3]|The signs are incorrect; substituting x=-1, x=-2, or x=-3 into the original polynomial does not result in zero.
+[x - 1][x + 2][x + 3]|The signs are incorrect; substituting x=-2 or x=-3 into the original polynomial does not result in zero.
+[x - 1][x - 2][x + 3]|The sign of the last factor is incorrect; substituting x=-3 into the original polynomial does not result in zero.
+
+Factoring|Find the rational solutions of the equation. 2(x^3) - 11(x^2) + 18x - 9 = 0 
 1; 3/2; 3!|By the Rational Root Theorem, possible rational roots are ±1, ±3, ±9, ±1/2, ±3/2, ±9/2. Testing these values, we find that 1, 3/2, and 3 are the rational solutions.
--1; [-3/2]; -3 - -1, -3/2, and -3 are not solutions because substituting x=-1, x=-3/2, or x=-3 into the equation does not result in zero.
-1; [-3/2]; 3 - -3/2 is not a solution because substituting x=-3/2 into the equation does not result in zero.
--1; [3/2]; -3 - -1 and -3 are not solutions because substituting x=-1 or x=-3 into the equation does not result in zero.
-QuestionFind the solutions (+ complex) of the equation. (x^3) + (x^2) + 4x + 4 
+-1; [-3/2]; -3|-1, -3/2, and -3 are not solutions because substituting x=-1, x=-3/2, or x=-3 into the equation does not result in zero.
+1; [-3/2]; 3|-3/2 is not a solution because substituting x=-3/2 into the equation does not result in zero.
+-1; [3/2]; -3|-1 and -3 are not solutions because substituting x=-1 or x=-3 into the equation does not result in zero.
+
+Factoring|Find the solutions (+ complex) of the equation. (x^3) + (x^2) + 4x + 4 
 -1; 2i; -2i!|Factoring by grouping gives (x^2)(x + 1) + 4(x + 1) = (x^2 + 4)(x + 1) = 0, so the solutions are x = -1, x = 2i, and x = -2i.
-1; 2i; -2i - 1 is not a solution because substituting x=1 into the equation does not result in zero.
--1; -2i; 2i - 2i is not a solution because substituting x=2i into the equation does not result in zero.
-1; -2i; 2i - 1 is not a solution because substituting x=1 into the equation does not result in zero.
-QuestionGraph the function and find its real zeros. f(x) = (x^3) + 2(x^2) - 5x - 6 
+1; 2i; -2i|1 is not a solution because substituting x=1 into the equation does not result in zero.
+-1; -2i; 2i|2i is not a solution because substituting x=2i into the equation does not result in zero.
+1; -2i; 2i|1 is not a solution because substituting x=1 into the equation does not result in zero.
+
+End Behavior|Graph the function and find its real zeros. f(x) = (x^3) + 2(x^2) - 5x - 6 
 -3; -1; 2!|By testing integer factors of -6 via synthetic division, we find that x=-3, x=-1, and x=2 are roots, so the real zeros are -3, -1, and 2.
-3; 1; -2 - 3, 1, and -2 are not zeros because substituting x=3, x=1, or x=-2 into the equation does not result in zero.
-3; -1; 2 - 3 is not a zero because substituting x=3 into the equation does not result in zero.
--3; 1; 2 - 1 is not a zero because substituting x=1 into the equation does not result in zero.
-QuestionFind a real zero, to the nearest tenth, between the given values. f(x) = (x^3) - 4(x^2) + 4; 1 and 2
+3; 1; -2|3, 1, and -2 are not zeros because substituting x=3, x=1, or x=-2 into the equation does not result in zero.
+3; -1; 2|3 is not a zero because substituting x=3 into the equation does not result in zero.
+-3; 1; 2|1 is not a zero because substituting x=1 into the equation does not result in zero.
+
+Factoring|Find a real zero, to the nearest tenth, between the given values. f(x) = (x^3) - 4(x^2) + 4; 1 and 2
 1.2!|The question requires knowledge of the Intermediate Value Theorem and Polynomial Remainder Theorem (to evaluate 1 and 2). The incorrect answers arise from misevaluation of the function in approximation, as all are relatively close in range. 
-1.0 - 1.0 is not the closest approximation to the real zero.
-1.5 - 1.5 is not the closest approximation to the real zero.
-2.0 - 2.0 is not the closest approximation to the real zero.
-QuestionThe volume of a cube is 48 cubic feet less than twice the volume of a rectangular box. An edge of the cube is 2 ft shorter than the length of the box, 4 ft longer than the width of the box, and 1 ft longer than the height of the box. Find the dimensions of the cube and the box. 
-edge of cube|8 ft; box|{l|10 ft; w|4 ft; h|7 ft}!|Let s be the side of the cube. Then l = s + 2, w = s - 4, and h = s - 1. The equation is s^3 = 2(s + 2)(s - 4)(s - 1) - 48. Solving for s gives s = 8, so l = 10, w = 4, and h = 7.
-edge of cube|6 ft; box|{l|8 ft; w|2 ft; h|5 ft} - The dimensions do not satisfy the volume equation|6^3 != 2(8)(2)(5) - 48.
-edge of cube|10 ft; box|{l|12 ft; w|6 ft; h|9 ft} - The dimensions do not satisfy the volume equation|10^3 != 2(12)(6)(9) - 48.
-edge of cube|7 ft; box|{l|9 ft; w|3 ft; h|6 ft} - The dimensions do not satisfy the volume equation|7^3 != 2(9)(3)(6) - 48.
-QuestionSketch the graph of the function. Use the asymptotes, the intercepts, and other points, as necessary. y = 1/(x^2) 
+1.0|1.0 is not the closest approximation to the real zero.
+1.5|1.5 is not the closest approximation to the real zero.
+2.0|2.0 is not the closest approximation to the real zero.
+
+Factoring|The volume of a cube is 48 cubic feet less than twice the volume of a rectangular box. An edge of the cube is 2 ft shorter than the length of the box, 4 ft longer than the width of the box, and 1 ft longer than the height of the box. Find the dimensions of the cube and the box. 
+edge of cube: 8 ft; box: {l: 10 ft; w: 4 ft; h: 7 ft}!|Let s be the side of the cube. Then l = s + 2, w = s - 4, and h = s - 1. The equation is s^3 = 2(s + 2)(s - 4)(s - 1) - 48. Solving for s gives s = 8, so l = 10, w = 4, and h = 7.
+edge of cube: 6 ft; box: {l: 8 ft; w: 2 ft; h: 5 ft}|The dimensions do not satisfy the volume. equation: 6^3 != 2(8)(2)(5) - 48.
+edge of cube: 10 ft; box: {l: 12 ft; w: 6 ft; h: 9 ft}|The dimensions do not satisfy the volume. equation: 10^3 != 2(12)(6)(9) - 48.
+edge of cube: 7 ft; box: {l: 9 ft; w: 3 ft; h: 6 ft}|The dimensions do not satisfy the volume. equation: 7^3 != 2(9)(3)(6) - 48.
+
+End Behavior|Sketch the graph of the function. Use the asymptotes, the intercepts, and other points, as necessary. y = 1/(x^2) 
 x = 0; y = 0!|The function has a vertical asymptote at x=0 and a horizontal asymptote at y=0.
-x = 1; y = 1 - x=1 and y=1 are not asymptotes because the function is defined at x=1 and y approaches 0 as x approaches infinity.
-x = -1; y = -1 - x=-1 and y=-1 are not asymptotes because the function is defined at x=-1 and y approaches 0 as x approaches infinity.
-QuestionSolve and check. 4y + 4 = 19 - y 
+x = 1; y = 1|x=1 and y=1 are not asymptotes because the function is defined at x=1 and y approaches 0 as x approaches infinity.
+x = -1; y = -1|x=-1 and y=-1 are not asymptotes because the function is defined at x=-1 and y approaches 0 as x approaches infinity.
+x = 0; y = 1|y=1 is not an asymptote because y approaches 0 as x approaches infinity.
+
+Polynomial Arithmetic|Solve and check. 4y + 4 = 19 - y 
 3!|Combining like terms gives 5y = 15, so y = 3.
-4 - Substituting y=4 into the equation gives 4(4) + 4 = 20 and 19 - 4 = 15, so y=4 is not a solution.
-5 - Substituting y=5 into the equation gives 4(5) + 4 = 24 and 19 - 5 = 14, so y=5 is not a solution.
-6 - Substituting y=6 into the equation gives 4(6) + 4 = 28 and 19 - 6 = 13, so y=6 is not a solution.
-Question(y^2) - 7y + 6 = 0 
+4|Substituting y=4 into the equation gives 4(4) + 4 = 20 and 19 - 4 = 15, so y=4 is not a solution.
+5|Substituting y=5 into the equation gives 4(5) + 4 = 24 and 19 - 5 = 14, so y=5 is not a solution.
+6|Substituting y=6 into the equation gives 4(6) + 4 = 28 and 19 - 6 = 13, so y=6 is not a solution.
+
+Factoring|Factor. (y^2) - 7y + 6 = 0 
 1; 6!|Factoring the quadratic gives (y - 1)(y - 6) = 0, so the solutions are y = 1 and y = 6.
--1; 3 - -1 and 3 are not solutions because substituting y=-1 or y=3 into the equation does not result in zero.
--1; -3 - -1 and -3 are not solutions because substituting y=-1 or y=-3 into the equation does not result in zero.
+-1; 3|-1 and 3 are not solutions because substituting y=-1 or y=3 into the equation does not result in zero.
+-1; -3|-1 and -3 are not solutions because substituting y=-1 or y=-3 into the equation does not result in zero.
+-6; -1|-6 and -1 are not solutions because substituting y=-6 or y=-1 into the equation does not result in zero.
+
 Polynomial Arithmetic|Divide, using synthetic division|[(x^3) - 3(x^2) + 4x - 12] / [x - 1] 
 (x^2) - 2x + 2 - 10 / [x - 1]!|Using synthetic division with 1, the result is (x^2) - 2x + 2 with a remainder of -10, so the answer is (x^2) - 2x + 2 - 10 / [x - 1].
-(x^2) - 4x + 8 - 4 / [x - 1] - The coefficients are incorrect after performing synthetic division.
-(x^2) - 2x - 2 - 10 / [x - 1] - The sign of the constant term is incorrect after performing synthetic division.
-(x^2) - 4x - 8 - The remainder is missing after performing synthetic division.
-QuestionGiven f(x) = -3x, g(x) = x - 1, evaluate g(f(-2) and f(g(1)). 
+(x^2) - 4x + 8 - 4 / [x - 1]|The coefficients are incorrect after performing synthetic division.
+(x^2) - 2x - 2 - 10 / [x - 1]|The sign of the constant term is incorrect after performing synthetic division.
+(x^2) - 4x - 8|The remainder is missing after performing synthetic division.
+
+Polynomial Remainder Theorem|Given f(x) = -3x, g(x) = x - 1, evaluate g(f(-2) and f(g(1)). 
 6; -3!|f(-2) = -3(-2) = 6, so g(f(-2)) = g(6) = 6 - 1 = 5. g(1) = 1 - 1 = 0, so f(g(1)) = f(0) = -3(0) = 0.
--5; 0 - g(f(-2)) is not -5 because f(-2) = 6 and g(6) = 5.
-5; -6 - f(g(1)) is not -6 because g(1) = 0 and f(0) = 0.
--5; -6 - g(f(-2)) is not -5 because f(-2) = 6 and g(6) = 5, and f(g(1)) is not -6 because g(1) = 0 and f(0) = 0.
-QuestionEvaluate 3x - 5(x^2) + 4(x^3) when x = 3 
+-5; 0|g(f(-2)) is not -5 because f(-2) = 6 and g(6) = 5.
+5; -6|f(g(1)) is not -6 because g(1) = 0 and f(0) = 0.
+-5; -6|g(f(-2)) is not -5 because f(-2) = 6 and g(6) = 5, and f(g(1)) is not -6 because g(1) = 0 and f(0) = 0.
+
+Polynomial Remainder Theorem|Evaluate 3x - 5(x^2) + 4(x^3) when x = 3 
 48!|Substituting x = 3 into the expression gives 3(3) - 5(3^2) + 4(3^3) = 9 - 45 + 108 = 72.
-162 - The calculation is incorrect; substituting x = 3 into the expression does not result in 162.
-0 - The calculation is incorrect; substituting x = 3 into the expression does not result in 0.
-10 - The calculation is incorrect; substituting x = 3 into the expression does not result in 10.
-QuestionFind the equation of the line having slope 2 and passing through (-2, 3) 
+162|The calculation is incorrect; substituting x = 3 into the expression does not result in 162.
+0|The calculation is incorrect; substituting x = 3 into the expression does not result in 0.
+10|The calculation is incorrect; substituting x = 3 into the expression does not result in 10.
+
+Factoring|Find the equation of the line having slope 2 and passing through (-2, 3) 
 y = 2x + 7!|Using the point-slope form, y - 3 = 2(x + 2), so y = 2x + 4 + 3 = 2x + 7.
-y = -2x + 7 - The slope is incorrect; the slope should be 2, not -2.
-y = 2x - 1 - The y-intercept is incorrect; the line should pass through (-2, 3).
-y = -2x - 1 - Both the slope and y-intercept are incorrect.
-QuestionSimplify| [(x^2) + x - 12] / [x^2 - 3x - 10] - [(x^2) + x - 2] / [(x^2) - 4x + 3] 
+y = -2x + 7|The slope is incorrect; the slope should be 2, not -2.
+y = 2x - 1|The y-intercept is incorrect; the line should pass through (-2, 3).
+y = -2x - 1|Both the slope and y-intercept are incorrect.
+
+Polynomial Arithmetic|Simplify: [(x^2) + x - 12] / [x^2 - 3x - 10] - [(x^2) + x - 2] / [(x^2) - 4x + 3] 
 [x + 4] / [x - 5]; x != {-2; 1; 3; 5}!|Factoring gives [(x + 4)(x - 3)] / [(x - 5)(x + 2)] - [(x + 2)(x - 1)] / [(x - 3)(x - 1)] = [(x + 4)(x - 3)] / [(x - 5)(x + 2)] - [(x + 2)] / [(x - 3)] = [((x + 4)(x - 3)^2) - ((x + 2)^2(x - 5))] / [(x - 5)(x + 2)(x - 3)] = [x + 4] / [x - 5]; x != {-2; 1; 3; 5}.
-[x - 4] / [x + 5]; x != {-2; 1; 3; 5} - The factors are incorrect after simplifying the expression.
-[x + 4] / [x + 5]; x != {-2; 1; 3; 5} - The factors are incorrect after simplifying the expression.
-[x - 4] / [x - 5]; x != {-2; 1; 3; 5} - The factors are incorrect after simplifying the expression.
-QuestionSolve and check|sqrt(x + 2) = x + 2 
+[x - 4] / [x + 5]; x != {-2; 1; 3; 5}|The factors are incorrect after simplifying the expression.
+[x + 4] / [x + 5]; x != {-2; 1; 3; 5}|The factors are incorrect after simplifying the expression.
+[x - 4] / [x - 5]; x != {-2; 1; 3; 5}|The factors are incorrect after simplifying the expression.
+
+Polynomial Arithmetic|Solve and check: sqrt(x + 2) = x + 2 
 -1; -2!|Squaring both sides gives x + 2 = (x + 2)^2, so x + 2 = x^2 + 4x + 4, which simplifies to x^2 + 3x + 2 = 0. Factoring gives (x + 1)(x + 2) = 0, so the solutions are x = -1 and x = -2.
-1 - 1 is not a solution because substituting x=1 into the equation gives sqrt(3) = 3, which is false.
-2 - 2 is not a solution because substituting x=2 into the equation gives sqrt(4) = 4, which is false.
-0 - 0 is not a solution because substituting x=0 into the equation gives sqrt(2) = 2, which is false.
-QuestionThree times a number increased by eight is 29. Find the number. 
+1|1 is not a solution because substituting x=1 into the equation gives sqrt(3) = 3, which is false.
+2|2 is not a solution because substituting x=2 into the equation gives sqrt(4) = 4, which is false.
+0|0 is not a solution because substituting x=0 into the equation gives sqrt(2) = 2, which is false.
+
+Polynomial Arithmetic|Three times a number increased by eight is 29. Find the number. 
 7!|Let the number be x. Then 3x + 8 = 29, so 3x = 21, and x = 7.
-12 - The equation should be 3x + 8 = 29, not 3x + 8 = 44.
-8 - The equation should be 3x + 8 = 29, not 3x + 8 = 32.
-9 - The equation should be 3x + 8 = 29, not 3x + 8 = 35.
+12|The equation should be 3x + 8 = 29, not 3x + 8 = 44.
+8|The equation should be 3x + 8 = 29, not 3x + 8 = 32.
+9|The equation should be 3x + 8 = 29, not 3x + 8 = 35.
+
 Factoring|Factor. 25(y^2) - 4 
 [5y - 2][5y + 2]!|This is a difference of squares, so it factors to [5y - 2][5y + 2].
-[5y - 2][5y - 2] - The factors are incorrect; multiplying [5y - 2][5y - 2] does not result in 25(y^2) - 4.
-[5y + 2][5y + 2] - The factors are incorrect; multiplying [5y + 2][5y + 2] does not result in 25(y^2) - 4.
-[5y - 4][5y + 4] - The factors are incorrect; multiplying [5y - 4][5y + 4] does not result in 25(y^2) - 16.
+[5y - 2][5y - 2]|The factors are incorrect; multiplying [5y - 2][5y - 2] does not result in 25(y^2) - 4.
+[5y + 2][5y + 2]|The factors are incorrect; multiplying [5y + 2][5y + 2] does not result in 25(y^2) - 4.
+[5y - 4][5y + 4]|The factors are incorrect; multiplying [5y - 4][5y + 4] does not result in 25(y^2) - 16.
+
 Factoring|Factor. (y^3) - 64 
 [y - 4][(y^2) + 4y + 16]!|This is a difference of cubes, so it factors to [y - 4][(y^2) + 4y + 16].
-[y + 4][(y^2) + 4y + 16] - The sign of the first factor is incorrect; it should be [y - 4].
-[y - 4][(y^2) - 4y + 16] - The sign of the middle term in the quadratic factor is incorrect; it should be +4y.
-[y + 4][(y^2) - 4y + 16] - Both the sign of the first factor and the sign of the middle term in the quadratic factor are incorrect.
+[y + 4][(y^2) + 4y + 16]|The sign of the first factor is incorrect; it should be [y - 4].
+[y - 4][(y^2) - 4y + 16]|The sign of the middle term in the quadratic factor is incorrect; it should be +4y.
+[y + 4][(y^2) - 4y + 16]|Both the sign of the first factor and the sign of the middle term in the quadratic factor are incorrect.
+
 Polynomial Arithmetic|Divide. [(x^2) - 14x - 36] / [x + 2] 
 x - 16 - 4 / [x + 2]!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in x - 16 with a remainder of -4.
 x + 16 - 4 / [x + 2]|This incorrect answer likely results from adding instead of subtracting during the long division process.
 x - 12 - 60 / [x + 2]|This incorrect answer suggests an error in the arithmetic during the long division process, leading to incorrect coefficients and remainder.
 x - 16 + 4 / [x + 2]|This incorrect answer might arise from mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
+
 Polynomial Arithmetic|Divide. [(a^2) - 4a - 86] / [a + 6] 
 a - 10 - 26 / [a + 6]!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in a - 10 with a remainder of -26.
 a + 10 - 26 / [a + 6]|This incorrect answer likely results from adding instead of subtracting during the long division process.
 a - 10 + 26 / [a + 6]|This incorrect answer might arise from mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
 a + 10 + 26 / [a + 6]|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
+
 Polynomial Arithmetic|Divide. [5(c^2) + 2c + 3] / [c + 1] 
 5c - 3 + 6 / [c + 1]!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in 5c - 3 with a remainder of 6.
 5c + 3 + 6 / [c + 1]|This incorrect answer likely results from adding instead of subtracting during the long division process.
 5c - 3 - 6 / [c + 1]|This incorrect answer might arise from mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
 5c + 3 - 6 / [c + 1]|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
+
 Polynomial Arithmetic|Divide. [7x - 5(x^2) - 3 + 6(x^3)] / [2x - 1] 
 3(x^2) - x + 3!|The correct answer is obtained by performing polynomial long division, resulting in 3x^2 - x + 3.
 3(x^2) + x - 3|This incorrect answer likely results from adding instead of subtracting during the long division process.
 3(x^2) - x - 3|This incorrect answer might arise from mishandling the negative signs during the division.
 3(x^2) + x + 3|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [(x^2) - 6] / [x - 2] 
 x + 2 - 2 / [x - 2]!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in x + 2 with a remainder of -2.
 x - 2 - 2 / [x - 2]|This incorrect answer likely results from subtracting instead of adding during the long division process.
 x + 2 + 2 / [x - 2]|This incorrect answer might arise from mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
 x - 2 + 2 / [x - 2]|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
+
 Polynomial Arithmetic|Divide. [4(x^2) + 25] / [2x - 5] 
 2x + 5 + 50 / [2x - 5]!|The correct answer is obtained by performing polynomial long division, resulting in 2x + 5 with a remainder of 50.
 2x - 5 + 50 / [2x - 5]|This incorrect answer likely results from subtracting instead of adding during the long division process.
 2x + 5 - 50 / [2x - 5]|This incorrect answer might arise from mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
 2x - 5 - 50 / [2x - 5]|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division, leading to an incorrect sign for the remainder.
+
 Polynomial Arithmetic|Divide. [(x^4) + (x^3) - 9 + 21x - 15(x^2)] / [3x - 4 + (x^2)] 
 (x^2) + 2x - 5!|The correct answer is obtained by performing polynomial long division, resulting in x^2 + 2x - 5.
 (x^2) - 2x + 5|This incorrect answer likely results from subtracting instead of adding during the long division process.
 (x^2) + 2x + 5|This incorrect answer might arise from mishandling the negative signs during the division.
 (x^2) - 2x - 5|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [(x^4 + 2(x^3) - 2(x^2) + 6x - 15] / [(x^2) + 3] 
 (x^2) + 2x - 5!|The correct answer is obtained by performing polynomial long division, resulting in x^2 + 2x - 5.
 (x^2) - 2x + 5|This incorrect answer likely results from subtracting instead of adding during the long division process.
 (x^2) + 2x + 5|This incorrect answer might arise from mishandling the negative signs during the division.
 (x^2) - 2x - 5|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [6(n^3) + 5(n^2) + 9] / [2n + 3] 
 3(n^2) - 2n + 3!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in 3n^2 - 2n + 3.
 3(n^2) + 2n - 3|This incorrect answer likely results from adding instead of subtracting during the long division process.
 3(n^2) - 2n - 3|This incorrect answer might arise from mishandling the negative signs during the division.
 3(n^2) + 2n + 3|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [6(x^3) - 3(x^2) - 7] / [3x - 2] 
 2(x^2) + x/3 - 2/9 - 59/[9[3x - 2]]!|The correct answer is obtained by performing polynomial long division, resulting in 2x^2 + x/3 - 2/9 - 59/(9(3x-2)).
 2(x^2) - x/3 + 2/9 - 59/[9[3x - 2]]|This incorrect answer likely results from subtracting instead of adding during the long division process.
 2(x^2) + x/3 + 2/9 - 59/[9[3x - 2]]|This incorrect answer might arise from mishandling the negative signs during the division.
 2(x^2) - x/3 - 2/9 - 59/[9[3x - 2]]|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [(x^3) - 1] / [x - 1] 
 (x^2) + x + 1!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in x^2 + x + 1.
 (x^2) - x + 1|This incorrect answer likely results from subtracting instead of adding during the long division process.
 (x^2) + x - 1|This incorrect answer might arise from mishandling the negative signs during the division.
 (x^2) - x - 1|This incorrect answer likely results from subtracting instead of adding during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [64(x^3) + 27] / [4x + 3] 
 16(x^2) - 12x + 9!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in 16x^2 - 12x + 9.
 16(x^2) + 12x + 9|This incorrect answer likely results from adding instead of subtracting during the long division process.
 16(x^2) - 12x - 9|This incorrect answer might arise from mishandling the negative signs during the division.
 16(x^2) + 12x - 9|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide. [(y^4) - 1] / [y + 1] 
 (y^3) - (y^2) + y - 1!|The correct answer is obtained by performing polynomial long division or synthetic division, resulting in y^3 - y^2 + y - 1.
 (y^3) + (y^2) - y + 1|This incorrect answer likely results from adding instead of subtracting during the long division process.
 (y^3) - (y^2) - y - 1|This incorrect answer might arise from mishandling the negative signs during the division.
 (y^3) + (y^2) + y + 1|This incorrect answer likely results from adding instead of subtracting during the long division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) - 12(x^2) - 5x + 8] / [x - 2] 
 (x^2) - 10x - 25 - 42 / [x - 2]!|The correct answer is obtained by performing synthetic division, resulting in x^2 - 10x - 25 with a remainder of -42.
 (x^2) - 14x + 23 - 38 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 (x^2) - 10x + 25 - 42 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 (x^2) - 14x - 23|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^4) - 6(x^2) + 7x - 12] / [x + 3] 
 (x^3) - 3(x^2) + 3x - 2 - 6 / [x + 3]!|The correct answer is obtained by performing synthetic division, resulting in x^3 - 3x^2 + 3x - 2 with a remainder of -6.
 (x^3) + 3(x^2) - 3x + 2 - 6 / [x + 3]|This incorrect answer likely results from adding instead of subtracting during the synthetic division process.
 (x^3) - 3(x^2) - 3x - 2 - 6 / [x + 3]|This incorrect answer might arise from mishandling the negative signs during the division.
 (x^3) + 3(x^2) + 3x + 2|This incorrect answer likely results from adding instead of subtracting during the synthetic division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) + 3(x^2) - 8x - 10] / [x - 2] 
 (x^2) + 5x + 2 - 6 / [x - 2]!|The correct answer is obtained by performing synthetic division, resulting in x^2 + 5x + 2 with a remainder of -6.
 (x^2) + x - 10 - 30 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 (x^2) + 5x - 2 - 6 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 (x^2) + x + 10|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [2(x^3) - 5(x^2) - 7x - 3] / [x + 1] 
 2(x^2) - 7x - 3 / [x + 1]!|The correct answer is obtained by performing synthetic division, resulting in 2x^2 - 7x with a remainder of -3.
 2(x^2) - 3x - 4 + 1 / [x + 1]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 2(x^2) - 3x + 4 - 1 / [x + 1]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 2(x^2) - 3x - 4|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [2(x^3) + 4(x^2) - 10x - 9] / [x - 3] 
 2(x^2) + 10x + 20 + 51 / [x - 3]!|The correct answer is obtained by performing synthetic division, resulting in 2x^2 + 10x + 20 with a remainder of 51.
 2(x^2) - 2x - 4 - 21 / [x - 3]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 2(x^2) + 10x - 20 + 51 / [x - 3]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 2(x^2) - 2x + 4|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [2(x^3) + 2(x^2) - 8x + 6] / [x - 2] 
 2(x^2) + 6x + 4 + 14 / [x - 2]!|The correct answer is obtained by performing synthetic division, resulting in 2x^2 + 6x + 4 with a remainder of 14.
 2(x^2) - 2x - 4 - 2 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 2(x^2) + 6x - 4 + 14 / [x - 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 2(x^2) - 6x + 4|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [3(x^3) - 5(x^2) - 17x - 12] / [x - 4] 
 3(x^2) + 7x + 11 + 32 / [x - 4]!|The correct answer is obtained by performing synthetic division, resulting in 3x^2 + 7x + 11 with a remainder of 32.
 3(x^2) + 7x - 11 - 32 / [x - 4]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 3(x^2) - 7x + 11 + 32 / [x - 4]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 3(x^2) - 7x - 11|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^4) - 6(x^3) + 3x - 9] / [x + 3] 
 (x^3) - 9(x^2) + 27x - 78 + 225 / [x + 3]!|The correct answer is obtained by performing synthetic division, resulting in x^3 - 9x^2 + 27x - 78 with a remainder of 225.
 (x^3) - 3(x^2) - 9x + 30 - 99 / [x + 3]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and remainder.
 (x^3) - 9(x^2) - 27x - 78 + 225 / [x + 3]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 (x^3) - 3(x^2) + 9x - 30|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^4) - 3(x^2) - 5x + 20] / [x + 5] 
 (x^3) - 5(x^2) + 22x - 115 + 595 / [x + 5]!|The correct answer is obtained by performing synthetic division, resulting in x^3 - 5x^2 + 22x - 115 with a remainder of 595.
 (x^3) + 5(x^2) + 22x + 115 + 595 / [x + 5]|This incorrect answer likely results from adding instead of subtracting during the synthetic division process.
 (x^3) - 5(x^2) - 22x - 115 + 595 / [x + 5]|This incorrect answer might arise from mishandling the negative signs during the division.
 (x^3) + 5(x^2) - 22x + 115|This incorrect answer likely results from adding instead of subtracting during the synthetic division process, and also mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide, using synthetic division. [2(x^4) - 3(x^3) - 4x + 10] / [x - 2] 
 2(x^3) + (x^2) + 2x + 10 / [x + 2]!|The correct answer is obtained by performing synthetic division, resulting in 2x^3 + x^2 + 2x with a remainder of 10.
 2(x^3) + (x^2) + 2x|This incorrect answer suggests neglecting the remainder after performing synthetic division.
 2(x^3) - (x^2) - 2x|This incorrect answer likely results from subtracting instead of adding during the synthetic division process.
 2(x^3) - (x^2) + 2x|This incorrect answer might arise from mishandling the negative signs during the division.
+
 Polynomial Arithmetic|Divide, using synthetic division. [6(a^3) - 13(a^2) - 12a + 4] / [2a + 1] 
 3(a^2) - 8a - 2 + 6 / [2a + 1]!|The correct answer is obtained by performing synthetic division, resulting in 3a^2 - 8a - 2 with a remainder of 6.
 3(a^2) - 7a - 2 + 6 / [2a + 1]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 3(a^2) - 8a + 2 + 6 / [2a + 1]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 3(a^2) + 8a - 2|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [3(x^4) + 4 - 10x + 7(x^3)] / [3x + 2] 
 (x^3) + 3(x^2) + 2x - 2 !|The correct answer is obtained by performing synthetic division, resulting in x^3 + x^2 + (5/9)x - (40/27) + 188/27 / [3x + 2].
 (x^3) + (5/3)(x^2) + (5/9)x - (40/27) + 188/27 / [3x + 2]|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 (x^3) + 3(x^2) - 2x + 2|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
 (x^3) - 3(x^2) + 2x - 2|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients.
+
 Polynomial Arithmetic|Divide, using synthetic division. [8(x^3) + 27] / [2x - 3] 
 4(x^2) + 6x + 9 + 54 / [2x - 3]!|The correct answer is obtained by performing synthetic division, resulting in 4x^2 + 6x + 9 with a remainder of 54.
 4(x^2) - 6x + 9|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
 4(x^2) + 6x - 9|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
 4(x^2) - 6x - 9|This incorrect answer suggests an error in the arithmetic during the synthetic division process, leading to incorrect coefficients and neglecting the remainder.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) - 5(x^2) - 2x + k] / [x - 3] 
 24!|The correct answer is k = 24, found by setting the remainder of the synthetic division equal to zero.
 0|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 1|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 2|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(x^3) + 3(x^2) - kx - 12] / [x + 3] 
 4!|The correct answer is k = 4, found by setting the remainder of the synthetic division equal to zero.
 0|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 1|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 2|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
+
 Polynomial Arithmetic|Divide, using synthetic division. [(z^3) - k(z^2) + 7z + 15] / [z - 3] 
 7!|The correct answer is k = 7, found by setting the remainder of the synthetic division equal to zero.
 0|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 1|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
 2|This incorrect answer suggests a misunderstanding of how to use the remainder theorem to solve for k.
+
 Polynomial Remainder Theorem|Geometry|If the volume of the box is represented by the expression [(a^3)(x^3) - 6(a^2)(x^2) + 11ax  - 6] cubic cm and its length is [ax - 1] cm, what binomials can be used to represent the other two dimensions?  
 [ax - 3]; [ax - 2]!|The correct answer is found by dividing the volume expression by the given length, then factoring the resulting quadratic.
 [ax + 3]; [ax + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [ax - 3]; [ax + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [ax + 3]; [ax - 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [t - 3]; (t^3) + (t^2) - 8t - 12 
 [t - 2] [t - 2] [t - 3]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [t + 2] [t + 2] [t - 3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [t - 2] [t + 2] [t - 3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [t + 2] [t + 3] [t - 3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x + 3]; (x^3) + 4(x^2) + x - 6 
 [x - 1] [x + 2] [x +3]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [x + 1] [x + 2] [x +3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [x - 1] [x - 2] [x +3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [x - 1] [x + 2] [x -3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x + 3]; (x^3) + 3(x^2) - x - 3 
 [x + 1] [x - 1] [x +3]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [x - 1] [x - 1] [x +3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [x + 1] [x + 1] [x +3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [x + 1] [x - 1] [x -3]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [t + 2]; (t^3) - 4(t^2) - 7t + 10  
 [t - 1] [t - 5] [t + 2]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [t + 1] [t + 5] [t + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [t - 1] [t + 5] [t + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [t - 1] [t - 5] [t - 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x + 2]; 2(x^3) - 3(x^2) - 18x - 8 
 [2x + 1] [x - 4] [x + 2]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [2x - 1] [x - 4] [x + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [2x + 1] [x + 4] [x + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [2x + 1] [x - 4] [x - 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [t + 1]; (t^3) + (t^2) - 18t - 18 
 [(t^2) - 18] [t + 1]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [(t^2) + 18] [t + 1]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [(t^2) - 18] [t - 1]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [(t^2) + 18] [t - 1]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x - 2]; 6(x^3) - 7(x^2) - 16x + 12 
 [3x - 2] [2x + 3] [x - 2]!|The correct answer is found by dividing the polynomial by the given factor and then factoring the resulting quadratic.
 [3x + 2] [2x + 3] [x - 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [3x - 2] [2x - 3] [x - 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
 [3x - 2] [2x + 3] [x + 2]|This incorrect answer likely results from incorrect factoring or division, leading to incorrect signs.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x - 1], [x - 3]; (x^4) - 10(x^3) + 35(x^2) - 50x + 24 
 [x - 4] [x - 2] [x - 3] [x - 1]!|The question requires complete factorization. The incorrect answers arise from incomplete factorization or errors in factoring the resulting polynomial after the initial factor is divided out.
 [x-3][x^3 -7x^2 + 14x - 8]|Incorrectly factoring out only one of the given factors.
 [x-1][x-3][x^2 - 6x + 8]|Factoring the quadratic incorrectly, leading to wrong signs.
 [x-1][x-3][x^2 + 6x + 8]|Not completing the factorization fully.
+
 Factoring|Factor the second polynomial completely over the integers, given one factor. [x - 1], [x - 2]; (x^4) - 10(x^3) + 35(x^2) - 50x + 24 
 [x - 4] [x - 3] [x - 2] [x - 1]!|The question requires complete factorization. The incorrect answers arise from incomplete factorization or errors in factoring the resulting polynomial after the initial factor is divided out.
 [x-2][x^3 - 8x^2 + 19x - 12]|Incorrectly factoring out only one of the given factors.
 [x-1][x-2][x^2 - 5x + 6]|Factoring the quadratic incorrectly, leading to wrong signs.
 [x-1][x-2][x^2 + 5x + 6]|Not completing the factorization fully.
+
 Polynomial Remainder Theorem|Find the real zeros of the function. f(x) = (x^3) - 2(x^2) - 5x + 6 
 -2; 1; 3!|The question asks for real zeros. Incorrect answers stem from sign errors, misapplication of the rational root theorem, or errors in synthetic division.
 -3, 1, 2|Sign errors when finding the roots.
 -2, -1, 3|Incorrectly applying the rational root theorem.
 2, -1, -3|Making mistakes during synthetic division.
+
 Polynomial Remainder Theorem|Find the real zeros of the function. f(x) = (x^3) + 3(x^2) - 4x - 12 
 -3; -2; 2!|The question asks for real zeros. Incorrect answers stem from sign errors, misapplication of the rational root theorem, or errors in synthetic division.
 3, -2, 2|Sign errors when finding the roots.
 -3, 2, -1|Incorrectly applying the rational root theorem.
 -3, -2, -2|Making mistakes during synthetic division.
+
 Polynomial Remainder Theorem|Find the real zeros of the function to the nearest half unit. f(x) = (x^3) - 2(x^2) - 6x + 9 
 -2.5; 1.5; 3!|The question asks for real zeros to the nearest half unit. Incorrect answers stem from rounding errors, misapplication of the rational root theorem, or errors in synthetic division.
 -2, 1, 3|Rounding errors.
 -3, 1.5, 3|Incorrectly applying the rational root theorem and not approximating.
 -2.5, 2, 3|Making mistakes during synthetic division and not approximating.
+
 Polynomial Remainder Theorem|Find the real zeros of the function to the nearest tenth. f(x) = (x^3) - 3(x^2) - 3x + 9 
 -1.7; 1.7; 3!|The question asks for real zeros to the nearest tenth. Incorrect answers stem from rounding errors, misapplication of the rational root theorem, or errors in synthetic division.
 -1.5, 1.5, 3|Rounding errors.
 -1.7, 1.7, 3.1|Incorrectly applying the rational root theorem and not approximating.
 -2, 2, 3|Making mistakes during synthetic division and not approximating.
+
 Polynomial Remainder Theorem|Find the real zeros of the function. Approximate any nonintegral zeros to the nearest tenth. f(x) = (x^3) - (x^2) - 6x 
 -2; 0; 3!|The question asks for real zeros, approximating to the nearest tenth. Incorrect answers stem from rounding errors, misapplication of the rational root theorem, or errors in synthetic division.
 -2.1, 0.1, 3.1|Rounding errors.
 -1.9, 0, 2.9|Incorrectly applying the rational root theorem and not approximating.
 -2, 0, 2|Making mistakes during synthetic division and not approximating.
+
 Polynomial Remainder Theorem|Find the real zeros of the function. Approximate any nonintegral zeros to the nearest tenth. f(x) = (x^4) - 5(x^2) + 4 
 -2; -1; 1; 2!|The question asks for real zeros, approximating to the nearest tenth. Incorrect answers stem from rounding errors, misapplication of the rational root theorem, errors in synthetic division, or missing a root.
 -2.1, -1.1, 1.1, 2.1|Rounding errors.
 -1.9, -0.9, 0.9, 1.9|Incorrectly applying the rational root theorem and not approximating.
 -2, -1, 0, 2|Missing a root.
+
 Polynomial Remainder Theorem|Find the real zeros of the function. Approximate any nonintegral zeros to the nearest tenth. f(x) = (x^3) - 4(x^2) + 2x + 1 
 -0.3; 1; 3.3!|The question asks for real zeros, approximating to the nearest tenth. Incorrect answers stem from rounding errors, misapplication of the rational root theorem, or errors in synthetic division.
 -0.2, 0.9, 3.2|Rounding errors.
 -0.4, 1.1, 3.4|Incorrectly applying the rational root theorem and not approximating.
 -0.3, 1, 3|Making mistakes during synthetic division and not approximating.
+
 Factoring|Find the real zeros of the function. Approximate any nonintegral zeros to the nearest hundredth. y = 2(x^3) - (x^2) + 3x - 1 
 0.35!|The question asks for real zeros, approximating to the nearest hundredth. Incorrect answers stem from rounding errors or misapplication of the rational root theorem.
 0.30|Rounding errors.
 0.40|Not approximating to the nearest hundredth.
 0.355|Incorrectly applying the rational root theorem and not approximating.
+
 Factoring|Find the real zeros of the function. Approximate any nonintegral zeros to the nearest hundredth. y = 8(x^3) - 22(x^2) - 5x + 12 
 -0.75; 0.72; 2.78!|The question asks for real zeros, approximating to the nearest hundredth. Incorrect answers stem from rounding errors or misapplication of the rational root theorem.
 -0.70, 0.70, 2.70|Rounding errors.
 -0.80, 0.80, 2.80|Not approximating to the nearest hundredth.
 -0.755, 0.725, 2.785|Incorrectly applying the rational root theorem and not approximating.
+
 Factoring|Geometry: A rectangular shed is 3 m long, 2 m wide, and 2 m high. If each dimension of the shed is increased by the same amount, the volume is doubled. Find, to the nearest 0.1 m, the amount by which each dimension must be increased. 
 0.6 m!|The question involves finding the increase in dimensions to double the volume. Incorrect answers stem from rounding errors, incorrect equation setup, or errors in solving the cubic equation.
 0.5 m|Rounding errors.
 0.7 m|Setting up the equation incorrectly.
 1 m|Solving the cubic equation incorrectly.
+
 Factoring|The volume of a rectangular tank is 14 cubic ft less than twice the volume of a cube. The length of the tank is 1 ft more than the length of an edge of the cube, its width is 1 ft less than the length of an edge of the cube, and its height is 2 ft greater than the length of an edge of the cube. What are dimensions of the cube and of the tank? 
 edge of cube: 3 ft; tanks: {l: 4 ft; w: 2 ft; h: 5 ft}!|The question involves finding the dimensions of a cube and a tank. Incorrect answers stem from incorrect equation setup, errors in solving the cubic equation, or not verifying the solution.
 edge of cube: 2 ft; tanks: {l: 3 ft; w: 1 ft; h: 4 ft}|Setting up the equation incorrectly.
 edge of cube: 4 ft; tanks: {l: 5 ft; w: 3 ft; h: 6 ft}|Solving the cubic equation incorrectly.
 edge of cube: 3 ft; tanks: {l: 3 ft; w: 2 ft; h: 5 ft}|Not checking if the solution satisfies the problem conditions.
+
 Factoring|The length of a rectangular tank is 6 ft more than its height and the width is 3 ft more than its height. If the volume of the tank is 80 cubic ft, what are the dimensions of the tank? 
 {l: 8 ft; w: 5 ft; h: 2 ft}!|The question involves finding the dimensions of a tank. Incorrect answers stem from incorrect equation setup, errors in solving the cubic equation, or not verifying the solution.
 {l: 7 ft; w: 4 ft; h: 1 ft}|Setting up the equation incorrectly.
 {l: 9 ft; w: 6 ft; h: 3 ft}|Solving the cubic equation incorrectly.
 {l: 8 ft; w: 5 ft; h: 3 ft}|Not checking if the solution satisfies the problem conditions.
+
 Factoring|An open box with a volume of 144 cubic cm can be made by a square of the same size from each corner of a square piece of tin 14 cm on a side and folding up the edges of the tin. What is the length of a side of the square that is cut from each corner? 
 1 cm or 4 cm!|The question involves finding the length of a side of a square cut from a tin. Incorrect answers stem from incorrect equation setup, errors in solving the quadratic equation, or not verifying the solution.
 2 cm or 3 cm|Setting up the equation incorrectly.
 1 cm or 5 cm|Solving the quadratic equation incorrectly.
 2 cm or 4 cm|Not checking if the solution satisfies the problem conditions.
+
 Polynomial Arithmetic|Find 4 rational numbers such that the product of the first, third, and fourth numbers is 54. The second number is 3 less than the first number, the third number is 3 less than the second, and the fourth is 3 less than the third. 
 6; 3; 1; -1!|The question involves finding four rational numbers based on given conditions. Incorrect answers stem from incorrect setup of relationships, not verifying the product condition, or arithmetic errors.
 5; 2; -1; -4|Incorrectly setting up the relationships between the numbers.
 7; 4; 1; -2|Not checking if the product condition is satisfied.
 6; 3; 0; -3|Arithmetic errors.
+
 Polynomial Arithmetic|Find 4 consecutive multiples of 3 such that the product of the first, third, and fourth is 1080. 
 6; 9; 12; 15!|The question involves finding four consecutive multiples of 3 based on a product condition. Incorrect answers stem from incorrect setup of multiples, not verifying the product condition, or arithmetic errors.
 3; 6; 9; 12|Incorrectly setting up the multiples.
 9; 12; 15; 18|Not checking if the product condition is satisfied.
 6; 9; 12; 18|Arithmetic errors.
+
 Polynomial Arithmetic|Find 4 rational numbers such that the product of the second, third, and fourth numbers is -60. The second number is 1 more than twice the first number, the third number is 3 less than the first, and the fourth is 4 more than the third. 
 -3; -5; -6; -2!|The question involves finding four rational numbers based on given conditions. Incorrect answers stem from incorrect setup of relationships, not verifying the product condition, or arithmetic errors.
 -2; -3; -5; -1|Incorrectly setting up the relationships between the numbers.
 -4; -7; -7; -3|Not checking if the product condition is satisfied.
 -3; -5; -5; -1|Arithmetic errors.
+
 Factoring|Noah has a piece of tin 14 cm wide and 18 cm long. He wants to make an open box with a volume of 180 cubic cm by out a square of the same size from each corner and folding up the edges of the piece of tin. To the nearest tenth of a centimeter, find the length of a side of the square that is cut from each corner. 
 4.8 cm!|The question involves finding the length of a side of a square cut from a tin. Incorrect answers stem from incorrect equation setup, errors in solving the cubic equation, or not verifying the solution.
 1.0 cm|Setting up the equation incorrectly.
 2.0 cm|Solving the cubic equation incorrectly.
 4.0 cm|Not checking if the solution satisfies the problem conditions.
+
 Factoring|If a 5 in. slice is cut from one face of a cube, the remaining solid has a volume of 93 cubic in. To the nearest tenth of an inch, find the length of an edge of the original cube. 
 6.9 in!|The question involves finding the length of an edge of a cube. Incorrect answers stem from incorrect equation setup, errors in solving the equation, or rounding errors.
 4.5 in|Setting up the equation incorrectly.
 5.0 in|Solving the equation incorrectly.
 7.0 in|Rounding errors.
+
 Factoring|The volume of a cube is 170 cubic ft less than the volume of a rectangular box. The length of the box is 1 ft less than twice the length of an edge of the cube, its width is 2 ft less than the length of an edge of the cube, and its height is 3 ft more than the length of an edge of the cube. To the nearest tenth of a foot, find the dimensions of the cube and the box. 
 edge of cube: 5.9 ft; box: {l: 10.8 ft; w: 3.9 ft; h: 8.9 ft}!|The question involves finding the dimensions of a cube and a box. Incorrect answers stem from incorrect equation setup, errors in solving the cubic equation, or rounding errors.
 edge of cube: 5.0 ft; box: {l: 9.0 ft; w: 3.0 ft; h: 8.0 ft}|Setting up the equation incorrectly.
 edge of cube: 6.0 ft; box: {l: 11.0 ft; w: 4.0 ft; h: 9.0 ft}|Solving the cubic equation incorrectly.
 edge of cube: 5.9 ft; box: {l: 10.8 ft; w: 3.9 ft; h: 7.9 ft}|Rounding errors.
+
 End Behavior|Given the function, state the asymptotes, the intercepts, and other key points for graphing, as necessary. y = 4 / (x^2) 
 no int.; asymptotes: x = 0; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
 no int.; asymptotes: x = 0; y = 4|Incorrectly identifying the asymptotes.
 y-int: 4; asymptotes: x = 0; y = 0|Incorrectly identifying the intercepts.
 no int.; asymptotes: x = 2; y = 0|Confusing vertical and horizontal asymptotes.
+
 End Behavior|Given the function, state the asymptotes, the intercepts, and other key points for graphing, as necessary. y = [x - 4] / (x^2) 
-x-int.: 4; asymptotes: x = 2; y = -2; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
-x-int.: 4; asymptotes: x = 0; y = 0|Incorrectly identifying the asymptotes.
-x-int.: -4; asymptotes: x = 0; y = 0|Incorrectly identifying the intercepts.
-x-int.: 4; asymptotes: x = 4; y = 0|Confusing vertical and horizontal asymptotes.
+x-int.:  4; asymptotes: x = 2; y = -2; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
+x-int.:  4; asymptotes: x = 0; y = 0|Incorrectly identifying the asymptotes.
+x-int.:  -4; asymptotes: x = 0; y = 0|Incorrectly identifying the intercepts.
+x-int.:  4; asymptotes: x = 4; y = 0|Confusing vertical and horizontal asymptotes.
+
 End Behavior|Given the function, state the asymptotes, the intercepts, and other key points for graphing, as necessary. y = 2x / [3x - 1] 
-x-int.: 0; y-int.: 0; asymptotes: x = [1/3]; y = [2/3]!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
-x-int.: 0; y-int.: 0; asymptotes: x = [1/3]; y = 0|Incorrectly identifying the asymptotes.
-x-int.: 0; y-int.: 0; asymptotes: x = 0; y = [2/3]|Incorrectly identifying the intercepts.
-x-int.: 0; y-int.: 0; asymptotes: x = [1/3]; y = 2|Confusing vertical and horizontal asymptotes.
+x-int.:  0; y-int.:  0; asymptotes: x = [1/3]; y = [2/3]!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
+x-int.:  0; y-int.:  0; asymptotes: x = [1/3]; y = 0|Incorrectly identifying the asymptotes.
+x-int.:  0; y-int.:  0; asymptotes: x = 0; y = [2/3]|Incorrectly identifying the intercepts.
+x-int.:  0; y-int.:  0; asymptotes: x = [1/3]; y = 2|Confusing vertical and horizontal asymptotes.
+
 End Behavior|Given the function, state the asymptotes, the intercepts, and other key points for graphing, as necessary. y = [3x - 2] / [(x^2) - 4] 
-x-int.: [2/3]; y-int.: [1/2]; asymptotes: x = 2; x = -2; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
-x-int.: [2/3]; y-int.: [1/2]; asymptotes: x = 2; y = 0|Incorrectly identifying the asymptotes.
-x-int.: [2/3]; y-int.: [1/2]; asymptotes: x = 2; x = -2; y = 1|Incorrectly identifying the intercepts.
-x-int.: [2/3]; y-int.: [1/2]; asymptotes: x = 0; y = 0|Confusing vertical and horizontal asymptotes.
+x-int.:  [2/3]; y-int.:  [1/2]; asymptotes: x = 2; x = -2; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
+x-int.:  [2/3]; y-int.:  [1/2]; asymptotes: x = 2; y = 0|Incorrectly identifying the asymptotes.
+x-int.:  [2/3]; y-int.:  [1/2]; asymptotes: x = 2; x = -2; y = 1|Incorrectly identifying the intercepts.
+x-int.:  [2/3]; y-int.:  [1/2]; asymptotes: x = 0; y = 0|Confusing vertical and horizontal asymptotes.
+
 End Behavior|Given the function, state the asymptotes, the intercepts, and other key points for graphing, as necessary. y = 4 / [(x^2) - 1] 
-y-int.: -4; asymptotes: x = 1; x = -1; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
-y-int.: -4; asymptotes: x = 1; y = 0|Incorrectly identifying the asymptotes.
-y-int.: 4; asymptotes: x = 1; x = -1; y = 0|Incorrectly identifying the intercepts.
-y-int.: -4; asymptotes: x = 0; y = 0|Confusing vertical and horizontal asymptotes.
+y-int.:  -4; asymptotes: x = 1; x = -1; y = 0!|The question involves identifying asymptotes and intercepts. Incorrect answers stem from misidentifying/mislocating asymptotes or intercepts in the function.
+y-int.:  -4; asymptotes: x = 1; y = 0|Incorrectly identifying the asymptotes.
+y-int.:  4; asymptotes: x = 1; x = -1; y = 0|Incorrectly identifying the intercepts.
+y-int.:  -4; asymptotes: x = 0; y = 0|Confusing vertical and horizontal asymptotes.
+
 Polynomial Arithmetic|Assume a and b are positive integers. [(x^3a) - 4(x^2a) + 2(x^a) - 12] / [(x^a) - 5] 
 (x^2a) - 5(x^a) + 7 - 23 / [(x^a) - 5]!|The question involves polynomial long division. Incorrect answers stem from errors in the division process, incorrect handling of the remainder, or sign errors.
 (x^2a) + (x^a) + 7 - 23 / [(x^a) - 5]|Errors in polynomial long division.
 (x^2a) - (x^a) + 7 - 23 / [(x^a) - 5]|Incorrectly handling the remainder.
 (x^2a) - 5(x^a) + 7|Sign errors.
+
 Polynomial Arithmetic|Assume a and b are positive integers. [(x^3a) - 5(x^2a) + 6(x^a) - 8(x^-a)] / (x^a) 
 (x^2a) - 5(x^a) + 6 - 8 / x!|The question involves dividing a polynomial by a monomial. Incorrect answers stem from errors in dividing each term, incorrect handling of the negative exponent, or dropping terms.
 (x^2a) - 5(x^a) + 6 - 8|Errors in dividing each term by x^a.
 (x^2a) - 5(x^a) + 6 - 8(x^-a)|Incorrectly handling the negative exponent.
 (x^2a) - 5(x^a) + 6|Dropping terms.
+
 Polynomial Arithmetic|Assume a and b are positive integers. 
 [(x^4a) - 4(x^2a) - (x^a) + 2] / [(x^2a) + (x^a) - 1] (x^2a) - (x^a) - 2!|The question involves polynomial long division. Incorrect answers stem from errors in the division process or sign errors.
 (x^2a) + (x^a) - 2|Errors in polynomial long division.
 (x^2a) - 2(x^a) - 2|Sign errors.
 (x^2a) - (x^a) + 2|Incorrectly handling the remainder.
+
 Factoring|A rectangular box has a volume of [2(x^3) + 3(x^2) - 8x + 3] cubic cm. If the length of the box is [x + 3] cm and the width is [x - 1] cm, find the height in terms of x. 
 2x - 1 cm!|The question involves finding the height of a rectangular box. Incorrect answers stem from incorrectly dividing polynomials, errors in factoring the volume expression, or arithmetic errors.
 2x + 1 cm|Errors in polynomial long division.

@@ -16,8 +16,6 @@ public class Wait extends Timer implements ActionListener
 
         timeElapsed = -1;
         waitTime = waitTimeIn;
-
-        start();
     }    
 
     public Wait(int millisDelay, int waitTimeIn, ActionListener a)
