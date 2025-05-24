@@ -8,6 +8,7 @@
  * player's current stats.
  **/
 
+///import libraries
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;

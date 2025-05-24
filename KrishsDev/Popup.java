@@ -361,15 +361,18 @@ class GameFoundPopup extends Popup
 class UpgradePopup extends Popup
 {
     private int pointsLeft;
-    private int hpPoints;
-    private int manaPoints;
-    private int defPoints;
+    private int[] hpPoints;
+    private int[] manaPoints;
+    private int[] defPoints;
     private UpgradePopupContent contentPanel;
 
     public UpgradePopup()
     {
         super("Upgrade");
         pointsLeft = 0;
+		hpPoints = new int[3];
+		manaPoints = new int[3];
+		defPoints = new int[3];
     }
 
     public JPanel getContentPanel()
@@ -384,20 +387,25 @@ class UpgradePopup extends Popup
 
     public void resetPoints()
     {
-        pointsLeft += 3;
-        manaPoints = 0;
-        hpPoints = 0;
-        defPoints = 0;
+        pointsLeft += 9;
+        for(int i=0; i<hpPoints.length; i++)
+		{
+			hpPoints[i] = 0;
+			manaPoints[i] = 0;
+			defPoints[i] = 0;
+		}
         contentPanel.updatePointLabel();
     }
 
     class UpgradePopupContent extends JPanel
     {
         private Label pointsLabel;
+		private String[] charNames;
 
         public UpgradePopupContent()
         {
             setLayout(new BorderLayout());
+			charNames = new String[] {"Line", "Quadratic", "Cubic"};
 
             JPanel titlePanel = getTitle();
             JPanel pointsPanel = getPointAllocationButtons();
@@ -438,22 +446,26 @@ class UpgradePopup extends Popup
 
         public JPanel getPointAllocationButtons()
         {
-            JPanel toReturn = new JPanel(new GridLayout(3, 2));
+            JPanel toReturn = new JPanel(new GridLayout(6, 3));
             PointAllocationHandler pointHandler = new PointAllocationHandler();
-            Button addHP = new Button("+ HP Point", pointHandler, 35);
-            Button removeHP = new Button("- HP Point", pointHandler, 35);
-            Button addMana = new Button("+ Mana Point", pointHandler, 35);
-            Button removeMana = new Button("- Mana Point", pointHandler, 35);
-            Button addDefense = new Button("+ Defense Point", pointHandler, 35);
-            Button removeDefense = new Button("- Defense Point", pointHandler, 35);
 
-            toReturn.setBackground(Color.LIGHT_GRAY);
-            toReturn.add(addHP);
-            toReturn.add(removeHP);
-            toReturn.add(addMana);
-            toReturn.add(removeMana);
-            toReturn.add(addDefense);
-            toReturn.add(removeDefense);
+			toReturn.setBackground(Color.LIGHT_GRAY);
+			for(int i=0; i<charNames.length; i++)
+			{
+				Button addHP = new Button(charNames[i] + ": +5 HP [2pts]", pointHandler, 12);
+				Button addMana = new Button(charNames[i] + ": +3 Mana [1pt]", pointHandler, 12);
+				Button addDef = new Button(charNames[i] + ": +1 Defense [3pts]", pointHandler, 12);
+				Button removeHP = new Button(charNames[i] + ": -5 HP [returns 2pts]", pointHandler, 12);
+				Button removeMana = new Button(charNames[i] + ": -3 Mana [returns 1pt]", pointHandler, 12);
+				Button removeDef = new Button(charNames[i] + ": -1 Defense [returns 3pts]", pointHandler, 12);
+
+				toReturn.add(addHP);
+				toReturn.add(addMana);
+				toReturn.add(addDef);
+				toReturn.add(removeHP);
+				toReturn.add(removeMana);
+				toReturn.add(removeDef);
+			}
 
             return toReturn;
         }
@@ -464,66 +476,84 @@ class UpgradePopup extends Popup
             {
                 String command = evt.getActionCommand();
 
-                if(command.equals("+ HP Point"))
-                {
-                    if(pointsLeft > 0)
-                    {
-                        hpPoints++;
-                        pointsLeft--;
-                    }
-                }
-                else if(command.equals("- HP Point"))
-                {
-                    hpPoints--;
-                    if(hpPoints < 0)
-                    {
-                        hpPoints = 0;
-                    }
-                    else
-                    {
-                        pointsLeft++;
-                    }
-                }
-                else if(command.equals("+ Mana Point"))
-                {
-                    if(pointsLeft > 0)
-                    {
-                        manaPoints++;
-                        pointsLeft--;
-                    }
-                }
-                else if(command.equals("- Mana Point"))
-                {
-                    manaPoints--;
-                    if(manaPoints < 0)
-                    {
-                        manaPoints = 0;
-                    }
-                    else
-                    {
-                        pointsLeft++;
-                    }
-                }
-                else if(command.equals("+ Defense Point"))
-                {
-                    if(pointsLeft > 2)
-                    {
-                        defPoints++;
-                        pointsLeft-=3;
-                    }
-                }
-                else if(command.equals("- Defense Point"))
-                {
-                    defPoints--;
-                    if(defPoints < 0)
-                    {
-                        defPoints = 0;
-                    }
-                    else
-                    {
-                        pointsLeft+=3;
-                    }
-                }
+				for(int i=0; i<charNames.length; i++)
+				{
+					int colonIndex = command.indexOf(":");
+					String charName = command.substring(0, colonIndex);
+
+					if(charNames[i].equals(charName))
+					{
+						if(command.indexOf("HP") != -1)
+						{
+							if(command.indexOf("+") != -1)
+							{
+								if(pointsLeft > 1)
+								{
+									hpPoints[i]++;
+									pointsLeft-=2;
+								}
+							}
+							else
+							{
+								hpPoints[i]--;
+								if(hpPoints[i] < 0)
+								{
+									hpPoints[i] = 0;
+								}
+								else
+								{
+									pointsLeft+=2;
+								}
+							}
+						}
+						else if(command.indexOf("Mana") != -1)
+						{
+							if(command.indexOf("+") != -1)
+							{
+								if(pointsLeft > 0)
+								{
+									manaPoints[i]++;
+									pointsLeft--;
+								}
+							}
+							else
+							{
+								manaPoints[i]--;
+								if(manaPoints[i] < 0)
+								{
+									manaPoints[i] = 0;
+								}
+								else
+								{
+									pointsLeft++;
+								}
+							}
+						}
+						else
+						{
+							if(command.indexOf("+") != -1)
+							{
+								if(pointsLeft > 2)
+								{
+									defPoints[i]++;
+									pointsLeft-=3;
+								}
+							}
+							else
+							{
+								defPoints[i]--;
+								if(defPoints[i] < 0)
+								{
+									defPoints[i] = 0;
+								}
+								else
+								{
+									pointsLeft+=3;
+								}
+							}
+						}
+					}
+				}
 
                 updatePointLabel();
             }
@@ -533,13 +563,13 @@ class UpgradePopup extends Popup
         {
             public void actionPerformed(ActionEvent evt)
             {
-                Character player = GameData.getPlayerCharacter();
-                player.increaseMaxHP(hpPoints*5);
-                player.increaseMaxMana(manaPoints*3);
-                player.increaseDefense(defPoints);
-                
-                System.out.println(player.getMaxHP());
-                System.out.println(player.getMaxMana());
+                Character[] playerChars = GameData.getPlayerChars();
+				for(int i=0; i<playerChars.length; i++)
+				{
+					playerChars[i].increaseMaxHP(5*hpPoints[i]);
+					playerChars[i].increaseMaxMana(3*manaPoints[i]);
+					playerChars[i].increaseDefense(defPoints[i]);
+				}
 
                 popupFrame.setVisible(false);
                 GameData.refreshStats();

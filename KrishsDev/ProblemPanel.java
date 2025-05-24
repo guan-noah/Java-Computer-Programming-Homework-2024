@@ -102,19 +102,18 @@ public class ProblemPanel extends JPanel
 					for(int i=0; i<choices.length; i++)
 					{
 						line = read.nextLine();
-						System.out.println(i);
 	
 						if(line.indexOf("!") != -1)
 						{
 							answer = i;
 							choices[i] = GameData.getDataTo(line, "!");
+							explanations[i] = GameData.dataAfter(line, "|");
 						}
 						else
 						{
 							choices[i] = GameData.getDataTo(line, "|");
+							explanations[i] = GameData.dataAfter(line, "|");
 						}
-	
-						explanations[i] = GameData.dataAfter(line, "|");
 					}
 	
 					questionHeap.add(new Question(category, question, choices, answer, explanations));
@@ -178,20 +177,18 @@ public class ProblemPanel extends JPanel
 
 				String[] options = currQuestion.getAnswerChoices();
 				String[] explanations = currQuestion.getExplanations();
-				for(int i=0; i<explanations.length; i++)
+				for(int i=0; i<options.length; i++)
 				{
-					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+					content += "\nOption " + (i+1) + " [" + options[i] + "]";
 
 					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because ";
+						content += " is correct because " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because ";
+						content += " is incorrect because " + explanations[i];
 					}
-
-					content += explanations[i];
 				}
 
 				correctPopup.setContent(content);
@@ -201,24 +198,22 @@ public class ProblemPanel extends JPanel
 			{
 				content = "Better luck next time... You got the " +
 				"question wrong.\n\nYour Answer: " + selectedAnswer +
-				"\nActual Answer: " + answer + "\n\nExplanations: ";
+				"\nActual Answer: " + answer + "\n\nExplanations:";
 
 				String[] options = currQuestion.getAnswerChoices();
 				String[] explanations = currQuestion.getExplanations();
-				for(int i=0; i<explanations.length; i++)
+				for(int i=0; i<options.length; i++)
 				{
-					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+					content += "\nOption " + (i+1) + " [" + options[i] + "]";
 
 					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because ";
+						content += " is correct because " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because ";
+						content += " is incorrect because " + explanations[i];
 					}
-
-					content += explanations[i];
 				}
 
 				incorrectPopup.setContent(content);
@@ -356,7 +351,7 @@ class Question
 	private String category;
 	private String question; ///problem
 	private String[] answerChoices; ///answer choices
-	private String[] explanations; ///explanations for choices
+	private String[] explanations; ///explanation for question
 	private int answer; ///correct answer index
  
 	public Question(String categoryIn, String questionIn, String[] choicesIn, int answerIn, String[] explanationsIn)

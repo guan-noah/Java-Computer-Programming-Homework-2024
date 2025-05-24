@@ -10,6 +10,7 @@
  * 
  * NOTE: THIS CLASS IS VERY MUCH SUBJECT TO CHANGE!
  */
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -56,7 +57,6 @@ public class Polybound
 
 		JFrame frame = new JFrame("Polybound");
 		JPanel deck = new JPanel(new CardLayout());
-		IntroPanel iPanel = new IntroPanel();
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
 		GamePanel gPanel = new GamePanel();
@@ -71,7 +71,6 @@ public class Polybound
 		GameData.setIntermissionPanel(imPanel);
 		GameData.setSavesPanel(sPanel);
 		
-		///deck.add(iPanel, "intro");
 		deck.add(mPanel, "main menu");
 		deck.add(sPanel, "saves");
 		deck.add(uInfoPanel, "user info");

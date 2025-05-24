@@ -134,13 +134,12 @@ public class SavesPanel extends JPanel
                     GameData.setSaveIndex(index);
                     GameData.switchCard("intermission");
                 }
-                ///TODO get deleting to work
                 else if (command.equals("Delete Save"))
                 {
                     ///remove save
+                    GameData.getSaveList().remove(index);
                     GameData.setSaveIndex(index);
                     GameData.writeData(false);
-                    GameData.getSaveList().remove(index);
                     saveInfos.remove(index);
 
 
