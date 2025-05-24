@@ -171,6 +171,9 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("QUIT")) ///quits the game
 			{
+				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
+					//~ commented out right now because of program inefficiency if kept
+				//~ in the future, we'll have a popup (are you sure you want to exit?)
 				System.exit(0);
 			}
 			else if(command.equals("START")) ///switch to intermission panel
