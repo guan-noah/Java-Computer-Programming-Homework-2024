@@ -1,1 +1,1 @@
-Download directories: https://minhaskamal.github.io/DownGit/#/home
+Download directories: https://download-directory.github.io/
