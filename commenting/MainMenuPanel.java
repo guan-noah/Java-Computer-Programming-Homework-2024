@@ -90,8 +90,26 @@ public class MainMenuPanel extends JPanel
 			"RPG style game where you must take on the role of one of three characters, " +
 			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
 			"In Polybound, you will be tested on a few skills concerning polynomials, " +
-			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
-			"Remainder Theorem, and interpreting graphs.\n\n");
+			"including polynomial arithmetic, end behavior, factoring, and the Polynomial " +
+			"Remainder Theorem.\n\nTo begin playing, press the START button. If this is " +
+			"your first time playing, you will be prompted to create a new game. If you " +
+			"have played before, you will be prompted to load your game.\n\nOnce your " +
+			"game is loaded, you will be taken to the game screen, where you will be able " +
+			"to view information about your character. When you're ready, press the " +
+			"Continue button, and enjoy the game!\n\nIf you would like to see the lore for the " +
+			"game, refer to below.\n\nLore:\nThe Cartesian plane was a peaceful place, " +
+			"where polynomials and shapes lived in harmony. However, one day, that all changed.\n\n" +
+			"It is unknown what caused the Great Split; some say it was a " +
+			"polynomial gone rogue, while others say it was a shape that was too " +
+			"powerful. Some even whispered ideas of it being a circle.\n\nRegardless, " +
+			"the Great Split caused the Cartesian plane to split in two, the Polynomial Federation " +
+			"and the Polygon Empire.\n\nWithin the Polygon Empire, the Square Overlord rules " +
+			" with an iron fist, and has sent out his minions to destroy the Polynomial Federation. " +
+			"Circles in the empire also suffered heavy discrimination from polygons, now yearning " +
+			"for the day they re-achieve autonomy.\n\nThe Polynomial Federation is now in all-out war " +
+			"with the Polygon Empire, and it is up to you to save the day. You must defeat the seemingly " +
+			"unstoppable Polygon army, and restore peace to the Cartesian plane.");
+
 		
 		return toReturn;
 	}
@@ -147,6 +165,7 @@ public class MainMenuPanel extends JPanel
 				{
 					read = new Scanner(dataFile);
 
+					setContent = "High Scores by Enemies Defeated:\n\n"; ///initializes content
 					String line = read.nextLine();
 					if(!line.equals("No high scores."))
 					{
@@ -171,9 +190,6 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("QUIT")) ///quits the game
 			{
-				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
-					//~ commented out right now because of program inefficiency if kept
-				//~ in the future, we'll have a popup (are you sure you want to exit?)
 				System.exit(0);
 			}
 			else if(command.equals("START")) ///switch to intermission panel

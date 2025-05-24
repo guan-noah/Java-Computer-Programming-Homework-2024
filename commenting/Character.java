@@ -6,6 +6,7 @@
  * in the game.
  **/
 
+ ///import libraries
  import java.io.File;
  import java.io.FileNotFoundException;
  import java.util.Scanner;
@@ -23,11 +24,11 @@
 	 private int hp; ///current health
 	 private int mana; ///current mana
 	 private int defense; ///defense of Character
-	 private int rating; ///used to measure the difficulty of the character
 	 private int level; ///level, which will scale enemy stats
 	 
-	/*
-	 * Null character for placeholder. should not be used in working game. 
+	/**
+	 * Null character so that the game doesn't throw an error if
+	 * the player has not selected a character yet.
 	 */
 	public Character()
 	{
@@ -40,27 +41,27 @@
 		maxMana = 0;
 		mana = 0;
 		defense = 0;
-		rating = 0;
 		level = 1;
 	}
-	
-	/*
-	 * initialize character with given name and level 
-	 * should be the main constructor used. 
-	 */
+
+	///Creates a new Character with the specified name and level.
 	 public Character(String nameIn, int levelIn)
 	 {
 		 name = nameIn;
 		 level = levelIn;
 		 moveSet = new ArrayList<>();
-		 loadData();
 
+		 loadData(); ///loads the character data
+
+		 ///gets the character image if applicable
 		 String imagePath = removeSpaces(name + ".png").toLowerCase();
 		 charImage = GameData.loadImage(imagePath);
 	 }
-	/*
-	 * reinitialize the character stats (change fvs to parameter inputs)
-	 */
+
+	 /**
+	  * Manually overrides the stats of this Character. This method is
+	  * only used when loading a save.
+	  **/
 	 public void overrideStats(int hpIn, int maxHPIn, int manaIn, int maxManaIn, int defenseIn)
 	 {
 		hp = hpIn;
@@ -76,21 +77,19 @@
 	  **/
 	 public String removeSpaces(String toEdit)
 	 {
-		 String result = "";//create string to return
+		 String result = "";
 		 
-		 //iterate through original string, rebuilding result string char by char
+		 ///iterates through the String and replaces spaces with hyphens
 		 for(int i=0; i<toEdit.length(); i++)
 		 {
-			 char curr = toEdit.charAt(i);//the current char
+			 char curr = toEdit.charAt(i);
 			 
-			 //if the current char is a space, add a hyphen to result. 
-			 if(curr == ' ')
+			 if(curr == ' ') ///replaces space with hyphen
 			 {
 				 result += "-";
 			 }
-			 else
+			 else ///if not a space, adds character as normal
 			 {
-				 //if it's any other char, simply add it to result as well.
 				 result += curr;
 			 }
 		 }
@@ -99,31 +98,27 @@
 	 }
  
 	 /**
-	  * Attempts to access the file and load the data of the specified 
-	  * Character represented by this instance.
+	  * Attempts to access the "characters.txt" file and load the data of the
+	  * specified Character represented by this instance.
 	  **/
 	 public void loadData()
 	 {
-		 //like Polybound.java, just the standard loading logic 
-		 String fileName = "characters.txt";
+		 String fileName = "characters.txt"; ///file to read from
 		 File characterFile = new File(fileName);
 		 Scanner read = null;
 		 
-		 try
+		 try ///atempts to read from the file
 		 {
 			 read = new Scanner(characterFile);
-			 //get data from file 
-			 cacheData(read);
+			 cacheData(read); ///gets the actual data
 		 }
-		 catch(FileNotFoundException e)
+		 catch(FileNotFoundException e) ///if file is not found (which shouldn't happen)
 		 {
 			 System.err.printf("Error: Could not locate file \"%s\".", fileName);
 		 }
 	 }
-	 /*
-	  * Helper method to loadData, improves encapsulation and actually 
-	  * initializes the fvs
-	  */
+	 
+	 ///Actually gets the data from the "characters.txt" file.
 	 public void cacheData(Scanner readIn)
 	 {
 		 String line = new String();
@@ -140,78 +135,77 @@
 		 line = readIn.nextLine();	//character mana data on this line
 		 maxMana = getRandomRange(line);
 		 
-		 line = readIn.nextLine();//character defense data on this line
+		 line = readIn.nextLine(); //character defense data on this line
 		 defense = getRandomRange(line);
-
-		 rating = readIn.nextInt();
-		 readIn.nextLine();
 		 
 		 description = readIn.nextLine();			//self-explanatory
 		 
-		 line = readIn.nextLine();					///gets the moveset
-		 while(line.indexOf("|") != -1)//processes the moveset; moves separated by bars
+		 ///gets and processes the moveset; moves are separated by bard (|)
+		 line = readIn.nextLine();		   ///gets the moveset line
+		 while(line.indexOf("|") != -1) //processes the moveset
 		 {
 			 moveSet.add(GameData.getDataTo(line, "|"));
 			 line = GameData.dataAfter(line, "|");
 		 }
 		 moveSet.add(line);			//get last move after the last bar
 
-		 scaleByLevel();
+		 scaleByLevel(); ///scales the stats by level
 		 hp = maxHP;
 		 mana = maxMana;
 	 }
-	/*
-	 * This method changes the character's stats based on user's current level.
-	 */
+
+	 /**
+	  * Scales the Character's stats by its level. This does not apply to player
+	  * characters.
+	  **/
 	 public void scaleByLevel()
 	 {
+		///if not a player character, scale stats by level
 		if(!(name.equals("Line") || name.equals("Quadratic") || name.equals("Cubic")))
 		{
-			if(level > 1)
+			if(level > 1) ///if level is greater than 1, scales stats
 			{
-				maxHP += 5*level;
-				maxMana += 3*level;
+				maxHP += 5*level; ///scales max HP
+				maxMana += 3*level; ///scales max mana
 			}
 		}
 	 }
-	/*
-	 * precondition: string is in format 
-	 * int1..int2 
-	 * where int1 is lower and int2 is higher
-	 * This method gets an int from a random range in a String. 
-	 * 	 different from GameData number generator bec. that can be used for other functions
-	 */
+
+	 /**
+	  * Parses the random range from the specified line in the
+	  * "characters.txt" file. The line should be in the format
+	  * "low..high", where low and high are integers.
+
+	  * For example, "10..20" would return a random integer between
+	  * 10 and 20 inclusive.
+	  */
 	 public int getRandomRange(String lineIn)
 	 {
-		 //get low number from line 
 		 int low = Integer.parseInt(GameData.getDataTo(lineIn, ".."));
-		 //get high number from line 
 		 int high = Integer.parseInt(GameData.dataAfter(lineIn, ".."));
-		 //return a random integer between the numbers 
 		 return GameData.getRandom(low, high);
 	 }
 	 
-	 /**
-	  * Returns true if this Character's health is less than 1.
-	  * Returns false otherwise.
-	  **/
+	 ///If this Character is defeated (HP < 1), returns true.
 	 public boolean isDefeated()
 	 {
 		 return hp < 1;
 	 }
-	
-	/*
-	 * Increments the user level. 
-	 */
+
+	 ///Increases this Character's level by 1. This is used for leveling up.
 	 public void increaseLevel()
 	 {
 		level++;
 	 }
-	
+
 	 /**
-	  * This method changes the Character's HP
-	  * by the specified value.
-	  */
+	  * Changes this Character's HP by the specified value.
+	  * If the value is positive, the Character is healed.
+	  * If the value is negative, the Character takes damage.
+	  * 
+	  * Additionally, if defensePierce is true, the Character's defense
+	  * is ignored, and the Character takes all damage.
+	  **/
 	 public void changeHP(int value, boolean defensePierce)
 	 {
 		if(value >= 0) ///heals
@@ -223,14 +217,14 @@
 				hp = maxHP;
 			}
 		}
-		else
+		else ///deals damage
 		{
 			if(!defensePierce) ///no defense pierce
 			{
-				///checks if damage isn't nullifies
+				///checks if damage isn't nullified
 				if(value + defense < 0)
 				{
-					hp += value+defense;
+					hp += value+defense; ///deals new damage
 				}
 			}
 			else ///defense pierce; deals all damage
@@ -244,69 +238,73 @@
 			}
 		}
 	 }
-	/*
-	 * This method increases user mana by parameter value. 
-	 * It prevents mana from going out of bounds. 
-	 */
+
+	 /**
+	  * Changes this Character's mana by the specified value.
+	  * If the value is positive, the Character gains mana.
+	  * If the value is negative, the Character loses mana.
+	  **/
 	 public void changeMana(int value)
 	 {
-		 //adds value to mana 
-		mana += value;
-		
-		//cap mana to maximum mana value 
-		if(mana > maxMana)
+		mana += value; ///changes mana by value
+
+		if(mana > maxMana) ///prevents mana from going over max
 		{
 			mana = maxMana;
 		}
-		//cap mana to 0 points 
-		if(mana < 0)
+
+		if(mana < 0) ///prevents mana from going below 0
 		{
 			mana = 0;
 		}
 	 }
-	 
-	/*
-	 * This method increases maximum hitpoints by parameter amount. 
-	 */
+
+	/**
+	 * Increases this Character's max HP by the specified amount.
+	 * This is used for leveling up.
+	 **/
 	 public void increaseMaxHP(int amount)
 	 {
 		maxHP += amount;
 	 }
-	 
-	/*
-	 * This method increases maximum mana by parameter amount. 
-	 */
+
+
+	 /**
+	  * Increases this Character's max mana by the specified amount.
+	  * This is used for leveling up.
+	  **/
 	 public void increaseMaxMana(int amount)
 	 {
 		maxMana += amount;
 	 }
-	
-	/*
-	 * This method increases defense by parameter amount. 
-	 */
+
+	 /**
+	  * Increases this Character's defense by the specified amount.
+	  * This is used for leveling up.
+	  **/
 	 public void increaseDefense(int amount)
 	 {
 		defense += amount;
 	 }
 
-	 /*
-	  * Returns this Character's name.
-	  */
+	 ///Returns this Character's name.
 	 public String getName()
 	 {
 		 return name;
 	 }
+
 	 /**
-	  * Returns this Character's current health.
+	  * Returns this Character's current hitpoints (HP).
+	  * HP is the Character's health.
 	  **/
 	 public int getHP()
 	 {
 		 return hp;
 	 }
-	
-	/*
-	 * Returns this Character's maximum hitpoints. 
-	 */
+
+	 /**
+	  * Returns this Character's maximum hitpoints (HP).
+	  **/
 	 public int getMaxHP()
 	 {
 		return maxHP;
@@ -314,14 +312,16 @@
 	 
 	 /**
 	  * Returns this Character's current mana.
+	  * Mana is used to perform moves that require it.
 	  **/
 	 public int getMana()
 	 {
 		 return mana;
 	 }
-	/*
-	 * Returns this Character's maximum mana. 
-	 */
+
+	 /**
+	  * Returns this Character's maximum mana.
+	  **/
 	 public int getMaxMana()
 	 {
 		return maxMana;
@@ -329,6 +329,7 @@
 	 
 	 /**
 	  * Returns this Character's defense.
+	  * Defense is used to reduce damage taken from attacks.
 	  **/
 	 public int getDefense()
 	 {
@@ -337,6 +338,8 @@
 
 	 /**
 	  * Returns this Character's level.
+	  * The level is used to scale enemy stats, UNLESS this
+	  * Character is a player character.
 	  */
 	 public int getLevel()
 	 {
@@ -365,18 +368,5 @@
 	 public Image getImage()
 	 {
 		 return charImage;
-	 }
-	 
-	 /* debug method
-	  * Prints out everything about the character. 
-	  */
-	 public void print()
-	 {
-		 System.out.println("Name: |" + name + "|");
-		 System.out.println("Maximum hitpoints: |" + maxHP + "|");
-		 System.out.println("Maximum mana: |" + maxMana + "|");
-		 System.out.println("Defense: |" + defense + "|");
-		 System.out.println("Description: |" + description + "|");
-		 System.out.println("Moveset: |" + moveSet + "|");
 	 }
  }

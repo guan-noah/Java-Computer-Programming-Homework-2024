@@ -12,23 +12,16 @@
  **/
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -39,227 +32,119 @@ import java.util.ArrayList;
 
 public class ProblemPanel extends JPanel
 {
-	private JPanel currProblemContent;
-	private int prevType;
-	private String prevCategory;
-
 	private InfoPopup correctPopup;
 	private InfoPopup incorrectPopup;
-
-	private TextField answerField;
+	
+	private ContentPanel problemContent;
+	private AnswerPanel answerPanel;
 
 	private String[] categories;
-
-    ///these store the questions
-    private ArrayList<ArrayList<MultipleChoiceQuestion>> mcqList;
-    private ArrayList<ArrayList<ShortAnswerQuestion>> saqList;
-    
-    private ShortAnswerQuestion currSAQ;
-    private MultipleChoiceQuestion currMCQ;
+	private ArrayList<Question> questionHeap;
+	private ArrayList<Question> questionHeap2;
+	private Question currQuestion;
 	private String selectedAnswer;
 
     public ProblemPanel()
     {
         setLayout(new BorderLayout());
-
-		currProblemContent = null;
-		prevType = -1;
-		prevCategory = new String();
         
 		correctPopup = new InfoPopup("Correct!");
 		incorrectPopup = new InfoPopup("Incorrect");
 
 		categories = new String[] {"Polynomial Arithmetic",
-		"End Behavior", "Factoring", "Remainder Theorem",
-		"Graphing"};
+		"End Behavior", "Factoring", "Remainder Theorem"};
 
-        mcqList = new ArrayList<ArrayList<MultipleChoiceQuestion>>();
-        saqList = new ArrayList<ArrayList<ShortAnswerQuestion>>();
+		questionHeap = new ArrayList<>();
+		questionHeap2 = new ArrayList<>();
 
-		for(int i=1; i<=5; i++)
-		{
-			mcqList.add(new ArrayList<>());
-			saqList.add(new ArrayList<>());
-		}
-
+		JPanel problemHolder = getProblemContent();
 		JPanel bottomBtnHolder = getBottomButtons();
+		
+		add(problemHolder, BorderLayout.CENTER);
 		add(bottomBtnHolder, BorderLayout.SOUTH);
 
         loadProblems();
-		System.out.println(mcqList);
-		System.out.println(saqList);
     }
 
-    public void getProblem()
-    {
-		boolean successfulProblem = false;
-		String chosenCategory = new String();
-		int problemType = -1;
-
-		while(!successfulProblem)
-		{
-			int chosen = GameData.getRandom(0, 4);
-			problemType = GameData.getRandom(1, 2); ///mcq or saq
-			
-			chosenCategory = categories[chosen];
-
-			currSAQ = null;
-			currMCQ = null;
-			
-			if(problemType == 1) ///mcq
-			{
-				ArrayList<MultipleChoiceQuestion> category = mcqList.get(chosen);
-
-				if(category.size() > 0 && !(prevType == problemType && prevCategory.equals(chosenCategory)))
-				{
-					currMCQ = category.get(GameData.getRandom(0, category.size()-1));
-					successfulProblem = true;
-				}
-			}
-			else ///saq
-			{
-				ArrayList<ShortAnswerQuestion> category = saqList.get(chosen);
-
-				if(category.size() > 0 && !(prevType == problemType && prevCategory.equals(chosenCategory)))
-				{
-					currSAQ = category.get(GameData.getRandom(0, category.size()-1));
-					successfulProblem = true;
-				}
-			}
-		}
-
-		prevType = problemType;
-		prevCategory = chosenCategory;
-
-		JPanel contentHolder = new JPanel(new GridLayout(2,1));
-		ContentPanel contentPanel = new ContentPanel(chosenCategory);
-		AnswerPanel userAnswer = new AnswerPanel();
-		
-		contentHolder.add(contentPanel);
-		contentHolder.add(userAnswer);
-
-		if(currProblemContent != null)
-		{
-			remove(currProblemContent);
-		}
-		currProblemContent = contentHolder;
-		add(contentHolder, BorderLayout.CENTER);
-	}
-
-    ///loads problems
-    public void loadProblems()
-    {
-        String fileName = "problems.txt";
-        File f = new File(fileName);
-        Scanner read = null;
-
-        try
-        {
-            read = new Scanner(f);
-
-            while(read.hasNext())
-            {
-                String line = read.nextLine();
-
-                String category;
-                String questionType;
-                String question;
-                
-                if(line.indexOf("|") != -1)
-                {
-                    category = GameData.getDataTo(line, "|");
-                    line = GameData.dataAfter(line, "|");
-
-                    questionType = GameData.getDataTo(line, "|");
-                    line = GameData.dataAfter(line, "|");
-
-                    if(questionType.equals("Multiple Choice"))
-                    {
-                        question = line;
-                        
-                        String[] answerChoices = new String[4];
-						String[] explanations = new String[4];
-                        int answer = -1;
-                        for(int i=0; i<answerChoices.length; i++)
-                        {
-                            line = read.nextLine();
-                            if(line.indexOf("!") != -1)
-                            {
-                                answer = i;
-								answerChoices[i] = GameData.getDataTo(line, "!");
-                            }
-							else
-							{
-								answerChoices[i] = GameData.getDataTo(line, "|");
-							}
-							explanations[i] = GameData.dataAfter(line, "|");
-                        }
-
-                        addQuestion(category, new MultipleChoiceQuestion(question,
-							answerChoices, answer, explanations));
-                    }
-                    else
-                    {
-                        question = GameData.getDataTo(line, "|");
-                        line = GameData.dataAfter(line, "|");
-
-                        String answer = GameData.getDataTo(line, "|");
-						line = GameData.dataAfter(line, "|");
-
-						String explanation = line;
-
-                        addQuestion(category, new ShortAnswerQuestion(question,
-							answer, explanation));
-                    }
-                }
-            }
-        }
-        catch(FileNotFoundException e)
-        {
-            System.err.printf("Error: Could not locate file \"%s\".", fileName);
-        }
-    }
-
-	public void addQuestion(String categoryIn, MultipleChoiceQuestion mcqIn)
+	public JPanel getProblemContent()
 	{
-		int category = -1;
-		for(int i=0; i<categories.length; i++)
-		{
-			if(categories[i].equals(categoryIn))
-			{
-				category = i;
-			}
-		}
-		
-		if(category == -1)
-		{
-			System.err.printf("Error: Invalid category: %s", categoryIn);
-		}
-		else
-		{
-			mcqList.get(category).add(mcqIn);
-		}
+		JPanel toReturn = new JPanel(new GridLayout(2, 1));
+		problemContent = new ContentPanel();
+		answerPanel = new AnswerPanel();
+
+		toReturn.add(problemContent);
+		toReturn.add(answerPanel);
+
+		return toReturn;
 	}
+
+	public void loadProblems()
+	{
+		String fileName = "problems.txt";
+		File problemFile = new File(fileName);
+		Scanner read = null;
+
+		try
+		{
+			read = new Scanner(problemFile);
+			
+			while (read.hasNext())
+			{
+				String line = read.nextLine();
+				if(!line.equals(""))
+				{
+					String category = GameData.getDataTo(line, "|");
+					String question = GameData.dataAfter(line, "|");
 	
-	public void addQuestion(String categoryIn, ShortAnswerQuestion saqIn)
-	{
-		int category = -1;
-		for(int i=0; i<categories.length; i++)
-		{
-			if(categories[i].equals(categoryIn))
-			{
-				category = i;
+					String[] choices = new String[4];
+					String[] explanations = new String[4];
+					int answer = -1;
+					for(int i=0; i<choices.length; i++)
+					{
+						line = read.nextLine();
+	
+						if(line.indexOf("!") != -1)
+						{
+							answer = i;
+							choices[i] = GameData.getDataTo(line, "!");
+							explanations[i] = GameData.dataAfter(line, "|");
+						}
+						else
+						{
+							choices[i] = GameData.getDataTo(line, "|");
+							explanations[i] = GameData.dataAfter(line, "|");
+						}
+					}
+	
+					questionHeap.add(new Question(category, question, choices, answer, explanations));
+				}
 			}
 		}
-		
-		if(category == -1)
+		catch(FileNotFoundException e)
 		{
-			System.err.printf("Error: Invalid category: %s", categoryIn);
+			System.err.printf("Error: Could not find file \"%s\"", fileName);
+		}
+	}
+
+	public void getProblem()
+	{
+		selectedAnswer = null;
+
+		if(questionHeap.size() > 0)
+		{
+			int getQuestion = GameData.getRandom(0, questionHeap.size()-1);
+			currQuestion = questionHeap.remove(getQuestion);
+			questionHeap2.add(currQuestion);
 		}
 		else
 		{
-			saqList.get(category).add(saqIn);
+			int getQuestion = GameData.getRandom(0, questionHeap2.size()-1);
+			currQuestion = questionHeap2.remove(getQuestion);
+			questionHeap.add(currQuestion);
 		}
+
+		problemContent.getQuestion();
+		answerPanel.getAnswerChoices();
 	}
 
 	public JPanel getBottomButtons()
@@ -278,9 +163,9 @@ public class ProblemPanel extends JPanel
 
 	class BottomButtonHandler implements ActionListener
 	{
-		public void checkMCQ(String toCheck)
+		public void checkQuestion(String toCheck)
 		{
-			String answer = currMCQ.getAnswerChoices()[currMCQ.getAnswer()];
+			String answer = currQuestion.getAnswerChoices()[currQuestion.getAnswer()];
 			boolean isCorrect = toCheck.equalsIgnoreCase(answer);
 			String content;
 
@@ -290,22 +175,20 @@ public class ProblemPanel extends JPanel
 				"question right!\n\nYour Answer: " + selectedAnswer +
 				"\nActual Answer: " + answer + "\n\nExplanations:";
 
-				String[] options = currMCQ.getAnswerChoices();
-				String[] explanations = currMCQ.getExplanations();
-				for(int i=0; i<explanations.length; i++)
+				String[] options = currQuestion.getAnswerChoices();
+				String[] explanations = currQuestion.getExplanations();
+				for(int i=0; i<options.length; i++)
 				{
-					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+					content += "\nOption " + (i+1) + " [" + options[i] + "]";
 
-					if(i == currMCQ.getAnswer())
+					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because ";
+						content += " is correct because " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because ";
+						content += " is incorrect because " + explanations[i];
 					}
-
-					content += explanations[i];
 				}
 
 				correctPopup.setContent(content);
@@ -315,56 +198,23 @@ public class ProblemPanel extends JPanel
 			{
 				content = "Better luck next time... You got the " +
 				"question wrong.\n\nYour Answer: " + selectedAnswer +
-				"\nActual Answer: " + answer + "\n\nExplanations: ";
+				"\nActual Answer: " + answer + "\n\nExplanations:";
 
-				String[] options = currMCQ.getAnswerChoices();
-				String[] explanations = currMCQ.getExplanations();
-				for(int i=0; i<explanations.length; i++)
+				String[] options = currQuestion.getAnswerChoices();
+				String[] explanations = currQuestion.getExplanations();
+				for(int i=0; i<options.length; i++)
 				{
-					content += "\nOption " + (i+1) + " (" + options[i] + ")";
+					content += "\nOption " + (i+1) + " [" + options[i] + "]";
 
-					if(i == currMCQ.getAnswer())
+					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because ";
+						content += " is correct because " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because ";
+						content += " is incorrect because " + explanations[i];
 					}
-
-					content += explanations[i];
 				}
-
-				incorrectPopup.setContent(content);
-				incorrectPopup.show();
-			}
-
-			GameData.switchCard("game");
-			GameData.executeUserMove(isCorrect);
-		}
-
-		public void checkSAQ(String toCheck)
-		{
-			String answer = currSAQ.getAnswer();
-			boolean isCorrect = toCheck.equalsIgnoreCase(answer);
-			String content;
-
-			if(isCorrect)
-			{
-				content = "Nice job! You got the " +
-				"question right!\n\nYour Answer: " + selectedAnswer +
-				"\nActual Answer: " + answer + "\n\nExplanation: " +
-				currSAQ.getExplanation();
-
-				correctPopup.setContent(content);
-				correctPopup.show();
-			}
-			else
-			{
-				content = "Better luck next time... You got the " +
-				"question wrong.\n\nYour Answer: " + selectedAnswer +
-				"\nActual Answer: " + answer + "\n\nExplanation: " +
-				currSAQ.getExplanation();
 
 				incorrectPopup.setContent(content);
 				incorrectPopup.show();
@@ -380,20 +230,9 @@ public class ProblemPanel extends JPanel
 
 			if(command.equals("SUBMIT"))
 			{
-				if(currMCQ == null)
+				if(selectedAnswer != null)
 				{
-					if(answerField.isSelected())
-					{
-						selectedAnswer = answerField.getText();
-						checkSAQ(selectedAnswer);
-					}
-				}
-				else
-				{
-					if(selectedAnswer != null)
-					{
-						checkMCQ(selectedAnswer);
-					}
+					checkQuestion(selectedAnswer);
 				}
 			}
 			else if(command.equals("RETURN"))
@@ -406,56 +245,48 @@ public class ProblemPanel extends JPanel
     ///to be completed
     class ContentPanel extends JPanel
     {
-		public ContentPanel(String categoryIn)
+		private Label category;
+		private Label question;
+
+		public ContentPanel()
 		{
 			setBackground(Color.GRAY);
 			setLayout(new FlowLayout(FlowLayout.CENTER, 500, 40));
-			if(currMCQ == null) ///problem type is saq
-			{
-				Label category = new Label(categoryIn.toUpperCase(), 55);
-				Label question = new Label(currSAQ.getQuestion(), 25);
 
-				add(category);
-				add(question);
-			}
-			else ///problem type is mcq
-			{
-				Label category = new Label(categoryIn.toUpperCase(), 65);
-				Label question = new Label(currMCQ.getQuestion(), 40);
-				Label demoMode = new Label("DEMO MODE ON", 40);
+			category = new Label("", 65);
+			question = new Label("", 40);
+			Label demoMode = new Label("DEMO MODE ON", 40);
 
-				add(category);
-				add(question);
-				if(GameData.isDemoModeOn())
-				{
-					add(demoMode);
-				}
+			add(category);
+			add(question);
+			if(GameData.isDemoModeOn())
+			{
+				add(demoMode);
 			}
+		}
+
+		public void getQuestion()
+		{
+			category.setText(currQuestion.getCategory().toUpperCase());
+			question.setText(currQuestion.getQuestion());
 		}
     }
     
     class AnswerPanel extends JPanel
     {
+		private JRadioButton[] answerChoices;
+		private ButtonGroup bg;
+
 		public AnswerPanel()
 		{
 			setBackground(Color.DARK_GRAY);
 			setLayout(new FlowLayout(FlowLayout.CENTER, 20, 60));
 
-			selectedAnswer = null;
+			answerChoices = getRadioButtons();
 
-			if(currMCQ == null) ///problem type is saq
+			for(int i=0; i<answerChoices.length; i++)
 			{
-				answerField = getAnswerField();
-				add(answerField);
-			}
-			else ///problem type is mcq
-			{
-				JRadioButton[] answerChoices = getAnswerChoices();
-
-				for(int i=0; i<answerChoices.length; i++)
-				{
-					add(answerChoices[i]);
-				}
+				add(answerChoices[i]);
 			}
 		}
 
@@ -468,17 +299,16 @@ public class ProblemPanel extends JPanel
 			return toReturn;
 		}
 
-		public JRadioButton[] getAnswerChoices()
+		public JRadioButton[] getRadioButtons()
 		{
 			JRadioButton[] toReturn = new JRadioButton[4];
-			ButtonGroup bg = new ButtonGroup();
-			String[] answerChoices = currMCQ.getAnswerChoices();
+			bg = new ButtonGroup();
 			AnswerChoiceHandler ansHandler = new AnswerChoiceHandler();
 
-			for(int i=0; i<answerChoices.length; i++)
+			for(int i=0; i<toReturn.length; i++)
 			{
-				toReturn[i] = new JRadioButton(answerChoices[i]);
-				toReturn[i].setFont(new Font("SansSerif", Font.BOLD, 30));
+				toReturn[i] = new JRadioButton("");
+				toReturn[i].setFont(new Font("Oswald Regular", Font.BOLD, 25));
 				toReturn[i].setForeground(Color.WHITE);
 				toReturn[i].setOpaque(false);
 				toReturn[i].addActionListener(ansHandler);
@@ -486,6 +316,17 @@ public class ProblemPanel extends JPanel
 			}
 
 			return toReturn;
+		}
+
+		public void getAnswerChoices()
+		{
+			bg.clearSelection();
+			String[] choices = currQuestion.getAnswerChoices();
+			for(int i=0; i<answerChoices.length; i++)
+			{
+				answerChoices[i].setText(choices[i]);
+				System.out.println(answerChoices[i].getActionCommand());
+			}
 		}
 
 		class AnswerChoiceHandler implements ActionListener
@@ -497,3 +338,62 @@ public class ProblemPanel extends JPanel
 		}
 	}
 }
+/**
+ * Krish Kumar
+ * Period 6
+ * Question.java
+ * 
+ * This class represents a multiple choice question.
+ */
+
+class Question
+{
+	private String category;
+	private String question; ///problem
+	private String[] answerChoices; ///answer choices
+	private String[] explanations; ///explanation for question
+	private int answer; ///correct answer index
+ 
+	public Question(String categoryIn, String questionIn, String[] choicesIn, int answerIn, String[] explanationsIn)
+	{
+		category = categoryIn;
+		question = questionIn;
+		answerChoices = choicesIn;
+		answer = answerIn;
+		explanations = explanationsIn;
+	}
+ 
+	/**
+	 * Returns the question. 
+	 **/
+	public String getQuestion()
+	{
+		return question;
+	}
+ 
+	/**
+	 * Returns the answer choices. 
+	 **/
+	public String[] getAnswerChoices()
+	{
+		return answerChoices;
+	}
+ 
+	/**
+	 * Returns the answer. 
+	 **/
+	public int getAnswer()
+	{
+		return answer;
+	}
+ 
+	public String[] getExplanations()
+	{
+		return explanations;
+	}
+
+	public String getCategory()
+	{
+		return category;
+	}
+} 
