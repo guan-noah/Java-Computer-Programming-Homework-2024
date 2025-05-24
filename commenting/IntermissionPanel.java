@@ -8,7 +8,6 @@
  * player's current stats.
  **/
 
-///import libraries
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,7 +28,6 @@ public class IntermissionPanel extends JPanel
 {
 	private JTextArea infoTextArea;
 	private StatsPanel statsPanel;
-	private Label charLabel;
 
 	public IntermissionPanel()
 	{
@@ -54,19 +52,12 @@ public class IntermissionPanel extends JPanel
 		JPanel toReturn = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
 		int buttonFont = 55;
 		SelectionHandler selectHandler = new SelectionHandler();
-		Button prevCharacterBtn = new Button("<", selectHandler, buttonFont);
-		charLabel = new Label("Character", 40);
-		Button nextCharacterBtn = new Button(">", selectHandler, buttonFont);
 		Button continueButton = new Button("Continue", selectHandler, buttonFont);
 		Button returnButton = new Button("Return to Menu", selectHandler, buttonFont);
 		
-		charLabel.setForeground(Color.WHITE);
 		toReturn.setBackground(Color.DARK_GRAY);
-		toReturn.add(prevCharacterBtn);
-		toReturn.add(charLabel);
-		toReturn.add(nextCharacterBtn);
-		toReturn.add(continueButton);
 		toReturn.add(returnButton);
+		toReturn.add(continueButton);
 		
 		return toReturn;
 	}
@@ -74,11 +65,11 @@ public class IntermissionPanel extends JPanel
 	public JScrollPane getPlayerInfo()
 	{
 		///creates new JTextArea and JScrollPane
-		infoTextArea = new JTextArea(30, 18);
+		infoTextArea = new JTextArea(30, 13);
 		JScrollPane toReturn = new JScrollPane(infoTextArea);
 			
 		///text area setup
-		infoTextArea.setFont(new Font("Share Tech Regular", Font.PLAIN, 25));
+		infoTextArea.setFont(new Font("Verdana", Font.PLAIN, 25));
 		infoTextArea.setBackground(Color.DARK_GRAY);
 		infoTextArea.setForeground(Color.WHITE);
 		infoTextArea.setLineWrap(true);
@@ -99,15 +90,12 @@ public class IntermissionPanel extends JPanel
 		int enemiesDefeated = GameData.getEnemiesDefeated();
 		Character player = GameData.getPlayerCharacter();
 
-		charLabel.setText(player.getName());
-
-		infoTextArea.setText(userName + "\n" + "Defeated " + enemiesDefeated +
-			" enemies\n\n" + player.getName() + "\nLevel " + player.getLevel() +
-			"\n\n" + player.getDescription() +
+		infoTextArea.setText(userName + "\n\nCharacter Info\nLevel " + player.getLevel() +
+			"\nDefeated " + enemiesDefeated + " enemies\n\n" + player.getDescription() +
 			"\n\nMoves:\n");
 
 		ArrayList<String> moveSet = player.getMoveset();
-		int bound = player.getLevel()/3 + 3;
+		int bound = player.getLevel()+2;
 		if(bound > moveSet.size())
 		{
 			bound = moveSet.size();
@@ -136,22 +124,14 @@ public class IntermissionPanel extends JPanel
 			
 			if(command.equals("Continue"))
 			{
-				GameData.startGame(GameData.getEnemiesDefeated() < 1);
+				GameData.startGame(!GameData.gameIsStarted());
+				
 				GameData.switchCard("game");
+				///add actual code later
 			}
 			else if(command.equals("Return to Menu"))
 			{
 				GameData.switchCard("main menu");
-			}
-			else if(command.equals("<"))
-			{
-				GameData.decrementCharViewing();
-				refreshStats();
-			}
-			else if(command.equals(">"))
-			{
-				GameData.incrementCharViewing();
-				refreshStats();
 			}
 		}
 	}
@@ -182,7 +162,7 @@ public class IntermissionPanel extends JPanel
 		{
 			super.paintComponent(g);
 			
-			g.setFont(new Font("Share Tech Regular", Font.BOLD, 100));
+			g.setFont(new Font("Verdana", Font.BOLD, 100));
 
 			///as of now, only health is displayed for testing
 			Character player = GameData.getPlayerCharacter();
