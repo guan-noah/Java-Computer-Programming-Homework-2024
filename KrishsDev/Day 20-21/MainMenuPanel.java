@@ -91,7 +91,18 @@ public class MainMenuPanel extends JPanel
 			"and use your polynomial skills to save the world from the Polygon army.\n\n" +
 			"In Polybound, you will be tested on a few skills concerning polynomials, " +
 			"including polynomial arithmetic, end behavior, factoring, the Polynomial " +
-			"Remainder Theorem, and interpreting graphs.\n\n");
+			"Remainder Theorem, and interpreting graphs.\n\n");//we should turn this into a text file
+		
+		return toReturn;
+	}
+	/*
+	 * This method is responsible for setting up the InfoPopup that will
+	 * be the "Options" popup.
+	 */
+	public OptionsPopup getOptionsPopup()
+	{
+		OptionsPopup toReturn = new OptionsPopup("Options"); //creates new InfoPopup
+		toReturn.setContent("");//we should turn this into a text file
 		
 		return toReturn;
 	}
@@ -138,16 +149,19 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("HI-SCORES")) ///shows the "High Scores" popup
 			{
+				//standard file io logic
 				String fileName = "highscores.txt";
 				File dataFile = new File(fileName);
 				Scanner read = null;
+				//for adding to popup data
 				String setContent = "";
-
+				
 				try
 				{
 					read = new Scanner(dataFile);
-
-					String line = read.nextLine();
+					
+					//only executes if scanner initialized successfully 
+					String line = read.nextLine();//get line from high scores 
 					if(!line.equals("No high scores."))
 					{
 						setContent += line + "\n";
@@ -175,6 +189,7 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("START")) ///switch to intermission panel
 			{
+				//show game found popup if already a game started 
 				if(GameData.gameIsStarted())
 				{
 					gameFoundPopup.show();
