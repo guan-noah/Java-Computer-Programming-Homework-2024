@@ -49,10 +49,10 @@ public class GamePanel extends JPanel
 	private UserInfo uInfo;		//JPanel for userInfo (w/ paintComponent) 
 	private JMenuBar moves;				//Options arrangement components 
 	private JMenu moveMenu;
-	private Button guide;
+	private Button guide;			//navigation components
 	private Button next;
 	private Font optionFont;
-	private Round round;
+	private Round round;			//for game progression
 
 	private UpgradePopup upgradePopup;
 	
@@ -548,36 +548,46 @@ public class GamePanel extends JPanel
 				g.fillRect(600, 150, 200, 200);
 			}
 		}
-		
+		/*
+  		 * called by game ui timer. calls paintComponent(). 
+     		 */
 		public void actionPerformed(ActionEvent evt)
 		{
+			//if the timer fv called it, call repaint 
 			if(evt.getSource() == updateTimer)
 			{
 				repaint();
 			}
 		}
-
+		//MOUSE EVENTS. 
+		/*
+  		 * show description if mouse is hovering over range. 
+     		 */
 		public void mouseMoved(MouseEvent evt)
 		{
+			//get mouse location 
 			int x = evt.getX();
 			int y = evt.getY();
 
+			//if in range (200, 150) to (350, 600)
 			if(x >= 600 && x <= 200 && y >= 150 && y <= 350)
 			{
+				//show description
 				descriptionShowing = true;
 			}
 			else
 			{
+				//hide description
 				descriptionShowing = false;
 			}
 		}
-		public void mouseDragged(MouseEvent evt) {}
+		public void mouseDragged(MouseEvent evt) {}//to complete implementation
 	}
 	/* User Info panel; SOUTH */
 	class UserInfo extends JPanel implements ActionListener
 	{
-		private Timer updateInfoTimer;
-
+		private Timer updateInfoTimer;		//another one of these guys to update periodically! 
+		
 		public UserInfo()
 		{
 			setBackground(Color.LIGHT_GRAY);
@@ -586,7 +596,7 @@ public class GamePanel extends JPanel
 		}
 		
 		/*
-		 * paintComponent method. Called by repaint(). 
+		 * paintComponent method. Called by repaint(). Draws user information. 
 		 */
 		public void paintComponent(Graphics g)
 		{
@@ -597,27 +607,29 @@ public class GamePanel extends JPanel
 			
 			g.setFont(new Font("Verdana", Font.BOLD, 35));
 			g.drawString(user.getName(), 0, 35);
-			
+
+			//draw user hp, mana, and defense
 			g.setFont(new Font("Verdana", Font.BOLD, 25));
 			g.drawString("HP: " + user.getHP() + "/" + user.getMaxHP(), 0, 70);
 			g.drawString("Mana: " + user.getMana() + "/" + user.getMaxMana(), 0, 105);
 			g.drawString("Defense: " + user.getDefense(), 0, 140);
-			
-			//placeholders 
 		}
 		
 		/*
-		 * paintComponent method. Called by repaint(). 
+		 * actionPerformed method. Called by timer, calls repaint(). 
 		 */
 		public void actionPerformed(ActionEvent evt)
 		{
-			//
+			//if the timer called it
 			if(evt.getSource() == updateInfoTimer)
 			{
 				repaint();
 			}
 		}
 	}
+	/*
+	 * move listener class. 
+  	 */
 	class MovesListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent evt)
@@ -627,6 +639,7 @@ public class GamePanel extends JPanel
 			///integrate later, for now here for testing
 			boolean enoughMana = round.setMoveToExecute(moveName);
 
+			//only get the problem if enough mana
 			if(enoughMana)
 			{
 				//round.executeUserMove(true);
@@ -638,6 +651,9 @@ public class GamePanel extends JPanel
 			}
 		}
 	}
+	/*
+	 * the listener class for navigation buttons to show another panel 
+	 */
 	class ShowOther implements ActionListener
 	{
 		public void actionPerformed(ActionEvent evt)
@@ -654,10 +670,7 @@ public class GamePanel extends JPanel
 			}
 			else if(command.equals("Next")) //if user pressed next button, next game and print to console. 
 			{
-				//~ gameTurnInfo.append("\n\t(Next button pressed.)"); //in the future, uncomment with the popup; 
-					//~ commented out right now because of program inefficiency if kept
-				//~ in the future, we'll have a popup (are you sure you want to exit?)
-				//~ (for debugging purposes)
+				//based on user status, switch functions
 				if(!user.isDefeated())
 				{
 					//if user is not defeated, show intermission panel 
