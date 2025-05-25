@@ -1,5 +1,5 @@
 /*
- * Noah Guan
+ * Noah Guan and Krish Kumar
  * Period 6
  * Move.java
  * Modeled after Character, this class represents a move 
@@ -11,13 +11,15 @@
  import java.io.File;
  import java.io.FileNotFoundException;
  import java.util.Scanner;
+ import java.awt.Image;
+ import java.util.ArrayList;
  
  public class Move
  {
      private String name, description; //name and description of Move
      private int manaCost;
      private int[] hp, mana;
-         //effect to user, second is effect to target 
+         //effect to user, second is effect to target of move 
          //positive numbers indicate an increase of a stat
          //negative is the opposite
     private boolean isSpecial;
@@ -60,13 +62,13 @@
         boolean found = false;		
          while(readIn.hasNext() && !found)
          {
-             String line = readIn.nextLine();	//character name on this line
-             line = line.trim();
-
-             if (line.equals(name))
+             String line = readIn.nextLine().trim();//character name on this line, no whitespaces 
+			
+             if (line.equals(name))//if line is only the Move name (normal Move) 
              {
-                manaCost = readIn.nextInt();
-                readIn.nextLine();
+				 //read in and store information from file 
+                manaCost = readIn.nextInt();//read in mana cost as the next int
+                readIn.nextLine();//DISCARD the rest of the line 
 
                 for(int i = 0; i < hp.length; i++)//2 times; once for user and once for enemy
                 {
@@ -77,27 +79,37 @@
                     mana[i] = getRandomRange(line);
                 }
                 
-                description = readIn.nextLine();  
-
+                description = readIn.nextLine();//read in move description as the next line 
+				
+				//not a special move 
                 isSpecial = false;
+                //doesn't do area damage 
                 doesAreaDamage = false;
+                //stop reading in moves 
                 found = true;
              }
-             else if(line.equals(name + "!"))
+             else if(line.equals(name + "!"))//move name + ! = special move 
              {
-                manaCost = readIn.nextInt();
+				 //read in and store information from file (same logic as above) 
+                manaCost = readIn.nextInt();//mana cost = next int 
                 readIn.nextLine();
-
-                description = readIn.nextLine();
-
+				
+                description = readIn.nextLine();//description on next line
+				
+				//doesn't have character damage or mana data (to change)
+				
+				//special move 
                 isSpecial = true;
+                //doesn't do area damage 
                 doesAreaDamage = false;
+                //stop reading in moves 
                 found = true;
              }
-             else if(line.equals(name + "*"))
+             else if(line.equals(name + "*"))//move name + * = area attack move 
              {
-                manaCost = readIn.nextInt();
-                readIn.nextLine();
+				 //same logic as above's normal move 
+                manaCost = readIn.nextInt();//mana cost is next int
+                readIn.nextLine();//discard rest of line 
 
                 for(int i = 0; i < hp.length; i++)//2 times; once for user and once for enemy
                 {
@@ -108,19 +120,39 @@
                     mana[i] = getRandomRange(line);
                 }
 
-                description = readIn.nextLine();
-
+                description = readIn.nextLine();//description is next line 
+				
+				//not a special move 
                 isSpecial = false;
+                //does area damage 
                 doesAreaDamage = true;
+                //stop reading in moves 
                 found = true;
              }
          }
+         
+         /* workshopped idea -- special effects 
+         line = readIn.nextLine(); //gets the extra (special) effects
+         while(line.indexOf("|") != -1)
+         {
+             moveSet.add(GameData.getDataTo(line, "|"));
+             line = GameData.dataAfter(line, "|");
+         }
+         moveSet.add(line);			//get last effect after the last bar
+         */
      }
-     public int getRandomRange(String lineIn)//gets an int from a random range in a String
-     //different from GameData number generator bec. that can be used for other functions
+     
+     /*
+      * This method gets an int from a random range in a specially formatted String
+      * different from GameData number generator bec. that can be used for other functions
+      */
+     public int getRandomRange(String lineIn)
      {
+		 //get low value in string 
          int low = Integer.parseInt(GameData.getDataTo(lineIn, ".."));
+         //get high value in string 
          int high = Integer.parseInt(GameData.dataAfter(lineIn, ".."));
+         //return a random number between low and high 
          return GameData.getRandom(low, high);
      }
      
@@ -151,6 +183,7 @@
      /**
       * This method assumes that a mana check has already been done.
       */
+      //Noah will comment this later as Krish is editing this right now. 
      public String executeMove(Character executing, Character toExecuteOn, int turn, boolean isEnemy)
      {
         String defaultReturn = executing.getName() + " used " + name + ".";
@@ -210,9 +243,7 @@
                 executing.changeMana(-1*manaCost); ///decreases mana
                 ///passes in a negative value so that it recognizes damage
                 toExecuteOn.changeHP(damage, true); ///pierce
-
-                if(damage < 0)
-                    GameData.setEnemyShake(true);
+                GameData.setEnemyShake(true);
                 
                 return "Square Buster! Dealt " + defense + "^2 = " + damage + " damage!";
             }
@@ -223,11 +254,11 @@
                 int maxMana = executing.getMaxMana();
 
                 executing.changeMana(-1*maxMana); ///drains all mana
+                GameData.setEnemyShake(true);
 
                 if(hp == half)
                 {
                     toExecuteOn.changeHP(-1*toExecuteOn.getHP(), true); ///OVERKILL!
-                    GameData.setEnemyShake(true);
                     return "VERTEX OF FINALITY!!!";
                 }
                 else
@@ -244,12 +275,11 @@
                     damage = -64;
                 }
 
-                executing.changeMana(-1*manaCost); ///decreases mana by cost
+                executing.changeMana(-1*manaCost);
                 ///passes in a negative value so that it recognizes damage
-                toExecuteOn.changeHP(damage, false); ///no pierce
+                toExecuteOn.changeHP(-1*damage, false); ///no pierce
 
-                if(damage < 0)
-                    GameData.setEnemyShake(true);
+                GameData.setEnemyShake(true);
 
                 return "Quadratic Growth! Dealt " + damage + " damage!";
             }
@@ -270,9 +300,7 @@
                 executing.changeMana(-1*manaCost);
 
                 toExecuteOn.changeHP(damage, true);
-
-                if(damage < 0)
-                    GameData.setEnemyShake(true);
+                GameData.setEnemyShake(true);
 
                 return toReturn;
             }
@@ -282,12 +310,10 @@
                 int damage = -20;
                 String toReturn = "Slope Breaker! Dealt" + damage + " damage!";
 
-                executing.changeMana(-1*manaCost);
-
                 if(enemyHP % 5 == 0)
                 {
                     damage *= 2;
-                    toReturn = "Critical hit! Slope Breaker dealt " + damage + " damage!";
+                    toReturn = "Critical hit! Slope Breaker dealth " + damage + " damage!";
                 }
 
                 toExecuteOn.changeHP(damage, true);
@@ -297,14 +323,12 @@
             }
             else if(name.equals("Strike of Tangency"))
             {
-                int maxMana = executing.getMaxMana();
                 int enemyHP = toExecuteOn.getHP();
                 int enemyMax = toExecuteOn.getMaxHP();
                 int hpPercentage = (int)(100 * (double)enemyHP / enemyMax);
                 int damage = -5;
-                String toReturn = executing.getName() + " did not attack at the right time... Dealt " + damage + " damage.";
 
-                executing.changeMana(-1*maxMana); ///drains all mana
+                String toReturn = executing.getName() + " did not attack at the right time... Dealt " + damage + " damage.";
 
                 if(hpPercentage % 25 == 0 && hpPercentage != 100)
                 {
@@ -323,8 +347,6 @@
                 int damage;
                 String toReturn;
 
-                executing.changeMana(-1*manaCost);
-
                 if(enemyEffect > 1)
                 {
                     damage = GameData.getRandom(-20, -15);
@@ -338,9 +360,6 @@
 
                 toExecuteOn.changeHP(damage, false);
 
-                if(damage < 0)
-                    GameData.setEnemyShake(true);
-
                 return toReturn;
             }
             else if(name.equals("Triple Root Surge"))
@@ -348,8 +367,6 @@
                 int succesfulRolls = 0;
                 int damage = 0;
                 String toReturn = "BACKFIRED! Triple Root Surge dealt 30 damage to the whole team...";
-
-                executing.changeMana(-1*manaCost);
 
                 for(int i=1; i<=3; i++)
                 {
@@ -363,28 +380,19 @@
 
                 if(succesfulRolls == 0)
                 {
-                    Character[] playerChars = GameData.getPlayerChars();
-                    for(int i=0; i<playerChars.length; i++)
-                    {
-                        playerChars[i].changeHP(-30, true);
-                    }
-                    GameData.setPlayersShake(true);
+                    executing.changeHP(-30, false);
                 }
                 else
                 {
-                    executing.changeHP(damage, false);
-                    GameData.setEnemyShake(true);
+                    toExecuteOn.changeHP(damage, true);
                 }
 
                 return toReturn;
             }
             else if(name.equals("Dimensions of Possibility"))
             {
-                int maxMana = executing.getMaxMana();
                 int getDimension = GameData.getRandom(1, 100);
                 String toReturn;
-
-                executing.changeMana(-1*maxMana); ///drains all mana
 
                 if(getDimension <= 45)
                 {
@@ -398,15 +406,8 @@
                 }
                 else
                 {
-                    int randomMember;
+                    int randomMember = GameData.getRandom(0, 2);
                     Character[] playerChars = GameData.getPlayerChars();
-
-                    do
-                    {
-                        randomMember = GameData.getRandom(0, 2);
-                    }
-                    while(playerChars[randomMember].isDefeated());
-
                     for(int i=0; i<playerChars.length; i++)
                     {
                         playerChars[i].changeHP(-50, true);
@@ -439,66 +440,25 @@
                 }
 
                 toExecuteOn.changeHP(damage, false);
-                if(damage < 0)
-                    GameData.setEnemyShake(true);
-
                 return executing.getName() + " rolled " + succesfulRolls + " successful rolls! Pentaforce dealt " + 
                     damage + " damage.";
             }
             else if(name.equals("Hex Burst"))
             {
                 String toReturn = executing.getName() + " succesfully used Hex Burst! Dealt "
-                    + "40 damage to the whole team ";
+                    + "40 damage to the whole team...";
                 Character[] playerChars = GameData.getPlayerChars();
-
-                int randomMember;
-                do
-                {
-                    randomMember = GameData.getRandom(0, 2);
-                }
-                while(playerChars[randomMember].isDefeated());
-
                 for(int i=0; i<playerChars.length; i++)
                 {
                     playerChars[i].changeHP(-40, true);
-                    if(i == randomMember)
-                    {
-                        playerChars[i].changeMana(-20);
-                        toReturn += "and stole 20 mana from " + playerChars[i].getName() +
-                            "...";
-                    }
                 }
-
-                GameData.setPlayersShake(true);
 
                 int randomChance = GameData.getRandom(1, 100);
                 if(randomChance < 6)
                 {
                     executing.changeHP(-60, true);
-                    GameData.setEnemyShake(true);
-                    toReturn += " but it backfired! Dealt 60 damage to itself!";
+                    toReturn = executing.getName() + "used Hex Burst... but it backfired! Dealt 60 damage to itself!";
                 }
-
-                return toReturn;
-            }
-            else if(name.equals("Perfect Symmetry"))
-            {
-                int hp = executing.getHP();
-                int mana = executing.getMana();
-                int damage = 0;
-                String toReturn = executing.getName() + " did not achieve symmetry... " +
-                    "Perfect Symmetry failed.";
-
-                executing.changeMana(-1*manaCost);
-
-                if(hp == mana)
-                {
-                    damage = -1*toExecuteOn.getMaxHP();
-                    toReturn = executing.getName() + " has achieved perfect symmetry... " +
-                        "Defeated " + toExecuteOn.getName() + " instantly.";
-                }
-
-                toExecuteOn.changeHP(damage, true);
 
                 return toReturn;
             }

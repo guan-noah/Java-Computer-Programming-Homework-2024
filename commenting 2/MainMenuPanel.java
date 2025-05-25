@@ -1,11 +1,13 @@
 /**
- * Krish Kumar
+ * Krish Kumar and Noah Guan
  * Period 6
  * MainMenuPanel.java
  * 
  * This class is a JPanel for the main menu that appears when you open
  * the game. It contains the navigation buttons, and displays the game
  * logo as well.
+ * 
+ * NOTE: THIS CLASS IS NOT COMPLETE!
  **/
 
 ///import libraries
@@ -15,6 +17,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Color;
+import java.awt.CardLayout;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -46,7 +49,7 @@ public class MainMenuPanel extends JPanel
 		///gets the popups
 		helpPopup = getHelpPopup();
 		highScorePopup = getHighScorePopup();
-		optionsPopup = new OptionsPopup();
+		optionsPopup = getOptionsPopup();
 		gameFoundPopup = new GameFoundPopup();
 		
 		///button setup
@@ -74,6 +77,17 @@ public class MainMenuPanel extends JPanel
 		add(helpButton);
 		
 		setBackground(Color.GRAY); ///sets background color to gray
+	}
+	
+	/*
+	 * This method is responsible for setting up the InfoPopup that will
+	 * be the "Options" popup.
+	 */
+	public OptionsPopup getOptionsPopup()
+	{
+		OptionsPopup toReturn = new OptionsPopup(); //creates new OptionsPopup
+		//add implementation last if time permits 
+		return toReturn;
 	}
 	
 	/**
@@ -153,44 +167,59 @@ public class MainMenuPanel extends JPanel
 			}
 			else if(command.equals("HI-SCORES")) ///shows the "High Scores" popup
 			{
+				//standard file io logic
 				String fileName = "highscores.txt";
 				File dataFile = new File(fileName);
 				Scanner read = null;
+				//for adding to popup data
 				String setContent = "";
 
 				try
 				{
 					read = new Scanner(dataFile);
-
+					
+					//only executes if scanner initialized successfully 
 					setContent = "High Scores by Enemies Defeated:\n\n"; ///initializes content
-					String line = read.nextLine();
+					String line = read.nextLine();//get line from high scores
 					if(!line.equals("No high scores."))
 					{
+						//parse line into set content 
 						setContent += line + "\n";
+						//while scanner has next 
 						while(read.hasNext())
 						{
+							//parse rest of lines into set content 
 							setContent += read.nextLine() + "\n";
 						}
 					}
 					else
 					{
+						//default no high scores message 
 						setContent = "No high scores :(\nPlay a game to achieve one! :D";
 					}
 				}
 				catch(FileNotFoundException e)
 				{
-					setContent = "Oh no! We couldn't load your high score data!";
+					//error 
+					setContent = "Oh no! We couldn't load your high " + 
+						"score data!\n\t(Error: Couldn't access highScores.txt)";
 				}
-
+				
+				//set high score popup content to setContent  
 				highScorePopup.setContent(setContent); 
+				//show high score popup 
 				highScorePopup.show();
 			}
 			else if(command.equals("QUIT")) ///quits the game
 			{
+				//~ gameTurnInfo.append("\n\t(Exit button pressed.)"); //in the future, uncomment with the popup; 
+					//~ commented out right now because of program inefficiency if kept
+				//~ in the future, we'll have a popup (are you sure you want to exit?)
 				System.exit(0);
 			}
 			else if(command.equals("START")) ///switch to intermission panel
 			{
+				//show game found popup if already a game started 
 				if(GameData.gameIsStarted())
 				{
 					gameFoundPopup.show();

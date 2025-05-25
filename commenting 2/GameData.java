@@ -5,6 +5,7 @@
   * 
   * Contains shared data between classes, as well as utility methods
   * that are used throughout the game.
+  * writeData and writeHighScore need documentation
   */
 
 ///import libraries
@@ -44,26 +45,10 @@ import java.util.Scanner;
 	private static Character player; ///the current character being viewed
 
 	private static String userName; ///player name
-	private static String password; ///player password
 	private static int enemiesDefeated; ///enemies defeated
 	private static boolean gameStarted; ///essentially if the tutorial is completed
 										///since you need to complete it to actually
 										///save your save
-										
-	private static boolean likedGame; ///if true, gives player +5 hp for their characters
-
-	///The following methods are either option stuff, or joke stuff.
-	
-	public static void gameLiked(boolean liked)
-	{
-		likedGame = liked;
-	}
-
-	public static boolean gameIsLiked()
-	{
-		return likedGame;
-	}
-
 	//CARDLAYOUT AND PANEL SWITCHING METHODS
 	
 	///Gets the main CardLayout and its holder.
@@ -308,7 +293,7 @@ import java.util.Scanner;
 		return toReturn;
 	}
 
-	/**
+	/*
 	 * Our game autosaves information and writes data constantly throughout the game. 
 	 * saveContinues is if the user didn't die (game continues to save data). 
 	 * If true is passed in, the save is updated and all saves
@@ -316,7 +301,7 @@ import java.util.Scanner;
 	 * 
 	 * If false is passed in, the current save will be removed, but
 	 * the other saves will still be written to file.
-	 **/
+	 */
 	public static void writeData(boolean saveContinues)
 	{
 		if(saveContinues)
@@ -341,7 +326,7 @@ import java.util.Scanner;
 		}
 	}
 	/*
-	 * Helper method to writeData(); it takes in a ready PrintWriter and writes 
+	 * Helper method to writeData(); it takes in a ready scanner and writes 
 	 * all the data into the file. 
 	 * encapsulates writing to file in another method. 
 	 */
@@ -352,6 +337,7 @@ import java.util.Scanner;
 				//prints to console/powershell and wipes possibly saved data. 
 		if(saveList.size() < 1)
 		{
+			System.out.println("Deleting stuff!");
 			write.println("No save found.");
 		}
 		else
@@ -365,7 +351,6 @@ import java.util.Scanner;
 				{
 					//write/save user information 
 					write.println(userName);
-					write.println(password);
 					write.println(enemiesDefeated);
 
 					for(int i=0; i<playerChars.length; i++)
@@ -384,7 +369,6 @@ import java.util.Scanner;
 				{
 					//still write the user's data 
 					write.println(saveList.get(index).getUserName());
-					write.println(saveList.get(index).getPassword());
 					write.println(saveList.get(index).getEnemiesDefeated());
 					Character[] plrChars = saveList.get(index).getPlayerCharacters();
 					
@@ -404,31 +388,20 @@ import java.util.Scanner;
 				//AKA if the current (correct) user died. 
 				//if that is the case, don't resave anything, because 
 				//you've already saved all the information. 
-
-				///If the current save was deleted, shift saveIndex
-				///Also prevents negative indexes
-				if (!saveContinues && saveIndex >= saveList.size())
-				{
-					saveIndex--;
-					if (saveIndex < 0)
-					{
-						saveIndex = 0;	
-					}
-				}
 			}
 		}
 		//close printwriter 
 		write.close();
-	 } 
+	 }
 	
 	/**
 	 * Sets the current save to the current game data, or it
 	 * adds a new one if the save wasn't saved prior.
-	 **/
+	 */
 	public static void updateSave()
 	{
 		///updates the current save
-		Save currSave = new Save(userName, password, enemiesDefeated, playerChars);
+		Save currSave = new Save(userName, enemiesDefeated, playerChars);
 
 		///if the save already exists, updates it
 		if(saveList.size() > 0)
@@ -444,8 +417,6 @@ import java.util.Scanner;
 	 * Writes the high score to the "highscores.txt" file.
 	 * If the current player's score is higher than any of the
 	 * existing scores, it will be added to the file.
-	 * 
-	 * There can be a maximum of 5 high scores in the file.
 	 **/
 	public static void writeHighScore()
 	{
@@ -457,90 +428,57 @@ import java.util.Scanner;
 
 		try
 		{
-			//initialize scanner
+			//initialize scanner and printwriter to the same highscores text file 
+			write = new PrintWriter(dataFile);
 			read = new Scanner(dataFile);
 			
 			//determine what to write, given the printwriter and scanner both 
 			String toWrite = "";
-
-			if(read.hasNext()) ///for security purposes
+			boolean added = false;
+			//as long as there is still data in the scanner 
+			while (read.hasNext())
 			{
 				//read in the next line in scanner 
 				String line = read.nextLine();
-				if(line.equals("No high scores."))
+				
+				//only continue if there are high scores. 
+				if(!line.equals("No high scores."))
 				{
-					///adds current high score
-					toWrite = userName + " - " + enemiesDefeated + "\n";
-					for(int i=0; i<playerChars.length; i++)
+					//get user score 
+					int score = Integer.parseInt(GameData.dataAfter(line, "- "));
+					
+					//if added is false and enemies defeated is greater than current score 
+					if(!added && enemiesDefeated > score)
 					{
-						String name = playerChars[i].getName();
-						int level = playerChars[i].getLevel();
-
-						toWrite += name + " - Level " + level + "\n";
+						//add user information to file at this point in the file 
+						toWrite += userName + " - " + enemiesDefeated + "\n";
+						for(int i=0; i<playerChars.length; i++)
+						{
+							toWrite += playerChars[i].getName() + " - Level " + playerChars[i].getLevel() + "\n";
+						}
+						added = true;
+					}
+					
+					//keep the line in toWrite, move on in the file 
+					toWrite += line;
+					
+					//keep the next 3 lines in read scanner. 
+					for(int i=1; i<=3; i++)
+					{
+						if(read.hasNextLine())//precautionary measure
+							toWrite += read.nextLine();
+						else
+							System.out.println("Warning: High scores " + 
+								"scanner ran out of lines while parsing.");
 					}
 				}
 				else
-				{
-					ArrayList<String> lines = new ArrayList<>();
-
-					///gets the first high score
-					lines.add(line);
-					for(int i=1; i<=3; i++)
-					{
-						lines.add(read.nextLine());
-					}
-
-					///adds the rest of the data in "highscores.txt"
-					while (read.hasNext())
-					{
-						lines.add(read.nextLine());	
-					}
-
-					///gets the bound for high scores (maximum 5)
-					int bound;
-					if(5 > lines.size()/4)
-					{
-						bound = lines.size()/4;
-					}
-					else
-					{
-						bound = 5;
-					}
-
-					///attempts to add the current score to the high scores
-					boolean isAdded = false;
-					for(int i=0; i<bound; i++)
-					{
-						String scoreName = lines.get(i);
-						int defeatedCount = Integer.parseInt(dataAfter(scoreName, "- "));
-
-						///if the score is higher, it adds it at the specified index
-						if(enemiesDefeated > defeatedCount && !isAdded)
-						{
-							for(int j=playerChars.length-1; j>=0; j--)
-							{
-								String name = playerChars[j].getName();
-								int level = playerChars[j].getLevel();
-								lines.add(i*4, name + " - Level " + level);
-							}
-							lines.add(i*4, scoreName);
-							isAdded = true; ///prevents duplicate scores
-						}
-
-						///appends the high score
-						toWrite += lines.get(i*4) + "\n";
-						toWrite += lines.get(i*4+1) + "\n";
-						toWrite += lines.get(i*4+2) + "\n";
-						toWrite += lines.get(i*4+3) + "\n\n";
-					}
-				}
+					toWrite += "No high scores.";//keeps the line 
 			}
 			
-			//initialize printwriter and writes it to the file
-			write = new PrintWriter(dataFile);
+			//rewrites file to the string 
 			write.println(toWrite);
-
-			//close printwriter 
+			//close scanner 
 			write.close();
 		}
 		catch(IOException e)
@@ -548,26 +486,6 @@ import java.util.Scanner;
 			//print error to console 
 			System.err.printf("An error ocurred with the file \"%s\".%n" + 
 				"%tEither the PrintWriter or Scanner failed to initialize properly.%n", fileName);
-		}
-	}
-
-	///Clears all high scores.
-	public static void clearHighScores()
-	{
-		String fileName = "highscores.txt"; ///file to write to
-		File dataFile = new File(fileName);
-		PrintWriter write = null;
-
-		try ///attempts to wipe all high scores
-		{
-			write = new PrintWriter(dataFile);
-			write.println("No high scores.");
-			write.close();
-		}
-		catch(IOException e)
-		{
-			///prints error message
-			System.err.printf("Could not write to file \"%s\".%n", fileName);
 		}
 	}
 	
@@ -584,16 +502,10 @@ import java.util.Scanner;
 		return saveList;
 	}
 
-	///Sets the current save index to the specified value.
+	///Returns the current save index.
 	public static void setSaveIndex(int indexIn)
 	{
 		saveIndex = indexIn;
-	}
-
-	///Returns the current save index.
-	public static int getSaveIndex()
-	{
-		return saveIndex;
 	}
 	
 	//more game-progression type save related methods 
@@ -607,18 +519,6 @@ import java.util.Scanner;
 	public static String getUserName()
 	{
 		return userName;
-	}
-
-	///Sets the user's passsword to the specified value.
-	public static void setPassword(String passwordIn)
-	{
-		password = passwordIn;
-	}
-
-	///Returns the user's password.
-	public static String getPassword()
-	{
-		return password;
 	}
 	
 	///Sets the game started boolean to the specified value.
@@ -701,27 +601,25 @@ import java.util.Scanner;
 	}
  }
 
-/**
+/*
  * Represents a save in the game, containing the player's username,
  * the number of enemies defeated, and the player's characters.
  * Simply a getter/setter in the class at the moment. Not much else. 
- **/
+ */
 class Save
 {
-	private String userName;			///saves user name 
-	private String password;			///saves password
-	private int enemiesDefeated;		///saves number of enemies defeated 
-	private Character[] characters;		///saves user characters 
+	private String userName;			//saves user name 
+	private int enemiesDefeated;		//saves number of enemies defeated 
+	private Character[] characters;		//saves user characters 
 
 	/**
 	 * Creates a new Save with the specified username, number of enemies defeated,
 	 * and player characters.
-	 **/
-	public Save(String userNameIn, String passwordIn, int defeatedIn, Character[] charsIn)
+	 */
+	public Save(String userNameIn, int defeatedIn, Character[] charsIn)
 	{
-		///initialize fvs with parameters 
+		//initialize fvs with parameters 
 		userName = userNameIn;
-		password = passwordIn;
 		enemiesDefeated = defeatedIn;
 		characters = charsIn;
 	}
@@ -742,11 +640,5 @@ class Save
 	public Character[] getPlayerCharacters()
 	{
 		return characters;
-	}
-
-	///Returns the password of the save.
-	public String getPassword()
-	{
-		return password;
 	}
 }

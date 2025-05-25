@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -68,7 +69,6 @@ public class SavesPanel extends JPanel
 
     class SaveInfo extends JPanel
     {
-        private TextField passwordField;
         private Save save;
         private int index;
 
@@ -81,24 +81,15 @@ public class SavesPanel extends JPanel
             setLayout(new BorderLayout());
 
             Label name = new Label(saveIn.getUserName(), 30);
-            JPanel center = getCenter(saveIn);
-            JPanel optionsHolder = getOptionButtons();
-
-            add(name, BorderLayout.NORTH);
-            add(center, BorderLayout.CENTER);
-            add(optionsHolder, BorderLayout.SOUTH);
-        }
-
-        public JPanel getCenter(Save saveIn)
-        {
-            JPanel toReturn = new JPanel(new GridLayout(5, 1));
             Label enemiesDefeated = new Label("Enemies defeated: "+saveIn.getEnemiesDefeated(), 20);
             Character[] chars = saveIn.getPlayerCharacters();
             Label[] charLabels = new Label[3];
-            passwordField = new TextField("Enter in your password...", 15, 40);
-            toReturn.setBackground(Color.LIGHT_GRAY);
-            toReturn.add(enemiesDefeated);
 
+            add(name, BorderLayout.NORTH);
+
+            JPanel center = new JPanel(new GridLayout(5, 1));
+            center.setBackground(Color.LIGHT_GRAY);
+            center.add(enemiesDefeated);
             for(int i=0; i<charLabels.length; i++)
             {
                 String text = chars[i].getName() + " [HP: " + chars[i].getHP() +
@@ -106,11 +97,12 @@ public class SavesPanel extends JPanel
                     "/" + chars[i].getMaxMana() + ", Defense: " + chars[i].getDefense() +
                     ", Level " + chars[i].getLevel() + "]"; 
                 charLabels[i] = new Label(text, 20);
-                toReturn.add(charLabels[i]);
+                center.add(charLabels[i]);
             }
-            toReturn.add(passwordField);
+            add(center, BorderLayout.CENTER);
 
-            return toReturn;
+            JPanel optionsHolder = getOptionButtons();
+            add(optionsHolder, BorderLayout.SOUTH);
         }
 
         public JPanel getOptionButtons()
@@ -132,49 +124,31 @@ public class SavesPanel extends JPanel
             public void actionPerformed(ActionEvent evt)
             {
                 String command = evt.getActionCommand();
-                String password = save.getPassword();
-                System.out.println("password: " + password);
 
-                if(passwordField.isSelected() && passwordField.getText().equals(password))
+                if(command.equals("Load Save"))
                 {
-                    if(command.equals("Load Save"))
+                    GameData.setUserName(save.getUserName());
+                    GameData.setEnemiesDefeated(save.getEnemiesDefeated());
+                    GameData.setPlayerChars(save.getPlayerCharacters());
+                    GameData.setPlayerCharacter(save.getPlayerCharacters()[0]);
+                    GameData.setSaveIndex(index);
+                    GameData.switchCard("intermission");
+                }
+                else if (command.equals("Delete Save"))
+                {
+                    ///remove save
+                    GameData.getSaveList().remove(index);
+                    GameData.setSaveIndex(index);
+                    GameData.writeData(false);
+                    saveInfos.remove(index);
+
+
+                    if(GameData.getSaveList().size() < 1)
                     {
-                        ///loads all stuff from the save
-                        GameData.setUserName(save.getUserName());
-                        GameData.setEnemiesDefeated(save.getEnemiesDefeated());
-                        GameData.setPlayerChars(save.getPlayerCharacters());
-                        GameData.setPlayerCharacter(save.getPlayerCharacters()[0]);
-                        GameData.setSaveIndex(index);
-                        GameData.switchCard("intermission");
+                        GameData.setGameStarted(false);
                     }
-                    else if (command.equals("Delete Save"))
-                    {
-                        ///remove save
-                        GameData.setSaveIndex(index);
-                        GameData.getSaveList().remove(index);
-    
-                        ///ensures that no extra data is deleted
-                        if (GameData.getSaveIndex() > index)
-                        {
-                            GameData.setSaveIndex(GameData.getSaveIndex() - 1);
-                        }
-                        else if (GameData.getSaveIndex() == index)
-                        {
-                            GameData.setSaveIndex(Math.max(0, GameData.getSaveIndex() - 1));
-                        }
-    
-                        ///rewrites to file and removes save visual
-                        GameData.writeData(false);
-                        saveInfos.remove(index);
-    
-    
-                        if(GameData.getSaveList().size() < 1)
-                        {
-                            GameData.setGameStarted(false);
-                        }
-    
-                        getSaves();
-                    }
+
+                    getSaves();
                 }
             }
         }

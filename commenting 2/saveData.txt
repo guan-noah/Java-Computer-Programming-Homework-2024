@@ -1,1 +1,17 @@
-No save found.
+señor krish
+2
+Line
+1
+28/35
+15/15
+0
+Quadratic
+1
+23/30
+20/20
+0
+Cubic
+1
+18/25
+25/25
+0
