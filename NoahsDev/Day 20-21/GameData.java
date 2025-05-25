@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//static class. 
  public class GameData
  {
 	///the CardLayout stuff for the game
@@ -38,7 +39,7 @@ import java.util.Scanner;
 	///actual game data
 	private static ArrayList<Save> saveList; ///list of saves
 	private static Character[] playerChars; ///player's characters
-	private static int saveIndex; ///use to update save
+	private static int saveIndex; //the save the user currently uses; use var to update save
 	private static int charViewing; ///which character is being viewed
 									///0 = Line, 1 = Quadratic, 2 = Cubic
 	private static Character player; ///the current character being viewed
@@ -48,11 +49,54 @@ import java.util.Scanner;
 	private static boolean gameStarted; ///essentially if the tutorial is completed
 										///since you need to complete it to actually
 										///save your save
+	//CARDLAYOUT AND PANEL SWITCHING METHODS
+	
+	///Gets the main CardLayout and its holder.
+ 	public static void setCards(JPanel holderIn)
+ 	{
+		cardHolder = holderIn;
+		polyCards = (CardLayout) cardHolder.getLayout();
+	}
 
-	/**
+	///Switches the CardLayout card to the specified card.
+	public static void switchCard(String cardIn)
+	{
+		polyCards.show(cardHolder, cardIn);
+	}
+	
+	//Initializing panels 
+	///Initializes the intermission panel.
+	public static void setIntermissionPanel(IntermissionPanel imPanelIn)
+	{
+		intermissionPanel = imPanelIn;
+	}
+
+	///Initializes the problem panel.
+	public static void setProblemPanel(ProblemPanel pPanelIn)
+	{
+		problemPanel = pPanelIn;
+	}
+
+	///Initializes the "Saves" panel.
+	public static void setSavesPanel(SavesPanel savesPanelIn)
+	{
+		savesPanel = savesPanelIn;
+	}
+
+	///Initializes the game panel.
+	public static void setGamePanel(GamePanel gamePanelIn)
+	{
+		gamePanel = gamePanelIn;
+	}
+
+	
+	//GAME HANDLING METHODS (PROGRESSION) 
+	//character methods 
+	/*
+	 * Utilized by game panel (switches the selected character) 
 	 * Sets the current character being viewed to the specified index.
-	 * This will also set the player to that character.
-	 **/
+	 * This will also set the player fv to that character.
+	 */
 	public static void setCharViewing(int viewing)
 	{
 		charViewing = viewing;
@@ -124,82 +168,7 @@ import java.util.Scanner;
 		///if all characters are defeated, return true, otherwise false
 		return currentlyDefeated == 3;
 	}
-
-	///Initializes the list of saves.
-	public static void setSaveList(ArrayList<Save> savesIn)
-	{
-		saveList = savesIn;
-	}
-
-	///Returns the list of saves.
-	public static ArrayList<Save> getSaveList()
-	{
-		return saveList;
-	}
-
-	///Returns the current save index.
-	public static void setSaveIndex(int indexIn)
-	{
-		saveIndex = indexIn;
-	}
-
-	///Gets the main CardLayout and its holder.
- 	public static void setCards(JPanel holderIn)
- 	{
-		cardHolder = holderIn;
-		polyCards = (CardLayout) cardHolder.getLayout();
-	}
-
-	///Switches the CardLayout card to the specified card.
-	public static void switchCard(String cardIn)
-	{
-		polyCards.show(cardHolder, cardIn);
-	}
-
-	///Sets the game started boolean to the specified value.
-	public static void setGameStarted(boolean gameStartedIn)
-	{
-		gameStarted = gameStartedIn;
-	}
-
-	///Returns whether or not the game has started.
-	public static boolean gameIsStarted()
-	{
-		return gameStarted;
-	}
-
-	///Sets the demo mode boolean to the specified value.
-	public static void setDemoMode(boolean isOn)
-	{
-		demoMode = isOn;
-	}
-
-	/**
-	 * Returns whether or not the demo mode is on.
-	 * If it is on, the game will execute player moves, regardless
-	 * of whether or not their answer is correct.
-	 * 
-	 * By default, demo mode should be turned off, as it is only really
-	 * used for testing purposes.
-	 **/
-	public static boolean isDemoModeOn()
-	{
-		return demoMode;
-	}
-
-	///Initializes the game panel.
-	public static void setGamePanel(GamePanel gamePanelIn)
-	{
-		gamePanel = gamePanelIn;
-	}
 	
-	///Starts the game.
-	public static void startGame(boolean isTutorial)
-	{
-		switchCard("game");
-		gamePanel.start(isTutorial);
-	}
-
 	/**
 	 * Sets the enemy shake boolean to the specified value.
 	 * This is used to shake the enemy when it is hit by a player's attack.
@@ -238,32 +207,14 @@ import java.util.Scanner;
 	{
 		gamePanel.setPlayersShake(isShaking);
 	}
-
-	///Initializes the "Saves" panel.
-	public static void setSavesPanel(SavesPanel savesPanelIn)
-	{
-		savesPanel = savesPanelIn;
-	}
-
+	
 	///Retrieves the saves from the "saveData.txt" file and switches to the "Saves" panel.
 	public static void getSaves()
 	{
 		savesPanel.getSaves();
 		switchCard("saves");
 	}
-
-	///Initializes the intermission panel.
-	public static void setIntermissionPanel(IntermissionPanel imPanelIn)
-	{
-		intermissionPanel = imPanelIn;
-	}
-
-	///Refreshes the intermission panel's display of stats.
-	public static void refreshStats()
-	{
-		intermissionPanel.refreshStats();
-	}
-
+	//progression methods 
 	/**
 	 * Executes a user move in the game panel.
 	 * This method is called when the user has answered a question, and
@@ -273,18 +224,6 @@ import java.util.Scanner;
 	public static void executeUserMove(boolean success)
 	{
 		gamePanel.executeUserMove(success);
-	}
-
-	///Sets the username to the specified value.
-	public static void setUserName(String userNameIn)
-	{
-		userName = userNameIn;
-	}
-
-	///Returns the username.
-	public static String getUserName()
-	{
-		return userName;
 	}
 
 	/**
@@ -320,19 +259,22 @@ import java.util.Scanner;
 		return player;
 	}
 
-	///Initializes the problem panel.
-	public static void setProblemPanel(ProblemPanel pPanelIn)
-	{
-		problemPanel = pPanelIn;
-	}
-
 	///Retrieves the problem from the "problems.txt" file and displays it.
 	public static void getProblem()
 	{
 		problemPanel.getProblem();
 		switchCard("problem");
 	}
- 	
+	
+	///Refreshes the intermission panel's display of stats.
+	public static void refreshStats()
+	{
+		intermissionPanel.refreshStats();
+	}
+
+	//USER INFORMATION STORAGE HANDLING METHODS
+	
+ 	//image io 
 	///Attempts to load the image from the designated file name.
 	public static Image loadImage(String fileName)
 	{
@@ -351,18 +293,21 @@ import java.util.Scanner;
 		return toReturn;
 	}
 
-	/**
+	/*
+	 * Our game autosaves information and writes data constantly throughout the game. 
+	 * saveContinues is if the user didn't die (game continues to save data). 
 	 * If true is passed in, the save is updated and all saves
 	 * are written to file.
 	 * 
 	 * If false is passed in, the current save will be removed, but
 	 * the other saves will still be written to file.
-	 **/
+	 */
 	public static void writeData(boolean saveContinues)
 	{
 		if(saveContinues)
 			updateSave(); ///updates current save prior to writing
 		
+		//standard file output logic structure 
 		String fileName = "saveData.txt";
 		File dataFile = new File(fileName);
 		PrintWriter write = null;
@@ -370,59 +315,85 @@ import java.util.Scanner;
 		try
 		{
 			write = new PrintWriter(dataFile);
-
-			if(saveList.size() < 1)
-			{
-				System.out.println("Deleting stuff!");
-				write.println("No save found.");
-			}
-			else
-			{
-				for(int index=0; index<saveList.size(); index++)
-				{
-					if(saveContinues && index == saveIndex)
-					{
-						write.println(userName);
-						write.println(enemiesDefeated);
-	
-						for(int i=0; i<playerChars.length; i++)
-						{
-							Character plrChar = playerChars[i];
 			
-							write.println(plrChar.getName());
-							write.println(plrChar.getLevel());
-							write.println(plrChar.getHP() + "/" + plrChar.getMaxHP());
-							write.println(plrChar.getMana() + "/" + plrChar.getMaxMana());
-							write.println(plrChar.getDefense());
-						}
-					}
-					else if(index != saveIndex)
-					{
-						write.println(saveList.get(index).getUserName());
-						write.println(saveList.get(index).getEnemiesDefeated());
-						Character[] plrChars = saveList.get(index).getPlayerCharacters();
-	
-						for(int i=0; i<plrChars.length; i++)
-						{
-							Character plrChar = plrChars[i];
-			
-							write.println(plrChar.getName());
-							write.println(plrChar.getLevel());
-							write.println(plrChar.getHP() + "/" + plrChar.getMaxHP());
-							write.println(plrChar.getMana() + "/" + plrChar.getMaxMana());
-							write.println(plrChar.getDefense());
-						}
-					}
-				}
-			}
-			write.close();
+			//only writes it if there's a ready scanner to write to 
+			writeDataToFile(saveContinues, write);
 		}
 		catch(IOException e)
 		{
-			System.err.printf("Error: Could not write to file \"%s\"", fileName);
+			//if cannot write to file (maybe read-only), system will print an error 
+			System.err.printf("Error: Could not write to file \"%s\".%n", fileName);
 		}
 	}
+	/*
+	 * Helper method to writeData(); it takes in a ready scanner and writes 
+	 * all the data into the file. 
+	 * encapsulates writing to file in another method. 
+	 */
+	 private static void writeDataToFile(boolean saveContinues, PrintWriter write)
+	 {
+		 //only saves user information to save file if there is a 
+				//file to write to AND saveList has something in it, otherwise 
+				//prints to console/powershell and wipes possibly saved data. 
+		if(saveList.size() < 1)
+		{
+			System.out.println("Deleting stuff!");
+			write.println("No save found.");
+		}
+		else
+		{
+			//write/save all user information 
+			//iterate through saveList, a list of different user's saves 
+			for(int index=0; index<saveList.size(); index++)
+			{
+				//if saveContinues and the save the user currently uses 
+				if(saveContinues && index == saveIndex)
+				{
+					//write/save user information 
+					write.println(userName);
+					write.println(enemiesDefeated);
 
+					for(int i=0; i<playerChars.length; i++)
+					{
+						//write/save character information 
+						Character plrChar = playerChars[i];
+		
+						write.println(plrChar.getName());
+						write.println(plrChar.getLevel());
+						write.println(plrChar.getHP() + "/" + plrChar.getMaxHP());
+						write.println(plrChar.getMana() + "/" + plrChar.getMaxMana());
+						write.println(plrChar.getDefense());
+					}
+				}
+				else if(index != saveIndex)//if either of the conditions are false and saveIndex doesn't match 
+				{
+					//still write the user's data 
+					write.println(saveList.get(index).getUserName());
+					write.println(saveList.get(index).getEnemiesDefeated());
+					Character[] plrChars = saveList.get(index).getPlayerCharacters();
+					
+					//still write the character information 
+					for(int i=0; i<plrChars.length; i++)
+					{
+						Character plrChar = plrChars[i];
+		
+						write.println(plrChar.getName());
+						write.println(plrChar.getLevel());
+						write.println(plrChar.getHP() + "/" + plrChar.getMaxHP());
+						write.println(plrChar.getMana() + "/" + plrChar.getMaxMana());
+						write.println(plrChar.getDefense());
+					}
+				}
+				//else: only the case (index == saveIndex && !saveContinues)
+				//AKA if the current (correct) user died. 
+				//if that is the case, don't resave anything, because 
+				//you've already saved all the information. 
+			}
+		}
+		//close printwriter 
+		write.close();
+	 }
+	
 	/**
 	 * Sets the current save to the current game data, or it
 	 * adds a new one if the save wasn't saved prior.
@@ -449,6 +420,7 @@ import java.util.Scanner;
 	 **/
 	public static void writeHighScore()
 	{
+		//standard file output logic 
 		String fileName = "highscores.txt";
 		File dataFile = new File(fileName);
 		PrintWriter write = null;
@@ -456,21 +428,29 @@ import java.util.Scanner;
 
 		try
 		{
+			//initialize scanner and printwriter to the same highscores text file 
 			write = new PrintWriter(dataFile);
 			read = new Scanner(dataFile);
-
+			
+			//determine what to write, given the printwriter and scanner both 
 			String toWrite = "";
 			boolean added = false;
+			//as long as there is still data in the scanner 
 			while (read.hasNext())
 			{
+				//read in the next line in scanner 
 				String line = read.nextLine();
-
+				
+				//only continue if there are high scores. 
 				if(!line.equals("No high scores."))
 				{
+					//get user score 
 					int score = Integer.parseInt(GameData.dataAfter(line, "- "));
-
+					
+					//if added is false and enemies defeated is greater than current score 
 					if(!added && enemiesDefeated > score)
 					{
+						//add user information to file at this point in the file 
 						toWrite += userName + " - " + enemiesDefeated + "\n";
 						for(int i=0; i<playerChars.length; i++)
 						{
@@ -478,26 +458,108 @@ import java.util.Scanner;
 						}
 						added = true;
 					}
-
+					
+					//keep the line in toWrite, move on in the file 
 					toWrite += line;
-
+					
+					//keep the next 3 lines in read scanner. 
 					for(int i=1; i<=3; i++)
 					{
-						toWrite += read.nextLine();
+						if(read.hasNextLine())//precautionary measure
+							toWrite += read.nextLine();
+						else
+							System.out.println("Warning: High scores " + 
+								"scanner ran out of lines while parsing.");
 					}
 				}
+				else
+					toWrite += "No high scores.";//keeps the line 
 			}
-
+			
+			//rewrites file to the string 
 			write.println(toWrite);
+			//close scanner 
 			write.close();
 		}
 		catch(IOException e)
 		{
-			System.err.printf("An error ocurred with the file \"%s\".", fileName);
+			//print error to console 
+			System.err.printf("An error ocurred with the file \"%s\".%n" + 
+				"%tEither the PrintWriter or Scanner failed to initialize properly.%n", fileName);
 		}
 	}
+	
+	//SAVE INFORMATION
+	///Initializes the list of saves.
+	public static void setSaveList(ArrayList<Save> savesIn)
+	{
+		saveList = savesIn;
+	}
 
+	///Returns the list of saves.
+	public static ArrayList<Save> getSaveList()
+	{
+		return saveList;
+	}
 
+	///Returns the current save index.
+	public static void setSaveIndex(int indexIn)
+	{
+		saveIndex = indexIn;
+	}
+	
+	//more game-progression type save related methods 
+	///Sets the username to the specified value.
+	public static void setUserName(String userNameIn)
+	{
+		userName = userNameIn;
+	}
+
+	///Returns the username.
+	public static String getUserName()
+	{
+		return userName;
+	}
+	
+	///Sets the game started boolean to the specified value.
+	public static void setGameStarted(boolean gameStartedIn)
+	{
+		gameStarted = gameStartedIn;
+	}
+
+	///Returns whether or not the game has started.
+	public static boolean gameIsStarted()
+	{
+		return gameStarted;
+	}
+
+	///Sets the demo mode boolean to the specified value.
+	public static void setDemoMode(boolean isOn)
+	{
+		demoMode = isOn;
+	}
+
+	/**
+	 * Returns whether or not the demo mode is on.
+	 * If it is on, the game will execute player moves, regardless
+	 * of whether or not their answer is correct.
+	 * 
+	 * By default, demo mode should be turned off, as it is only really
+	 * used for testing purposes.
+	 **/
+	public static boolean isDemoModeOn()
+	{
+		return demoMode;
+	}
+	
+	///Starts the game.
+	public static void startGame(boolean isTutorial)
+	{
+		switchCard("game");
+		gamePanel.start(isTutorial);
+	}
+
+	//USEFUL UTILITY METHODS
 	/**
 	 * An alternative to Math.random() that returns a random integer
 	 * between the specified low and high values, inclusive.
@@ -539,15 +601,16 @@ import java.util.Scanner;
 	}
  }
 
-/**
+/*
  * Represents a save in the game, containing the player's username,
  * the number of enemies defeated, and the player's characters.
- **/
+ * Simply a getter/setter in the class at the moment. Not much else. 
+ */
 class Save
 {
-	private String userName;
-	private int enemiesDefeated;
-	private Character[] characters;
+	private String userName;			//saves user name 
+	private int enemiesDefeated;		//saves number of enemies defeated 
+	private Character[] characters;		//saves user characters 
 
 	/**
 	 * Creates a new Save with the specified username, number of enemies defeated,
@@ -555,6 +618,7 @@ class Save
 	 */
 	public Save(String userNameIn, int defeatedIn, Character[] charsIn)
 	{
+		//initialize fvs with parameters 
 		userName = userNameIn;
 		enemiesDefeated = defeatedIn;
 		characters = charsIn;

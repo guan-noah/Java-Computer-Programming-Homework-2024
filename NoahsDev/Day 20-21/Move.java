@@ -19,7 +19,7 @@
      private String name, description; //name and description of Move
      private int manaCost;
      private int[] hp, mana;
-         //effect to user, second is effect to target 
+         //effect to user, second is effect to target of move 
          //positive numbers indicate an increase of a stat
          //negative is the opposite
     private boolean isSpecial;

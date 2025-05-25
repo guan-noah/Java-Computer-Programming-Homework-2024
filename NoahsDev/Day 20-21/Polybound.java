@@ -53,17 +53,22 @@ public class Polybound
 	public void run()
 	{
 		GameData.setDemoMode(true);
-		initFonts();
-
+		initFonts();//initialize fonts 
+		
+		
+		//the rest of the method sets up the main JFrame with its panels. 
 		JFrame frame = new JFrame("Polybound");
+		//the cardlayout with all the panels inside
 		JPanel deck = new JPanel(new CardLayout());
+		//initializes all panels 
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
 		GamePanel gPanel = new GamePanel();
 		ProblemPanel pPanel = new ProblemPanel();
 		SelectUserInfoPanel uInfoPanel = new SelectUserInfoPanel();
 		SavesPanel sPanel = new SavesPanel();
-
+		
+		//get saved data
 		checkForData();
 		GameData.setCards(deck);
 		GameData.setProblemPanel(pPanel);
@@ -71,6 +76,7 @@ public class Polybound
 		GameData.setIntermissionPanel(imPanel);
 		GameData.setSavesPanel(sPanel);
 		
+		//add all panels to cardlayout 
 		deck.add(mPanel, "main menu");
 		deck.add(sPanel, "saves");
 		deck.add(uInfoPanel, "user info");
@@ -79,14 +85,14 @@ public class Polybound
 		deck.add(pPanel, "problem");
 		
 		frame.setSize(1200, 750);	//normal: 600, 500
-		frame.setResizable(false);
+		frame.setResizable(false);		//user can't change frame dimensions
 		frame.setLocationRelativeTo(null); //centers everything
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-
+		//set background of frame to cardlayout 
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}
-
+	
 	public void initFonts()
 	{
 		loadFont("oswald.ttf");
@@ -109,9 +115,13 @@ public class Polybound
 			System.err.printf("Error: Could not load font file \"%s\"", fileName);
 		}
 	}
-
+	/*
+	 * This method loads previous game data into current game via saveData.txt, 
+	 * the game's save file. Utilizes loadToGameData. 
+	 */
 	public void checkForData()
 	{
+		//standard file reading logic 
 		String fileName = "saveData.txt";
 		File dataFile = new File(fileName);
 		Scanner read = null;

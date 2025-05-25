@@ -183,11 +183,11 @@ public class ProblemPanel extends JPanel
 
 					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because " + explanations[i];
+						content += " is correct because: " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because " + explanations[i];
+						content += " is incorrect because: " + explanations[i];
 					}
 				}
 
@@ -208,11 +208,11 @@ public class ProblemPanel extends JPanel
 
 					if(i == currQuestion.getAnswer())
 					{
-						content += " is correct because " + explanations[i];
+						content += " is correct because: " + explanations[i];
 					}
 					else
 					{
-						content += " is incorrect because " + explanations[i];
+						content += " is incorrect because: " + explanations[i];
 					}
 				}
 
