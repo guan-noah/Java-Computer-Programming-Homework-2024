@@ -1,109 +1,78 @@
-//Note: This file mainly contains 3 different but related classes. 
-//Main class descriptions here. 
-/*
+/**
  * Krish Kumar
  * Period 6
  * Popup.java
  * 
  * A generic framework for a popup. This class is intended to
- * be a framework that other classes extend from.
- */
-
-/*
- * Krish Kumar
- * Period 6
- * OptionsPopup.java
- * 
- * This class is the "Options" popup, where the user can configure
- * different settings.
- * save until other game functions are done. 
- */
-
-/**
- * Krish Kumar
- * Period 6
- * InfoPopup.java
- * 
- * This class is a framework for an "info popup", like the "Help" or
- * "High Scores" popups. It contains a title label, as well as
- * a text area for its content.
+ * be extended from.
  **/
-//shared imports 
+
+///import libraries
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;//with textarea, for info popup 
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JCheckBox;//for options popup 
+import javax.swing.JCheckBox;
 
-import java.awt.BorderLayout;//layouts 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Graphics;//graphics
+import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
 
-import java.awt.event.ActionListener;//listener/handlers 
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+///Base Popup class.
 public class Popup
 {
 	protected JFrame popupFrame; ///popup frame
 	protected JPanel content; ///popup content
 	protected String title; ///popup title
 	
+	///Initializes this Popup.
 	public Popup(String titleIn)
 	{
-		title = titleIn;//initialize title to parameter input 
+		title = titleIn; ///gets title
 		
-		//create frame and its information 
+		///setup frame and content
 		popupFrame = getFrame();
 		content = getContentPanel();
 		
-		//fill the frame 
 		popupFrame.setContentPane(content);
-		popupFrame.setResizable(false);//user cannot edit frame size 
+		popupFrame.setResizable(false);
 	}
 	
-	/*
+	/**
 	 * This method is responsible for setting up the JFrame that will
 	 * be the actual popup.
-	 * Can be overridden to make a completely new JFrame with different properties. 
-	 */
+	 **/
 	public JFrame getFrame()
 	{
 		JFrame toReturn = new JFrame(title); ///creates new JFrame
 		
 		///frame setup
-		toReturn.setSize(600, 500);//frame size 
-		toReturn.setLocationRelativeTo(null);//popup in center of screen 
-		
+		toReturn.setSize(600, 500);
+		toReturn.setLocationRelativeTo(null);
+
 		return toReturn;
 	}
 	
-	/*
-	 * This method is responsible for setting up the panel content. 
-	 * Intended to be overridden to make completely new panel content 
-	 * with different properties. 
-	 */
 	public JPanel getContentPanel()
 	{
-		JPanel toReturn = new JPanel(new BorderLayout());//make a new jpanel with border layout 
-		
-		//add a close button jpanel holder at the top 
+		JPanel toReturn = new JPanel(new BorderLayout());
 		JPanel closeBtnHolder = getCloseBtn();
+
 		toReturn.add(closeBtnHolder, BorderLayout.NORTH);
 
 		return toReturn;
 	}
 
-	/*
+	/**
 	 * This method is responsible for setting up the close button
 	 * of the popup, as well as its holder and handler.
-	 * Holder JPanel centers the button to the far right. 
-	 * 
-	 * Workshopped Idea: Make a JMenu, only initialized if there is more 
-	 * than 1 card in a CardLayout so each popup can show different panels. 
-	 */
+	 **/
 	public JPanel getCloseBtn()
 	{
 		///creates new Button, JPanel to hold it, and CloseButtonHandler
@@ -111,9 +80,9 @@ public class Popup
 		CloseButtonHandler closeBtnHandler = new CloseButtonHandler();
 		Button goBack = new Button("X", closeBtnHandler, 25);
 		
-		toReturn.setBackground(Color.LIGHT_GRAY);//set header background to light gray 
+		toReturn.setBackground(Color.LIGHT_GRAY);
 		toReturn.add(goBack); ///adds button to holder
-		
+			
 		return toReturn;
 	}
 	
@@ -137,12 +106,15 @@ public class Popup
 		 **/
 		public void actionPerformed(ActionEvent evt)
 		{
-			popupFrame.setVisible(false); //HIDES popup, NOT disposes of it. 
-				//This is very important! This means it just shows the SAME popup again, 
-				//retaining any fv information it might have. 
+			popupFrame.setVisible(false); ///hides popup
 		}
 	}
 }
+/**
+ * This class is a framework for an "info popup", like the "Help" or
+ * "High Scores" popups. It contains a title label, as well as
+ * a text area for its content.
+ **/
 class InfoPopup extends Popup
 {
 	private InfoPopupContent infoContent; ///allows access to the JTextArea
@@ -154,23 +126,19 @@ class InfoPopup extends Popup
 	 **/
 	public InfoPopup(String titleIn)
 	{
-		super(titleIn);//calls Popup constructor with title 
-		//gets all Popup benefits. 
+		super(titleIn);
 	}
 
-	/*
+	/**
 	 * This method is responsible for creating the content
 	 * panel, which will hold the title label, as well as
 	 * the content text area.
-	 * Overrides Popup getContentPanel method; at runtime, Java calls 
-	 * this method instead of the 
 	 */
 	public JPanel getContentPanel()
 	{
-		//call Popup's getContentPanel method and store in this JPanel to return 
 		JPanel toReturn = super.getContentPanel();
-		//add specializes content to center 
 		infoContent = new InfoPopupContent();
+		
 		toReturn.add(infoContent, BorderLayout.CENTER);
 
 		return toReturn;
@@ -185,11 +153,10 @@ class InfoPopup extends Popup
 		infoContent.setContent(contentIn); ///requests change of text
 	}
 	
-	/*
+	/**
 	 * This class is the JPanel that stores the actual content of the
-	 * popup (that differentiates itself from other popups and holds its function).
-	 * In InfoPopupContent, it's simply a JTextArea. 
-	 */
+	 * popup.
+	 **/
 	class InfoPopupContent extends JPanel
 	{
 		private JTextArea contentTextArea; ///the content text area
@@ -238,7 +205,7 @@ class InfoPopup extends Popup
 			contentTextArea.setForeground(Color.WHITE);
 			contentTextArea.setLineWrap(true);
 			contentTextArea.setWrapStyleWord(true);
-			contentTextArea.setEditable(false);//user cannot edit text area
+			contentTextArea.setEditable(false);
 			
 			return toReturn;
 		}
@@ -259,52 +226,46 @@ class InfoPopup extends Popup
 		}
 	}
 }
-/* same logic as InfoPopup. Read InfoPopup logic first before reading 
- * these comments (as it's essentially the same thing to set up the popup)
- * and these repetitive comments will be more concise than InfoPopup logic moving forward. 
- * 
- * P.S. This specific class, OptionsPopup, will be put on hold until everything else is finished. 
- */
+/**
+ * This class is the "Options" popup, where the user can configure
+ * different settings.
+ **/
 class OptionsPopup extends Popup
 {
-	/*
-	 * call the Popup superclass constructor 
-	 */
+	///Initializes this OptionsPopup.
 	public OptionsPopup()
 	{
 		super("Options");
 	}
-	
-	/*
-	 * overrides superclass method 
-	 */
+
+	///Overrides getContentPanel() and sets the content.
 	public JPanel getContentPanel()
 	{
-		JPanel toReturn = super.getContentPanel();//calls superclass method
-		//initializes content specific to this popup to center 
+		JPanel toReturn = super.getContentPanel();
 		OptionsPopupContent newContent = new OptionsPopupContent();
+
 		toReturn.add(newContent, BorderLayout.CENTER);
 
 		return toReturn;
 	}
-	
-	/*
-	 * main popup content in center 
-	 */
+
+	///This class is the content for this OptionsPopup.
 	class OptionsPopupContent extends JPanel
 	{
-		/*
-		 * constructor - initializes panel 
-		 */
+		private JCheckBox likedGame; ///"I like this game" checkbox
+
+		///Initializes this OptionsPopupContent.
 		public OptionsPopupContent()
 		{
 			setLayout(new BorderLayout());
 			
+			///creates actual content
 			JPanel titleHolder = getTitle();
-			///put in config code here
-			//maybe for now, a Polybound II advertisement as a placeholder 
-			
+			JScrollPane configHolder = getConfigurationPane();
+
+			///adds content
 			add(titleHolder, BorderLayout.NORTH);
+			add(configHolder, BorderLayout.CENTER);
 		}
 
 		/**
@@ -321,99 +282,118 @@ class OptionsPopup extends Popup
 			
 			return toReturn;
 		}
-		
-		/*
-		 * returns JScrollPane with gridlayout of configuration components. 
-		 * Calls getConfigPanel to execute this. 
-		 */
+
 		public JScrollPane getConfigurationPane()
 		{
+			///initializes panel with config and its scroll pane
 			JPanel configPanel = getConfigPanel();
 			JScrollPane toReturn = new JScrollPane(configPanel);
 
 			return toReturn;
 		}
-		/*
-		 * Helper method to getConfigurationPanel(), which adds a JScrollPane to this panel. 
-		 * Can only be called by this class. 
-		 * A gridlayout of configuration components for the user. 
-		 */
-		private JPanel getConfigPanel()
+
+		public JPanel getConfigPanel()
 		{
-			JPanel toReturn = new JPanel(new GridLayout(1,1)); ///will change rows later
-			//~ toReturn.setBackground(Color.LIGHT_GRAY);
-			toReturn.setBackground(Color.BLACK);
-			
+			///initializes the holder, checkbox, button, and handler
+			JPanel toReturn = new JPanel(new GridLayout(2, 1)); ///will change rows later
+			OptionHandler optionHandler = new OptionHandler();
+			Button wipeHighScores = new Button("Clear all high scores [CANNOT BE UNDONE]",
+				optionHandler, 25);
+			likedGame = getCheckBox("I like this game");
+
+			///setup
+			likedGame.addActionListener(optionHandler);
+			toReturn.setBackground(Color.GRAY);
+			toReturn.add(likedGame);
+			toReturn.add(wipeHighScores);
+
 			return toReturn;
+		}
+
+		///Creates a JCheckBox based on the passed in content.
+		public JCheckBox getCheckBox(String content)
+		{
+			JCheckBox toReturn = new JCheckBox(content);
+
+			toReturn.setFont(new Font("Oswald Regular", Font.BOLD, 25));
+
+			return toReturn;
+		}
+
+		///This class is a handler for the configuration options.
+		class OptionHandler implements ActionListener
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				String command = evt.getActionCommand();
+
+				if(command.equals("I like this game"))
+				{
+					///this gives the player +5 hp for liking the game :)
+					GameData.gameLiked(likedGame.isSelected());
+				}
+				else if(command.equals("Clear all high scores [CANNOT BE UNDONE]"))
+				{
+					GameData.clearHighScores(); ///clears high scores
+				}
+			}
 		}
 	}
 }
+/**
+ * This class represents the "Ongoing Game Found!" popup,
+ * which will appear if an ongoing game was found. This popup
+ * prompts the user to either continue with an already existing
+ * save, or to start a new save.
+ **/ 
 class GameFoundPopup extends Popup
 {
-	/*
-	 * calls superclass constructor with title 
-	 */
     public GameFoundPopup()
     {
         super("Ongoing Game Found!");
     }
 
-	/*
-	 * initializes main popup content to center 
-	 */
+	///Overrides getContentPanel() and sets the content.
     public JPanel getContentPanel()
     {
-        JPanel toReturn = super.getContentPanel();//superclass' content panel with close button panel 
-        //initialize and add specific content to center
+        JPanel toReturn = super.getContentPanel();
 		GameFoundPopupContent newContent = new GameFoundPopupContent();
+
 		toReturn.add(newContent, BorderLayout.CENTER);
 
 		return toReturn;
     }
 
-	/*
-	 * main popup content in center. 
-	 */
+	///This class is the content for this GameFoundPopup.
     class GameFoundPopupContent extends JPanel
     {
-		/*
-		 * constructor to initialize JPanel and components in panel. 
-		 */
         public GameFoundPopupContent()
         {
-			//flowlayout 
             setLayout(new FlowLayout(FlowLayout.CENTER, 30, 150));
-			
-			//initialize buttons with optionhandler 
+
+			///initializes yes/no button and handler
             OptionHandler optionHandler = new OptionHandler();
             Button yes = new Button("Continue", optionHandler, 40);
             Button no = new Button("New Game", optionHandler, 40);
-			
-			//light gray background
+
             setBackground(Color.LIGHT_GRAY);
-			
-			//add buttons to panel 
+
+			///adds buttons
             add(yes);
             add(no);
         }
 
-		/*
-		 * paintComponent method. called by repaint() and draws title 
-		 * and "Continue?" prompt. 
-		 */
+		///Draws the prompt for this popup.
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-			
-			//set font 
+
             g.setFont(new Font("Share Tech Regular", Font.BOLD, 55));
-            g.drawString(title, 50, 50);//draw title 
-            g.drawString("Continue?", 190, 100);//draw continue prompt 
+            g.drawString(title, 50, 50);
+            g.drawString("Continue?", 190, 100);
         }
-		
-		/*
-		 * Option handler for buttons 
-		 */
+
+		///This class is a handler for the yes/no (continue/new game) buttons.
         class OptionHandler implements ActionListener
         {
             public void actionPerformed(ActionEvent evt)
@@ -422,49 +402,46 @@ class GameFoundPopup extends Popup
 
                 if(command.equals("Continue"))
                 {
-					//get current save for user to continue from (call GameData method) 
-					GameData.getSaves();
+					GameData.getSaves(); ///switches to SavesPanel
                 }
                 else if(command.equals("New Game"))
                 {
-					//regather user information for a new game (call GameData method)
+					///switches to SelectUserInfoPanel
                     GameData.switchCard("user info");
                 }
-				
-				//hide popup 
+
                 popupFrame.setVisible(false);
             }
         }
     }
 }
+/**
+ * This class represents the upgrade popup, which appears when
+ * the player levels up, and allows the player to invest points
+ * into upgrading stats for their characters.
+ **/
 class UpgradePopup extends Popup
 {
-    private int pointsLeft;//how many points the user has left to allocate 
-    private int[] hpPoints;//hp upgrades 
-    private int[] manaPoints;//mana upgrades 
-    private int[] defPoints;//defense upgrades 
-    private UpgradePopupContent contentPanel;
-	
-	/*
-	 * call superclass constructor and initialize "temporary" hp, mana, and 
-	 * defense point selections 
-	 * "temporary" in the sense that they aren't committed to GameData yet. 
-	 * the class will filter user actions and ensure they don't give themselves 
-	 * overpowered stats, then commit to GameData. 
-	 */
+    private int pointsLeft; ///the amount of points left
+    private int[] hpPoints; ///allocated hp points
+    private int[] manaPoints; ///allocated mana points
+    private int[] defPoints; ///allocated defense points
+
+    private UpgradePopupContent contentPanel; ///popup content
+
+	///Initializes this UpgradePopup.
     public UpgradePopup()
     {
         super("Upgrade");
-        //initialize upgrade point values 
+
+		///sets values to default values
         pointsLeft = 0;
-		hpPoints = new int[3];//3 characters, so needs 3 
+		hpPoints = new int[3];
 		manaPoints = new int[3];
 		defPoints = new int[3];
     }
 
-	/*
-	 * override superclass contentpanel and add content 
-	 */
+	///Overrides getContentPanel() and sets the content.
     public JPanel getContentPanel()
 	{
 		JPanel toReturn = super.getContentPanel();
@@ -475,115 +452,98 @@ class UpgradePopup extends Popup
 		return toReturn;
 	}
 
-	/*
-	 * reset fvs and all point values (except for pointsLeft)
-	 */
+	/**
+	 * Resets the amount of points that are available, and
+	 * updates the popup content.
+	 **/
     public void resetPoints()
     {
-        pointsLeft += 9;//ADD 9 to points left, not set 9 to points left 
-			//this is to keep the previous points a user may have saved 
-        //in each character, reset 
+		///reset points
+        pointsLeft += 9;
         for(int i=0; i<hpPoints.length; i++)
 		{
 			hpPoints[i] = 0;
 			manaPoints[i] = 0;
 			defPoints[i] = 0;
 		}
-		//update point label 
-        contentPanel.updatePointLabel();
+        contentPanel.updatePointLabel(); ///refresh content
     }
 
-	/*
-	 * upgrade popup content class. contains the components and selection
-	 * for user to allocate points toward their stats. 
-	 */
+	///This class is the content for this UpgradePopup.
     class UpgradePopupContent extends JPanel
     {
-        private Label pointsLabel;
-		private String[] charNames;
+        private Label pointsLabel; ///shows points left
+		private String[] charNames; ///stores player char names
 
-		/*
-		 * constructor sets up the panel and defines charNames as the 3 
-		 * user character names. 
-		 */
         public UpgradePopupContent()
         {
-            setLayout(new BorderLayout());//borderlayout jpanel 
+            setLayout(new BorderLayout());
 			charNames = new String[] {"Line", "Quadratic", "Cubic"};
-			
-			//initialize JPanels with respective methods 
+
+			///content initialization
             JPanel titlePanel = getTitle();
             JPanel pointsPanel = getPointAllocationButtons();
             JPanel confirmPanel = getConfirmButton();
-			
-			//add JPanels to respective locations 
-            add(titlePanel, BorderLayout.NORTH);//title at top
-            add(confirmPanel, BorderLayout.SOUTH);//confirmation at bottom
-            add(pointsPanel, BorderLayout.CENTER);//selection and allocation in middle 
+
+			///adds content
+            add(titlePanel, BorderLayout.NORTH);
+            add(confirmPanel, BorderLayout.SOUTH);
+            add(pointsPanel, BorderLayout.CENTER);
         }
 
-		/*
-		 * update the point label so user knows how many upgrade points 
-		 * they have left to spend. 
-		 */
+		///Refreshes the "Points Left" label.
         public void updatePointLabel()
         {
             pointsLabel.setText("Points Left: " + pointsLeft);
         }
 
-		/*
-		 * returns the confirmation button that user presses to continue. 
-		 */
+		///Creates and initializes the "Confirm" button.
         public JPanel getConfirmButton()
         {
-			//initializes JPanel with flowlayout 
+			///creates the button, holder, and handler
             JPanel toReturn = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
-            //initializes confirm button with handler 
             ConfirmationHandler confirmHandler = new ConfirmationHandler();
             Button confirmButton = new Button("Confirm", confirmHandler, 35);
             
-            toReturn.setBackground(Color.DARK_GRAY);//set background to dark gray 
-            toReturn.add(confirmButton);//add button to panel 
+			///setup
+            toReturn.setBackground(Color.DARK_GRAY);
+            toReturn.add(confirmButton);
             
             return toReturn;
         }
 
-		/*
-		 * returns the title label (pointsLeft) and add it to title panel
-		 */
+		///Creates and intiializes the title label.
         public JPanel getTitle()
         {
+			///creates title label and holder
             JPanel toReturn = new JPanel(); ///creates new JPanel for holder
 		    pointsLabel = new Label("Points Left: " + pointsLeft, 35); ///creates new Label
 			
-			toReturn.setBackground(Color.LIGHT_GRAY);//light gray background
+			///setup
+			toReturn.setBackground(Color.LIGHT_GRAY);
 			toReturn.add(pointsLabel); ///adds button to holder
 			
 			return toReturn;
         }
 
-		/*
-		 * returns the point allocation buttons user will press to 
-		 */
+		///Creates and initializes the point allocation buttons.
         public JPanel getPointAllocationButtons()
         {
-			//jpanel with gridlayout 6 rows, 3 columns (1 col/user character) 
+			///creates holder and handler
             JPanel toReturn = new JPanel(new GridLayout(6, 3));
-            //initialize point allocation handler for all of them 
             PointAllocationHandler pointHandler = new PointAllocationHandler();
 
+			///setup and button initialization
 			toReturn.setBackground(Color.LIGHT_GRAY);
 			for(int i=0; i<charNames.length; i++)
 			{
-				//create buttons for character 
 				Button addHP = new Button(charNames[i] + ": +5 HP [2pts]", pointHandler, 12);
 				Button addMana = new Button(charNames[i] + ": +3 Mana [1pt]", pointHandler, 12);
 				Button addDef = new Button(charNames[i] + ": +1 Defense [3pts]", pointHandler, 12);
 				Button removeHP = new Button(charNames[i] + ": -5 HP [returns 2pts]", pointHandler, 12);
 				Button removeMana = new Button(charNames[i] + ": -3 Mana [returns 1pt]", pointHandler, 12);
 				Button removeDef = new Button(charNames[i] + ": -1 Defense [returns 3pts]", pointHandler, 12);
-				
-				//add buttons to panel 
+
 				toReturn.add(addHP);
 				toReturn.add(addMana);
 				toReturn.add(addDef);
@@ -595,136 +555,119 @@ class UpgradePopup extends Popup
             return toReturn;
         }
 
-		/*
-		 * point allocation handler 
-		 */
+		///This class is a handler for the point allocation buttons.
         class PointAllocationHandler implements ActionListener
         {
             public void actionPerformed(ActionEvent evt)
             {
-                String command = evt.getActionCommand();//get name of button
-				
-				//iterate through characterss 
+                String command = evt.getActionCommand();
+
+				///handles points depending on what button was pressed
+				///-1 point = +5 hp
+				///-1 point = +3 mana
+				///-3 points = +1 defense
 				for(int i=0; i<charNames.length; i++)
 				{
-					int colonIndex = command.indexOf(":");//get index of colon
-					//character name = everything before colon
-					String charName = command.substring(0, colonIndex);//find character name 
-					
-					//if current iterated character is the one button references 
+					int colonIndex = command.indexOf(":");
+					String charName = command.substring(0, colonIndex);
+
 					if(charNames[i].equals(charName))
 					{
-						//if command has HP in its name 
 						if(command.indexOf("HP") != -1)
 						{
-							//if user wants to increment hp 
 							if(command.indexOf("+") != -1)
 							{
-								//if user has enough points 
 								if(pointsLeft > 1)
 								{
-									//exchange points 
 									hpPoints[i]++;
 									pointsLeft-=2;
 								}
-								//else, don't do anything 
 							}
-							else//command user to decrement hp 
+							else
 							{
-								hpPoints[i]--;//decrement hp for upgrade points 
-								if(hpPoints[i] < 0)//if user doesn't have enough points 
+								hpPoints[i]--;
+								if(hpPoints[i] < 0)
 								{
-									hpPoints[i] = 0;//reset to 0 
+									hpPoints[i] = 0;
 								}
 								else
 								{
-									pointsLeft+=2;//give 2 upgrade points 
+									pointsLeft+=2;
 								}
 							}
-						}//note: it's the same logic for the rest of the options. 
+						}
 						else if(command.indexOf("Mana") != -1)
 						{
-							if(command.indexOf("+") != -1)//wants to increment mana
+							if(command.indexOf("+") != -1)
 							{
-								//check if enough points 
 								if(pointsLeft > 0)
 								{
-									//exchange if so
 									manaPoints[i]++;
 									pointsLeft--;
 								}
 							}
-							else//wants to trade mana for upgrade points 
+							else
 							{
-								manaPoints[i]--;//decrement 
-								if(manaPoints[i] < 0)//if doesn't have enough  
+								manaPoints[i]--;
+								if(manaPoints[i] < 0)
 								{
-									manaPoints[i] = 0;//hard cap at 0 mana points 
+									manaPoints[i] = 0;
 								}
 								else
 								{
-									pointsLeft++;//give an upgrade point back 
+									pointsLeft++;
 								}
 							}
 						}
-						else//command has defense as its subject
+						else
 						{
-							if(command.indexOf("+") != -1)//wants to increment defense 
+							if(command.indexOf("+") != -1)
 							{
-								if(pointsLeft > 2)//if has enough pts 
+								if(pointsLeft > 2)
 								{
-									//exchange 
 									defPoints[i]++;
 									pointsLeft-=3;
 								}
 							}
 							else
 							{
-								defPoints[i]--;//decrement
-								if(defPoints[i] < 0)//check if enough points
+								defPoints[i]--;
+								if(defPoints[i] < 0)
 								{
-									defPoints[i] = 0;//minimum is zero
+									defPoints[i] = 0;
 								}
 								else
 								{
-									pointsLeft+=3;//give 3 points back 
+									pointsLeft+=3;
 								}
 							}
 						}
 					}
 				}
-				
-				//update label so user knows how many points they have 
+
                 updatePointLabel();
             }
         }
 
-		/*
-		 * handler for submit button. 
-		 */
+		///This class is a handler for the "Confirm" button.
         class ConfirmationHandler implements ActionListener
         {
-			/*
-			 * actionPerformed method, called when user clicks confirm. 
-			 * This is when we write the user stat changes into GameData. 
-			 */
             public void actionPerformed(ActionEvent evt)
             {
-				//get player characters to add info to 
+				///levels up player characters' stats
                 Character[] playerChars = GameData.getPlayerChars();
-                //add upgrade information 
 				for(int i=0; i<playerChars.length; i++)
 				{
-					playerChars[i].increaseMaxHP(5*hpPoints[i]);//pts calable by 5 (pts = points) 
-					playerChars[i].increaseMaxMana(3*manaPoints[i]);//pts scalable by 3
-					playerChars[i].increaseDefense(defPoints[i]);//pts as-is 
+					playerChars[i].increaseMaxHP(5*hpPoints[i]);
+					playerChars[i].increaseMaxMana(3*manaPoints[i]);
+					playerChars[i].increaseDefense(defPoints[i]);
 				}
-				
-				//hide popup
+
                 popupFrame.setVisible(false);
-                //refresh game data stats 
+
+				///refreshes stats and writes data to file
                 GameData.refreshStats();
-                GameData.writeData(true); ///writes data
+                GameData.writeData(true);
             }
         }
     }

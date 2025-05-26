@@ -7,10 +7,9 @@
  * 
  * The class with main(), creates the JFrame, CardLayout, and generally
  * sets up the rest of the game.
- * 
- * NOTE: THIS CLASS IS VERY MUCH SUBJECT TO CHANGE!
  */
 
+///import libraries
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -48,28 +47,25 @@ public class Polybound
 	}
 
 	/*
-	 * Krish and Noah wrote this method
+	 * Krish and Noah wrote this method, sets up and
+	 * runs the game.
 	 */
 	public void run()
 	{
-		//gives the user a demo upon start
-		GameData.setDemoMode(true);
-		initFonts();//initialize fonts 
-		
-		
-		//the rest of the method sets up the main JFrame with its panels. 
+		///setup for the game
+		GameData.setDemoMode(false);
+		GameData.gameLiked(false);
+		initFonts();
+
 		JFrame frame = new JFrame("Polybound");
-		//the cardlayout with all the panels inside
 		JPanel deck = new JPanel(new CardLayout());
-		//initializes all panels 
 		MainMenuPanel mPanel = new MainMenuPanel();
 		IntermissionPanel imPanel = new IntermissionPanel();
 		GamePanel gPanel = new GamePanel();
 		ProblemPanel pPanel = new ProblemPanel();
 		SelectUserInfoPanel uInfoPanel = new SelectUserInfoPanel();
 		SavesPanel sPanel = new SavesPanel();
-		
-		//get saved data
+
 		checkForData();
 		GameData.setCards(deck);
 		GameData.setProblemPanel(pPanel);
@@ -77,7 +73,6 @@ public class Polybound
 		GameData.setIntermissionPanel(imPanel);
 		GameData.setSavesPanel(sPanel);
 		
-		//add all panels to cardlayout 
 		deck.add(mPanel, "main menu");
 		deck.add(sPanel, "saves");
 		deck.add(uInfoPanel, "user info");
@@ -86,149 +81,114 @@ public class Polybound
 		deck.add(pPanel, "problem");
 		
 		frame.setSize(1200, 750);	//normal: 600, 500
-		frame.setResizable(false);		//user can't change frame dimensions
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null); //centers everything
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		//set background of frame to cardlayout 
+
 		frame.setContentPane(deck);
 		frame.setVisible(true);
 	}
-	
-	/*
-	 * This method calls / initializes the fonts 
-	 */
+
+	///Initializes the fonts used in the game.
 	public void initFonts()
 	{
 		loadFont("oswald.ttf");
 		loadFont("shareTech.ttf");
 	}
-	
-	/*
-	 * This method loads the font given a file name. 
-	 */
+
+	///Loads the font at the specified filepath.
 	public void loadFont(String fileName)
 	{
-		File fontfile = new File(fileName);
+		File fontfile = new File(fileName); ///file to load
 
-		try
+		try ///attempts to load the specified font
 		{
-			//initialize custom font 
 			Font font = Font.createFont(Font.TRUETYPE_FONT, fontfile).deriveFont(24f);
-			//register the font with the graphics environment 
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font);
+			System.out.println(font.getName());
 		}
 		catch(Exception e)
 		{
-			//give error message 
-			System.err.printf("Error: Could not load font file \"%s\"%n", fileName);
+			System.err.printf("Error: Could not load font file \"%s\"", fileName);
 		}
 	}
-	
-	/*
-	 * This method loads previous game data into current game via saveData.txt, 
-	 * the game's save file. Utilizes loadToGameData. 
-	 */
+
+	/**
+	 * Checks for any saves and loads them if they exist.
+	 **/
 	public void checkForData()
 	{
-		//standard file reading logic 
-		String fileName = "saveData.txt";
+		String fileName = "saveData.txt"; ///file to read from
 		File dataFile = new File(fileName);
 		Scanner read = null;
-		try
+		try ///attempts to check save file
 		{
 			read = new Scanner(dataFile);
-			
-			//only load to game data if scanner initialized correctly 
-			//enhances code clarity
-			loadToGameData(read);
+			ArrayList<Save> saves = new ArrayList<>();
+
+			while(read.hasNext())
+			{
+				String line = read.nextLine();
+				if(!line.equals("No save found."))
+				{
+					GameData.setUserName(line); ///sets username
+					String name = line;
+					String password = read.nextLine();
+
+					int enemiesDefeated = read.nextInt();
+					read.nextLine();
+
+					Character[] characters = new Character[3];
+
+					for(int i=0; i<characters.length; i++)
+					{
+						System.out.println(i);
+						String charName = read.nextLine();
+
+						int level = read.nextInt();
+						read.nextLine();
+
+						line = read.nextLine();
+						int hp = Integer.parseInt(GameData.getDataTo(line, "/"));
+						int maxHP = Integer.parseInt(GameData.dataAfter(line, "/"));
+
+						line = read.nextLine();
+						int mana = Integer.parseInt(GameData.getDataTo(line, "/"));
+						int maxMana = Integer.parseInt(GameData.dataAfter(line, "/"));
+
+						int defense = read.nextInt();
+
+						if(read.hasNext())
+							read.nextLine();
+
+						characters[i] = new Character(charName, level);
+						characters[i].overrideStats(hp, maxHP, mana, maxMana, defense);
+					}
+
+					///adds save
+					saves.add(new Save(name, password, enemiesDefeated, characters));
+
+					///Character playerChar = new Character(charName, level);
+					///playerChar.overrideStats(hp, maxHP, mana, maxMana, defense);
+					///GameData.setEnemiesDefeated(enemiesDefeated);
+					///GameData.setPlayerCharacter(playerChar);
+					GameData.setGameStarted(true);
+				}
+				else
+				{
+					GameData.setGameStarted(false);
+				}
+			}
+
+			GameData.setSaveList(saves);
 		}
 		catch(FileNotFoundException e)
 		{
-			//give an error message
-			System.err.printf("Error: Could not find file \"%s\"%n", fileName);
+			System.err.printf("Error: Could not find file \"%s\"", fileName);
 		}
-	}
-	/*
-	 * Method for encapsulation and code clarity. 
-	 * Can only be called by methods in this class. 
-	 */
-	private void loadToGameData(Scanner read)
-	{
-		//create an arraylist of saves (goal is to read this into game data in the end 
-		ArrayList<Save> saves = new ArrayList<>();
-		
-		//while scanner has next 
-		while(read.hasNext())
-		{
-			//read in the next line 
-			String line = read.nextLine();
-			//if any save found 
-			if(!line.equals("No save found."))
-			{
-				GameData.setUserName(line); ///sets username
-				String name = line;//user name = the first line
-
-				int enemiesDefeated = read.nextInt();//next int is enemies defeated 
-				read.nextLine();//clear the rest of the line 
-
-				Character[] characters = new Character[3];//array of the 3 characters 
-				
-				//for each of the 3 characters 
-				for(int i=0; i<characters.length; i++)
-				{
-					//~ System.out.println(i);//debugging - print out the index
-					
-					//read in the character information and cache as temp variables 
-					String charName = read.nextLine();//character name 
-
-					int level = read.nextInt();//cache in user level 
-					read.nextLine();//get rid of the rest of line (including return carriage)
-
-					line = read.nextLine();//use line to parse hp out of max hp 
-					int hp = Integer.parseInt(GameData.getDataTo(line, "/"));
-					int maxHP = Integer.parseInt(GameData.dataAfter(line, "/"));
-
-					line = read.nextLine();//use line to parse mana out of max mana 
-					int mana = Integer.parseInt(GameData.getDataTo(line, "/"));
-					int maxMana = Integer.parseInt(GameData.dataAfter(line, "/"));
-
-					int defense = read.nextInt();//cache in defense 
-					//if there's another line/return carriage in scanner 
-						//after reading in defense, DISCARD it 
-					if(read.hasNext())
-						read.nextLine();
-					
-					//input all that character information into characters array 
-					characters[i] = new Character(charName, level);
-					characters[i].overrideStats(hp, maxHP, mana, maxMana, defense);
-				}
-				
-				//add character array into saves
-				saves.add(new Save(name, enemiesDefeated, characters));
-				
-				//unused code - commented out for now 
-				///Character playerChar = new Character(charName, level);
-				///playerChar.overrideStats(hp, maxHP, mana, maxMana, defense);
-				///GameData.setEnemiesDefeated(enemiesDefeated);
-				///GameData.setPlayerCharacter(playerChar);
-				
-				//set game started to true! user already started the game before. 
-				GameData.setGameStarted(true);
-			}
-			else
-			{
-				//game started stays false. 
-				GameData.setGameStarted(false);
-			}
-		}
-		
-		//save the list of characters to gamedata 
-		GameData.setSaveList(saves);
 	}
 }
-
-//EXTENSIONS OF JAVA COMPONENTS 
 /**
  * Krish Kumar
  * Period 6
@@ -239,6 +199,7 @@ public class Polybound
  * 
  * NOTE: THIS CLASS IS VERY MUCH SUBJECT TO CHANGE!
  **/
+
 class Button extends JButton
 {
 	private boolean isHoveredOver;
@@ -252,10 +213,9 @@ class Button extends JButton
 	{
 		super(text); ///superclass constructor call
 		addActionListener(buttonListener); ///adds the ActionListener
-		setFocusPainted(false);//not painted by focus yet 
+		setFocusPainted(false);
 
-		isHoveredOver = false;//not hovered over
-		//add mouse listener to button
+		isHoveredOver = false;
 		ButtonHandler btnHandler = new ButtonHandler();
 		addMouseListener(btnHandler);
 	}
@@ -271,9 +231,8 @@ class Button extends JButton
 		super(text); ///superclass constructor call
 		setFont(new Font("Oswald Regular", Font.BOLD, fontSize)); ///font is configured
 		addActionListener(buttonListener); ///adds the ActionListener
-		setFocusPainted(false);//not painted by focus yet 
-		
-		//same logic as previous constructor 
+		setFocusPainted(false);
+
 		isHoveredOver = false;
 		ButtonHandler btnHandler = new ButtonHandler();
 		addMouseListener(btnHandler);
@@ -290,55 +249,44 @@ class Button extends JButton
 		super(text); ///superclass constructor call
 		setFont(buttonFont); ///font is configured
 		addActionListener(buttonListener); ///adds the ActionListener
-		setFocusPainted(false);//not painted by focus yet 
+		setFocusPainted(false);
 		
-		//same logic as previous constructor 
 		isHoveredOver = false;
 		ButtonHandler btnHandler = new ButtonHandler();
 		addMouseListener(btnHandler);
 	}
-	
-	/*
-	 * paintComponent method. Called by repaint() and upon initialization. 
-	 */
+
+	///Paints the highlight if hovered over.
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;//make graphics 2d 
+		Graphics2D g2d = (Graphics2D) g;
 
-		if(isHoveredOver)//boolean determined in buttonhandler and mouse events 
+		if(isHoveredOver)
 		{
-			g2d.setStroke(new BasicStroke(10));//set shape border to 10 px
-			g2d.setColor(Color.YELLOW);//draw yellow 
-			g2d.drawRect(0, 0, getWidth(), getHeight());//draw a rectangle over the panel behind the component
+			g2d.setStroke(new BasicStroke(10));
+			g2d.setColor(Color.YELLOW);
+			g2d.drawRect(0, 0, getWidth(), getHeight());
 		}
 		
-		//dispose the graphics 2d object
 		g2d.dispose();
 	}
-	
-	/*
-	 * Button handler class. Implements MouseListener but only sets 
-	 * isHoveredOver to true/false using mouseEntered and mouseExited. 
-	 */
+
+	///Handler for the button that shows the highlight.
 	class ButtonHandler implements MouseListener
 	{
 		public void mouseEntered(MouseEvent evt)
 		{
-			isHoveredOver = true;//Hovered over
-			repaint();//call paintComponent
+			isHoveredOver = true;
+			repaint();
 		}
-		
-		/*
-		 * User mouse exited component boundaries. 
-		 */
+
 		public void mouseExited(MouseEvent evt)
 		{
-			isHoveredOver = false;//Not hovered over
-			repaint();//call paintComponent
+			isHoveredOver = false;
+			repaint();
 		}
-		
-		//unused methods, only used for completion of interface  
+
 		public void mousePressed(MouseEvent evt)
 		{}
 		public void mouseClicked(MouseEvent evt)
@@ -382,45 +330,39 @@ class Label extends JLabel
 		setFont(new Font("Share Tech Regular", Font.BOLD, fontSize)); ///font is configured
 	}
  
-	/*
+	/**
 	 * Formats the text using HTML.
-	 * Customizes/Supports line breaks and italicized text.
-	 * '_' = line break
-	 * '*' = italicized text 
-	 */
+	 * Supports line breaks and italicized text.
+	 **/
 	 public void setText(String text)
 	 {
-		 //initializes toSet with html header 
 		String toSet = "<html>";
-		boolean closedBold = true;//initializes closedBold
+		boolean closedBold = true;
  
 		for(int i=0; i<text.length(); i++)
 		{
-			char charAt = text.charAt(i);//get current char
-			if(charAt == '_')//if it's an underscore
+			char charAt = text.charAt(i);
+			if(charAt == '_')
 			{
-				toSet += "<br>";//add a new line
+				toSet += "<br>";
 			}
-			else if(charAt == '*')//if it's a star
+			else if(charAt == '*')
 			{
-				//if closed bold, add emphasize text start header (em tag)
 				if(closedBold)
 					toSet += "<em>";
-				else//if not, add the close header 
+				else
 					toSet += "</em>";
  
-				closedBold = !closedBold;//make sure that bold is closed by reversing it
+				closedBold = !closedBold;
 			}
-			else//if it's another character 
+			else
 			{
 				toSet += text.charAt(i);
 			}
 		}
-		
-		//ending html header 
+ 
 		toSet += "</html>";
-		super.setText(toSet);//call superclass' set text method 
-			//(different from super(toSet), which needs to be the first statement!!)
+		super.setText(toSet);
 	}
 }
 /**
@@ -436,66 +378,49 @@ class Label extends JLabel
  **/
 class TextField extends JTextField
 {
-    private final Font SELECTED;//selected font (unchanged)
-    private final Font UNSELECTED;//deselected font (unchanged) 
+    private final Font SELECTED;
+    private final Font UNSELECTED;
     private String defaultText;
-	
-	/*
-	 * initialize variables and set up textfield 
-	 */
+
     public TextField(String defaultTextIn, int cols, int fontSize)
     {
-        super(defaultTextIn, cols);//call jtextfield(text, columns)
+        super(defaultTextIn, cols);
         defaultText = defaultTextIn;
 
-        SELECTED = new Font("Oswald Regular", Font.BOLD, fontSize);//bold
-        UNSELECTED = new Font("Oswald Regular", Font.ITALIC, fontSize);//italic 
+        SELECTED = new Font("Oswald Regular", Font.BOLD, fontSize);
+        UNSELECTED = new Font("Oswald Regular", Font.ITALIC, fontSize);
 
-        setForeground(Color.GRAY);//gray background
-        setFont(UNSELECTED);//as a default
-		
-		//add text field handler 
+        setForeground(Color.GRAY);
+        setFont(UNSELECTED);
+
         TextFieldFocusHandler tfFocusHandler = new TextFieldFocusHandler();
         addFocusListener(tfFocusHandler);
     }
-	/*
-	 * Returns if the text field font matches the font when field is selected. 
-	 */
+
     public boolean isSelected()
     {
         return getFont() == SELECTED;
     }
 	
-	/*
-	 * text field focus handler: implements FocusListener and changes the 
-	 * font in text field accordingly based on focus gained or lost. 
-	 */
     class TextFieldFocusHandler implements FocusListener
     {
-		/*
-		 * This method executes when user clicks on textfield component. 
-		 */
         public void focusGained(FocusEvent evt)
         {
-			if(!isSelected())//if it wasn't selected before 
+			if(!isSelected())
 			{
 				setForeground(Color.BLACK);
-				setFont(SELECTED);//change the font; changes isSelected() return value 
-				setText("");//clear the text field for the 
+				setFont(SELECTED);
+				setText("");
 			}
-			//else do nothing 
         }
-		
-		/*
-		 * This method executes when user clicks away. 
-		 */
+
         public void focusLost(FocusEvent evt)
         {
-			String existingText = getText();//get text inside textfield 
-			if(existingText.equals(""))//if user didn't input anything
+			String existingText = getText();
+			if(existingText.equals(""))
 			{
-				setText(defaultText);//reset default text 
-				setForeground(Color.GRAY);//change the text color 
+				setText(defaultText);
+				setForeground(Color.GRAY);
 				setFont(UNSELECTED);
 			}
 			//else don't reset text because the user actually inputted something

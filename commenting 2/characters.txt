@@ -69,15 +69,15 @@ The first Circle, as all other circles are just a scaled version of the Unit Cir
 Roll III|Slam II|Recover III
 
 Right Triangle
-1000..100
+1000..1000
 50..50
 8..8
 The model Triangle which many Triangles aspire to be someday. The Right Triangle is a marvel of a shape, having a precise 90 degree angle to boot. As a result, the Right Triangle is second-in-command to the Square Overlord. It is unknown how the Right Triangle was formed, as only the current Right Triangle holds the true knowledge of the transformation, passing it on to the lucky Triangle it deems worthy.
-Slam II|Recover III
+Poke III|Slam II|Recover III
 
 Square Overlord
-3000.3000
+3000..3000
 100..100
 20..20
 The most powerful Polygon in the Polygon Empire, leading it with an iron fist. The Square Overlord possesses incredible amounts of power, as well as the knowledge of how to use some of the strongest moves known in the Cartesian Plane. Many believe that the Square Overlord caused the Great Origin Shift, some believing it to be good, and some bad.
-Slam III|Recover III
+Slam III|Recover III|Perfect Symmetry

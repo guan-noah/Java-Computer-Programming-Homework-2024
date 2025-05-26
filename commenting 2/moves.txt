@@ -15,7 +15,7 @@ Slam*
 The basic move of all shapes. Damage is dealt to the whole team.
 
 Slam II*
-0
+4
 0..0
 0..0
 -15..-15
@@ -23,7 +23,7 @@ Slam II*
 A stronger slam attack for stronger polygons. Damage is dealt to the whole team.
 
 Slam III*
-0
+10
 0..0
 0..0
 -25..-25
@@ -47,7 +47,7 @@ Roll II
 A more advanced roll attack reserved for higher-level polygons like the Pentagon or Hexagon. Deals damage and has a chance to decrease mana.
 
 Roll III
-22
+20
 0..0
 0..0
 -28..-32
@@ -111,49 +111,53 @@ Panacea*
 Recovers a huge amount of HP and Mana for the whole team. If a team member has fallen, this move will revive them.
 
 Symmetry Strike!
-0
+15
 If the target's HP is an even number, deals 2x damage.
 
 Pentaforce!
-0
+20
 Consists of five 50% chances to deal additional damage, accumulating bonus damage for more succesful rolls.
 
 Hex Burst!
-0
-Deals high amounts of damage to the whole team, but also has the chance to backfire and deal insanely high damage to its user.
+15
+Deals high amounts of damage to the whole team and steals mana, but also has the chance to backfire and deal insanely high damage to its user.
+
+Perfect Symmetry!
+50
+If the user's HP and MP are exactly equal, instantly defeats the target. If not, the move fails and does nothing.
 
 Slope Breaker!
-0
+10
 If the enemy's HP is a multiple of 5, then bonus damage is dealt. Pierces defense.
 
 Strike of Tangency!
-0
+40
 If the enemy's percentage of HP is a multiple of 25 (excluding 100), then massive damage is dealt. Otherwise, very little damage is dealt. Pierces all defense, and uses all mana, even if you have more than the threshold.
 
 Quadratic Growth!
-0
+9
 Deals damage scaling quadratically off of Turn Number/3. Caps at 8^2.
 
 Perfect Square!
-0
+16
 If your mana and HP are exactly the same, this attack will deal 2x the damage, not including the mana cost of this move. Pierces defense.
 
 Square Buster!
-0
+25
 Pierces all defense, and deals damage scaling quadratically to the enemy's defense. Caps at 9^2.
 
 Vertex of Finality!
-0
+36
 If at perfectly half health, instantly defeats the enemy. Otherwise, it deals no damage. Uses all mana, even if you have more than the threshold.
 
 Curve Flip!
-0
+10
 Has a random chance to either deal damage or heal the enemy.
 
 Triple Root Surge!
-0
+20
 Consists of three 50% chances each determining whether or not extra damage will be done. Also awards bonus damage for more successful rolls. If no successes are achieved, the move backfires, dealing damage to the user.
 
 Dimensions of Possibility!
-0
-Taps into a random "dimension" of three possible ones, either dealing massive damage, healing the whole team to max stats, or backfiring, dealing major damage to the whole team that pierces defense, and draining mana from one random team member. Uses all mana, even if you have more than the threshold.
+30
+Taps into a random "dimension" of three possible ones, either dealing massive damage, healing the whole team to max stats (and reviving), or backfiring, dealing major damage to the whole team that pierces defense, and draining mana from one random team member. Uses all mana, even if you have more than the threshold.

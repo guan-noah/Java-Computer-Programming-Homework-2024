@@ -6,8 +6,6 @@
  * This class is a JPanel for the main menu that appears when you open
  * the game. It contains the navigation buttons, and displays the game
  * logo as well.
- * 
- * NOTE: THIS CLASS IS NOT COMPLETE!
  **/
 
 ///import libraries
@@ -17,7 +15,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Color;
-import java.awt.CardLayout;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

@@ -1,5 +1,5 @@
 /**
- * Krish Kumar and Noah Guan
+ * Krish Kumar
  * Period 6
  * Character.java
  * This class represents a character (being the player or an enemy)
@@ -80,7 +80,6 @@
 		 String result = "";
 		 
 		 ///iterates through the String and replaces spaces with hyphens
-		 //rebuilds result string char by char
 		 for(int i=0; i<toEdit.length(); i++)
 		 {
 			 char curr = toEdit.charAt(i);
@@ -104,16 +103,14 @@
 	  **/
 	 public void loadData()
 	 {
-		 //like Polybound.java, just the standard loading logic 
 		 String fileName = "characters.txt"; ///file to read from
 		 File characterFile = new File(fileName);
 		 Scanner read = null;
 		 
-		 try //attempts to read from the file
+		 try ///atempts to read from the file
 		 {
 			 read = new Scanner(characterFile);
-			 //once we know read is correctly initialized 
-			 cacheData(read); //get the actual data from file 
+			 cacheData(read); ///gets the actual data
 		 }
 		 catch(FileNotFoundException e) ///if file is not found (which shouldn't happen)
 		 {
@@ -143,7 +140,7 @@
 		 
 		 description = readIn.nextLine();			//self-explanatory
 		 
-		 ///gets and processes the moveset; moves are separated by bars (|)
+		 ///gets and processes the moveset; moves are separated by bard (|)
 		 line = readIn.nextLine();		   ///gets the moveset line
 		 while(line.indexOf("|") != -1) //processes the moveset
 		 {
@@ -174,23 +171,18 @@
 		}
 	 }
 
-	 /*
+	 /**
 	  * Parses the random range from the specified line in the
-	  * "characters.txt" file. This method gets an int from a random range in a String. 
-	  * different from GameData number generator bec. that can be used for other functions.
-	  * this number generator works specifically for a formatted String input. 
-	  * The line should be in the format
+	  * "characters.txt" file. The line should be in the format
 	  * "low..high", where low and high are integers.
+
 	  * For example, "10..20" would return a random integer between
 	  * 10 and 20 inclusive.
 	  */
-	 public int getRandomRange(String lineIn)//from a string
+	 public int getRandomRange(String lineIn)
 	 {
-		 //get low number from line
 		 int low = Integer.parseInt(GameData.getDataTo(lineIn, ".."));
-		 //get high number from line
 		 int high = Integer.parseInt(GameData.dataAfter(lineIn, ".."));
-		 //return a random integer between the numbers 
 		 return GameData.getRandom(low, high);
 	 }
 	 
