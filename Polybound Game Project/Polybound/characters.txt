@@ -1,91 +1,55 @@
+Training Dummy
+25..25
+0..0
+2..2
+0
+A basic training dummy.
+Pass
+
+Funky Monkey
+1000..1000
+100..100
+0..0
+5
+he's funky with it (guaranteed to use Vertex of Finality if possible)
+Pass|Banana|Vertex of Finality
+
+Line
+25..25
+15..15
+0..0
+0
+Clean. Consistent. Precise. The Line is very straightforward, providing reliable moves with reliable results that can get you from Point A to Point B with minimal effort.
+Constant Force|Recover|Slope Breaker
+
+Quadratic
+25..25
+15..15
+0..0
+0
+The Quadratic is a master of balance, finding opportunity when the right conditions present themselves. Many of its moves revolve around the right timing/opportunity, so patience and strategy is needed.
+Constant Force|Recover|Quadratic Growth|Square Buster|Vertex of Finality
+
+Cubic
+25..25
+15..15
+0..0
+0
+An arbiter of chaos, The Cubic is quite unpredictable compared to its lower degree counterparts.
+x|y|z
+
 Circle
-20..30
-10..15
-0..4
-The circle serves as the perfect cannon fodder for the polygon army. Not being polygons themselves, they are considered expendable, and are also regarded as lesser compared to other shapes.
-Roll|Slam
+25..35
+20..25
+0..3
+0
+shape racism
+Roll|Slam|Recover
 
-Oval
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Triangle
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Square
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Pentagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Hexagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Heptagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Octagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Nonagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Decagon
-0..0
-0..0
-0..0
-NoDescriptionYet
-N/A
-
-Concave
-0..0
-0..0
-0..0
-LORE: At least 1 internal angle >180 degrees
-N/A
-
-Convex
-0..0
-0..0
-0..0
-LORE: ALL internal angles <180 degrees 
-N/A
-
-Complex
-0..0
-0..0
-0..0
-LORE: Has a line that crosses another line 
-N/A
-
+Circle Rebel
+50..65
+35..45
+4..8
+4
+doesn't like shape racism
+Roll|Slam|Recover

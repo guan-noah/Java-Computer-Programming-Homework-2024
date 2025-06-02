@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 public class OptionsPopup extends Popup
@@ -39,6 +40,7 @@ public class OptionsPopup extends Popup
 			setLayout(new BorderLayout());
 			
 			JPanel titleHolder = getTitle();
+			///put in config code here
 
 			add(titleHolder, BorderLayout.NORTH);
 		}
@@ -52,6 +54,7 @@ public class OptionsPopup extends Popup
 			JPanel toReturn = new JPanel(); ///creates new JPanel for holder
 			Label titleLabel = new Label(title, 30); ///creates new Label
 			
+			toReturn.setBackground(Color.LIGHT_GRAY);
 			toReturn.add(titleLabel); ///adds button to holder
 			
 			return toReturn;
