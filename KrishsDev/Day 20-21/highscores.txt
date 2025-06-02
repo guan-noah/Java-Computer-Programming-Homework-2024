@@ -1,4 +1,0 @@
-k - 1 enemies defeated
-Character@50aa1482 - Level 1
-Character@664c32cb - Level 1
-Character@5ee6285a - Level 1
