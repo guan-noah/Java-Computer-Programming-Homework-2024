@@ -1,0 +1,163 @@
+Pass
+0
+0..0
+0..0
+0..0
+0..0
+Pass a turn without doing anything.
+
+Slam*
+0
+0..0
+0..0
+-8..-8
+0..0
+The basic move of all shapes. Damage is dealt to the whole team.
+
+Slam II*
+4
+0..0
+0..0
+-15..-15
+0..0
+A stronger slam attack for stronger polygons. Damage is dealt to the whole team.
+
+Slam III*
+10
+0..0
+0..0
+-25..-25
+0..0
+A slam attack reserved for only the strongest polygons. Damage is dealt to the whole team.
+
+Roll
+5
+0..0
+0..0
+-12..-14
+-0..-3
+The forbidden move of the non-polygons. Deals damage and has a chance to decrease mana.
+
+Roll II
+12
+0..0
+-20..-25
+-0..-6
+0..0
+A more advanced roll attack reserved for higher-level polygons like the Pentagon or Hexagon. Deals damage and has a chance to decrease mana.
+
+Roll III
+20
+0..0
+0..0
+-28..-32
+-0..-8
+The forbidden roll known solely by the Unit Circle. Deals damage and has a chance to decrease mana.
+
+Poke
+3
+0..0
+0..0
+-15..-18
+0..0
+A sharper, more powerful move based solely on a polygon's natural edges. Deals a hefty amount of damage.
+
+Poke II
+10
+-2..-4
+0..0
+-22..-28
+0..0
+A poke attack made even more powerful, at the price of slight damage to the user.
+
+Constant Force
+0
+0..0
+0..0
+-8..-8
+0..0
+Deals consistent damage at all times. Doesn't require mana.
+
+Recover
+0
+5..8
+4..6
+0..0
+0..0
+Recovers a slight amount of HP and Mana. Doesn't require mana.
+
+Recover II
+0
+15..20
+10..14
+0..0
+0..0
+Recovers a larger amount of HP and Mana. Doesn't require mana.
+
+Recover III
+0
+40..45
+30..35
+0..0
+0..0
+Recovers a huge amount of HP and Mana. Doesn't require mana.
+
+Panacea*
+0
+0..0
+0..0
+40..45
+30..35
+Recovers a huge amount of HP and Mana for the whole team. If a team member has fallen, this move will revive them.
+
+Symmetry Strike!
+15
+If the target's HP is an even number, deals 2x damage.
+
+Pentaforce!
+20
+Consists of five 50% chances to deal additional damage, accumulating bonus damage for more succesful rolls.
+
+Hex Burst!
+15
+Deals high amounts of damage to the whole team and steals mana, but also has the chance to backfire and deal insanely high damage to its user.
+
+Perfect Symmetry!
+50
+If the user's HP and MP are exactly equal, instantly defeats the target. If not, the move fails and does nothing.
+
+Slope Breaker!
+10
+If the enemy's HP is a multiple of 5, then bonus damage is dealt. Pierces defense.
+
+Strike of Tangency!
+40
+If the enemy's percentage of HP is a multiple of 25 (excluding 100), then massive damage is dealt. Otherwise, very little damage is dealt. Pierces all defense, and uses all mana, even if you have more than the threshold.
+
+Quadratic Growth!
+9
+Deals damage scaling quadratically off of Turn Number/3. Caps at 8^2.
+
+Perfect Square!
+16
+If your mana and HP are exactly the same, this attack will deal 2x the damage, not including the mana cost of this move. Pierces defense.
+
+Square Buster!
+25
+Pierces all defense, and deals damage scaling quadratically to the enemy's defense. Caps at 9^2.
+
+Vertex of Finality!
+36
+If at perfectly half health, instantly defeats the enemy. Otherwise, it deals no damage. Uses all mana, even if you have more than the threshold.
+
+Curve Flip!
+10
+Has a random chance to either deal damage or heal the enemy.
+
+Triple Root Surge!
+20
+Consists of three 50% chances each determining whether or not extra damage will be done. Also awards bonus damage for more successful rolls. If no successes are achieved, the move backfires, dealing damage to the user.
+
+Dimensions of Possibility!
+30
+Taps into a random "dimension" of three possible ones, either dealing massive damage, healing the whole team to max stats (and reviving), or backfiring, dealing major damage to the whole team that pierces defense, and draining mana from one random team member. Uses all mana, even if you have more than the threshold.

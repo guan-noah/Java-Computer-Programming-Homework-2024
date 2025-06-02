@@ -1,0 +1,123 @@
+Polynomial Formulas and Procedures
+Once you grasp a concept, the speed of solving increases drastically. Focus on understanding concepts instead of skipping ones you’re unsure of. You will see other questions of the same type; therefore it is more beneficial to grasp the concept and apply your knowledge multiple times. 
+Tip: How Topics Look in Text File
+Polynomial Arithmetic: Mainly multiplying, dividing polynomials as people should already know the concept of like terms for addition and subtraction. 
+Polynomial Remainder Theorem: Evaluation of values in polynomial (hand-in-hand with synthetic division, which can technically also be polynomial arithmetic). 
+Factoring: Finding roots and factors of polynomials, can include use of synthetic division as well.
+End Behavior: Anything related to asking about the graph of the polynomial. 
+There is a bias for the topic of factoring in the questions. A lot of polynomial involvement includes finding zeroes, and “Factoring” is the most comprehensive term (e.g. remainder theorem would also work). 
+Topics (loose):
+Polynomial Arithmetic
+Remember your algebraic rules. If you don’t have a solid Algebra I foundation, this game will be difficult for you. 
+Addition/Subtraction: 
+Combine like terms (same variable, same exponent – if more than 1 variable, all variables and corresponding exponents have to match.) 
+2(a^2) - 3a + 5(a^2) + b - 2b 
+[2(a^2) + 5(a^2)] -3a + [b - 2b] Group if needed and combine. 
+7(a^2) - 3a - b Simplify. 
+Multiplication: 
+Use distributive property, AKA “FOIL” for 2 binomials. Essentially, each term in one polynomial must be distributed into the other polynomial. 
+[a + b + c][d + e + f] 
+ad + ae + af + [b + c][d + e + f] Distribute a into [d + e + f]. 
+ad + ae + af + bd + be + bf + c[d + e + f] Distribute b in the same manner. 
+ad + ae + af + bd + be + bf + cd + ce + cf Distribute c in the same manner.
+Factoring: 
+See Factoring page.
+Division:
+Polynomial Long Division: 
+Dividend / divisor = quotient + remainder / divisor. 
+Draw the long division bracket, just like you would with regular numbers. 
+For regular numbers: 
+Line up the numbers. 
+Divide the dividend by divisor; put the result above the last digit you used for division; 
+Multiply quotient to divisor; put the result below and line up to the left;
+Subtract. Bring down the next digit; this forms the new dividend. 
+Repeat. 
+Stop when there are no more digits to bring down; the remainder is 0 or when it is less than the divisor. 
+For polynomials: 
+Line up the numbers. 
+Divide the dividend by divisor exactly to cancel out the first term; put the result above the last term you used for division; 
+Multiply quotient to divisor; put the result below and line up to the left;
+Subtract. Bring down the next term; this forms the new dividend. 
+Repeat. 
+Stop when there are no more terms to bring down; the remainder is 0 or when it is less than the divisor. 
+Synthetic Division: 
+When a polynomial is divided by a polynomial of the form x - a, the terms are rewritten several times. To eliminate this repetition, synthetic division can be used. In synthetic division the terms of the dividend and the divisor are arranged in descending order of the variable. 
+Think of the divisor in the form x - a; write a at the left. Then write the coefficients of the terms of the dividend from left to right, where those terms are in ASCENDING order. Don’t forget ‘missing’ terms; those count as zeroes! 
+Bring down the first coefficient 2 lines down. 
+Multiply the divisor by this number. 
+Write the product right under the second coefficient (1st line down). 
+Then add the second coefficient to the product. 
+Repeat the process of multiplying and adding. 
+Continue until there are no more coefficients in the dividend. 
+The first three numbers in the bottom row (2nd line down) are the coefficients of the terms of the quotient polynomial. The last number is the remainder. 
+The quotient polynomial is of degree 1 less than the original polynomial. 
+Factoring (Techniques): 
+Factor out the greatest common factor, if any. 
+ab + ac = a[b + c]
+Difference of squares: 
+(a^2) - (b^2) = [a + b][a - b] 
+Quadratic trinomials: 
+Quadratic formula (quadratic in form y = [a(x^2) + bx + c]: [-b +- sqrt((b^2) - 4[a]c))] / 2a
+Cubic factorizations: 
+(a^3) - (b^3) = [a - b][(a^2) + ab + (b^2)]
+(a^3) + (b^3) = [a + b][a^2) - ab + (b^2)]
+Other factoring techniques (e.g. synthetic division, theorems) found in other categories. 
+Solving Equations: 
+The zeroes of a polynomial function f(x) are the values of x for which f(x) = 0. 
+We can find these zeroes through synthetic division and through many theorems as well. 
+Polynomial Theorems 
+Remainder and Factor Theorems (Refer to these; these will be the most helpful.)
+Remainder Theorem: If P(x) is a polynomial and a is a number, and if P(x) is divided by x - a, then  the remainder is P(a). 
+Factor Theorem: If P(x) is a polynomial, then x - a is a factor of P(x) if and only if P(a) = 0. 
+You can use synthetic division and the factor theorem to find factors of polynomials of higher degree. If the remainder is 0, you can use the remaining (“depressed”) polynomial and keep going to find factors. If you get to a quadratic, you can use the quadratic formula. 
+Rational Zeros Theorem 
+If a polynomial function has integral (integer) coefficients, and if it has a rational zero p\q, where p and q are relatively prime, the p is a factor of the constant term and q is a factor of the leading coefficient. 
+Corollary of the Rational Zeros Theorem: If the leading coefficient of a polynomial function with integral coefficients is 1, then any rational zeros of the function are integers. 
+Fundamental Theorem of Algebra 
+Every polynomial function with complex coefficients has at least one zero in the set of complex numbers. 
+Corollary of the Fundamental Theorem of Algebra: Every polynomial function containing a polynomial of degree n has exactly n complex zeros. 
+Complex Conjugate Theorem 
+If a complex number, a + bi is a solution of a polynomial equation with real coefficients, then the conjugate, a - bi, is also a solution of the equation. 
+Descartes’ Rule of Signs 
+The number of positive real solutions of a polynomial equation P(x) = 0, with real coefficients, is equal to the number of sign changes between the coefficients of the terms of P(x) = 0 or is less than this number by a multiple of two. 
+The number of negative real solutions of such an equation is equal to the number of sign changes between the coefficients of the terms of P(-x) = 0 or is less than this number by a multiple of two. 
+The number of sign changes is determined by arranging the terms of the polynomial in descending order of the variable and counting the number of pairs of consecutive terms with different signs. 
+Location Theorem 
+If f(x) is a polynomial function with real coefficients, and a and b are real numbers such that f(a) is positive and f(b) is negative, then at least one zero of f(x) occurs between a and b. 
+Upper and Lower Bound Theorems 
+Let a polynomial function be divided by x - c. 
+If c > 0 and all the coefficients in the quotient and remainder are nonnegative, then c is an upper bound of the zeros. 
+If c < 0 and the coefficients in the quotient and remainder alternate in sign, then c is a lower bound of the zeros. 
+Asymptote Rules 
+Vertical Asymptotes: 
+If a is a value for which the function is not defined, the x = a is a vertical asymptote. 
+Horizontal Asymptotes: 
+Consider the function y = [b(x^n) + … (a polynomial of lower degree)] / [c(x^m) + … (a polynomial of lower degree)] 
+Three possible conditions determine a horizontal asymptote: 
+If n = m, then y = b/c is a horizontal asymptote. 
+If n < m, then y = 0 is a horizontal asymptote. 
+If n > m, then there is no horizontal asymptote. 
+End Behavior
+Many end behavior questions study a graph. In these problems, we focus on graphs of polynomial division. We refer to those graphs for their asymptotes and intercepts. 
+
+Process of Elimination 
+MCQs (Multiple Choice Questions) all share one fatal flaw: they give you the answers – you just have to find it in the midst of phonies. Although some problems may seem difficult, it is often very easy to determine the correct answer given a set to choose from. Working backwards from the set of answers, assuming only one of them is correct (and that is the case), we can quickly find the solution to the original problem. 
+Here are some tips how to tackle MCQ questions: 
+Determine what the question wants. If it is a word problem, it may be faster to slow down and take a good read of the question, then look towards the answer responses and plug them in, As with any question, identify key details and note any constraints. Watch out for wording and specifications (e.g. rounding to a certain number of places); however, be warned that some questions will simply test number-crunching, like the polynomial arithmetic section. 
+Eliminate obviously wrong answers. Rule out impossible/illogical options. If an answer is missing a term in long division, or if the highest power is off (ex. 4th degree polynomial divided by a 1st degree polynomial as a 2nd degree polynomial), you can immediately rule out that option. 
+Use estimation and approximation. Keep your human logical reasoning in mind. 5 / 8 will not result in a number greater than 1; a negative number divided by a positive number will not be positive. Eliminate unreasonable answers. 
+Calculate ACCURATELY over speed. If you can do mental math, write down the tricky parts. If you can rely on your calculations, you can use them for other tricks and cross-reference them with the answers. 
+Try solving part of the equation, while keeping an eye on the answer choices. Sometimes, when dividing/expanding polynomials, your calculations will match up with one answer choice and with none of the others – and that is when you know to single the solution out and submit. 
+When applicable, plug in answer choices. Sometimes, this is slower than using synthetic division to evaluate, and sometimes it is faster. Substitute values to see which one satisfies the equation if you are unsure of your answers. 
+
+Polynomial/Number Syntax Rules: 
+Operators 
+To improve readability, ‘+’, ‘-’, ‘/’ will have spaces on either side of them. (e.g. “4 + 2”)
+Division: Fractions will be encapsulated in brackets. 
+‘*’ will not be used. Multiplication is implied by parenthesis and adjacent numbers or variables (e.g. coefficients and variables) 
+Parenthesis 
+Brackets will be used for the most part. Parenthesis are reserved for powers. 
+If more than 1 bracket is touching each other, it will be separated by a space. 
+Brackets will only be used if needed. PEMDAS rules apply and govern necessity. 
+Powers 
+Grouped together by parenthesis.
