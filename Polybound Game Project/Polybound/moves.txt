@@ -1,0 +1,13 @@
+Roll
+0..0
+0..0
+0..0
+The forbidden move of the non-polygons.
+
+Slam
+0..0
+0..0
+0..0
+The basic move of all shapes.
+
+ExampleMove
